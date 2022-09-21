@@ -1,5 +1,7 @@
 # sat-tasking-sprint
 
+Stop by the [Gitter Channel](https://gitter.im/satellite-tasking/community?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
+
 Date: Tuesday, September 27, 2022
 
 Location
