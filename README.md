@@ -22,3 +22,7 @@ Location
 1600-1630 - Breakout Session 2 Review and Consolidation  
 1630-1700 - Action Item Generation / Debrief  
 1700-1900 - Happy Hour  
+
+## Notes
+
+[Satellite Tasking Sprint 2022 Notes](sprint-20220927.md)
