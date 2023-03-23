@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -e
+
+PYTHONPATH="$(dirname $(dirname $0))/api/" uvicorn main:app --reload
