@@ -20,10 +20,9 @@ of satellite remote sensing data.
 ## Guiding Principles
 
 - Leverage existing standards
-- Focus on tasking for end users, push complexity to providers
+- Focus on end users
 - Identify a small stable core
 - Build implementations
-- Release early, release often
 
 ## Agenda
 
