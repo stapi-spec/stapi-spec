@@ -9,7 +9,7 @@ Stop by the [Gitter Channel](https://gitter.im/satellite-tasking/community?utm_s
 ## Community Sprints
 
 - [Sprint #1 - Alexandria, VA](community-sprints/sprint1-alexandria.md)
-- [Sprint #2 - Philadelphia, PA](community-sprints/sprint2-philly.md)
+- [Sprint #2 - Philadelphia, PA](community-sprints/sprint2-philly/README.md)
 
 
 # Existing Tasking Implementations
