@@ -1,28 +1,24 @@
-# sat-tasking-sprint
+# Satellite Tasking Specification
+
+This repo contains documentation, notes from community sprints, and demo code for a
+satellite tasking API.
 
 Stop by the [Gitter Channel](https://gitter.im/satellite-tasking/community?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
 
-Date: Tuesday, September 27, 2022
 
-Location
-    Element 84 Office
-	210 N. Lee Street
-	Suite 204
-	Alexandria, VA  22314
-		
-## Agenda
+## Community Sprints
 
-0800-0900 - Meet and Greet Opener  
-0900-0930 - Introductions  
-0930-1030 - Lightning Talks  
-1030-1100 - Breakout Objectives and Level Setting  
-1100-1230 - Breakout Session 1  
-1230-1400 - Working Lunch - Breakout Session 1 Review and Consolidation   
-1400-1600 - Breakout Session 2  
-1600-1630 - Breakout Session 2 Review and Consolidation  
-1630-1700 - Action Item Generation / Debrief  
-1700-1900 - Happy Hour  
+[Sprint #1 - Alexandria, VA](community-sprints/sprint1-alexandria.md)
+[Sprint #2 - Philadelphia, PA](community-sprints/sprint2-philly.md)
 
-## Notes
 
-[Satellite Tasking Sprint 2022 Notes](sprint-20220927.md)
+# Existing Tasking Implementations
+
+These are existing tasking APIs (not the spec proposed here), used to understand
+existing capabilities.
+
+- Capella Space: https://docs.capellaspace.com/api/tasking
+- Planet: https://developers.planet.com/docs/tasking/reference/
+- UP42: https://docs.up42.com/data/tasking
+
+
