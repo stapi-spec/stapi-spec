@@ -2,4 +2,28 @@
 
 set -e
 
-PYTHONPATH="$(dirname $(dirname $0))/api/" uvicorn main:app --reload
+function usage() {
+    echo -n \
+        "Usage: $(basename "$0")
+Start application.
+"
+}
+
+function run_backend() {
+    PYTHONPATH="$(dirname $(dirname $0))/api/" uvicorn main:app --reload
+}
+
+function run_frontend() {
+    ( cd app ; npm run dev )
+}
+
+if [ "${1:-}" = "--help" ]; then
+        usage
+elif [[ "${1:-}" == "backend" ]]; then
+    run_backend
+elif [[ "${1:-}" == "frontend" ]]; then
+    run_frontend
+else
+    run_backend & run_frontend
+fi
+
