@@ -20,5 +20,5 @@ existing capabilities.
 - Capella Space: https://docs.capellaspace.com/api/tasking
 - Planet: https://developers.planet.com/docs/tasking/reference/
 - UP42: https://docs.up42.com/data/tasking
-
+- Airbus: https://api.oneatlas.airbus.com/guides/oneatlas-data/g-tasking/#tasking
 
