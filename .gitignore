@@ -2,6 +2,7 @@
 htmlcov
 dist
 .direnv
+.venv
 
 # dependencies
 node_modules
