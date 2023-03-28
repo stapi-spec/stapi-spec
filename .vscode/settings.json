@@ -1,3 +1,4 @@
 {
-  "eslint.workingDirectories": ["./demo/app"]
+  "eslint.workingDirectories": ["./demo/app"],
+  "python.analysis.autoImportCompletions": true
 }
