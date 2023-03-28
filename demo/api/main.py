@@ -1,18 +1,13 @@
-from typing import Annotated, Protocol
 
-import pystac
-from fastapi import FastAPI, Header
+from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import RedirectResponse
-from stac_pydantic import Item, ItemCollection
+from stac_pydantic import ItemCollection
 from stac_pydantic.api.search import Search
-from api.backends.sentinel_backend import SentinelBackend
+
+from api.backends.base import Backend
+from api.backends import BACKENDS
 
 app = FastAPI(title="Tasking API")
-
-STAC_ITEM_URL = (
-    "https://raw.githubusercontent.com/stac-utils/pystac/main/"
-    "tests/data-files/item/sample-item.json"
-)
 
 
 @app.get("/")
@@ -22,18 +17,27 @@ async def redirect_home():
 
 @app.get("/pineapple", response_model=ItemCollection)
 @app.post("/pineapple", response_model=ItemCollection)
-async def post_pineapple(pineapple: Annotated[Search, Header()] = Search()):
-
+async def post_pineapple(
+    request: Request,
+    pineapple: Search = Search(),
+):
+    print(BACKENDS)
     # get the right token and backend from the header
+    backend = request.headers.get("backend", "sentinel")
+
     token = "this-is-not-a-real-token"
-    backend = "sentinel"
+    if authorization := request.headers.get("authorization"):
+        token = authorization.replace("Bearer ", "")
 
     impl: Backend = None
 
-    if backend == "fake":
-        impl = FakeBackend()
-    elif backend == 'sentinel':
-        impl = SentinelBackend()
+    if backend in BACKENDS:
+        impl = BACKENDS[backend]()
+    else:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Backend '{backend}' not in options: {list(BACKENDS.keys())}"
+        )
 
     item_collection = await impl.find_future_items(
         pineapple,
@@ -41,30 +45,3 @@ async def post_pineapple(pineapple: Annotated[Search, Header()] = Search()):
     )
 
     return item_collection
-
-
-class FakeBackend():
-
-    async def find_future_items(
-        self,
-        search_request: Search,
-        token: str,
-    ) -> ItemCollection:
-
-        pystac_item = pystac.Item.from_file(STAC_ITEM_URL)
-
-        item = Item(**pystac_item.to_dict())
-        item_collection = ItemCollection(features=[item], links=[])
-        return item_collection
-
-
-# backend protocol class
-class Backend(Protocol):
-    """Backend Python API"""
-
-    async def find_future_items(
-        self,
-        search_request: Search,
-        token: str,
-    ) -> ItemCollection:
-        return NotImplemented
