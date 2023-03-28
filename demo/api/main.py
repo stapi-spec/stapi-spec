@@ -1,10 +1,10 @@
 from typing import Protocol
-
 import pystac
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 from stac_pydantic import Item, ItemCollection
 from stac_pydantic.api.search import Search
+from api.backends.sentinel_backend import SentinelBackend
 
 app = FastAPI(title="Tasking API")
 
@@ -32,18 +32,24 @@ async def redirect_home():
     return RedirectResponse("/docs")
 
 
-@app.get("/pineapple", response_model=ItemCollection)
+@app.post("/pineapple", response_model=ItemCollection)
 async def get_pineapple(pineapple: Search):
 
     # get the right token and backend from the header
     token = "this-is-not-a-real-token"
-    backend = "fake"
+    backend = "sentinel"
+
+    impl: Backend = None
 
     if backend == "fake":
-        item_collection = await FakeBackend.find_future_items(
-            pineapple,
-            token=token,
-        )
+        impl = FakeBackend()
+    elif backend == 'sentinel':
+        impl = SentinelBackend()
+
+    item_collection = await impl.find_future_items(
+        pineapple,
+        token=token,
+    )
 
     return item_collection
 
@@ -51,6 +57,7 @@ async def get_pineapple(pineapple: Search):
 class FakeBackend():
 
     async def find_future_items(
+        self,
         search_request: Search,
         token: str,
     ) -> ItemCollection:
@@ -67,6 +74,7 @@ class Backend(Protocol):
     """Backend Python API"""
 
     async def find_future_items(
+        self,
         search_request: Search,
         token: str,
     ) -> ItemCollection:
