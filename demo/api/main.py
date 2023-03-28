@@ -1,6 +1,7 @@
-from typing import Protocol
+from typing import Annotated, Protocol
+
 import pystac
-from fastapi import FastAPI
+from fastapi import FastAPI, Header
 from fastapi.responses import RedirectResponse
 from stac_pydantic import Item, ItemCollection
 from stac_pydantic.api.search import Search
@@ -33,7 +34,7 @@ async def redirect_home():
 
 
 @app.post("/pineapple", response_model=ItemCollection)
-async def get_pineapple(pineapple: Search):
+async def post_pineapple(pineapple: Annotated[Search | None, Header()] = None):
 
     # get the right token and backend from the header
     token = "this-is-not-a-real-token"
