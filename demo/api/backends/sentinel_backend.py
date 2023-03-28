@@ -1,13 +1,10 @@
-from typing import Any
+
 from pystac_client.client import Client
-from stac_pydantic import Item, ItemCollection
+from stac_pydantic import ItemCollection
 from stac_pydantic.api.search import Search
 
 
-
 class SentinelBackend:
-
-
     async def find_future_items(
         self,
         search_request: Search,
