@@ -2,6 +2,7 @@ import pystac
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 from stac_pydantic import Item, ItemCollection
+from stac_pydantic.api.search import Search
 
 app = FastAPI(title="Tasking API")
 
@@ -36,3 +37,11 @@ async def get_pineapple():
     item = Item(**pystac_item.to_dict())
     item_collection = ItemCollection(features=[item], links=[])
     return item_collection
+
+
+# Backed api example
+def find_future_items(
+    search_request: Search,
+    request_headers: dict[str, str] = {}
+) -> ItemCollection:
+    pass
