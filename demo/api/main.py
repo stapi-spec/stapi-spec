@@ -13,19 +13,6 @@ STAC_ITEM_URL = (
     "https://raw.githubusercontent.com/stac-utils/pystac/main/"
     "tests/data-files/item/sample-item.json"
 )
-STAC_JSON = {
-    "id": "12345",
-    "type": "Feature",
-    "stac_extensions": ["https://stac-extensions.github.io/eo/v1.0.0/schema.json"],
-    "geometry": {"type": "Point", "coordinates": [0, 0]},
-    "properties": {
-        "datetime": "2020-03-09T14:53:23.262208+00:00",
-        "eo:cloud_cover": 25,
-    },
-    "links": [],
-    "assets": [],
-    "bbox": [0, 0, 1, 1],
-}
 
 
 @app.get("/")
@@ -33,8 +20,9 @@ async def redirect_home():
     return RedirectResponse("/docs")
 
 
+@app.get("/pineapple", response_model=ItemCollection)
 @app.post("/pineapple", response_model=ItemCollection)
-async def post_pineapple(pineapple: Annotated[Search | None, Header()] = None):
+async def post_pineapple(pineapple: Annotated[Search, Header()] = Search()):
 
     # get the right token and backend from the header
     token = "this-is-not-a-real-token"
