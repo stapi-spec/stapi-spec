@@ -48,7 +48,7 @@ function whichMap(mapName) {
 
 const Map = (props) => {
   const [featureGroup, setFeatureGroup] = useState();
-  const { setGeoJson } = useAppContext();
+  const { setGeoJson, setBbox } = useAppContext();
   const { url, attribution } = whichMap('Stadia.AlidadeSmooth');
   const { width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT } = props;
 
@@ -64,6 +64,7 @@ const Map = (props) => {
    */
   function onCreated(e) {
     setGeoJson(e.layer.toGeoJSON());
+    setBbox(e.layer.getBounds());
   }
 
   /**
