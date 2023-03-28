@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const AppContext = createContext();
 
@@ -12,6 +12,13 @@ export default function AppProvider({ children }) {
     dateRange,
     setDateRange
   }
+
+  useEffect(()=>{
+    if(!!geoJson) {
+      console.log('make request to /pineapple');
+    }
+  }, [geoJson, dateRange]);
+
   return (
     <AppContext.Provider value={app}>
       {children}
