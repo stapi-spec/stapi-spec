@@ -1,3 +1,5 @@
+from typing import Protocol
+
 import pystac
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
@@ -31,17 +33,41 @@ async def redirect_home():
 
 
 @app.get("/pineapple", response_model=ItemCollection)
-async def get_pineapple():
-    pystac_item = pystac.Item.from_file(STAC_ITEM_URL)
+async def get_pineapple(pineapple: Search):
 
-    item = Item(**pystac_item.to_dict())
-    item_collection = ItemCollection(features=[item], links=[])
+    # get the right token and backend from the header
+    token = "this-is-not-a-real-token"
+    backend = "fake"
+
+    if backend == "fake":
+        item_collection = await FakeBackend.find_future_items(
+            pineapple,
+            token=token,
+        )
+
     return item_collection
 
 
-# Backed api example
-def find_future_items(
-    search_request: Search,
-    request_headers: dict[str, str] = {}
-) -> ItemCollection:
-    pass
+class FakeBackend():
+
+    async def find_future_items(
+        search_request: Search,
+        token: str,
+    ) -> ItemCollection:
+
+        pystac_item = pystac.Item.from_file(STAC_ITEM_URL)
+
+        item = Item(**pystac_item.to_dict())
+        item_collection = ItemCollection(features=[item], links=[])
+        return item_collection
+
+
+# backend protocol class
+class Backend(Protocol):
+    """Backend Python API"""
+
+    async def find_future_items(
+        search_request: Search,
+        token: str,
+    ) -> ItemCollection:
+        return NotImplemented
