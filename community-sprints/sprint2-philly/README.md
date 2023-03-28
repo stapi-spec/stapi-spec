@@ -14,15 +14,13 @@ of satellite remote sensing data.
 - Create draft API, with OpenAPI
 - Determine how to support provider & sensor specific parameters
 - Create a working POC/MVP that demonstrates the basic capabilities of the Tasking API
-- Understand and document the future functionality roadmap
 - Promote adoption 
 
 ## Guiding Principles
 
 - Leverage existing standards
-- Focus on end users
-- Identify a small stable core
-- Build implementations
+- Focus on end users, push complexity to the provider
+- Build implementations to demonstrate utility
 
 ## Agenda
 
