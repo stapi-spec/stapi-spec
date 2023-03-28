@@ -29,8 +29,8 @@ async def redirect_home():
     return RedirectResponse("/docs")
 
 
-@app.get("/search", response_model=ItemCollection)
-async def get_search():
+@app.get("/pineapple", response_model=ItemCollection)
+async def get_pineapple():
     pystac_item = pystac.Item.from_file(STAC_ITEM_URL)
 
     item = Item(**pystac_item.to_dict())
