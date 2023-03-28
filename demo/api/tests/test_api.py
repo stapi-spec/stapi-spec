@@ -45,7 +45,10 @@ def test_post_to_planet():
     response = client.post(
         "/pineapple",
         headers={"Backend": "planet"}, # , "Authorization": f"Bearer {API_TOKEN}"},
-        json={"bbox": [0,0,1,1]},
+        json={
+            "bbox": [0,0,1,1],
+            "datetime": "2023-03-30T17:20:13.061Z" # this should be start and end eventually
+        },
     )
     assert response.status_code == 200
     assert "bbox" in response.json()
