@@ -7,7 +7,7 @@ const Footer = ({ ...rest }) => {
     <footer className={styles.footer} {...rest}>
       <Container className={`${styles.footerContainer} ${styles.footerLegal}`}>
         <p>
-          &copy; <a href="https://spacejelly.dev">Next.js Leaflet Starter</a>, {new Date().getFullYear()}
+        powered by <a href="https://element84.com" target="_blank">Element 84</a> &copy; {new Date().getFullYear()}
         </p>
       </Container>
     </footer>

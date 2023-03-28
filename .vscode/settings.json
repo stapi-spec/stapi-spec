@@ -1,0 +1,4 @@
+{
+  "eslint.workingDirectories": ["./demo/app"],
+  "python.analysis.autoImportCompletions": true
+}

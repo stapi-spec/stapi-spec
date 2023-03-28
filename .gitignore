@@ -1,4 +1,3 @@
-__pycache__
 .coverage
 htmlcov
 dist
@@ -24,3 +23,13 @@ npm-debug.log
 # vercel
 .vercel
 
+# vscode
+pyrightconfig.json
+sat-tasking-sprint.code-workspace
+.vscode/
+
+# python
+.python-version
+.venv
+__pycache__
+.emv

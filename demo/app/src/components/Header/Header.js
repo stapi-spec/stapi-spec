@@ -11,7 +11,7 @@ const Header = () => {
       <Container className={styles.headerContainer}>
         <p className={styles.headerTitle}>
           <Link href="/">
-            Next.js Leaflet Starter
+            Task a Satellite
           </Link>
         </p>
         <ul className={styles.headerLinks}>
