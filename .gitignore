@@ -2,7 +2,6 @@
 htmlcov
 dist
 .direnv
-.venv
 
 # dependencies
 node_modules
@@ -33,3 +32,4 @@ sat-tasking-sprint.code-workspace
 .python-version
 .venv
 __pycache__
+.emv
