@@ -27,6 +27,7 @@ npm-debug.log
 # vscode
 pyrightconfig.json
 sat-tasking-sprint.code-workspace
+.vscode/
 
 # python
 .python-version
