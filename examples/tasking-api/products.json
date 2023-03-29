@@ -1,0 +1,117 @@
+[
+    {
+        "id": "multispectral",
+        "provider": "Planet",
+        "title": "Multispectral",
+        "extends": [
+            "product_extention_schema_link_1",
+            "product_extention_schema_link_2"
+        ],
+        "description": "Full color EO image",
+        "constraints": {
+            "gsd": [
+                1.0,
+                10.0
+            ],
+            "target_elevation": [
+                30.0,
+                90.0
+            ],
+            "target_azimuth": [
+                -360.0,
+                360.0
+            ],
+            "view:sun_elevation": [
+                10.0,
+                90.0
+            ],
+            "view:sun_azimuth": [
+                -360.0,
+                360.0
+            ],
+            "view:off_ndair": [
+                0.0,
+                30.0
+            ],
+            "cloud_coverage_prediction_max": 100.0
+        },
+        "parameters": {
+            "eo:cloud_cover": 30.0
+        },
+        "properties": {
+            "eo:bands": [
+                {
+                    "name": "band1",
+                    "common_name": "blue",
+                    "center_wavelength": 0.47,
+                    "full_width_half_max": 0.07,
+                    "solar_illumination": 1959.66
+                },
+                {
+                    "name": "band2",
+                    "common_name": "green",
+                    "center_wavelength": 0.56,
+                    "full_width_half_max": 0.08,
+                    "solar_illumination": 1823.24
+                },
+                {
+                    "name": "band3",
+                    "common_name": "red",
+                    "center_wavelength": 0.645,
+                    "full_width_half_max": 0.09,
+                    "solar_illumination": 1512.06
+                },
+                {
+                    "name": "band4",
+                    "common_name": "nir",
+                    "center_wavelength": 0.8,
+                    "full_width_half_max": 0.152,
+                    "solar_illumination": 1041.63
+                }
+            ]
+        }
+    },
+    {
+        "id": "spotlight",
+        "provider": "Black Sky",
+        "title": "Spotlight",
+        "extends": [
+            "product_extention_schema_link_1",
+            "product_extention_schema_link_2"
+        ],
+        "description": "SAR Spotlight frame",
+        "constraints": {
+            "sar:resolution_range": [
+                0.5,
+                5.0
+            ],
+            "sar:resolution_azimuth": [
+                0.5,
+                5.0
+            ],
+            "grazing": [
+                20.0,
+                40.0
+            ],
+            "target_azimuth": [
+                -360.0,
+                360.0
+            ],
+            "squint": [
+                -5.0,
+                5.0
+            ]
+        },
+        "parameters": {
+            "sar:polarizarions": [
+                "HH",
+                "VV",
+                "HV"
+            ]
+        },
+        "properties": {
+            "sar:product_type": "SSC",
+            "sar:frequency_band": "X"
+        }
+    }
+]

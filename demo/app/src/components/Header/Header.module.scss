@@ -3,8 +3,8 @@
 .header {
   width: 100%;
   font-size: 1em;
-  color: white;
-  background-color: black;
+  color: $color-blue;
+  background-color: white;
   padding: 1em 0;
   margin: 0;
 }
@@ -55,4 +55,10 @@
       margin-right: 0.4em;
     }
   }
+}
+
+.toolbar {
+  height: 35px;
+  background-color: $color-light-gray;
+  z-index: 9999;
 }

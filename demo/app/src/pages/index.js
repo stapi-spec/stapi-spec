@@ -1,18 +1,20 @@
 import Head from 'next/head';
 
 import Layout from '@components/Layout';
-import Section from '@components/Section';
 import Container from '@components/Container';
 import Map from '@components/Map';
-import Button from '@components/Button';
+import Sidebar from '@components/Sidebar';
 
 import styles from '@styles/Home.module.scss';
+
+import { useAppContext } from 'src/context/appContext';
+
 
 const DEFAULT_CENTER = [38.907132, -77.036546];
 const DEFAULT_ZOOM = 3;
 
 export default function Home() {
-
+  const { isLoading, error, opportunities } = useAppContext();
   return (
     <Layout>
       <Head>
@@ -21,7 +23,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Container>
+      <Container className={styles.mapContainer}>
+        {(isLoading || opportunities) && <Sidebar/>}
         <Map
           className={styles.homeMap}
           width="800"
@@ -31,19 +34,6 @@ export default function Home() {
           minZoom={2}
           maxZoom={20}
         />
-
-        <p className={styles.description}>
-          <code className={styles.code}>
-            yarn create next-app -e
-            https://github.com/colbyfayock/next-leaflet-starter
-          </code>
-        </p>
-
-        <p className={styles.view}>
-          <Button href="https://github.com/Element84/sat-tasking-sprint">
-            Vew on GitHub
-          </Button>
-        </p>
       </Container>
     </Layout>
   );
