@@ -1,13 +1,28 @@
 [
     {
-        "id": "multispectral",
-        "provider": "Planet",
-        "title": "Multispectral",
-        "extends": [
+        "type": "Product",
+        "stat_version": "stat_version",
+        "stat_extensions": [
             "product_extention_schema_link_1",
             "product_extention_schema_link_2"
         ],
+        "id": "multispectral",
+        "title": "Multispectral",
         "description": "Full color EO image",
+        "keywords": ["EO", "color"],
+        "license": "license",
+        "providers": {
+            "name": "planet",
+            "description": "planet description",
+            "roles": ["producer"],
+            "url": "planet link"
+        },
+        "links": {
+            "href": "https://example.com/",
+            "rel": "latest-version",
+            "type": "media type",
+            "title": "title"
+        },
         "constraints": {
             "gsd": [
                 1.0,
@@ -72,14 +87,29 @@
         }
     },
     {
-        "id": "spotlight",
-        "provider": "Black Sky",
-        "title": "Spotlight",
-        "extends": [
+        "type": "Product",
+        "stat_version": "stat_version",
+        "stat_extensions": [
             "product_extention_schema_link_1",
             "product_extention_schema_link_2"
         ],
+        "id": "spotlight",
+        "title": "Spotlight",
         "description": "SAR Spotlight frame",
+        "keywords": ["SAR", "spotlight"],
+        "license": "license",
+        "providers": {
+            "name": "planet",
+            "description": "planet description",
+            "roles": ["producer"],
+            "url": "planet link"
+        },
+        "links": {
+            "href": "https://example.com/",
+            "rel": "latest-version",
+            "type": "media type",
+            "title": "title"
+        },
         "constraints": {
             "sar:resolution_range": [
                 0.5,
