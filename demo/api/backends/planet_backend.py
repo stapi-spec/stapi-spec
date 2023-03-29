@@ -21,8 +21,7 @@ def search_to_imaging_window_request(search_request: Search) -> dict:
         pl_number, pl_product = search_request.product_id.split(':')
 
     return {
-        "start_time": search_request.start_date.isoformat(),
-        "end_time": search_request.end_date.isoformat(),
+        "datetime": f"{search_request.start_date.isoformat()}/{search_request.end_date.isoformat()}",
         "pl_number": pl_number,
         "product": pl_product,
         "geometry": search_request.geometry.dict(),
