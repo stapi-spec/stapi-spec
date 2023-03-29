@@ -81,7 +81,7 @@ class HistoricalBackend:
         search: Search,
         token: str,
     ) -> OpportunityCollection:
-        max_items = DEFAULT_MAX_ITEMS
+        max_items = min(search.limit, MAX_MAX_ITEMS)
 
         args: dict[str, Any] = {
             'collections': [search.product_id],

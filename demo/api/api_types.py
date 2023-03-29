@@ -96,7 +96,8 @@ class Search(BaseModel):
     # Slash separated date time range
     datetime: str
     product_id: Optional[str]
-    constraints: Optional[Dict[str, Any]]
+    constraints: Optional[Dict[str, Any]] = None
+    limit: int = 10
 
     # TODO need to ask if this is exactly like stac with .., /, single datetime etc.
     @property
