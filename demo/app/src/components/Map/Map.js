@@ -22,12 +22,6 @@ const DynamicEditControl = dynamic(
   }
 );
 
-// Set default sizing to control aspect ratio which will scale responsively
-// but also help avoid layout shift
-
-const DEFAULT_WIDTH = 600;
-const DEFAULT_HEIGHT = 600;
-
 const tileLayers = [{
   name: 'default',
   url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -48,9 +42,8 @@ function whichMap(mapName) {
 
 const Map = (props) => {
   const [featureGroup, setFeatureGroup] = useState();
-  const { geoJson, setGeoJson } = useAppContext();
+  const { setGeoJson, setBbox } = useAppContext();
   const { url, attribution } = whichMap('Stadia.AlidadeSmooth');
-  const { width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT } = props;
 
   /**
    * saves feature group ref for later editing
@@ -63,9 +56,8 @@ const Map = (props) => {
    * on layer created handler
    */
   function onCreated(e) {
-    console.log('🚀 ~ file: Map.js:66 ~ onCreated ~ e:', e.layer)
-    const drawnItems = featureGroup._layers;
-    console.log('🚀 ~ file: Map.js:62 ~ onCreated ~ drawnItems:', drawnItems)
+    setGeoJson(e.layer.toGeoJSON());
+    setBbox(e.layer.getBounds());
   }
 
   /**
@@ -80,16 +72,10 @@ const Map = (props) => {
     });
   }
 
-  function onDrawStop(e) {
-    console.log('🚀 ~ file: Map.js:83 ~ onDrawStop ~ e:', e)
-    
-  }
-
   return (
     <div style={{ height: '100%', height: '100%' }}>
       <DynamicMap {...props}>
         {(module) => {
-        console.log('🚀 ~ file: Map.js:73 ~ Map ~ module:', module)
         const { FeatureGroup, TileLayer } = module;
           return (
             <>
@@ -106,15 +92,14 @@ const Map = (props) => {
                   position="topleft"
                   draw={{
                     circle: false,
-                    circlemarker: true,
+                    circlemarker: false,
                     marker: false,
                     polygon: true,
                     polyline: false,
-                    rectangle: true,
+                    rectangle: false,
                   }}
                   onCreated={onCreated}
                   onDrawStart={onDrawStart}
-                  onDrawStop={onDrawStop}
                 />
                 {props.children}
               </FeatureGroup>

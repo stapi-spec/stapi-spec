@@ -1,8 +1,6 @@
 from typing import Protocol
 
-from stac_pydantic import ItemCollection
-from stac_pydantic.api.search import Search
-
+from api.api_types import Search, ItemCollection
 
 # backend protocol class
 class Backend(Protocol):
