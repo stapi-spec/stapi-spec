@@ -20,7 +20,8 @@ export default function AppProvider({ children }) {
     new Date(new Date(today).setDate(today.getDate() + 7)),
   ]
   });
-  const [selectedOpportunity, setSelectedOpportunity] = useState();
+  const [hoveredOpportunity, setHoveredOpportunity] = useState(null);
+  const [selectedOpportunity, setSelectedOpportunity] = useState(null);
 
   const params = useMemo(() => {
     return userParams.bbox ? {
@@ -40,7 +41,9 @@ export default function AppProvider({ children }) {
     opportunities,
     error,
     selectedOpportunity,
-    setSelectedOpportunity
+    setSelectedOpportunity,
+    hoveredOpportunity,
+    setHoveredOpportunity
   }
 
   return (

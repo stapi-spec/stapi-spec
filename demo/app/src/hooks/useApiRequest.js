@@ -19,6 +19,10 @@ const useApiRequest = (params) => {
             })
             .then((res) => res.json())
             .then((data) => {
+                // expect list once complete
+                if(typeof data === 'object'){
+                    data = [data]
+                }
                 setData(data)
                 setIsLoading(false)
             }).catch(e => setError(e));
