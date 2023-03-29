@@ -25,15 +25,28 @@ Geometry = Union[
     GeometryCollection,
 ]
 
+ProductConstraints = dict[str, Union[Tuple[float, float], float]]
+ProductParameters = dict[str, Union[float, int, str]]
+ProductProperties = dict[str, Any]
+
 class Product(BaseModel):
     id: str
     provider: str
     title: str
     extends: list[str]
     description: str
-    constraints: dict[str, Union[Tuple[float, float], float]]
-    parameters: dict[str, Union[float, int, str]]
-    properties: dict[str, Any]
+    constraints: Optional[ProductConstraints] = Field(
+        default=None,
+        description="Query constraints that will filter the opportunity results list."
+    )
+    parameters: Optional[ProductParameters] = Field(
+        default=None,
+        description="Additional parameters for ordering."
+    )
+    properties: Optional[ProductProperties] = Field(
+        default=None,
+        description="Metadata about the product"
+    )
 
 
 # Copied and modified from stack_pydantic.item.ItemProperties

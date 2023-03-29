@@ -1,6 +1,6 @@
 from typing import Protocol
 
-from api.api_types import Search, OpportunityCollection
+from api.api_types import Search, OpportunityCollection, Product
 
 # backend protocol class
 class Backend(Protocol):
