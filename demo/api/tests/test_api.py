@@ -4,8 +4,8 @@ import os
 import pytest
 from fastapi.testclient import TestClient
 
-from ..main import app
-from ..backends import BACKENDS
+from api.main import app
+from api.backends import BACKENDS
 
 
 client = TestClient(app)
@@ -31,18 +31,18 @@ def test_post_to_opportunities_with_no_body():
 def test_post_to_opportunities_with_opportunities_body():
     response = client.post(
         "/opportunities",
-        json=VALID_SEARCH_BODY,
+        json={"product_id": "landsat-c2-l2", **VALID_SEARCH_BODY},
     )
     assert response.status_code == 200
     assert "features" in response.json()
 
 
-@pytest.mark.parametrize("backend", ["fake", "sentinel"])
+@pytest.mark.parametrize("backend", ["fake", "historical"])
 def test_post_to_opportunities_with_opportunities_body_and_header(backend: str):
     response = client.post(
         "/opportunities",
         headers={"Backend": backend},
-        json=VALID_SEARCH_BODY,
+        json={"product_id": "landsat-c2-l2", **VALID_SEARCH_BODY},
     )
     assert response.status_code == 200
     assert "features" in response.json()
@@ -61,7 +61,7 @@ def test_post_to_authenticated_backend(backend: str):
     end_time = start_time + datetime.timedelta(days=3)
 
     response = client.post(
-        "/pineapple",
+        "/opportunities",
         headers={"Backend": backend, "Authorization": f"Bearer {token}"},
         json={
             "bbox": [0, 0, 1, 1],
@@ -70,21 +70,6 @@ def test_post_to_authenticated_backend(backend: str):
     )
     assert response.status_code == 200
     assert "features" in response.json()
-
-
-# TODO currently failing
-# def test_post_to_planet():
-#     response = client.post(
-#         "/opportunities",
-#         headers={"Backend": "planet"}, # , "Authorization": f"Bearer {API_TOKEN}"},
-#         json={
-#             "bbox": [0,0,1,1],
-#             "datetime": "2023-03-30T17:20:13.061Z" # this should be start and end eventually
-#         },
-#     )
-#     assert response.status_code == 200
-#     assert "bbox" in response.json()
-#     assert "features" in response.json()
 
 
 def test_post_to_opportunities_with_bad_backend_raises():

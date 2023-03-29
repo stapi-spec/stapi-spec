@@ -24,7 +24,11 @@ async def get_opportunities(
     if search is None:
         start_datetime = datetime.now()
         end_datetime = start_datetime + timedelta(days=40)
-        search = Search(datetime=f"{start_datetime.isoformat()}/{end_datetime.isoformat()}")
+        product_id = "landsat-c2-l2"
+        search = Search(
+            datetime=f"{start_datetime.isoformat()}/{end_datetime.isoformat()}",
+            product_id=product_id,
+        )
 
     return await post_opportunities(request, search)
 
@@ -35,7 +39,7 @@ async def post_opportunities(
     search: Search,
 ):
     # get the right token and backend from the header
-    backend = request.headers.get("backend", "sentinel")
+    backend = request.headers.get("backend", "historical")
 
     token = "this-is-not-a-real-token"
     if authorization := request.headers.get("authorization"):
