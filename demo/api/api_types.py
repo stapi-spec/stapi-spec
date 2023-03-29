@@ -33,6 +33,11 @@ ProductConstraints = Dict[str, Union[Range, List[Any], Dict[str, Any]]]
 ProductParameters = Dict[str, Union[Range, List[Any], Dict[str, Any]]]
 
 
+
+class Order(BaseModel):
+    id: str
+
+
 class Product(BaseModel):
     """https://github.com/Element84/sat-tasking-sprint/tree/main/product-spec"""
 

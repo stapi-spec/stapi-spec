@@ -21,7 +21,7 @@ VALID_SEARCH_BODY = {
     "datetime": "2025-01-01T00:00:00Z/2025-01-02T00:00:00Z",
     "geometry": {
         "type": "Point",
-        "coordinates": [39.95, 75.16]
+        "coordinates": [-75.16, 39.95]
     }
 }
 
@@ -94,7 +94,7 @@ def test_post_to_opportunities_with_opportunities_body_and_header_authenticated(
         "datetime":  f"{start_time.isoformat()}/{end_time.isoformat()}",
         "geometry": {
             "type": "Point",
-            "coordinates": [39.95, 75.16]
+            "coordinates": [-75.16, 39.95]
         }
     }
 
@@ -118,3 +118,30 @@ def test_post_to_opportunities_with_bad_backend_raises():
     assert response.json()["detail"] == f"Backend 'foo' not in options: {list(BACKENDS.keys())}"
 
 
+def test_post_to_orders_raises_if_not_possible():
+    product_id = "landsat-c2-l2"
+    response = client.post(
+        "/orders",
+        headers={"Backend": "historical"},
+        json={"product_id": product_id, **VALID_SEARCH_BODY},
+    )
+    assert response.status_code == 500
+    assert response.json()["detail"] == f"Unable to place an order for this product: '{product_id}'"
+
+
+def test_post_to_orders():
+    json_body = {
+        "datetime": "2025-01-01T00:00:00Z/2025-05-02T00:00:00Z",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-75.16, 39.95]
+        },
+        "product_id": "landsat-c2-l2",
+    }
+    response = client.post(
+        "/orders",
+        headers={"Backend": "historical"},
+        json=json_body,
+    )
+    assert response.status_code == 200
+    assert response.json()["id"] == "LC09_L2SP_014032_20220501_02_T1"
