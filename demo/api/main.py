@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 from api.backends.base import Backend
 from api.backends import BACKENDS
 
-from api.api_types import Search, OpportunityCollection
+from api.api_types import Search, OpportunityCollection, Product
 
 app = FastAPI(title="Tasking API")
 
@@ -14,6 +14,29 @@ app = FastAPI(title="Tasking API")
 @app.get("/")
 async def redirect_home():
     return RedirectResponse("/docs")
+
+@app.get("/products", response_model=list[Product])
+async def get_products(
+    request: Request,
+):
+    # get the right token and backend from the header
+    backend = request.headers.get("backend", "historical")
+
+    token = "this-is-not-a-real-token"
+    if authorization := request.headers.get("authorization"):
+        token = authorization.replace("Bearer ", "")
+
+    if backend in BACKENDS:
+        impl: Backend = BACKENDS[backend]
+    else:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Backend '{backend}' not in options: {list(BACKENDS.keys())}"
+        )
+
+    return  await impl.find_products(
+        token=token,
+    )
 
 
 @app.get("/opportunities", response_model=OpportunityCollection)
