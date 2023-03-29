@@ -4,6 +4,7 @@ import Layout from '@components/Layout';
 import Container from '@components/Container';
 import Map from '@components/Map';
 import Button from '@components/Button';
+import Sidebar from '@components/Sidebar';
 
 import styles from '@styles/Home.module.scss';
 
@@ -21,9 +22,7 @@ export default function Home() {
       </Head>
 
       <Container className={styles.mapContainer}>
-        <div className={styles.sidebar}>
-          <h2>Opportunities</h2>
-        </div>
+        <Sidebar/>
         <Map
           className={styles.homeMap}
           width="800"

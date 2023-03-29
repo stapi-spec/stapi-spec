@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import { useState } from 'react';
 import { useAppContext } from 'src/context/appContext';
 
 // react-leaflet-draw styles
@@ -84,8 +85,7 @@ const Map = (props) => {
               />
               <FeatureGroup
                 ref={(featureGroupRef) => {
-                  const fg = featureGroup || featureGroupRef
-                  onFeatureGroupReady(fg);
+                  onFeatureGroupReady(featureGroupRef);
                 }}
               >
                 <DynamicEditControl
