@@ -112,11 +112,15 @@ class PlanetBackend:
         # todo: consider proper reactions for all types of products
         return [
             Product(
-                type="product",
+                type="Product",
                 stat_version="0.0.1",
                 stat_extensions=[],
                 id="PL-QA:Assured Tasking",
                 title="Assured Tasking",
+                description="",
+                license="",
+                links=[],
+                keywords=[],
                 providers=[Provider(name="planet")],
                 constraints={},
                 parameters={}
