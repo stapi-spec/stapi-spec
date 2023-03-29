@@ -11,8 +11,6 @@ const usePostRequest = (params) => {
             fetch("/api/opportunities", {
                 method: "POST",
                 headers: {
-                    "Authorization": "fake-token",
-                    "Backend": "fake",
                     "Content-type": "application/json"
                 },
                 body: JSON.stringify(params)
@@ -28,8 +26,8 @@ const usePostRequest = (params) => {
             }).catch(e => setError(e));
         }
     }, [params]);
-    
+
     return { data, isLoading, error };
 };
-    
+
 export default usePostRequest;
