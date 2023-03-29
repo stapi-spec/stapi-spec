@@ -4,13 +4,15 @@ from datetime import timedelta
 from typing import Any, Union
 
 import pystac
-from api.api_types import Opportunity, OpportunityCollection, OpportunityProperties, Search
+from api.api_types import Opportunity, OpportunityCollection, OpportunityProperties, Search, Product
 from pystac_client.client import Client
 from stac_pydantic.item import ItemProperties
 from geojson_pydantic.types import BBox
 
 DEFAULT_MAX_ITEMS = 10
 MAX_MAX_ITEMS = 100
+
+LANDSAT_COLLECTION_ID = 'landsat-c2-l2'
 
 
 # The api works by pretending the past is the future. It takes a users search request and searches for data in the
@@ -45,19 +47,22 @@ def stac_item_to_opportunity(item: pystac.Item) -> Opportunity:
     )
 
 class SentinelBackend:
+
+    catalog: Client
+
+    def __init__(self) -> None:
+        self.catalog = Client.open('https://earth-search.aws.element84.com/v1')  # type: ignore
+
+
     async def find_opportunities(
         self,
         search: Search,
         token: str,
     ) -> OpportunityCollection:
-        catalog = Client.open('https://earth-search.aws.element84.com/v1')  # type: ignore
-
-        # https://earth-search.aws.element84.com/v1/collections/landsat-c2-l2/items
-
         max_items = DEFAULT_MAX_ITEMS
 
         args: dict[str, Any] = {
-            'collections': 'landsat-c2-l2',
+            'collections': [LANDSAT_COLLECTION_ID],
             'max_items': max_items,
             'limit': max_items,
         }
@@ -73,7 +78,7 @@ class SentinelBackend:
         else:
             raise Exception('A datetime range must be specified')
 
-        search = catalog.search(**args)
+        search = self.catalog.search(**args)
         item_coll = search.item_collection()
 
         # Convert the STAC items from earth search into future items
@@ -87,3 +92,11 @@ class SentinelBackend:
         )
 
         return opportunity_collection
+
+    async def find_products(self, token: str) -> list[Product]:
+        self.catalog.get_collection(LANDSAT_COLLECTION_ID)
+
+catalog = Client.open('https://earth-search.aws.element84.com/v1')  # type: ignore
+c = catalog.get_collection(LANDSAT_COLLECTION_ID)
+
+c.to_dict()

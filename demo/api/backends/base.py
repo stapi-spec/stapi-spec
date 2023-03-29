@@ -12,3 +12,9 @@ class Backend(Protocol):
         token: str,
     ) -> OpportunityCollection:
         return NotImplemented
+
+    async def find_products(
+        self,
+        token: str,
+    ) -> list[Product]:
+        return NotImplemented

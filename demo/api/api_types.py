@@ -1,4 +1,4 @@
-from typing import Any, Optional, Union, Dict
+from typing import Any, Optional, Tuple, Union, Dict
 from geojson_pydantic.features import Feature, FeatureCollection
 from pydantic import BaseModel, Field
 from pydantic.datetime_parse import parse_datetime
@@ -24,6 +24,16 @@ Geometry = Union[
     MultiPolygon,
     GeometryCollection,
 ]
+
+class Product(BaseModel):
+    id: str
+    provider: str
+    title: str
+    extends: list[str]
+    description: str
+    constraints: dict[str, Union[Tuple[float, float], float]]
+    parameters: dict[str, Union[float, int, str]]
+    properties: dict[str, Any]
 
 
 # Copied and modified from stack_pydantic.item.ItemProperties

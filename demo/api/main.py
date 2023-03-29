@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 from api.backends.base import Backend
 from api.backends import BACKENDS
 
-from api.api_types import Search, OpportunityCollection
+from api.api_types import Search, OpportunityCollection, Product
 
 app = FastAPI(title="Tasking API")
 
@@ -15,6 +15,14 @@ app = FastAPI(title="Tasking API")
 async def redirect_home():
     return RedirectResponse("/docs")
 
+@app.get("/products", response_model=list[Product])
+async def product_opportunities(
+    id: str,
+    request: Request,
+    search: Search,
+):
+    search.product = id
+    return await opportunities(request, search)
 
 @app.get("/opportunities", response_model=OpportunityCollection)
 async def get_opportunities(
