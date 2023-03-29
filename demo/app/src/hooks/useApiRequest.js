@@ -8,7 +8,7 @@ const useApiRequest = (params) => {
     useEffect(() => {
         if (params) {
             setIsLoading(true);
-            fetch("/api/pineapple", {
+            fetch("/api/opportunities", {
                 method: "POST",
                 headers: {
                     "Authorization": "fake-token",

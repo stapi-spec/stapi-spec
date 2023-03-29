@@ -9,10 +9,11 @@ export default function AppProvider({ children }) {
   /**
    * @typedef {object} UserParams
    * @property {[Date, Date]} dateRange
-   * @property {number[]} bbox
+   * @property {number[]} [bbox]
   */
+  /** @type {[UserParams, Function]} */
   const [
-    /** @type {UserParams} */ userParams,
+    userParams,
     setUserParams
   ] = useState({
     dateRange: [
@@ -22,6 +23,7 @@ export default function AppProvider({ children }) {
   });
   const [hoveredOpportunity, setHoveredOpportunity] = useState(null);
   const [selectedOpportunity, setSelectedOpportunity] = useState(null);
+  const [openFilters, setOpenFilters] = useState(false);
 
   const params = useMemo(() => {
     return userParams.bbox ? {
@@ -43,7 +45,9 @@ export default function AppProvider({ children }) {
     selectedOpportunity,
     setSelectedOpportunity,
     hoveredOpportunity,
-    setHoveredOpportunity
+    setHoveredOpportunity,
+    openFilters,
+    setOpenFilters
   }
 
   return (
