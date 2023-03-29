@@ -57,11 +57,9 @@ const Map = (props) => {
    */
   function onCreated(e) {
     setUserParams({...userParams, geometry: {
-        "geometry": {
           "type": "Point",
           "coordinates": [e.layer._latlng.lng, e.layer._latlng.lat]
       }
-    }
   });
   }
 
