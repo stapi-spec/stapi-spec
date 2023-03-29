@@ -32,4 +32,4 @@ sat-tasking-sprint.code-workspace
 .python-version
 .venv
 __pycache__
-.emv
+.env
