@@ -57,13 +57,20 @@ class OpportunityProperties(BaseModel):
 
     title: Optional[str] = Field(None, alias="title")
     description: Optional[str] = Field(None, alias="description")
-    start_datetime: Optional[Datetime] = Field(None, alias="start_datetime")
-    end_datetime: Optional[Datetime] = Field(None, alias="end_datetime")
+    datetime: Optional[str] = Field(None, alias="datetime")
     product_id: Optional[str] = Field(None, alias="product_id")
     constraints: Optional[Dict[str, Any]] = Field(None, alias="constraints")
 
-    class Config:
-        json_encoders = {Datetime: lambda v: v.strftime(DATETIME_RFC339)}
+    # TODO need to ask if this is exactly like stac with .., /, single datetime etc.
+    @property
+    def start_date(self) -> Datetime:
+        values = self.datetime.split("/")
+        return parse_datetime(values[0])
+
+    @property
+    def end_date(self) -> Datetime:
+        values = self.datetime.split("/")
+        return parse_datetime(values[1])
 
 
 # Copied and modified from stack_pydantic.item.Item

@@ -33,22 +33,21 @@ def adjust_date_times(properties: dict[str, Any]) -> OpportunityProperties:
         if isinstance(value, str) and re.match(r'\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d\.\d+.*', value):
             try:
                 date = datetime.datetime.fromisoformat(value.replace('Z','+00:00'))
-                value = (date + TIME_DELTA).isoformat()
+                value = f"{(date + TIME_DELTA).isoformat()}/{(date + TIME_DELTA).isoformat()}"
             except Exception as e:
                 print(f'Could not parse {value} as a datetime')
                 raise e
         return value
-
     return OpportunityProperties(**{
         k: adjust_date_time(v)
         for k, v in properties.items()
     })
 
 
-def stac_item_to_opportunity(item: pystac.Item) -> Opportunity:
+def stac_item_to_opportunity(item: pystac.Item, product_id: str) -> Opportunity:
     return Opportunity(
         geometry=item.geometry,  # type: ignore
-        properties=adjust_date_times(item.properties),
+        properties=adjust_date_times({"product_id": product_id, **item.properties}),
         id=item.id,
     )
 
@@ -103,12 +102,11 @@ class HistoricalBackend:
         search_obj = self.catalog.search(**args)
         item_coll = search_obj.item_collection()
 
-        # Convert the STAC items from earth search into future items
+        # Convert the STAC items from earth search into opportunities
         opportunities: list[Opportunity] = [
-            stac_item_to_opportunity(item)
+            stac_item_to_opportunity(item, product_id=search.product_id)
             for item in item_coll.items
         ]
-
         opportunity_collection = OpportunityCollection(
             features=opportunities
         )
