@@ -1,7 +1,14 @@
+
+## Overview
+This document explains the structure of a STAT Product.
+
+STAT takes much of the work done by the STAC community and applies the lessons learned into this specification. The major departure from STAC is the requirement for uncertainty in many of the STAT properties.
+
+For example, a user requesting a data capture can provide a range of dates when they would like to capture. Conversly, a data provider cannot be certain of cloud cover in the future and must return a range of cloud cover probabilities to a user.
+
+STAT Product objects are represented in JSON format and are very flexible. Any JSON object that contains all the required fields is a valid STAT Product. A Product object contains a minimal set of required properties to be valid and can be extended through the use of constraints and parameters.
+
 # Product Spec
-
-This document explains the structure of a SPOT Product.
-
 
 | Element         | Type                                             | Description                                                  |
 | --------------- | ------------------------------------------------ | ------------------------------------------------------------ |
@@ -57,6 +64,10 @@ For a full discussion of the situations where relative and absolute links are re
 ['Use of links'](../best-practices.md#use-of-links) section of the STAC best practices.
 
 ### Constraints Object
+Constraints are limitations imposed by the user and the data provider as to what data is desired, and what data is available. In addition to space, time, and product limitations, constraints filter the needs of the user and capacity of the provider through an API negotiation. Constraints build off STAC extensions and modify them in order to support ranges of values.
+
+Users of the Tasking API Should follow STAC Extension naming conventions when adding constraints.
+
 
 The constraints for a field can be specified in three ways:
 
@@ -69,6 +80,9 @@ The constraints for a field can be specified in three ways:
    section for more.
 
 ### Parameters Object
+
+Parameters are objects which do not affect the Tasking process, but are nevertheless useful. For example, a user may wish to select a preferred output format or a data provider may provide additional metadata about a product.
+
 
 A summary for a field can be specified in three ways:
 
