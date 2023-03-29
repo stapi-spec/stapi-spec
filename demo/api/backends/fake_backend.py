@@ -9,8 +9,8 @@ STAC_ITEM_URL = (
 
 
 class FakeBackend():
-        self,
     async def find_opportunities(
+        self,
         search: Search,
         token: str,
     ) -> Opportunity:

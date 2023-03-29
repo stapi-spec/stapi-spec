@@ -13,12 +13,6 @@ DEFAULT_MAX_ITEMS = 10
 MAX_MAX_ITEMS = 100
 
 
-def get_max_items(search_request: Search) -> int:
-    max_items = DEFAULT_MAX_ITEMS
-    if search_request.limit:
-        max_items = search_request.limit
-    return min(max_items, MAX_MAX_ITEMS)
-
 # The api works by pretending the past is the future. It takes a users search request and searches for data in the
 # past. This is the amount of time in the past we search from a request.
 TIME_DELTA = timedelta(days=3*365)
@@ -60,8 +54,7 @@ class SentinelBackend:
 
         # https://earth-search.aws.element84.com/v1/collections/landsat-c2-l2/items
 
-
-        max_items = get_max_items(search)
+        max_items = DEFAULT_MAX_ITEMS
 
         args: dict[str, Any] = {
             'collections': 'landsat-c2-l2',

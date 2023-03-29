@@ -67,12 +67,12 @@ class OpportunityCollection(FeatureCollection):  # type: ignore
 
 
 # Copied and modified from stack_pydantic.api.search.Search
-class Search():
+class Search(BaseModel):
     geometry: Optional[Geometry]
 
     # Slash separated date time range
     datetime: str
-    product_id: str
+    product_id: Optional[str]
     constraints: Optional[Dict[str, Any]]
 
     # TODO need to ask if this is exactly like stac with .., /, single datetime etc.
