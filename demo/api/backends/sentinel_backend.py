@@ -47,7 +47,11 @@ def adjust_date_times(properties: dict[str, Any]) -> OpportunityProperties:
 def stac_item_to_opportunity(item: pystac.Item, product_id: str) -> Opportunity:
     return Opportunity(
         geometry=item.geometry,  # type: ignore
-        properties=adjust_date_times({"product_id": product_id, **item.properties}),
+        properties=adjust_date_times({
+            "product_id": product_id,
+            "title": item.id,
+            **item.properties
+        }),
         id=item.id,
     )
 
