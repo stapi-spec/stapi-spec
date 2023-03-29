@@ -27,7 +27,8 @@
     "react-icons": "^4.7.1",
     "react-leaflet": "^4.2.0",
     "react-leaflet-draw": "^0.20.4",
-    "sass": "^1.57.0"
+    "sass": "^1.57.0",
+    "swr": "^2.1.1"
   },
   "devDependencies": {
     "eslint-config-next": "^13.2.4",
