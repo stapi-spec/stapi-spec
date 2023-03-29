@@ -21,7 +21,7 @@ async def redirect_home():
 
 @app.get("/products", response_model=list[Product])
 async def get_products(
-    request: Request,
+        request: Request,
 ):
     # get the right token and backend from the header
     backend = request.headers.get("backend", DEFAULT_BACKEND)
@@ -48,8 +48,8 @@ async def get_products(
 
 @app.get("/opportunities", response_model=OpportunityCollection)
 async def get_opportunities(
-    request: Request,
-    search: Search | None = None,
+        request: Request,
+        search: Search | None = None,
 ):
     if search is None:
         start_datetime = datetime.now()
@@ -67,8 +67,8 @@ async def get_opportunities(
 
 @app.post("/opportunities", response_model=OpportunityCollection)
 async def post_opportunities(
-    request: Request,
-    search: Search,
+        request: Request,
+        search: Search,
 ):
     # get the right token and backend from the header
     backend = request.headers.get("backend", DEFAULT_BACKEND)
