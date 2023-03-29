@@ -1,12 +1,13 @@
 import datetime
 import re
 from datetime import timedelta
-from typing import Any, Union
+from typing import Any, Optional, Union
 
 import pystac
 from api.api_types import Item, ItemCollection, Search
 from pystac_client.client import Client
 from stac_pydantic.item import ItemProperties
+from geojson_pydantic.types import BBox
 
 DEFAULT_MAX_ITEMS = 10
 MAX_MAX_ITEMS = 100
@@ -43,13 +44,20 @@ def adjust_date_times(properties: dict[str, Any]) -> ItemProperties:
 
 
 def stac_item_to_future_item(item: pystac.Item) -> Item:
+    bbox: Optional[BBox] = None
+    if item.bbox:
+        if len(item.bbox) == 4:
+            bbox = (item.bbox[0], item.bbox[1], item.bbox[2], item.bbox[3])
+        elif len(item.bbox) == 6:
+            bbox = (item.bbox[0], item.bbox[1], item.bbox[2], item.bbox[3], item.bbox[4], item.bbox[5])
+        else:
+            raise Exception(f'Unexpected number of items in bbox of item {item.id}: {item.bbox}')
+
     return Item(
         geometry=item.geometry,
         properties=adjust_date_times(item.properties),
         id=item.id,
-
-        # TODO implement bbox mapping
-        # bbox=item.bbox,
+        bbox=bbox,
     )
 
 class SentinelBackend:
