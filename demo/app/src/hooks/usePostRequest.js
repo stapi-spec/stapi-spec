@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
-const usePostRequest = (params, provider) => {
+const usePostRequest = (postParams) => {
+    const {params, provider} = !!postParams && postParams;
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
