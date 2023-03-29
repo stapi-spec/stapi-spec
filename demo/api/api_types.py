@@ -1,4 +1,4 @@
-from typing import Any, Optional, Union, Dict
+from typing import Any, Optional, Tuple, Union, Dict
 from geojson_pydantic.features import Feature, FeatureCollection
 from pydantic import BaseModel, Field
 from pydantic.datetime_parse import parse_datetime
@@ -25,6 +25,29 @@ Geometry = Union[
     GeometryCollection,
 ]
 
+ProductConstraints = dict[str, Union[Tuple[float, float], float]]
+ProductParameters = dict[str, Union[float, int, str]]
+ProductProperties = dict[str, Any]
+
+class Product(BaseModel):
+    id: str
+    provider: str
+    title: str
+    extends: list[str]
+    description: str
+    constraints: Optional[ProductConstraints] = Field(
+        default=None,
+        description="Query constraints that will filter the opportunity results list."
+    )
+    parameters: Optional[ProductParameters] = Field(
+        default=None,
+        description="Additional parameters for ordering."
+    )
+    properties: Optional[ProductProperties] = Field(
+        default=None,
+        description="Metadata about the product"
+    )
+
 
 # Copied and modified from stack_pydantic.item.ItemProperties
 class OpportunityProperties(BaseModel):
@@ -34,13 +57,20 @@ class OpportunityProperties(BaseModel):
 
     title: Optional[str] = Field(None, alias="title")
     description: Optional[str] = Field(None, alias="description")
-    start_datetime: Optional[Datetime] = Field(None, alias="start_datetime")
-    end_datetime: Optional[Datetime] = Field(None, alias="end_datetime")
+    datetime: Optional[str] = Field(None, alias="datetime")
     product_id: Optional[str] = Field(None, alias="product_id")
     constraints: Optional[Dict[str, Any]] = Field(None, alias="constraints")
 
-    class Config:
-        json_encoders = {Datetime: lambda v: v.strftime(DATETIME_RFC339)}
+    # TODO need to ask if this is exactly like stac with .., /, single datetime etc.
+    @property
+    def start_date(self) -> Datetime:
+        values = self.datetime.split("/")
+        return parse_datetime(values[0])
+
+    @property
+    def end_date(self) -> Datetime:
+        values = self.datetime.split("/")
+        return parse_datetime(values[1])
 
 
 # Copied and modified from stack_pydantic.item.Item
@@ -73,7 +103,8 @@ class Search(BaseModel):
     # Slash separated date time range
     datetime: str
     product_id: Optional[str]
-    constraints: Optional[Dict[str, Any]]
+    constraints: Optional[Dict[str, Any]] = None
+    limit: int = 10
 
     # TODO need to ask if this is exactly like stac with .., /, single datetime etc.
     @property

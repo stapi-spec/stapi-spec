@@ -1,6 +1,7 @@
 from typing import Protocol
 
-from api.api_types import Search, OpportunityCollection
+from api.api_types import OpportunityCollection, Product, Search
+
 
 # backend protocol class
 class Backend(Protocol):
@@ -11,4 +12,10 @@ class Backend(Protocol):
         search: Search,
         token: str,
     ) -> OpportunityCollection:
+        return NotImplemented
+
+    async def find_products(
+        self,
+        token: str,
+    ) -> list[Product]:
         return NotImplemented
