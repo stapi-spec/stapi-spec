@@ -22,6 +22,7 @@ VALID_SEARCH_BODY = {
     }
 }
 
+
 def test_read_docs():
     response = client.get("/docs")
     assert response.status_code == 200
@@ -50,7 +51,6 @@ def test_post_to_opportunities_with_opportunities_body_and_header(backend: str):
     )
     assert response.status_code == 200
     assert "features" in response.json()
-
 
 
 @pytest.mark.parametrize("backend", ["planet"])
