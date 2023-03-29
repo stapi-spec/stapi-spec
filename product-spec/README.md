@@ -17,7 +17,6 @@ This document explains the structure of a SPOT Product.
 | links           | \[[Link Object](#link-object)]                   | **REQUIRED.** A list of references to other documents.       |
 | constraints | Map<string, [ConstraintsObject](#constraints-object)> | User supplied constraints on a tasking request|
 | parameters | [ParametersObject](#parameters-object) | User supplied parameters that don't constrain tasking (e.g., output format)|
-| properties | [PropertiesObject](#properties-object) | Static metadata |
 
 
 ### Provider Object
@@ -59,8 +58,38 @@ For a full discussion of the situations where relative and absolute links are re
 
 ### Constraints Object
 
+The constraints for a field can be specified in three ways:
+
+1. A set of all distinct values in an array: The set of values must contain at least one element and it is strongly recommended to list all values.
+2. A Range in a [Range Object](#range-object): Statistics by default only specify the range (minimum and maximum values),
+   but can optionally be accompanied by additional statistical values.
+   The range specified by the `minimum` and `maximum` properties can specify the potential range of values,
+   but it is recommended to be as precise as possible.
+3. Extensible JSON Schema definitions for fine-grained information, see the [JSON Schema Object](#json-schema-object)
+   section for more.
 
 ### Parameters Object
 
+A summary for a field can be specified in three ways:
 
-### Properties Object
+1. A set of all distinct values in an array: The set of values must contain at least one element and it is strongly recommended to list all values.
+2. A Range in a [Range Object](#range-object): Statistics by default only specify the range (minimum and maximum values),
+   but can optionally be accompanied by additional statistical values.
+   The range specified by the `minimum` and `maximum` properties can specify the potential range of values,
+   but it is recommended to be as precise as possible.
+3. Extensible JSON Schema definitions for fine-grained information, see the [JSON Schema Object](#json-schema-object)
+   section for more.
+
+### Range Object
+
+For summaries that would normally consist of a lot of continuous values, statistics can be added instead.
+By default, only ranges with a minimum and a maximum value can be specified.
+Ranges can be specified for [ordinal](https://en.wikipedia.org/wiki/Level_of_measurement#Ordinal_scale) values only,
+which means they need to have a rank order.
+Therefore, ranges can only be specified for numbers and some special types of strings. Examples: grades (A to F), dates or times.
+Implementors are free to add other derived statistical values to the object, for example `mean` or `stddev`.
+
+| Field Name | Type           | Description |
+| ---------- | -------------- | ----------- |
+| minimum    | number\|string | **REQUIRED.** Minimum value. |
+| maximum    | number\|string | **REQUIRED.** Maximum value. |
