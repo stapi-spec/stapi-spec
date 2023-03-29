@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 import os
 import requests
+import time
 
 from api.api_types import Item, ItemCollection, Search
 
@@ -68,14 +69,20 @@ def get_imaging_windows(planet_request):
                 list(r.headers.keys()), r.status_code, r.text, os.getenv("PLANET_TOKEN"))
         )
 
-    poll_url = r.headers['location']
+    poll_url = f"{PLANET_BASE_URL}{r.headers['location']}"
+    os.environ["PLANET_LAST_POLL_URL"] = poll_url
 
-    r = requests.get(
-        f"{PLANET_BASE_URL}/{poll_url}",
-        headers=headers
-    )
+    while True:
+        r = requests.get(poll_url, headers=headers)
+        status = r.json()['status']
+        if status == "DONE":
+            return r.json()['imaging_windows']
+        elif status == 'FAILED':
+            raise ValueError(
+                f"Retrieving Imaging Windows failed: {r.json['error_code']} - {r.json['error_message']}'")
+        time.sleep(1)
+    # raise(ValueError(f"{poll_url}\n{r.json()}"))
 
-    return r.json()['imaging_windows']
 
 
 def imaging_window_to_stac_item(iw, geom, bbox):
@@ -90,10 +97,15 @@ def imaging_window_to_stac_item(iw, geom, bbox):
         geometry=geom,
         bbox=bbox,
         properties={
+            'datetime': f"{iw['start_time']}",
             'start_datetime': iw['start_time'],
             'end_datetime': iw['end_time'],
             'constellation': 'planet-skysat',
-            'providers': ['planet']
+            'providers': [{
+                'name': 'planet',
+                'roles': ['producer'],
+                'url': 'https://www.planet.com'
+            }]
         })
     item.ext.enable('view')
     item.ext.enable('eo')
