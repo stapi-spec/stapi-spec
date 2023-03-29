@@ -21,14 +21,15 @@ async def post_pineapple(
     request: Request,
     pineapple: Search,
 ):
+
+    print("Starting....")
     print(BACKENDS)
     # get the right token and backend from the header
-    backend = request.headers.get("backend", "sentinel")
+    backend = request.headers.get("backend", "blacksky")
 
     token = "this-is-not-a-real-token"
     if authorization := request.headers.get("authorization"):
         token = authorization.replace("Bearer ", "")
-
 
     if backend in BACKENDS:
         impl: Backend = BACKENDS[backend]
