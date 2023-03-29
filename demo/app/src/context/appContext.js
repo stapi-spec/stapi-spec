@@ -1,5 +1,6 @@
-import { createContext, useContext, useMemo, useState } from "react";
-import useApiRequest from "src/hooks/useApiRequest";
+import { createContext, useContext, useMemo, useState } from 'react';
+import useApiRequest from 'src/hooks/useApiRequest';
+import { formatToValidTuple, formatToISOString } from 'src/utils';
 
 const AppContext = createContext();
 
@@ -51,12 +52,4 @@ export default function AppProvider({ children }) {
 
 export function useAppContext() {
   return useContext(AppContext);
-}
-
-function formatToValidTuple(bbox){
-  return [bbox._southWest.lat, bbox._southWest.lng, bbox._northEast.lat, bbox._northEast.lng];
-}
-
-function formatToISOString(range){
-  return `${range[0].toISOString()/range[1].toISOString()}`;
 }
