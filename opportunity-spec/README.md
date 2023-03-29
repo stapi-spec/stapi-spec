@@ -1,6 +1,6 @@
 # Opportunity Spec
 
-This document explains the structure of a SPOT Opportunity request. 
+This document explains the structure of a SPOT Order request which is used for finding opportunities and placing orders. 
 
 
 | Field Name | Type                                                                       | Description |
