@@ -10,6 +10,7 @@ Start application.
 }
 
 function run_backend() {
+    source "$(dirname $(dirname $0))/.venv/bin/activate"
     PYTHONPATH="$(dirname $(dirname $0))/api/" uvicorn main:app --reload
 }
 
@@ -26,4 +27,3 @@ elif [[ "${1:-}" == "frontend" ]]; then
 else
     run_backend & run_frontend
 fi
-
