@@ -18,9 +18,9 @@ function mouseOutStyleChange(e) {
         {(opportunities||[]).map((opp, index) => {
             return <Opportunity
                 key={index}
-                title={opp.features[0].properties.title}
-                start={opp.features[0].properties.start_datetime}
-                end={opp.features[0].properties.end_datetime}
+                title={opp.properties.title}
+                start={opp.properties.start_datetime}
+                end={opp.properties.end_datetime}
                 // onMouseEnter={(e) => {
                 //     mouseInStyleChange(e);
                 //     setHoveredOpportunity(index)}}

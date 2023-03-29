@@ -1,13 +1,12 @@
 import styles from './Sidebar.module.scss'
 
 export default function Opportunity({
-    key,
     title,
     start,
     end
 }) {
   return (
-    <div className={styles.opportunityPreview} key={key}>
+    <div className={styles.opportunityPreview}>
         <h1>{title}</h1>
         <div className={styles.previewStartDate}>
             {start ?? 'no start date given'}
