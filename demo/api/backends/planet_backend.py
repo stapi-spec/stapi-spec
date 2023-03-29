@@ -32,9 +32,7 @@ def stac_search_to_imaging_window_request(search_request: Search):
 
     if 'datetime' not in sr:
         raise ValueError("Please provide datetime! Provided fields: %s" % list(sr.keys()))
-    start_time = sr["datetime"]  # "2023-03-30T17:20:13.061Z"
-    end_time_dt = datetime.fromisoformat(start_time[:-1]) + timedelta(days=3)
-    end_time = end_time_dt.isoformat() + 'Z'
+    start_time, end_time = sr["datetime"].split('/')
 
     return {
         "start_time": start_time,
@@ -49,6 +47,35 @@ def stac_search_to_imaging_window_request(search_request: Search):
             ]
         },
     }, first_intersect, bbox
+
+
+def get_imaging_windows(planet_request):
+    headers = {
+        'accept': 'application/json',
+        'Content-Type': 'application/json',
+        'authorization': os.getenv("PLANET_TOKEN")
+    }
+
+    r = requests.post(
+        f"{PLANET_BASE_URL}/tasking/v2/imaging-windows/search",
+        headers=headers,
+        json=planet_request
+    )
+
+    if 'location' not in r.headers:
+        raise ValueError(
+            "Header 'location' not found: %s, status %s, body %s, token %s" % (
+                list(r.headers.keys()), r.status_code, r.text, os.getenv("PLANET_TOKEN"))
+        )
+
+    poll_url = r.headers['location']
+
+    r = requests.get(
+        f"{PLANET_BASE_URL}/{poll_url}",
+        headers=headers
+    )
+
+    return r.json()['imaging_windows']
 
 
 def imaging_window_to_stac_item(iw, geom, bbox):
@@ -85,37 +112,11 @@ class PlanetBackend:
     ) -> ItemCollection:
 
         planet_request, geom, bbox = stac_search_to_imaging_window_request(search_request)
-
-        headers = {
-            'accept': 'application/json',
-            'Content-Type': 'application/json',
-            'authorization': os.getenv("PLANET_TOKEN")
-        }
-
-        r = requests.post(
-            f"{PLANET_BASE_URL}/tasking/v2/imaging-windows/search",
-            headers=headers,
-            json=planet_request
-        )
-
-        if 'location' not in r.headers:
-            raise ValueError(
-                "Header 'location' not found: %s, status %s, body %s, token %s" % (
-                    list(r.headers.keys()), r.status_code, r.text, os.getenv("PLANET_TOKEN"))
-            )
-
-        poll_url = r.headers['location']
-
-        r = requests.get(
-            f"{PLANET_BASE_URL}/{poll_url}",
-            headers=headers
-        )
-
+        imaging_windows = get_imaging_windows(planet_request)
         stac_items = [
             imaging_window_to_stac_item(iw, geom, bbox)
             for iw
-            in r.json()['imaging_windows']
+            in imaging_windows
         ]
 
-        item_collection = ItemCollection(features=stac_items, links=[])
-        return item_collection
+        return ItemCollection(features=stac_items, links=[])
