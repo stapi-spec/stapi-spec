@@ -10,14 +10,14 @@ import { useAppContext } from 'src/context/appContext';
 import OpportunityList from './OpportunityList';
 
 export default function Sidebar(props) {
-  const { isLoading, error, openFilters, setOpenFilters } = useAppContext();
+  const { isLoading, errorOpps, openFilters, setOpenFilters } = useAppContext();
   const filterButtonClass = openFilters
     ? styles.filterButtonOpen
     : styles.filterButtonClosed
 
   return (
     <div className={styles.sidebar}>
-      {!isLoading && !error && (
+      {!isLoading && !errorOpps && (
         <>
           <div className={styles.topBar}>
             <h3 className={styles.heading}>Opportunities</h3>
@@ -39,12 +39,12 @@ export default function Sidebar(props) {
           )}
         </>
       )}
-      {!!isLoading && !error && (
+      {!!isLoading && !errorOpps && (
         <div className={styles.loader}>
           <RingLoader color="#5fbb9d" />
         </div>
       )}
-      {!!error && <div>There was error</div>}
+      {!!errorOpps && <div>There was error</div>}
     </div>
   );
 }

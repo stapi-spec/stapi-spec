@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const useApiRequest = (params) => {
+const usePostRequest = (params) => {
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
@@ -32,4 +32,4 @@ const useApiRequest = (params) => {
     return { data, isLoading, error };
 };
     
-export default useApiRequest;
+export default usePostRequest;

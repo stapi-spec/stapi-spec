@@ -1,5 +1,6 @@
 import { createContext, useContext, useMemo, useState } from 'react';
-import useApiRequest from 'src/hooks/useApiRequest';
+import usePostRequest from 'src/hooks/usePostRequest';
+import useGetRequest from '../hooks/useGetRequest';
 import { formatToValidTuple, formatToISOString } from 'src/utils';
 
 const AppContext = createContext();
@@ -34,20 +35,26 @@ export default function AppProvider({ children }) {
     } : null;
   }, [userParams])
 
-  const { isLoading, data: opportunities, error } = useApiRequest(params);
+  const { isLoading: isLoadingOpps, data: opportunities, error: errorOpps } = usePostRequest(params);
+  const { isLoading: isLoadingProducts, data: products, error: errorProducts } = useGetRequest();
 
+  console.log(products);
   const app = {
     userParams,
     setUserParams,
-    isLoading,
+    isLoadingOpps,
+    isLoadingProducts,
+    products,
+    errorProducts,
     opportunities,
-    error,
+    errorOpps,
     selectedOpportunity,
     setSelectedOpportunity,
     hoveredOpportunity,
     setHoveredOpportunity,
     openFilters,
-    setOpenFilters
+    setOpenFilters,
+    setHoveredOpportunity
   }
 
   return (
