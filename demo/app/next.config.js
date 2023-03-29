@@ -26,6 +26,9 @@ const nextConfig = {
       },
     ]
   },
+  experimental: {
+    proxyTimeout: 300000
+  }
 }
 
 
