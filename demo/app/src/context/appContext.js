@@ -11,7 +11,7 @@ export default function AppProvider({ children }) {
 
   const params = useMemo(() => {
     return bbox ? {
-      "bbox": bbox, // make a valid tuple
+      "bbox": formatToValidTuple(bbox),
       //start_date: dateRange[0], call time formatting here
       //end_date: dateRange[1] call time formatting here
     } : null;
@@ -40,4 +40,8 @@ export default function AppProvider({ children }) {
 
 export function useAppContext() {
   return useContext(AppContext);
+}
+
+function formatToValidTuple(bbox){
+  return [bbox._southWest.lat, bbox._southWest.lng, bbox._northEast.lat, bbox._northEast.lng];
 }
