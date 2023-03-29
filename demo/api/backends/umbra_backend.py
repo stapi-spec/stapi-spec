@@ -1,13 +1,9 @@
 import asyncio
 import os
 from typing import Any, Dict, List, Literal, Optional
-from uuid import UUID
+from uuid import UUID, uuid4
 
 import requests
-from pydantic import BaseModel, Field
-from pystac import ProviderRole
-from stac_pydantic.shared import Provider
-
 from api.api_types import (
     Geometry,
     Opportunity,
@@ -17,6 +13,9 @@ from api.api_types import (
     Search,
 )
 from api.backends.base import Backend
+from pydantic import BaseModel, Field
+from pystac import ProviderRole
+from stac_pydantic.shared import Provider
 
 UMBRA_BASE_URL = os.getenv("UMBRA_BASE_URL")
 UMBRA_FEASIBILITIES_URL = f"{UMBRA_BASE_URL}/tasking/feasibilities"
@@ -61,7 +60,7 @@ def umbra_opportunity_to_opportunity(
         id=None,
         geometry=geom,
         properties=OpportunityProperties(
-            title="",
+            title=f"umb-spotlight: {str(uuid4())}",
             description="",
             datetime=f"{opportunity['windowStartAt']}/{opportunity['windowEndAt']}",
             product_id="umb-spotlight",
