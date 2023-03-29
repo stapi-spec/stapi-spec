@@ -44,7 +44,7 @@ def stac_item_to_opportunity(item: pystac.Item) -> Opportunity:
         id=item.id,
     )
 
-class SentinelBackend:
+class HistoricalBackend:
     async def find_opportunities(
         self,
         search: Search,
@@ -57,7 +57,7 @@ class SentinelBackend:
         max_items = DEFAULT_MAX_ITEMS
 
         args: dict[str, Any] = {
-            'collections': 'landsat-c2-l2',
+            'collections': [search.product_id],
             'max_items': max_items,
             'limit': max_items,
         }
@@ -73,6 +73,7 @@ class SentinelBackend:
         else:
             raise Exception('A datetime range must be specified')
 
+        print(args)
         search = catalog.search(**args)
         item_coll = search.item_collection()
 
