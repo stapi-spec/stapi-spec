@@ -5,8 +5,6 @@ const usePostRequest = (params, provider) => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
 
-    const 
-
     useEffect(() => {
         if (params) {
             setIsLoading(true);
@@ -22,7 +20,10 @@ const usePostRequest = (params, provider) => {
             .then((data) => {
                 setData(data.features)
                 setIsLoading(false)
-            }).catch(e => setError(e));
+            }).catch(e => {
+                setError(e);
+                setIsLoading(false);
+            });
         }
     }, [params]);
 

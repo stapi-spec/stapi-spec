@@ -30,7 +30,8 @@ export default function AppProvider({ children }) {
     return userParams.geometry ? {
         params: {
           "geometry": userParams.geometry,
-          "datetime": formatToISOString(userParams.dateRange)
+          "datetime": formatToISOString(userParams.dateRange),
+          "product_id": "sentinel-2-l1c"
         },
         provider: userParams.provider
       } : null;
