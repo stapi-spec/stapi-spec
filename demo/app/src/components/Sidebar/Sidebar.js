@@ -16,7 +16,7 @@ export default function Sidebar(props) {
         <div className={styles.loader}><RingLoader color="#5fbb9d"/></div>
       )}
       {!!error && (
-        {error}
+        <div>There was error</div>
       )}
     </div>
   );
