@@ -2,6 +2,7 @@ from typing import List, Literal
 from uuid import UUID
 
 from pydantic import BaseModel, Field
+from pystac import Provider, ProviderRole
 
 from api.api_types import Product
 from api.backends.base import Backend
@@ -24,33 +25,36 @@ class UmbraSpotlightParameters(BaseModel):
 
 
 class UmbraBackend(Backend):
-    async def find_products(self, token: str) -> list[Product]:
+    async def find_products(self, token: str) -> List[Product]:
         return [
             Product(
+                stat_version="0.0.1",
+                stat_extensions=["SAR"],
                 id="umb-spotlight",
-                provider="Umbra",
                 title="Umbra 4x4km Spotlight SAR Image",
-                extends=["SAR"],
                 description="...",
+                keywords=["sar", "spotlight"],
+                license=" CC-BY-4.0",
+                providers=[
+                    Provider(
+                        name="Umbra",
+                        roles=[
+                            ProviderRole.LICENSOR,
+                            ProviderRole.PROCESSOR,
+                            ProviderRole.PRODUCER,
+                            ProviderRole.HOST,
+                        ],
+                        url="https://umbra.space",
+                    )
+                ],
+                links=[],
                 constraints={
-                    # Does the same key provided here override the default ranges in
-                    # base "SAR" Product extension?
-                    "sar:resolution_range": [0.25, 1.0],
-                    "sar:resolution_azimuth": [0.25, 1.0],
-                    "target_azimuth": [0, 360],
-                    "grazing": [10, 70],
-                    # This doesn't match constraints typing, a [float, float] is required?
-                    "polarization": ["VV", "HH"],
+                    "sar:resolution_range": [0.25, 0.5, 1.0],
+                    "sar:resolution_azimuth": [0.25, 0.5, 1.0],
+                    "target_azimuth": {"minimum": 0, "maximum": 360},
+                    "grazing": {"minimum": 10, "maximum": 70},
+                    "sar:polarizations": ["VV", "HH"],
                 },
-                parameters={
-                    # This doesn't match constraints typing, a str | float | int is required
-                    "umb:data_products": ["GEC", "SICD", "SIDD", "CPHD"],
-                    # This doesn't match constraints typing, a str | float | int is required
-                    "umb:delivery_config_id": None,
-                    "umb:task_name": "",
-                    # This doesn't match constraints typing, a str | float | int is required
-                    "umb:user_order_id": None,
-                },
-                properties={},
+                parameters=UmbraSpotlightParameters.schema(),
             )
         ]
