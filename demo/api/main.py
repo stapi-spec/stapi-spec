@@ -1,11 +1,11 @@
 
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import RedirectResponse
-from stac_pydantic import ItemCollection
-from stac_pydantic.api.search import Search
 
 from api.backends.base import Backend
 from api.backends import BACKENDS
+
+from api.api_types import ItemCollection, Search
 
 app = FastAPI(title="Tasking API")
 
@@ -19,7 +19,7 @@ async def redirect_home():
 @app.post("/pineapple", response_model=ItemCollection)
 async def post_pineapple(
     request: Request,
-    pineapple: Search = Search(),
+    pineapple: Search,
 ):
     print(BACKENDS)
     # get the right token and backend from the header
@@ -29,10 +29,9 @@ async def post_pineapple(
     if authorization := request.headers.get("authorization"):
         token = authorization.replace("Bearer ", "")
 
-    impl: Backend = None
 
     if backend in BACKENDS:
-        impl = BACKENDS[backend]()
+        impl: Backend = BACKENDS[backend]
     else:
         raise HTTPException(
             status_code=404,

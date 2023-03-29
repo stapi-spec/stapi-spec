@@ -2,10 +2,7 @@ from datetime import datetime, timedelta
 import os
 import requests
 
-from typing import Any
-from pystac_client.client import Client
-from stac_pydantic import Item, ItemCollection
-from stac_pydantic.api.search import Search
+from api.api_types import Item, ItemCollection, Search
 
 PLANET_BASE_URL = "https://api.staging.planet-labs.com"
 

@@ -1,6 +1,5 @@
 import pystac
-from stac_pydantic import Item, ItemCollection
-from stac_pydantic.api.search import Search
+from api.api_types import Item, ItemCollection, Search
 
 
 STAC_ITEM_URL = (
@@ -19,5 +18,5 @@ class FakeBackend():
         pystac_item = pystac.Item.from_file(STAC_ITEM_URL)
 
         item = Item(**pystac_item.to_dict())
-        item_collection = ItemCollection(features=[item], links=[])
+        item_collection = ItemCollection(features=[item])
         return item_collection
