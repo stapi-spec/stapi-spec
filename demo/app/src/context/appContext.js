@@ -24,6 +24,7 @@ export default function AppProvider({ children }) {
   const params = useMemo(() => {
     return userParams.bbox ? {
       "bbox": formatToValidTuple(userParams.bbox),
+      "datetime": formatToISOString(userParams.dateRange)
       //start_date: dateRange[0], call time formatting here
       //end_date: dateRange[1] call time formatting here
     } : null;
@@ -54,4 +55,8 @@ export function useAppContext() {
 
 function formatToValidTuple(bbox){
   return [bbox._southWest.lat, bbox._southWest.lng, bbox._northEast.lat, bbox._northEast.lng];
+}
+
+function formatToISOString(range){
+  return `${range[0].toISOString()/range[1].toISOString()}`;
 }
