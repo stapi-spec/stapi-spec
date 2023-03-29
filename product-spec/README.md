@@ -13,12 +13,11 @@ This document explains the structure of a SPOT Product.
 | description     | string                                           | **REQUIRED.** Detailed multi-line description to fully explain the Collection. [CommonMark 0.29](http://commonmark.org/) syntax MAY be used for rich text representation. |
 | keywords        | \[string]                                        | List of keywords describing the Product.                  |
 | license         | string                                           | **REQUIRED.** Collection's license(s), either a SPDX [License identifier](https://spdx.org/licenses/), `various` if multiple licenses apply or `proprietary` for all other cases. |
-| providers       | \[[Provider Object](#provider-object)]           | A list of providers, which may include all organizations capturing or processing the data or the hosting provider. Providers should be listed in chronological order with the most recent provider being the last element of the list. |
-| extent          | [Extent Object](#extent-object)                  | **REQUIRED.** Spatial and temporal extents.                  |
+| providers       | \[[Provider Object](#provider-object)]           | A list of providers, which may include all organizations capturing or processing the data or the hosting provider. Providers should be listed in chronological order with the most recent provider being the last element of the list. |                |
 | links           | \[[Link Object](#link-object)]                   | **REQUIRED.** A list of references to other documents.       |
 | constraints | Map<string, [ConstraintsObject](#constraints-object)> | User supplied constraints on a tasking request|
-| parameters | Map<string, [ParametersObject](#parameters-object)> | User supplied parameters that don't constrain tasking (e.g., output format)|
-| properties | Map<string, [PropertiesObject](#properties-object)> | Static metadata |
+| parameters | [ParametersObject](#parameters-object) | User supplied parameters that don't constrain tasking (e.g., output format)|
+| properties | [PropertiesObject](#properties-object) | Static metadata |
 
 
 ### Provider Object
