@@ -1,11 +1,12 @@
-
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import RedirectResponse
+
+from datetime import datetime, timedelta
 
 from api.backends.base import Backend
 from api.backends import BACKENDS
 
-from api.api_types import ItemCollection, Search
+from api.api_types import Search, OpportunityCollection
 
 app = FastAPI(title="Tasking API")
 
@@ -15,20 +16,30 @@ async def redirect_home():
     return RedirectResponse("/docs")
 
 
-@app.get("/pineapple", response_model=ItemCollection)
-@app.post("/pineapple", response_model=ItemCollection)
-async def post_pineapple(
+@app.get("/opportunities", response_model=OpportunityCollection)
+async def get_opportunities(
     request: Request,
-    pineapple: Search,
+    search: Search | None = None,
 ):
-    print(BACKENDS)
+    if search is None:
+        start_datetime = datetime.now()
+        end_datetime = start_datetime + timedelta(days=40)
+        search = Search(datetime=f"{start_datetime.isoformat()}/{end_datetime.isoformat()}")
+
+    return await post_opportunities(request, search)
+
+
+@app.post("/opportunities", response_model=OpportunityCollection)
+async def post_opportunities(
+    request: Request,
+    search: Search,
+):
     # get the right token and backend from the header
     backend = request.headers.get("backend", "sentinel")
 
     token = "this-is-not-a-real-token"
     if authorization := request.headers.get("authorization"):
         token = authorization.replace("Bearer ", "")
-
 
     if backend in BACKENDS:
         impl: Backend = BACKENDS[backend]
@@ -38,9 +49,9 @@ async def post_pineapple(
             detail=f"Backend '{backend}' not in options: {list(BACKENDS.keys())}"
         )
 
-    item_collection = await impl.find_future_items(
-        pineapple,
+    opportunity_collection = await impl.find_opportunities(
+        search,
         token=token,
     )
 
-    return item_collection
+    return opportunity_collection

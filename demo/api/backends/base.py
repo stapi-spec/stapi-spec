@@ -1,14 +1,14 @@
 from typing import Protocol
 
-from api.api_types import Search, ItemCollection
+from api.api_types import Opportunity, Search, OpportunityCollection
 
 # backend protocol class
 class Backend(Protocol):
     """Backend Python API"""
 
-    async def find_future_items(
+    async def find_opportunities(
         self,
-        search_request: Search,
+        search: Search,
         token: str,
-    ) -> ItemCollection:
+    ) -> OpportunityCollection:
         return NotImplemented

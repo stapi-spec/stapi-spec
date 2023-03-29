@@ -1,5 +1,5 @@
 import pystac
-from api.api_types import Item, ItemCollection, Search
+from api.api_types import Opportunity, Search
 
 
 STAC_ITEM_URL = (
@@ -9,14 +9,12 @@ STAC_ITEM_URL = (
 
 
 class FakeBackend():
-    async def find_future_items(
+    async def find_opportunities(
         self,
-        search_request: Search,
+        search: Search,
         token: str,
-    ) -> ItemCollection:
+    ) -> Opportunity:
 
-        pystac_item = pystac.Item.from_file(STAC_ITEM_URL)
-
-        item = Item(**pystac_item.to_dict())
-        item_collection = ItemCollection(features=[item])
-        return item_collection
+        item = pystac.Item.from_file(STAC_ITEM_URL)
+        opportunities = Opportunity(geometry=item.geometry, properties=item.properties)
+        return opportunities
