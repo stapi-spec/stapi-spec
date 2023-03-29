@@ -135,6 +135,13 @@ class UmbraBackend(Backend):
     ) -> OpportunityCollection:
         print(f"Umbra - find_opportunities, search: {search}")
 
+        # Grab token from env until we can get it from the header
+        if not token:
+            token = os.getenv("UMBRA_TOKEN", "")
+
+        if not token:
+            raise Exception("Set UMBRA_TOKEN before running the server")
+
         if not UMBRA_BASE_URL:
             raise Exception("Set UMBRA_BASE_URL before running the server")
 

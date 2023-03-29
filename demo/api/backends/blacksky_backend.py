@@ -82,7 +82,7 @@ def oppurtunity_to_stac_item(iw):
         },
         properties={
             'title': '',
-            'datetime': iw['timestamp'],
+            'datetime': f"{iw['timestamp']}/{iw['timestamp']}",
             'constraints': {
                 'off_nadir': iw['offNadirAngleDegrees'],
                 'cloud_cover': iw['weatherForecast']['cloudCover']
