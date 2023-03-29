@@ -5,14 +5,15 @@ const AppContext = createContext();
 
 export default function AppProvider({ children }) {
   const today = new Date();
-  /*
-    userParams interface:
-    {
-      bbox: tuple<number>,
-      dateRange: tuple<Date>
-    }
+  /**
+   * @typedef {object} UserParams
+   * @property {[Date, Date]} dateRange
+   * @property {number[]} bbox
   */
-  const [userParams, setUserParams] = useState({
+  const [
+    /** @type {UserParams} */ userParams,
+    setUserParams
+  ] = useState({
     dateRange: [
     today,
     new Date(new Date(today).setDate(today.getDate() + 7)),
