@@ -17,8 +17,8 @@ function parseStacDatetime(datetime) {
   }
 
   return {
-    start: null,
-    end: null,
+    start: datetime,
+    end: datetime,
   }
 }
 

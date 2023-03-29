@@ -9,6 +9,7 @@ const usePostRequest = (postParams) => {
     useEffect(() => {
         if (params) {
             setIsLoading(true);
+            setError(false);
             fetch("/api/opportunities", {
                 method: "POST",
                 headers: {
