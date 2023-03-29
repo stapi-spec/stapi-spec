@@ -1,6 +1,6 @@
 from typing import Protocol
 
-from api.api_types import Opportunity, Search
+from api.api_types import Opportunity, Search, OpportunityCollection
 
 # backend protocol class
 class Backend(Protocol):
@@ -10,5 +10,5 @@ class Backend(Protocol):
         self,
         search: Search,
         token: str,
-    ) -> list[Opportunity]:
+    ) -> OpportunityCollection:
         return NotImplemented
