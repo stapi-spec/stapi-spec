@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 import os
 import requests
 
-from api.api_types import Item, ItemCollection, Search
+from api.api_types import Opportunity, OpportunityCollection, OpportunityProperties, Search
 
 BLACKSKY_BASE_URL = "https://api.dev.blacksky.com/v1"
 
@@ -64,14 +64,11 @@ def stac_search_to_oppurtunities_request(search_request: Search):
         "includeWeather": True
     }, first_intersect, bbox
 
-#"os.getenv("BLACKSKY_TOKEN")
 def get_oppurtunities(blacksky_request):
 
-    print(os.getenv("BLACKSKY_TOKEN"))
     headers = {
         'accept': 'application/json',
         'Content-Type': 'application/json',
-        'authorization': '3LDM66SKLDXOJFUQLYM6UMGTWMR5JEZE'
     }
 
     # print(blacksky_request)
@@ -109,13 +106,12 @@ def oppurtunity_to_stac_item(iw, geom, bbox):
 
 class BlackskyBackend:
 
-    async def find_future_items(
+    async def find_opportunities(
             self,
             search_request: Search,
             token: str,
-    ) -> ItemCollection:
+    ) -> OpportunityCollection:
 
-        print("Here")
         blacksky_request, geom, bbox = stac_search_to_oppurtunities_request(search_request)
         oppurtunities = get_oppurtunities(blacksky_request)
         stac_items = [
@@ -124,4 +120,4 @@ class BlackskyBackend:
             in oppurtunities
         ]
 
-        return ItemCollection(features=stac_items, links=[])
+        return OpportunityCollection(features=stac_items, links=[])
