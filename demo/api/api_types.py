@@ -1,5 +1,5 @@
 from typing import Any, Optional, Union, Dict
-from geojson_pydantic.features import Feature
+from geojson_pydantic.features import Feature, FeatureCollection
 from pydantic import BaseModel, Field
 from pydantic.datetime_parse import parse_datetime
 from geojson_pydantic.geometries import (
@@ -25,6 +25,8 @@ Geometry = Union[
     GeometryCollection,
 ]
 
+
+# Copied and modified from stack_pydantic.item.ItemProperties
 class OpportunityProperties(BaseModel):
     """
     https://github.com/radiantearth/stac-spec/blob/v1.0.0/item-spec/common-metadata.md#date-and-time-range
@@ -52,6 +54,16 @@ class Opportunity(Feature[Geometry, OpportunityProperties]):
     def to_json(self, **kwargs: Any):
         return self.json(by_alias=True, exclude_unset=True, **kwargs)
 
+
+# Copied and modified from stack_pydantic.item.ItemCollection
+class OpportunityCollection(FeatureCollection):  # type: ignore
+    features: list[Opportunity]
+
+    def to_dict(self, **kwargs: Any) -> Dict[str, Any]:
+        return self.dict(by_alias=True, exclude_unset=True, **kwargs)  # type: ignore
+
+    def to_json(self, **kwargs: Any) -> str:
+        return self.json(by_alias=True, exclude_unset=True, **kwargs)  # type: ignore
 
 
 # Copied and modified from stack_pydantic.api.search.Search

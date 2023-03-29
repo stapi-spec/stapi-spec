@@ -1,11 +1,10 @@
-
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import RedirectResponse
 
 from api.backends.base import Backend
 from api.backends import BACKENDS
 
-from api.api_types import ItemCollection, Search
+from api.api_types import Search, OpportunityCollection
 
 app = FastAPI(title="Tasking API")
 
@@ -15,13 +14,23 @@ async def redirect_home():
     return RedirectResponse("/docs")
 
 
-@app.get("/pineapple", response_model=ItemCollection)
-@app.post("/pineapple", response_model=ItemCollection)
-async def post_pineapple(
+@app.get("/products/{id}/opportunities", response_model=OpportunityCollection)
+@app.post("/products/{id}/opportunities", response_model=OpportunityCollection)
+async def product_opportunities(
+    id: str,
     request: Request,
-    pineapple: Search,
+    search: Search,
 ):
-    print(BACKENDS)
+    search.product = id
+    return await opportunities(request, search)
+
+
+@app.get("/opportunities", response_model=OpportunityCollection)
+@app.post("/opportunities", response_model=OpportunityCollection)
+async def opportunities(
+    request: Request,
+    search: Search,
+):
     # get the right token and backend from the header
     backend = request.headers.get("backend", "sentinel")
 
@@ -38,9 +47,9 @@ async def post_pineapple(
             detail=f"Backend '{backend}' not in options: {list(BACKENDS.keys())}"
         )
 
-    item_collection = await impl.find_future_items(
-        pineapple,
+    opportunities = await impl.find_opportunities(
+        search,
         token=token,
     )
 
-    return item_collection
+    return opportunities

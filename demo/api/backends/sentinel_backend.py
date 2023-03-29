@@ -1,10 +1,10 @@
 import datetime
 import re
 from datetime import timedelta
-from typing import Any, Optional, Union
+from typing import Any, Union
 
 import pystac
-from api.api_types import Item, ItemCollection, Search
+from api.api_types import Opportunity, OpportunityCollection, OpportunityProperties, Search
 from pystac_client.client import Client
 from stac_pydantic.item import ItemProperties
 from geojson_pydantic.types import BBox
@@ -37,56 +37,45 @@ def adjust_date_times(properties: dict[str, Any]) -> ItemProperties:
                 raise e
         return value
 
-    return ItemProperties(**{
+    return OpportunityProperties(**{
         k: adjust_date_time(v)
         for k, v in properties.items()
     })
 
 
-def stac_item_to_future_item(item: pystac.Item) -> Item:
-    bbox: Optional[BBox] = None
-    if item.bbox:
-        if len(item.bbox) == 4:
-            bbox = (item.bbox[0], item.bbox[1], item.bbox[2], item.bbox[3])
-        elif len(item.bbox) == 6:
-            bbox = (item.bbox[0], item.bbox[1], item.bbox[2], item.bbox[3], item.bbox[4], item.bbox[5])
-        else:
-            raise Exception(f'Unexpected number of items in bbox of item {item.id}: {item.bbox}')
-
-    return Item(
+def stac_item_to_opportunity(item: pystac.Item) -> Opportunity:
+    return Opportunity(
         geometry=item.geometry,
         properties=adjust_date_times(item.properties),
         id=item.id,
-        bbox=bbox,
     )
 
 class SentinelBackend:
-    async def find_future_items(
+    async def find_opportunities(
         self,
-        search_request: Search,
+        search: Search,
         token: str,
-    ) -> ItemCollection:
+    ) -> OpportunityCollection:
         catalog = Client.open('https://earth-search.aws.element84.com/v1')  # type: ignore
 
         # https://earth-search.aws.element84.com/v1/collections/landsat-c2-l2/items
 
 
-        max_items = get_max_items(search_request)
+        max_items = get_max_items(search)
 
         args: dict[str, Any] = {
             'collections': 'landsat-c2-l2',
             'max_items': max_items,
             'limit': max_items,
         }
-        if search_request.bbox:
-            args['bbox'] = search_request.bbox
-        if search_request.intersects:
-            args['intersects'] = search_request.intersects
 
-        if search_request.start_date and search_request.end_date:
+        if search.geometry:
+            args['intersects'] = search.geometry
+
+        if search.start_date and search.end_date:
             args['datetime'] = [
-                search_request.start_date - TIME_DELTA,
-                search_request.end_date - TIME_DELTA,
+                search.start_date - TIME_DELTA,
+                search.end_date - TIME_DELTA,
             ]
         else:
             raise Exception('A datetime range must be specified')
@@ -95,13 +84,13 @@ class SentinelBackend:
         item_coll = search.item_collection()
 
         # Convert the STAC items from earth search into future items
-        items: list[Item] = [
-            stac_item_to_future_item(item)
+        opportunities: list[Opportunity] = [
+            stac_item_to_opportunity(item)
             for item in item_coll.items
         ]
 
-        item_collection = ItemCollection(
-            features=items
+        opportunity_collection = OpportunityCollection(
+            features=opportunities
         )
 
-        return item_collection
+        return opportunity_collection
