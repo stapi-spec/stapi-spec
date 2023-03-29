@@ -1,6 +1,6 @@
 # Opportunity Spec
 
-This document explains the structure of a SPOT Opportunity. 
+This document explains the structure of a SPOT Opportunity request. 
 
 
 | Field Name | Type                                                                       | Description |
