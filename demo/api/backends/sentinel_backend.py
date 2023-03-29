@@ -93,7 +93,6 @@ class SentinelBackend:
         ]
 
         item_collection = ItemCollection(
-            **item_coll.to_dict(),
             features=items
         )
 
