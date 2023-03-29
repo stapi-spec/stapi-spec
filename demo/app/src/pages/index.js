@@ -1,7 +1,6 @@
 import Head from 'next/head';
 
 import Layout from '@components/Layout';
-import Section from '@components/Section';
 import Container from '@components/Container';
 import Map from '@components/Map';
 import Button from '@components/Button';
@@ -21,7 +20,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Container>
+      <Container className={styles.mapContainer}>
+        <div className={styles.sidebar}>
+          <h2>Opportunities</h2>
+        </div>
         <Map
           className={styles.homeMap}
           width="800"
@@ -31,19 +33,6 @@ export default function Home() {
           minZoom={2}
           maxZoom={20}
         />
-
-        <p className={styles.description}>
-          <code className={styles.code}>
-            yarn create next-app -e
-            https://github.com/colbyfayock/next-leaflet-starter
-          </code>
-        </p>
-
-        <p className={styles.view}>
-          <Button href="https://github.com/Element84/sat-tasking-sprint">
-            Vew on GitHub
-          </Button>
-        </p>
       </Container>
     </Layout>
   );

@@ -7,7 +7,10 @@ export default function AppProvider({ children }) {
   const today = new Date();
   const [geoJson, setGeoJson] = useState();
   const [bbox, setBbox] = useState();
-  const [dateRange, setDateRange] = useState([today, today.getDate() + 7]);
+  const [dateRange, setDateRange] = useState([
+    today,
+    new Date(today).setDate(today.getDate() + 7),
+  ]);
 
   const params = useMemo(() => {
     return bbox ? {

@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
 import { useAppContext } from 'src/context/appContext';
 
 // react-leaflet-draw styles
@@ -21,12 +20,6 @@ const DynamicEditControl = dynamic(
     ssr: false
   }
 );
-
-// Set default sizing to control aspect ratio which will scale responsively
-// but also help avoid layout shift
-
-const DEFAULT_WIDTH = 600;
-const DEFAULT_HEIGHT = 600;
 
 const tileLayers = [{
   name: 'default',
@@ -50,7 +43,6 @@ const Map = (props) => {
   const [featureGroup, setFeatureGroup] = useState();
   const { setGeoJson, setBbox } = useAppContext();
   const { url, attribution } = whichMap('Stadia.AlidadeSmooth');
-  const { width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT } = props;
 
   /**
    * saves feature group ref for later editing
@@ -92,7 +84,8 @@ const Map = (props) => {
               />
               <FeatureGroup
                 ref={(featureGroupRef) => {
-                  onFeatureGroupReady(featureGroupRef);
+                  const fg = featureGroup || featureGroupRef
+                  onFeatureGroupReady(fg);
                 }}
               >
                 <DynamicEditControl
