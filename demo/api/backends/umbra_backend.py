@@ -4,6 +4,10 @@ from typing import Any, Dict, List, Literal, Optional
 from uuid import UUID
 
 import requests
+from pydantic import BaseModel, Field
+from pystac import ProviderRole
+from stac_pydantic.shared import Provider
+
 from api.api_types import (
     Geometry,
     Opportunity,
@@ -13,8 +17,6 @@ from api.api_types import (
     Search,
 )
 from api.backends.base import Backend
-from pydantic import BaseModel, Field
-from pystac import Provider, ProviderRole
 
 UMBRA_BASE_URL = os.getenv("UMBRA_BASE_URL")
 UMBRA_FEASIBILITIES_URL = f"{UMBRA_BASE_URL}/tasking/feasibilities"
@@ -56,8 +58,11 @@ def umbra_opportunity_to_opportunity(
     opportunity: Dict[str, Any], geom: Optional[Geometry]
 ) -> Opportunity:
     return Opportunity(
+        id=None,
         geometry=geom,
         properties=OpportunityProperties(
+            title="",
+            description="",
             datetime=f"{opportunity['windowStartAt']}/{opportunity['windowEndAt']}",
             product_id="umb-spotlight",
             constraints={
@@ -179,6 +184,7 @@ class UmbraBackend(Backend):
                 providers=[
                     Provider(
                         name="Umbra",
+                        description="",
                         roles=[
                             ProviderRole.LICENSOR,
                             ProviderRole.PROCESSOR,
@@ -196,6 +202,18 @@ class UmbraBackend(Backend):
                     "grazing": {"minimum": 10, "maximum": 70},
                     "sar:polarizations": ["VV", "HH"],
                 },
-                parameters=UmbraSpotlightParameters.schema(),
+                parameters={
+                    "product_types": ["GEC", "SICD", "SIDD", "CPHD"],
+                    "task_name": {
+                        "type": "string",
+                        "required": True,
+                    },
+                    "user_order_id": {
+                        "type": "string",
+                    },
+                    "delivery_config_id": {
+                        "type": "string",
+                    },
+                },
             )
         ]
