@@ -1,35 +1,28 @@
 import { useEffect, useState } from "react";
 
-const usePostRequest = (params) => {
+const usePostRequest = (params, provider) => {
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
 
+    const 
+
     useEffect(() => {
         if (params) {
-            console.log('-------------------------------------------------')
             setIsLoading(true);
             fetch("/api/opportunities", {
                 method: "POST",
                 headers: {
-                    "Content-type": "application/json"
+                    "Content-type": "application/json",
+                    "Backend": provider
                 },
-                body: JSON.stringify({
-                    ...params,
-                    product_id: 'sentinel-2-l1c'
-                })
+                body: JSON.stringify(params)
             })
             .then((res) => res.json())
             .then((data) => {
-                console.log('-------------------------------------------------')
-                console.log("Data:", data)
-                console.log("Data features:", data.features)
                 setData(data.features)
                 setIsLoading(false)
-            }).catch((e) => {
-                setError(e);
-                setIsLoading(false);
-            });
+            }).catch(e => setError(e));
         }
     }, [params]);
 

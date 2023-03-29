@@ -19,21 +19,24 @@ export default function AppProvider({ children }) {
   ] = useState({
     dateRange: [
     today,
-    new Date(new Date(today).setDate(today.getDate() + 7)),
+    new Date(new Date(today).setDate(today.getDate() + 3)),
   ]
   });
   const [hoveredOpportunity, setHoveredOpportunity] = useState(null);
   const [selectedOpportunity, setSelectedOpportunity] = useState(null);
   const [openFilters, setOpenFilters] = useState(false);
 
-  const params = useMemo(() => {
+  const {params, provider} = useMemo(() => {
     return userParams.geometry ? {
-      "geometry": userParams.geometry,
-      "datetime": formatToISOString(userParams.dateRange)
-    } : null;
+        params: {
+          "geometry": userParams.geometry,
+          "datetime": formatToISOString(userParams.dateRange)
+        },
+        provider: userParams.provider
+      } : null;
   }, [userParams])
 
-  const { isLoading: isLoadingOpps, data: opportunities, error: errorOpps } = usePostRequest(params);
+  const { isLoading: isLoadingOpps, data: opportunities, error: errorOpps } = usePostRequest(params, provider);
   const { isLoading: isLoadingProducts, data: products, error: errorProducts } = useGetRequest();
 
   const app = {
