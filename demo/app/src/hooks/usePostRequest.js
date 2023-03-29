@@ -26,7 +26,7 @@ const usePostRequest = (postParams) => {
                 setIsLoading(false);
             });
         }
-    }, [params]);
+    }, [params, provider]);
 
     return { data, isLoading, error };
 };

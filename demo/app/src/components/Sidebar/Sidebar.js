@@ -21,8 +21,21 @@ export default function Sidebar(props) {
     products,
     isLoadingProducts,
     isErrorProducts,
+    userParams,
+    setUserParams,
+    providers
   } = useAppContext();
-    console.log('🚀 ~ file: Sidebar.js:24 ~ Sidebar ~ products:', products)
+
+  function providerSelectHandler(e) {
+    setUserParams({
+      ...userParams,
+      provider: e.target.value
+    })
+  }
+
+  function isProviderSelected(provider) {
+    return provider === userParams.provider;
+  }
 
   const filterButtonClass = openFilters
     ? styles.filterButtonOpen
@@ -34,35 +47,62 @@ export default function Sidebar(props) {
         <>
           <div className={styles.topBar}>
             <h3 className={styles.heading}>Opportunities</h3>
-            <Button className={filterButtonClass} onClick={() => setOpenFilters(!openFilters)}>
+            <Button
+              className={filterButtonClass}
+              onClick={() => setOpenFilters(!openFilters)}
+            >
               <HorizontalSlidersLines size={12} />
             </Button>
             <Button className={styles.sortButton}>
-              Sort 
+              Sort
               <AlignJustifyDown size={12} className={styles.sortIcon} />
             </Button>
           </div>
 
-          {!errorOpps && (
-            <OpportunityList/>
-          )}
+          {!errorOpps && <OpportunityList />}
 
           {!!errorOpps && <div>There was error</div>}
-          
+
           {!!openFilters && (
             <div className={styles.filtersFlyout}>
               <div className={styles.filtersTopBar}>
                 <h4>Filters</h4>
-                <Button className={styles.closeButton} onClick={() => setOpenFilters(false)}>
+                <Button
+                  className={styles.closeButton}
+                  onClick={() => setOpenFilters(false)}
+                >
                   <ArrowRightLine size={12} />
                 </Button>
               </div>
               <div className={styles.filtersBody}>
-                {products.length && (<select>
-                  {products.map(({ title, id }) => {
-                    return (<option key={id} value={id}>{title}</option>)
-                  })}
-                </select>)}
+                <div>
+                  <span>Providers: </span>
+                  <select onChange={providerSelectHandler}>
+                    {providers.map((provider) => (
+                      <option
+                        value={provider.id}
+                        key={provider.id}
+                        selected={isProviderSelected(provider.id)}
+                      >
+                        {provider.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <div className={styles.blockLabel}>Products: </div>
+                  {products.length && (
+                    <select>
+                      {products.map(({ title, id }) => {
+                        return (
+                          <option key={id} value={id}>
+                            {title}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  )}
+                </div>
               </div>
             </div>
           )}

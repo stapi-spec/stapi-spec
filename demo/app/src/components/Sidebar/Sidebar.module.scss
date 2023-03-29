@@ -99,6 +99,13 @@
 
   .filtersBody {
     padding-left: 5px;
+    text-align: left;
+
+    .blockLabel {
+      display: block;
+      text-align: left;
+      padding: 0;
+    }
   }
 }
 

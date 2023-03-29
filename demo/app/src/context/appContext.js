@@ -40,6 +40,19 @@ export default function AppProvider({ children }) {
 
   const { isLoading: isLoadingOpps, data: opportunities, error: errorOpps } = usePostRequest(postParams);
   const { isLoading: isLoadingProducts, data: products, error: errorProducts } = useGetRequest();
+  const providers = [{
+    id: 'historical',
+    name: 'Historical'
+  }, {
+    id: 'blacksky',
+    name: 'BlackSky'
+  }, {
+    id: 'planet',
+    name: 'Planet'
+  }, {
+    id: 'umbra',
+    name: 'Umbra'
+  }]
 
   const app = {
     userParams,
@@ -56,7 +69,8 @@ export default function AppProvider({ children }) {
     setHoveredOpportunity,
     openFilters,
     setOpenFilters,
-    setHoveredOpportunity
+    setHoveredOpportunity,
+    providers
   }
 
   return (
