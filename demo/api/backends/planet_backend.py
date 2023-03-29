@@ -1,56 +1,35 @@
-from datetime import datetime, timedelta
 import os
 import requests
 import time
 
-from api.api_types import Item, ItemCollection, Search
+from api.api_types import Search, Opportunity, OpportunityCollection
+
 
 PLANET_BASE_URL = "https://api.staging.planet-labs.com"
 
 
-def stac_search_to_imaging_window_request(search_request: Search):
+def search_to_imaging_window_request(search_request: Search) -> dict:
+    """
+    :param search: search object as passed on to find_opportunities
+    :return: a corresponding request to retrieve imaging windows
     """
 
-    :param search_request: STAC search as passed on to find_future_items
-    :return: a triple of iw request body, geom and bbox (geom and bbox needed again later to construct STAC answers)
-    """
-    sr = search_request.dict()
-    bbox = None
-    first_intersect = None
-    if 'bbox' in sr:
-        bbox = sr['bbox']
-        if len(bbox) == 4:
-            xmin, ymin, xmax, ymax = bbox
-        else:
-            xmin, ymin, min_elev, xmax, ymax, max_elev = bbox
-        lon = xmin + (xmax - xmin) / 2
-        lat = ymin + (ymax - ymin) / 2
-    elif 'intersects' in sr:
-        first_intersect = sr['intersects'][0]
-        raise NotImplementedError("passing on geometry via intersects not yet implement please use bbox")
-    else:
-        raise ValueError("Please provide either 'bbox' or 'intersects'")
-
-    if 'datetime' not in sr:
-        raise ValueError("Please provide datetime! Provided fields: %s" % list(sr.keys()))
-    start_time, end_time = sr["datetime"].split('/')
+    # pl_number and pl_product would need to always be provided in a prod setting,
+    # providing defaults here only temporarily
+    pl_number, pl_product = "PL-QA", "Assured Tasking"
+    if search_request.product_id:
+        pl_number, pl_product = search_request.product_id.split(':')
 
     return {
-        "start_time": start_time,
-        "end_time": end_time,
-        "pl_number": "PL-QA",  # this would need to be provided in addition to the token
-        "product": "Assured Tasking",  # this as well
-        "geometry": {
-            "type": "Point",
-            "coordinates": [
-                lat,
-                lon
-            ]
-        },
-    }, first_intersect, bbox
+        "start_time": search_request.start_date.isoformat(),
+        "end_time": search_request.end_date.isoformat(),
+        "pl_number": pl_number,
+        "product": pl_product,
+        "geometry": search_request.geometry.dict(),
+    }
 
 
-def get_imaging_windows(planet_request):
+def get_imaging_windows(planet_request) -> list:
     headers = {
         'accept': 'application/json',
         'Content-Type': 'application/json',
@@ -65,8 +44,8 @@ def get_imaging_windows(planet_request):
 
     if 'location' not in r.headers:
         raise ValueError(
-            "Header 'location' not found: %s, status %s, body %s, token %s" % (
-                list(r.headers.keys()), r.status_code, r.text, os.getenv("PLANET_TOKEN"))
+            "Header 'location' not found: %s, status %s, body %s" % (
+                list(r.headers.keys()), r.status_code, r.text)
         )
 
     poll_url = f"{PLANET_BASE_URL}{r.headers['location']}"
@@ -81,54 +60,48 @@ def get_imaging_windows(planet_request):
             raise ValueError(
                 f"Retrieving Imaging Windows failed: {r.json['error_code']} - {r.json['error_message']}'")
         time.sleep(1)
-    # raise(ValueError(f"{poll_url}\n{r.json()}"))
 
 
-
-def imaging_window_to_stac_item(iw, geom, bbox):
+def imaging_window_to_opportunity(iw, geom, search_request) -> Opportunity:
     """
-    translates a Planet Imaging Windows into a STAC item
+    translates a Planet Imaging Window into an Opportunity
     :param iw: an element from the 'imaging_windows' array of a /imaging_windows/[search_id] response
-    :return: a corresponding STAC item
+    :return: a corresponding opportunity
     """
 
-    item = Item(
+    return Opportunity(
         id=iw["id"],
         geometry=geom,
-        bbox=bbox,
         properties={
-            'datetime': f"{iw['start_time']}",
+            'title': '',
+            'product_id': search_request.product_id,
             'start_datetime': iw['start_time'],
             'end_datetime': iw['end_time'],
-            'constellation': 'planet-skysat',
-            'providers': [{
-                'name': 'planet',
-                'roles': ['producer'],
-                'url': 'https://www.planet.com'
-            }]
+            'constraints': {
+                'off_nadir': [iw['start_off_nadir'], iw['end_off_nadir']],
+                'cloud_cover': iw['cloud_forecast'][0]['prediction']
+            }
         })
-    item.ext.enable('view')
-    item.ext.enable('eo')
-    item.ext.view.off_nadir = (iw['start_off_nadir'] + iw['end_off_nadir']) / 2
-    # TODO this is an example of something that will have to be reflected as a range
-    item.ext.eo.cloud_cover = iw['cloud_forecast'][0]['prediction']
-    return item
 
 
 class PlanetBackend:
 
-    async def find_future_items(
+    async def find_opportunities(
         self,
         search_request: Search,
         token: str,
-    ) -> ItemCollection:
+    ) -> OpportunityCollection:
 
-        planet_request, geom, bbox = stac_search_to_imaging_window_request(search_request)
+        # this assumes we have an Assured product i.e. one which is ordered with respect to a
+        # specific imaging window
+        # todo: extend this flow to flexible orders
+
+        planet_request = search_to_imaging_window_request(search_request)
         imaging_windows = get_imaging_windows(planet_request)
-        stac_items = [
-            imaging_window_to_stac_item(iw, geom, bbox)
+        opportunities = [
+            imaging_window_to_opportunity(iw, planet_request["geometry"], search_request)
             for iw
             in imaging_windows
         ]
 
-        return ItemCollection(features=stac_items, links=[])
+        return OpportunityCollection(features=opportunities)
