@@ -1,7 +1,7 @@
-from typing import Any, Optional, Tuple, Union, Dict
+from datetime import datetime as Datetime
+from typing import Any, Dict, List, Literal, Optional, Union
+
 from geojson_pydantic.features import Feature, FeatureCollection
-from pydantic import BaseModel, Field
-from pydantic.datetime_parse import parse_datetime
 from geojson_pydantic.geometries import (
     GeometryCollection,
     LineString,
@@ -11,9 +11,10 @@ from geojson_pydantic.geometries import (
     Point,
     Polygon,
 )
-from stac_pydantic.shared import DATETIME_RFC339
-
-from datetime import datetime as Datetime
+from pydantic import BaseModel, Field
+from pydantic.datetime_parse import parse_datetime
+from pystac import Link, Provider
+from stac_pydantic.collection import Range
 
 Geometry = Union[
     Point,
@@ -25,27 +26,31 @@ Geometry = Union[
     GeometryCollection,
 ]
 
-ProductConstraints = dict[str, Union[Tuple[float, float], float]]
-ProductParameters = dict[str, Union[float, int, str]]
-ProductProperties = dict[str, Any]
+
+ProductConstraints = Dict[str, Union[Range, List[Any], Dict[str, Any]]]
+ProductParameters = Dict[str, Union[Range, List[Any], Dict[str, Any]]]
+
 
 class Product(BaseModel):
+    """https://github.com/Element84/sat-tasking-sprint/tree/main/product-spec"""
+
+    type: Literal["Product"]
+    stat_version: str
+    stat_extensions: list[str]
     id: str
-    provider: str
     title: str
-    extends: list[str]
     description: str
+    keywords: List[str]
+    license: str
+    providers: List[Provider]
+    links: List[Link]
     constraints: Optional[ProductConstraints] = Field(
         default=None,
-        description="Query constraints that will filter the opportunity results list."
+        description="Query constraints that will filter the opportunity results list.",
     )
     parameters: Optional[ProductParameters] = Field(
         default=None,
-        description="Additional parameters for ordering."
-    )
-    properties: Optional[ProductProperties] = Field(
-        default=None,
-        description="Metadata about the product"
+        description="User supplied parameters that don't constrain tasking (e.g., output format)",
     )
 
 
