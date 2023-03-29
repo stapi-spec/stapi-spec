@@ -46,13 +46,11 @@ def stac_item_to_opportunity(item: pystac.Item) -> Opportunity:
         id=item.id,
     )
 
-class SentinelBackend:
-
+class HistoricalBackend:
     catalog: Client
 
     def __init__(self) -> None:
         self.catalog = Client.open('https://earth-search.aws.element84.com/v1')  # type: ignore
-
 
     async def find_opportunities(
         self,
@@ -62,7 +60,7 @@ class SentinelBackend:
         max_items = DEFAULT_MAX_ITEMS
 
         args: dict[str, Any] = {
-            'collections': [LANDSAT_COLLECTION_ID],
+            'collections': [search.product_id],
             'max_items': max_items,
             'limit': max_items,
         }
