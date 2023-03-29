@@ -5,13 +5,15 @@ from datetime import datetime, timedelta
 
 from geojson_pydantic import Point
 
-from api.backends.base import Backend
+from api.backends.base import Backend, get_token
 from api.backends import BACKENDS
 
 from api.api_types import Search, OpportunityCollection, Product
 
 app = FastAPI(title="Tasking API")
 
+import os
+DEFAULT_BACKEND = os.environ.get("DEFAULT_BACKEND", "historical")
 
 @app.get("/")
 async def redirect_home():
@@ -22,11 +24,14 @@ async def get_products(
     request: Request,
 ):
     # get the right token and backend from the header
-    backend = request.headers.get("backend", "historical")
+    backend = request.headers.get("backend", DEFAULT_BACKEND)
 
     token = "this-is-not-a-real-token"
     if authorization := request.headers.get("authorization"):
         token = authorization.replace("Bearer ", "")
+
+    if not token:
+        token = get_token(backend)
 
     if backend in BACKENDS:
         impl: Backend = BACKENDS[backend]
@@ -66,11 +71,14 @@ async def post_opportunities(
     search: Search,
 ):
     # get the right token and backend from the header
-    backend = request.headers.get("backend", "historical")
+    backend = request.headers.get("backend", DEFAULT_BACKEND)
 
     token = "this-is-not-a-real-token"
     if authorization := request.headers.get("authorization"):
         token = authorization.replace("Bearer ", "")
+
+    if not token:
+        token = get_token(backend)
 
     if backend in BACKENDS:
         impl: Backend = BACKENDS[backend]

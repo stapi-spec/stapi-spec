@@ -6,6 +6,7 @@ from fastapi.testclient import TestClient
 
 from api.main import app
 from api.backends import BACKENDS
+from api.backends.base import get_token
 
 import logging
 import json
@@ -54,14 +55,6 @@ def test_post_to_opportunities_with_opportunities_body_and_header(backend: str):
     assert response.status_code == 200
     assert "features" in response.json()
 
-
-def get_token(backend: str)-> Optional[str]:
-    token_name = f"{backend.upper()}_TOKEN"
-
-    if token_name not in os.environ:
-        # skip endpoint if token not provided
-        return
-    return os.environ[token_name]
 
 @pytest.mark.parametrize("backend", ["planet"])
 def test_products_authenticated(backend: str):
