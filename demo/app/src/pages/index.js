@@ -3,16 +3,18 @@ import Head from 'next/head';
 import Layout from '@components/Layout';
 import Container from '@components/Container';
 import Map from '@components/Map';
-import Button from '@components/Button';
 import Sidebar from '@components/Sidebar';
 
 import styles from '@styles/Home.module.scss';
+
+import { useAppContext } from 'src/context/appContext';
+
 
 const DEFAULT_CENTER = [38.907132, -77.036546];
 const DEFAULT_ZOOM = 3;
 
 export default function Home() {
-
+  const { isLoading, error, opportunities } = useAppContext();
   return (
     <Layout>
       <Head>
@@ -22,7 +24,7 @@ export default function Home() {
       </Head>
 
       <Container className={styles.mapContainer}>
-        <Sidebar/>
+        {(isLoading || opportunities) && <Sidebar/>}
         <Map
           className={styles.homeMap}
           width="800"

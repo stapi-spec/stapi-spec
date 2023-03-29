@@ -8,7 +8,7 @@ import Container from '@components/Container';
 import styles from './Header.module.scss';
 
 const Header = () => {
-  const { dateRange, setDateRange } = useAppContext();
+  const { userParams, setUserParams } = useAppContext();
 
   return (
     <>
@@ -30,7 +30,7 @@ const Header = () => {
         </Container>
       </header>
       <div className={styles.toolbar}>
-        <DateRangePicker onChange={setDateRange} value={dateRange} clearIcon={null} minDate={new Date()} />
+        <DateRangePicker onChange={(v) => setUserParams({...userParams, dateRange: v})} value={userParams.dateRange} clearIcon={null} minDate={new Date()} />
       </div>
     </>
   );

@@ -5,33 +5,40 @@ const AppContext = createContext();
 
 export default function AppProvider({ children }) {
   const today = new Date();
-  const [geoJson, setGeoJson] = useState();
-  const [bbox, setBbox] = useState();
-  const [dateRange, setDateRange] = useState([
+  /**
+   * @typedef {object} UserParams
+   * @property {[Date, Date]} dateRange
+   * @property {number[]} bbox
+  */
+  const [
+    /** @type {UserParams} */ userParams,
+    setUserParams
+  ] = useState({
+    dateRange: [
     today,
     new Date(new Date(today).setDate(today.getDate() + 7)),
-  ]);
+  ]
+  });
+  const [selectedOpportunity, setSelectedOpportunity] = useState();
 
   const params = useMemo(() => {
-    return bbox ? {
-      "bbox": formatToValidTuple(bbox),
+    return userParams.bbox ? {
+      "bbox": formatToValidTuple(userParams.bbox),
       //start_date: dateRange[0], call time formatting here
       //end_date: dateRange[1] call time formatting here
     } : null;
-  }, [bbox, /*dateRange*/])
+  }, [userParams])
 
   const { isLoading, data: opportunities, error } = useApiRequest(params);
 
   const app = {
-    geoJson,
-    setGeoJson,
-    bbox,
-    setBbox,
-    dateRange,
-    setDateRange,
+    userParams,
+    setUserParams,
     isLoading,
     opportunities,
-    error
+    error,
+    selectedOpportunity,
+    setSelectedOpportunity
   }
 
   return (
