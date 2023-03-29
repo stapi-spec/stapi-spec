@@ -2,7 +2,7 @@ import os
 import requests
 import time
 
-from api.api_types import Search, Opportunity, OpportunityCollection, Product
+from api.api_types import Search, Opportunity, OpportunityCollection, Product, Provider
 
 
 PLANET_BASE_URL = "https://api.staging.planet-labs.com"
@@ -109,17 +109,17 @@ class PlanetBackend:
 
     async def find_products(self, token: str) -> list[Product]:
         # todo: get real list of products
-        # todo: consider proper responses for all products
+        # todo: consider proper reactions for all types of products
         return [
             Product(
-                provider='Planet',
+                type="product",
+                stat_version="0.0.1",
+                stat_extensions=[],
                 id="PL-QA:Assured Tasking",
                 title="Assured Tasking",
-                extends=[],
-                description="",
+                providers=[Provider(name="planet")],
                 constraints={},
-                parameters={},
-                properties={}
+                parameters={}
             )
         ]
 
