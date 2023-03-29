@@ -1,6 +1,6 @@
 import { createContext, useContext, useMemo, useState } from 'react';
 import useApiRequest from 'src/hooks/useApiRequest';
-import { formatToValidTuple, formatToISOString } from 'src/utils/mapUtils';
+import { formatToValidTuple, formatToISOString } from 'src/utils';
 
 const AppContext = createContext();
 

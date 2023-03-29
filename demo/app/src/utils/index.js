@@ -1,2 +1,2 @@
-export * as mapUtils from './mapUtils';
-export * as dateUtiles from './dateUtils';
+export * from './mapUtils';
+export * from './dateUtils';
