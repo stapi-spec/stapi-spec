@@ -68,15 +68,15 @@ def test_products_authenticated(backend: str):
     token = get_token(backend)
     if not token:
         return
-    test_products(backend, token)
+    _test_products(backend, token)
 
 
 @pytest.mark.parametrize("backend", ["fake", "historical"])
 def test_products_unauthenticated(backend: str):
-    test_products(backend)
+    _test_products(backend)
 
 
-def test_products(backend: str, token: Optional[str] = None):
+def _test_products(backend: str, token: Optional[str] = None):
     headers = {"Backend": backend}
     if token:
         headers["Authorization"] = f"Bearer {token}"
