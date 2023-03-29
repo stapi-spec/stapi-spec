@@ -1,18 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const useGetRequest = () => {
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState("");
 
-    fetch("/api/products")
-    .then((res) => {
-        res.json();
-    })
-    .then((data) => {
-        setData(data)
-        setIsLoading(false)
-    }).catch(e => setError(e));
+    useEffect(() => {
+        fetch("/api/products")
+        .then((res) => res.json())
+        .then((data) => {
+            setData(data)
+            setIsLoading(false)
+        }).catch(e => setError(e));
+    }, []);
     
     return { data, isLoading, error };
 };
