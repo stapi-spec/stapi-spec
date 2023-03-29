@@ -9,7 +9,7 @@ export default function AppProvider({ children }) {
   const [bbox, setBbox] = useState();
   const [dateRange, setDateRange] = useState([
     today,
-    new Date(today).setDate(today.getDate() + 7),
+    new Date(new Date(today).setDate(today.getDate() + 7)),
   ]);
 
   const params = useMemo(() => {
