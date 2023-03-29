@@ -2,8 +2,6 @@ from typing import Any, Optional, Union
 from geojson_pydantic.features import Feature, FeatureCollection
 from pydantic import constr, root_validator, BaseModel
 from stac_pydantic.item import ItemProperties
-from stac_pydantic.links import Links
-from stac_pydantic.api.extensions.context import ContextExtension
 from stac_pydantic.shared import BBox
 from pydantic.datetime_parse import parse_datetime
 from geojson_pydantic.geometries import (
@@ -27,7 +25,8 @@ class Item(Feature[Any, ItemProperties]):
     # stac_version: constr(min_length=1) = Field(STAC_VERSION, const=True)
 
     properties: ItemProperties
-    links: Links
+    # TODO should we have links
+    # links: Links
 
     def to_dict(self, **kwargs: Any):
         return self.dict(by_alias=True, exclude_unset=True, **kwargs)
@@ -54,8 +53,9 @@ class ItemCollection(FeatureCollection[Any, Any]):
 
     # stac_extensions: Optional[List[AnyUrl]]
 
-    links: Links
-    context: Optional[ContextExtension]
+    # TODO should we have links
+    # links: Links
+    # context: Optional[ContextExtension] = None
 
     def to_dict(self, **kwargs: Any):
         return self.dict(by_alias=True, exclude_unset=True, **kwargs)

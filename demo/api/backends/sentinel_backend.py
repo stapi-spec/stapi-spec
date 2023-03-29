@@ -7,7 +7,6 @@ import pystac
 from api.api_types import Item, ItemCollection, Search
 from pystac_client.client import Client
 from stac_pydantic.item import ItemProperties
-from stac_pydantic.links import Links
 
 DEFAULT_MAX_ITEMS = 10
 MAX_MAX_ITEMS = 100
@@ -51,10 +50,6 @@ def stac_item_to_future_item(item: pystac.Item) -> Item:
 
         # TODO implement bbox mapping
         # bbox=item.bbox,
-
-        # TODO implement links mapping
-        # links=item.links
-        links=Links(__root__=[]),
     )
 
 class SentinelBackend:
@@ -98,7 +93,6 @@ class SentinelBackend:
         ]
 
         item_collection = ItemCollection(
-            links=Links(__root__=[]),
             **item_coll.to_dict(),
             features=items
         )
