@@ -1,6 +1,4 @@
-import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { FaGithub } from 'react-icons/fa';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker/dist/DateRangePicker';
 
