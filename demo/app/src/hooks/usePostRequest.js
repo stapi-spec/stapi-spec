@@ -13,7 +13,10 @@ const usePostRequest = (params) => {
                 headers: {
                     "Content-type": "application/json"
                 },
-                body: JSON.stringify(params)
+                body: JSON.stringify({
+                    ...params,
+                    product_id: 'sentinel-2-l1c'
+                })
             })
             .then((res) => res.json())
             .then((data) => {
