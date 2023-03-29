@@ -1,5 +1,5 @@
 import pystac
-from api.api_types import Opportunity, OpportunityCollection, Search
+from api.api_types import Opportunity, OpportunityCollection, Search, Product, Provider
 
 
 STAC_ITEM_URL = (
@@ -21,3 +21,24 @@ class FakeBackend():
             features=[opportunity]
         )
         return opportunity_collection
+
+
+    async def find_products(self, token: str) -> list[Product]:
+        # todo: get real list of products
+        # todo: consider proper reactions for all types of products
+        return [
+            Product(
+                type="Product",
+                stat_version="0.0.1",
+                stat_extensions=[],
+                id="fake product",
+                title="fake product",
+                description="",
+                license="",
+                links=[],
+                keywords=[],
+                providers=[Provider(name="fake")],
+                constraints={},
+                parameters={}
+            )
+        ]

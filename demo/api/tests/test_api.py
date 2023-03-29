@@ -1,68 +1,127 @@
+import datetime
+import os
+
 import pytest
 from fastapi.testclient import TestClient
 
-from ..main import app
-from ..backends import BACKENDS
+from api.main import app
+from api.backends import BACKENDS
 
+import logging
+import json
+
+from typing import Optional
+
+LOGGER = logging.getLogger(__name__)
 
 client = TestClient(app)
 
 VALID_SEARCH_BODY = {
     "datetime": "2025-01-01T00:00:00Z/2025-01-02T00:00:00Z",
-    "bbox": [0,0,1,1]
+    "geometry": {
+        "type": "Point",
+        "coordinates": [39.95, 75.16]
+    }
 }
+
 
 def test_read_docs():
     response = client.get("/docs")
     assert response.status_code == 200
 
 
-def test_post_to_pineapple_with_no_body():
-    response = client.post("/pineapple")
+def test_post_to_opportunities_with_no_body():
+    response = client.post("/opportunities")
     assert response.status_code == 422
 
 
-def test_post_to_pineapple_with_pineapple_body():
+def test_post_to_opportunities_with_opportunities_body():
     response = client.post(
-        "/pineapple",
-        json=VALID_SEARCH_BODY,
+        "/opportunities",
+        json={"product_id": "landsat-c2-l2", **VALID_SEARCH_BODY},
     )
     assert response.status_code == 200
-    assert "bbox" in response.json()
     assert "features" in response.json()
 
 
-@pytest.mark.parametrize("backend", ["fake", "sentinel"])
-def test_post_to_pineapple_with_pineapple_body_and_header(backend: str):
+@pytest.mark.parametrize("backend", ["fake", "historical"])
+def test_post_to_opportunities_with_opportunities_body_and_header(backend: str):
     response = client.post(
-        "/pineapple",
+        "/opportunities",
         headers={"Backend": backend},
-        json=VALID_SEARCH_BODY,
+        json={"product_id": "landsat-c2-l2", **VALID_SEARCH_BODY},
     )
     assert response.status_code == 200
-    assert "bbox" in response.json()
     assert "features" in response.json()
 
-# TODO currently failing
-# def test_post_to_planet():
-#     response = client.post(
-#         "/pineapple",
-#         headers={"Backend": "planet"}, # , "Authorization": f"Bearer {API_TOKEN}"},
-#         json={
-#             "bbox": [0,0,1,1],
-#             "datetime": "2023-03-30T17:20:13.061Z" # this should be start and end eventually
-#         },
-#     )
-#     assert response.status_code == 200
-#     assert "bbox" in response.json()
-#     assert "features" in response.json()
+
+def get_token(backend: str)-> Optional[str]:
+    token_name = f"{backend.upper()}_TOKEN"
+
+    if token_name not in os.environ:
+        # skip endpoint if token not provided
+        return
+    return os.environ[token_name]
+
+@pytest.mark.parametrize("backend", ["planet"])
+def test_products_authenticated(backend: str):
+    token = get_token(backend)
+    if not token:
+        return
+    _test_products(backend, token)
 
 
-def test_post_to_pineapple_with_bad_backend_raises():
+@pytest.mark.parametrize("backend", ["fake", "historical"])
+def test_products_unauthenticated(backend: str):
+    _test_products(backend)
+
+
+def _test_products(backend: str, token: Optional[str] = None):
+    headers = {"Backend": backend}
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+    response = client.get(
+        "/products",
+        headers=headers,
+    )
+    assert response.status_code == 200
+    assert len(response.json()) > 0
+
+
+@pytest.mark.parametrize("backend", []) # "planet"
+def test_post_to_opportunities_with_opportunities_body_and_header_authenticated(backend: str):
+    token = get_token(backend)
+    if not token:
+        return
+
+    start_time = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(minutes=1)
+    end_time = start_time + datetime.timedelta(days=1)
+
+    search_body_now = {
+        "datetime":  f"{start_time.isoformat()}/{end_time.isoformat()}",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [39.95, 75.16]
+        }
+    }
+
     response = client.post(
-        "/pineapple",
+        "/opportunities",
+        headers={"Backend": backend, "Authorization": f"Bearer {token}"},
+        json=search_body_now,
+    )
+    assert response.status_code == 200
+    assert "features" in response.json()
+    LOGGER.info(json.dumps(response.json(), indent=2))
+
+
+def test_post_to_opportunities_with_bad_backend_raises():
+    response = client.post(
+        "/opportunities",
         headers={"Backend": "foo"},
         json=VALID_SEARCH_BODY,
     )
     assert response.status_code == 404
     assert response.json()["detail"] == f"Backend 'foo' not in options: {list(BACKENDS.keys())}"
+
+
