@@ -1,6 +1,6 @@
 import { createContext, useContext, useMemo, useState } from 'react';
 import useApiRequest from 'src/hooks/useApiRequest';
-import { formatToValidTuple } from 'src/utils/mapUtils';
+import { formatToValidTuple, formatToISOString } from 'src/utils/mapUtils';
 
 const AppContext = createContext();
 
@@ -52,8 +52,4 @@ export default function AppProvider({ children }) {
 
 export function useAppContext() {
   return useContext(AppContext);
-}
-
-function formatToISOString(range){
-  return `${range[0].toISOString()/range[1].toISOString()}`;
 }
