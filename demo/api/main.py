@@ -17,10 +17,22 @@ async def redirect_home():
 
 
 @app.get("/opportunities", response_model=OpportunityCollection)
-@app.post("/opportunities", response_model=OpportunityCollection)
-async def opportunities(
+async def get_opportunities(
     request: Request,
     search: Search | None = None,
+):
+    if search is None:
+        start_datetime = datetime.now()
+        end_datetime = start_datetime + timedelta(days=40)
+        search = Search(datetime=f"{start_datetime.isoformat()}/{end_datetime.isoformat()}")
+
+    return await post_opportunities(request, search)
+
+
+@app.post("/opportunities", response_model=OpportunityCollection)
+async def post_opportunities(
+    request: Request,
+    search: Search,
 ):
     # get the right token and backend from the header
     backend = request.headers.get("backend", "sentinel")
@@ -28,11 +40,6 @@ async def opportunities(
     token = "this-is-not-a-real-token"
     if authorization := request.headers.get("authorization"):
         token = authorization.replace("Bearer ", "")
-
-    if search is None:
-        start_datetime = datetime.now()
-        end_datetime = start_datetime + timedelta(days=40)
-        search = Search(datetime=f"{start_datetime.isoformat()}/{end_datetime.isoformat()}")
 
     if backend in BACKENDS:
         impl: Backend = BACKENDS[backend]
@@ -42,9 +49,9 @@ async def opportunities(
             detail=f"Backend '{backend}' not in options: {list(BACKENDS.keys())}"
         )
 
-    opportunities = await impl.find_opportunities(
+    opportunity_collection = await impl.find_opportunities(
         search,
         token=token,
     )
 
-    return opportunities
+    return opportunity_collection
