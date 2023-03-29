@@ -10,14 +10,6 @@
   background-color: white;
 }
 
-.sidebarHeader {
-  height: 100px;
-}
-
-.sidebar > div {
-  height: 100%;
-}
-
 .loader {
   position: absolute;
   top: 0;
@@ -31,6 +23,74 @@
 
 .loader > * {
   align-self: center;
+}
+
+.topBar {
+  height: 35px;
+  border-bottom: solid 1px $color-medium-gray;
+}
+
+.heading {
+  float: left;
+  line-height: 2;
+  text-transform: uppercase;
+  color: $color-blue;
+  text-indent: 5px;
+}
+
+.filterButtonClosed,
+.filterButtonOpen {
+  width: 35px;
+  border-left: solid 1px $color-medium-gray;
+}
+.filterButtonClosed,
+.filterButtonOpen,
+.sortButton {
+  background-color: transparent;
+  color: $color-medium-gray;
+  padding: 0;
+  height: 35px;
+  border-radius: 0;
+  float: right;
+  text-transform: capitalize;
+}
+.sortButton {
+  padding: 0 1em;
+}
+.filterButtonClosed:hover {
+  background-color: transparent;
+  color: $color-medium-gray;
+}
+.filterButtonOpen:hover,
+.sortButton:hover,
+.filterButtonOpen {
+  background-color: $color-medium-gray;
+  color: white;
+}
+
+.sortIcon {
+  padding-left: 3px;
+}
+
+.filtersFlyout {
+  position: absolute;
+  top: 0;
+  left: 350px;
+  width: 225px;
+  height: 100%;
+  background-color: white;
+  border-left: solid 1px $color-medium-gray;
+
+  .filtersTopBar {
+    background-color: $color-medium-gray;
+    height: 35px;
+
+    h4 {
+      color: white;
+      line-height: 2.3;
+      text-indent: 5px;
+    }
+  }
 }
 
 .opportunityList {
