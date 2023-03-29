@@ -2,7 +2,7 @@ import os
 import requests
 import time
 
-from api.api_types import Search, Opportunity, OpportunityCollection
+from api.api_types import Search, Opportunity, OpportunityCollection, Product, Provider
 
 
 PLANET_BASE_URL = "https://api.staging.planet-labs.com"
@@ -102,5 +102,29 @@ class PlanetBackend:
             for iw
             in imaging_windows
         ]
+        # todo: combine original request and returned imaging window such that the returned
+        #   opportunities are a valid order structure 
 
         return OpportunityCollection(features=opportunities)
+
+    async def find_products(self, token: str) -> list[Product]:
+        # todo: get real list of products
+        # todo: consider proper reactions for all types of products
+        return [
+            Product(
+                type="Product",
+                stat_version="0.0.1",
+                stat_extensions=[],
+                id="PL-QA:Assured Tasking",
+                title="Assured Tasking",
+                description="",
+                license="",
+                links=[],
+                keywords=[],
+                providers=[Provider(name="planet")],
+                constraints={},
+                parameters={}
+            )
+        ]
+
+

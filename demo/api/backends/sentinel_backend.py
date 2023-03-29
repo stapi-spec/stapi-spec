@@ -7,7 +7,7 @@ from geojson_pydantic.geometries import Point
 import pystac
 from api.api_types import (Opportunity, OpportunityCollection,
                            OpportunityProperties, Product, ProductConstraints,
-                           Search)
+                           Search, Provider)
 from pystac import Collection
 from pystac_client.client import Client
 
@@ -73,7 +73,14 @@ def stac_collection_to_product(collection: Collection) -> Product:
         description=collection.description,
         constraints=constraints,
         parameters={},
-        properties=summaries
+        properties=summaries,
+        stat_version="0.0.1",
+        stat_extensions=[],
+        license="",
+        links=[],
+        keywords=[],
+        providers=[Provider(name="Sentinel")],
+
     )
 
 class HistoricalBackend:
