@@ -5,7 +5,7 @@ from fastapi.responses import RedirectResponse
 from api.backends.base import Backend
 from api.backends import BACKENDS
 
-from api_types import ItemCollection, Search
+from api.api_types import ItemCollection, Search
 
 app = FastAPI(title="Tasking API")
 
