@@ -8,10 +8,8 @@ const useGetRequest = () => {
     fetch("/api/products")
     .then((res) => {
         res.json();
-        console.log(res);
     })
     .then((data) => {
-        console.log(data)
         setData(data)
         setIsLoading(false)
     }).catch(e => setError(e));

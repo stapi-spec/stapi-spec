@@ -36,7 +36,6 @@ export default function AppProvider({ children }) {
   const { isLoading: isLoadingOpps, data: opportunities, error: errorOpps } = usePostRequest(params);
   const { isLoading: isLoadingProducts, data: products, error: errorProducts } = useGetRequest();
 
-  console.log(products);
   const app = {
     userParams,
     setUserParams,
