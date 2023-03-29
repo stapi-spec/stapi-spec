@@ -8,7 +8,6 @@ BLACKSKY_BASE_URL = "https://api.dev.blacksky.com/v1"
 
 def stac_search_to_oppurtunities_request(search_request: Search):
 
-
     """
     :param search_request: STAC search as passed on to find_future_items
     :return: a triple of iw request body, geom and bbox (geom and bbox needed again later to construct STAC answers)
@@ -30,8 +29,8 @@ def stac_search_to_oppurtunities_request(search_request: Search):
                 "geometry": {
                     "type": "Point",
                     "coordinates": [
-                        39.95,
-                        75.16,
+                        search_request.geometry.dict()['coordinates'][0],
+                        search_request.geometry.dict()['coordinates'][1],
                         0
                     ]
                 },
@@ -60,7 +59,6 @@ def get_oppurtunities(blacksky_request):
         headers=headers,
         json=blacksky_request
     )
-    print (r.json())
     return r.json()['opportunities']
 
 
@@ -101,7 +99,6 @@ class BlackskyBackend:
             token: str,
     ) -> OpportunityCollection:
 
-        print("CSM_")
         blacksky_request = stac_search_to_oppurtunities_request(search_request)
         oppurtunities = get_oppurtunities(blacksky_request)
         stac_items = [
