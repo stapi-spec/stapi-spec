@@ -13,8 +13,9 @@ from geojson_pydantic.geometries import (
 )
 from pydantic import BaseModel, Field
 from pydantic.datetime_parse import parse_datetime
-from pystac import Link, Provider
 from stac_pydantic.collection import Range
+from stac_pydantic.links import Link
+from stac_pydantic.shared import Provider
 
 Geometry = Union[
     Point,
@@ -34,7 +35,7 @@ ProductParameters = Dict[str, Union[Range, List[Any], Dict[str, Any]]]
 class Product(BaseModel):
     """https://github.com/Element84/sat-tasking-sprint/tree/main/product-spec"""
 
-    type: Literal["Product"]
+    type: Literal["Product"] = Field(const=True, default="Product")
     stat_version: str
     stat_extensions: list[str]
     id: str
