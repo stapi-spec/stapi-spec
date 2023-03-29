@@ -7,6 +7,7 @@ const usePostRequest = (params) => {
 
     useEffect(() => {
         if (params) {
+            console.log('-------------------------------------------------')
             setIsLoading(true);
             fetch("/api/opportunities", {
                 method: "POST",
@@ -20,11 +21,10 @@ const usePostRequest = (params) => {
             })
             .then((res) => res.json())
             .then((data) => {
-                // expect list once complete
-                if(typeof data === 'object'){
-                    data = [data]
-                }
-                setData(data)
+                console.log('-------------------------------------------------')
+                console.log("Data:", data)
+                console.log("Data features:", data.features)
+                setData(data.features)
                 setIsLoading(false)
             }).catch(e => setError(e));
         }

@@ -13,8 +13,8 @@ const useGetRequest = () => {
             setIsLoading(false)
         }).catch(e => setError(e));
     }, []);
-    
+
     return { data, isLoading, error };
 };
-    
+
 export default useGetRequest;

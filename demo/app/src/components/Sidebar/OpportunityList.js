@@ -16,7 +16,7 @@ function mouseOutStyleChange(e) {
   return (
     <div className={styles.opportunityList}>
         {opportunities.map((opp, index) => {
-            return <Opportunity 
+            return <Opportunity
                 key={index}
                 title={opp.features[0].properties.title}
                 start={opp.features[0].properties.start_datetime}
