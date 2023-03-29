@@ -6,7 +6,6 @@ const useApiRequest = (params) => {
     const [error, setError] = useState("");
 
     useEffect(() => {
-        console.log(params)
         params && fetch("/api/pineapple", {
             method: "POST",
             headers: {

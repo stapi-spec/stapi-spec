@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@vectopus/atlas-icons-react": "^0.0.7",
+    "@wojtekmaj/react-daterange-picker": "^4.2.0",
     "copy-webpack-plugin": "^11.0.0",
     "leaflet": "^1.9.3",
     "next": "^13.0.7",
