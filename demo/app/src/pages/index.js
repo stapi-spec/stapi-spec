@@ -14,7 +14,7 @@ const DEFAULT_CENTER = [38.907132, -77.036546];
 const DEFAULT_ZOOM = 3;
 
 export default function Home() {
-  const { isLoadingOpps, error, opportunities } = useAppContext();
+  const { isLoadingOpps, errorOpps, opportunities } = useAppContext();
   return (
     <Layout>
       <Head>
@@ -24,7 +24,7 @@ export default function Home() {
       </Head>
 
       <Container className={styles.mapContainer}>
-        {(isLoadingOpps || opportunities) && <Sidebar/>}
+        {(isLoadingOpps || opportunities || errorOpps) && <Sidebar/>}
         <Map
           className={styles.homeMap}
           width="800"

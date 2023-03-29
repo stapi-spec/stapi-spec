@@ -6,7 +6,7 @@ const useGetRequest = () => {
     const [error, setError] = useState("");
 
     useEffect(() => {
-        fetch("/api/products")
+        fetch('/api/products')
         .then((res) => res.json())
         .then((data) => {
             setData(data)

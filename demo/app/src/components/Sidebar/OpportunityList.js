@@ -1,6 +1,7 @@
 import styles from './Sidebar.module.scss'
 import Opportunity from './Opportunity';
 import { useAppContext } from 'src/context/appContext';
+import { parseStacDatetime } from 'src/utils';
 
 export default function OpportunityList() {
   const { opportunities, setHoveredOpportunity, setSelectedOpportunity } = useAppContext();
@@ -10,17 +11,18 @@ export default function OpportunityList() {
   }
 
 function mouseOutStyleChange(e) {
-    e.target.style.outline = 'none';
-  }
+  e.target.style.outline = 'none';
+}
 
   return (
     <div className={styles.opportunityList}>
         {(opportunities||[]).map((opp, index) => {
+            const { start, end } = parseStacDatetime(opp.properties.datetime);
             return <Opportunity
                 key={index}
                 title={opp.properties.title}
-                start={opp.properties.start_datetime}
-                end={opp.properties.end_datetime}
+                start={start}
+                end={end}
                 // onMouseEnter={(e) => {
                 //     mouseInStyleChange(e);
                 //     setHoveredOpportunity(index)}}

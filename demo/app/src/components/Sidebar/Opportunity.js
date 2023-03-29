@@ -1,3 +1,4 @@
+import { formatToFriendlyString } from 'src/utils';
 import styles from './Sidebar.module.scss'
 
 export default function Opportunity({
@@ -9,10 +10,10 @@ export default function Opportunity({
     <div className={styles.opportunityPreview}>
         <h1>{title}</h1>
         <div className={styles.previewStartDate}>
-            {start ?? 'no start date given'}
+            {formatToFriendlyString(start) ?? 'no start date given'}
         </div>
         <div className={styles.previewEndDate}>
-            {end ?? 'no end date given'}
+            {formatToFriendlyString(end) ?? 'no end date given'}
         </div>
     </div>
   );

@@ -26,7 +26,10 @@ const usePostRequest = (params) => {
                 console.log("Data features:", data.features)
                 setData(data.features)
                 setIsLoading(false)
-            }).catch(e => setError(e));
+            }).catch((e) => {
+                setError(e);
+                setIsLoading(false);
+            });
         }
     }, [params]);
 

@@ -10,14 +10,6 @@
   background-color: white;
 }
 
-.sidebarHeader {
-  height: 100px;
-}
-
-.sidebar > div {
-  height: 100%;
-}
-
 .loader {
   position: absolute;
   top: 0;
@@ -47,13 +39,15 @@
 }
 
 .filterButtonClosed,
-.filterButtonOpen {
+.filterButtonOpen,
+.closeButton {
   width: 35px;
   border-left: solid 1px $color-medium-gray;
 }
 .filterButtonClosed,
 .filterButtonOpen,
-.sortButton {
+.sortButton,
+.closeButton {
   background-color: transparent;
   color: $color-medium-gray;
   padding: 0;
@@ -69,6 +63,8 @@
   background-color: transparent;
   color: $color-medium-gray;
 }
+.closeButton,
+.closeButton:hover,
 .filterButtonOpen:hover,
 .sortButton:hover,
 .filterButtonOpen {
@@ -91,13 +87,18 @@
 
   .filtersTopBar {
     background-color: $color-medium-gray;
-    height: 35px;
+    height: 36px;
 
     h4 {
       color: white;
       line-height: 2.3;
       text-indent: 5px;
+      float: left;
     }
+  }
+
+  .filtersBody {
+    padding-left: 5px;
   }
 }
 
