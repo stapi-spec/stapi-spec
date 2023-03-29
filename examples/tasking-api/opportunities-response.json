@@ -1,0 +1,82 @@
+[
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                0,
+                0
+            ]
+        },
+        "properties": {
+            "datetime": "ISO8601/ISO8601",
+            "product_id": "EO",
+            "constraints": {
+                "gsd": [
+                    1.0,
+                    10.0
+                ],
+                "view:off_nadir": [
+                    0,
+                    30
+                ],
+                "sat_elevation": [
+                    60,
+                    90
+                ],
+                "view:sun_elevation": [
+                    10,
+                    90
+                ],
+                "sat_azimuth": [
+                    0,
+                    360
+                ],
+                "view:sun_azimuth": [
+                    0,
+                    360
+                ]
+            }
+        }
+    },
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                0,
+                0
+            ]
+        },
+        "properties": {
+            "datetime": "ISO8601/ISO8601",
+            "product_id": "EO",
+            "constraints": {
+                "gsd": [
+                    1.0,
+                    10.0
+                ],
+                "view:off_nadir": [
+                    0,
+                    30
+                ],
+                "sat_elevation": [
+                    60,
+                    90
+                ],
+                "view:sun_elevation": [
+                    10,
+                    90
+                ],
+                "sat_azimuth": [
+                    0,
+                    360
+                ],
+                "view:sun_azimuth": [
+                    0,
+                    360
+                ]
+            }
+        }
+    }
+]
