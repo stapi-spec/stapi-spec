@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 
 from geojson_pydantic import Point
 
-from api.backends.base import Backend
+from api.backends.base import Backend, get_token
 from api.backends import BACKENDS
 
 from api.api_types import Search, OpportunityCollection, Product
@@ -27,6 +27,9 @@ async def get_products(
     token = "this-is-not-a-real-token"
     if authorization := request.headers.get("authorization"):
         token = authorization.replace("Bearer ", "")
+
+    if not token:
+        token = get_token(backend)
 
     if backend in BACKENDS:
         impl: Backend = BACKENDS[backend]
@@ -71,6 +74,9 @@ async def post_opportunities(
     token = "this-is-not-a-real-token"
     if authorization := request.headers.get("authorization"):
         token = authorization.replace("Bearer ", "")
+
+    if not token:
+        token = get_token(backend)
 
     if backend in BACKENDS:
         impl: Backend = BACKENDS[backend]
