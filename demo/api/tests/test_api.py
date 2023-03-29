@@ -49,14 +49,14 @@ def test_post_to_pineapple_with_pineapple_body_and_header(backend: str):
 
 @pytest.mark.parametrize("backend", ["planet"])
 def test_post_to_authenticated_backend(backend: str):
-    token_name = f"{backend.upper()}-TOKEN"
+    token_name = f"{backend.upper()}_TOKEN"
 
-    if not token_name in os.environ:
+    if token_name not in os.environ:
         # skip endpoint if token not provided
         return
     token = os.environ[token_name]
 
-    start_time = datetime.datetime.now(datetime.timezone.utc)
+    start_time = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(minutes=1)
     end_time = start_time + datetime.timedelta(days=3)
 
     response = client.post(
@@ -70,6 +70,8 @@ def test_post_to_authenticated_backend(backend: str):
     assert response.status_code == 200
     assert "bbox" in response.json()
     assert "features" in response.json()
+
+    # raise(ValueError(str(response.json())))
 
 
 def test_post_to_pineapple_with_bad_backend_raises():
