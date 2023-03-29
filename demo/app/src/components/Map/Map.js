@@ -56,7 +56,13 @@ const Map = (props) => {
    * on layer created handler
    */
   function onCreated(e) {
-    setUserParams({...userParams, bbox: e.layer.getBounds()});
+    setUserParams({...userParams, geometry: {
+        "geometry": {
+          "type": "Point",
+          "coordinates": [e.layer._latlng.lng, e.layer._latlng.lat]
+      }
+    }
+  });
   }
 
   /**
@@ -92,8 +98,8 @@ const Map = (props) => {
                   draw={{
                     circle: false,
                     circlemarker: false,
-                    marker: false,
-                    polygon: true,
+                    marker: true,
+                    polygon: false,
                     polyline: false,
                     rectangle: false,
                   }}

@@ -1,7 +1,7 @@
 import { createContext, useContext, useMemo, useState } from 'react';
 import usePostRequest from 'src/hooks/usePostRequest';
 import useGetRequest from '../hooks/useGetRequest';
-import { formatToValidTuple, formatToISOString } from 'src/utils';
+import { formatToISOString } from 'src/utils';
 
 const AppContext = createContext();
 
@@ -10,7 +10,7 @@ export default function AppProvider({ children }) {
   /**
    * @typedef {object} UserParams
    * @property {[Date, Date]} dateRange
-   * @property {number[]} [bbox]
+   * @property {number[]} [geometry]
   */
   /** @type {[UserParams, Function]} */
   const [
@@ -27,11 +27,9 @@ export default function AppProvider({ children }) {
   const [openFilters, setOpenFilters] = useState(false);
 
   const params = useMemo(() => {
-    return userParams.bbox ? {
-      "bbox": formatToValidTuple(userParams.bbox),
+    return userParams.geometry ? {
+      "geometry": userParams.geometry,
       "datetime": formatToISOString(userParams.dateRange)
-      //start_date: dateRange[0], call time formatting here
-      //end_date: dateRange[1] call time formatting here
     } : null;
   }, [userParams])
 
