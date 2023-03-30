@@ -41,10 +41,10 @@ class Product(BaseModel):
     id: str
     title: str
     description: str
-    keywords: List[str]
-    license: str
-    providers: List[Provider]
-    links: List[Link]
+    # keywords: List[str]
+    # license: str
+    # providers: List[Provider]
+    # links: List[Link]
     constraints: Optional[ProductConstraints] = Field(
         default=None,
         description="Query constraints that will filter the opportunity results list.",

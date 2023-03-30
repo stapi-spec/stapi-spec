@@ -3,6 +3,7 @@ import re
 from datetime import timedelta
 from typing import Any, Union
 
+from geojson_pydantic.geometries import Point
 import pystac
 from api.api_types import (Opportunity, OpportunityCollection,
                            OpportunityProperties, Product, ProductConstraints,
@@ -45,9 +46,15 @@ def adjust_date_times(properties: dict[str, Any]) -> OpportunityProperties:
 
 
 def stac_item_to_opportunity(item: pystac.Item, product_id: str) -> Opportunity:
+    point_vals = (item.geometry or {}).get('coordinates',[[[0,0]]])[0][0]
+
     return Opportunity(
-        geometry=item.geometry,  # type: ignore
-        properties=adjust_date_times({"product_id": product_id, **item.properties}),
+        geometry=Point(coordinates=(point_vals[0], point_vals[1])),
+        properties=adjust_date_times({
+            "product_id": product_id,
+            "title": item.id,
+            **item.properties
+        }),
         id=item.id,
     )
 

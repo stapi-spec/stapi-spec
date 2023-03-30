@@ -1,6 +1,7 @@
 import { createContext, useContext, useMemo, useState } from 'react';
-import useApiRequest from 'src/hooks/useApiRequest';
-import { formatToValidTuple, formatToISOString } from 'src/utils';
+import usePostRequest from 'src/hooks/usePostRequest';
+import useGetRequest from '../hooks/useGetRequest';
+import { formatToISOString } from 'src/utils';
 
 const AppContext = createContext();
 
@@ -9,38 +10,67 @@ export default function AppProvider({ children }) {
   /**
    * @typedef {object} UserParams
    * @property {[Date, Date]} dateRange
-   * @property {number[]} bbox
+   * @property {number[]} [geometry]
   */
+  /** @type {[UserParams, Function]} */
   const [
-    /** @type {UserParams} */ userParams,
+    userParams,
     setUserParams
   ] = useState({
     dateRange: [
-    today,
-    new Date(new Date(today).setDate(today.getDate() + 7)),
-  ]
+      today,
+      new Date(new Date(today).setDate(today.getDate() + 3)),
+    ],
+    provider: 'historical'
   });
-  const [selectedOpportunity, setSelectedOpportunity] = useState();
+  const [hoveredOpportunity, setHoveredOpportunity] = useState(null);
+  const [selectedOpportunity, setSelectedOpportunity] = useState(null);
+  const [openFilters, setOpenFilters] = useState(false);
 
-  const params = useMemo(() => {
-    return userParams.bbox ? {
-      "bbox": formatToValidTuple(userParams.bbox),
-      "datetime": formatToISOString(userParams.dateRange)
-      //start_date: dateRange[0], call time formatting here
-      //end_date: dateRange[1] call time formatting here
-    } : null;
+  const postParams = useMemo(() => {
+    return userParams.geometry ? {
+        params: {
+          "geometry": userParams.geometry,
+          "datetime": formatToISOString(userParams.dateRange),
+          "product_id": userParams.provider === 'historical' ? 'sentinel-2-l1c' : null
+        },
+        provider: userParams.provider
+      } : null;
   }, [userParams])
 
-  const { isLoading, data: opportunities, error } = useApiRequest(params);
+  const { isLoading: isLoadingOpps, data: opportunities, error: errorOpps } = usePostRequest(postParams);
+  const { isLoading: isLoadingProducts, data: products, error: errorProducts } = useGetRequest();
+  const providers = [{
+    id: 'historical',
+    name: 'Historical'
+  }, {
+    id: 'blacksky',
+    name: 'BlackSky'
+  }, {
+    id: 'planet',
+    name: 'Planet'
+  }, {
+    id: 'umbra',
+    name: 'Umbra'
+  }]
 
   const app = {
     userParams,
     setUserParams,
-    isLoading,
+    isLoadingOpps,
+    isLoadingProducts,
+    products,
+    errorProducts,
     opportunities,
-    error,
+    errorOpps,
     selectedOpportunity,
-    setSelectedOpportunity
+    setSelectedOpportunity,
+    hoveredOpportunity,
+    setHoveredOpportunity,
+    openFilters,
+    setOpenFilters,
+    setHoveredOpportunity,
+    providers
   }
 
   return (

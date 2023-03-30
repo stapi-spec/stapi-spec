@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
-const useApiRequest = (params) => {
+const usePostRequest = (postParams) => {
+    const {params, provider} = !!postParams && postParams;
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
@@ -8,24 +9,27 @@ const useApiRequest = (params) => {
     useEffect(() => {
         if (params) {
             setIsLoading(true);
-            fetch("/api/pineapple", {
+            setError(false);
+            fetch("/api/opportunities", {
                 method: "POST",
                 headers: {
-                    "Authorization": "fake-token",
-                    "Backend": "fake",
-                    "Content-type": "application/json"
+                    "Content-type": "application/json",
+                    "Backend": provider
                 },
                 body: JSON.stringify(params)
             })
             .then((res) => res.json())
             .then((data) => {
-                setData(data)
+                setData(data.features)
                 setIsLoading(false)
-            }).catch(e => setError(e));
+            }).catch(e => {
+                setError(e);
+                setIsLoading(false);
+            });
         }
-    }, [params]);
-    
+    }, [params, provider]);
+
     return { data, isLoading, error };
 };
-    
-export default useApiRequest;
+
+export default usePostRequest;
