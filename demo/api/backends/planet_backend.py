@@ -2,6 +2,7 @@ import os
 import requests
 import time
 
+
 from api.api_types import Search, Opportunity, OpportunityCollection, Product, Provider
 
 
@@ -58,6 +59,7 @@ def get_imaging_windows(planet_request) -> list:
         elif status == 'FAILED':
             raise ValueError(
                 f"Retrieving Imaging Windows failed: {r.json['error_code']} - {r.json['error_message']}'")
+        # todo async
         time.sleep(1)
 
 
@@ -72,10 +74,9 @@ def imaging_window_to_opportunity(iw, geom, search_request) -> Opportunity:
         id=iw["id"],
         geometry=geom,
         properties={
-            'title': '',
+            'title': 'Planet Assured Imaging Window @ ' + iw['start_time'],
+            'datetime': f"{iw['start_time']}/{iw['end_time']}",
             'product_id': search_request.product_id,
-            'start_datetime': iw['start_time'],
-            'end_datetime': iw['end_time'],
             'constraints': {
                 'off_nadir': [iw['start_off_nadir'], iw['end_off_nadir']],
                 'cloud_cover': iw['cloud_forecast'][0]['prediction']
@@ -109,7 +110,7 @@ class PlanetBackend:
 
     async def find_products(self, token: str) -> list[Product]:
         # todo: get real list of products
-        # todo: consider proper reactions for all types of products
+        # todo: consider proper reactions for all types of products (i.e. non-assured)
         return [
             Product(
                 type="Product",
@@ -126,5 +127,3 @@ class PlanetBackend:
                 parameters={}
             )
         ]
-
-
