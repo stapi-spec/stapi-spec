@@ -8,7 +8,7 @@ from geojson_pydantic import Point
 from api.backends.base import Backend, get_token
 from api.backends import BACKENDS
 
-from api.api_types import Search, OpportunityCollection, Product
+from api.api_types import Search, OpportunityCollection, Product, Order
 
 app = FastAPI(title="Tasking API")
 
@@ -18,6 +18,7 @@ DEFAULT_BACKEND = os.environ.get("DEFAULT_BACKEND", "historical")
 @app.get("/")
 async def redirect_home():
     return RedirectResponse("/docs")
+
 
 @app.get("/products", response_model=list[Product])
 async def get_products(
@@ -117,3 +118,37 @@ async def post_opportunities(
     )
 
     return opportunity_collection
+
+
+@app.post("/orders", response_model=Order)
+async def post_order(
+    request: Request,
+    search: Search,
+):
+    # get the right token and backend from the header
+    backend = request.headers.get("backend", "historical")
+
+    token = "this-is-not-a-real-token"
+    if authorization := request.headers.get("authorization"):
+        token = authorization.replace("Bearer ", "")
+
+    if backend in BACKENDS:
+        impl: Backend = BACKENDS[backend]
+    else:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Backend '{backend}' not in options: {list(BACKENDS.keys())}"
+        )
+
+    try:
+        order = await impl.place_order(
+            search,
+            token=token,
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=str(e),
+        )
+
+    return order

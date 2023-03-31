@@ -7,8 +7,9 @@ from geojson_pydantic.geometries import Point
 import pystac
 from api.api_types import (Opportunity, OpportunityCollection,
                            OpportunityProperties, Product, ProductConstraints,
-                           Search, Provider)
-from pystac import Collection
+                           Search, Order, Provider)
+from pystac import Collection, ItemCollection
+
 from pystac_client.client import Client
 
 DEFAULT_MAX_ITEMS = 10
@@ -89,11 +90,7 @@ class HistoricalBackend:
     def __init__(self) -> None:
         self.catalog = Client.open('https://earth-search.aws.element84.com/v1')  # type: ignore
 
-    async def find_opportunities(
-        self,
-        search: Search,
-        token: str,
-    ) -> OpportunityCollection:
+    def _search(self, search) -> ItemCollection:
         max_items = min(search.limit, MAX_MAX_ITEMS)
 
         args: dict[str, Any] = {
@@ -114,18 +111,25 @@ class HistoricalBackend:
             raise Exception('A datetime range must be specified')
 
         search_obj = self.catalog.search(**args)
-        item_coll = search_obj.item_collection()
+        return search_obj.item_collection()
 
+    async def find_opportunities(
+        self,
+        search: Search,
+        token: str,
+    ) -> OpportunityCollection:
         # Convert the STAC items from earth search into opportunities
+        item_collection = self._search(search)
         opportunities: list[Opportunity] = [
             stac_item_to_opportunity(item, product_id=search.product_id)
-            for item in item_coll.items
+            for item in item_collection.items
         ]
         opportunity_collection = OpportunityCollection(
             features=opportunities
         )
 
         return opportunity_collection
+
 
     async def find_products(self, token: str) -> list[Product]:
         def safe_get_coll(product_id: str) -> Collection:
@@ -138,3 +142,17 @@ class HistoricalBackend:
             stac_collection_to_product(safe_get_coll(product_id))
             for product_id in PRODUCT_IDS
         ]
+
+    async def place_order(
+        self,
+        search: Search,
+        token: str,
+    ) -> Order:
+        """Get the first item off the search output and return that ID"""
+        item_collection = self._search(search)
+
+        if len(item_collection.items) == 0:
+            raise ValueError(f"Unable to place an order for this product: '{search.product_id}'")
+
+        best_guess = item_collection.items[0]
+        return Order(id=best_guess.id)

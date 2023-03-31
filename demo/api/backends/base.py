@@ -1,7 +1,7 @@
 from typing import Protocol, Optional
-
-from api.api_types import OpportunityCollection, Product, Search
 import os
+
+from api.api_types import OpportunityCollection, Product, Search, Order
 
 
 # backend protocol class
@@ -19,6 +19,13 @@ class Backend(Protocol):
         self,
         token: str,
     ) -> list[Product]:
+        return NotImplemented
+
+    async def place_order(
+        self,
+        search: Search,
+        token: str,
+    ) -> Order:
         return NotImplemented
 
 
