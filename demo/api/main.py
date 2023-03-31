@@ -46,6 +46,29 @@ async def get_products(
     )
 
 
+
+@app.get("/products/{id}/opportunities", response_model=OpportunityCollection)
+async def get_product_opportunities(
+    id: str,
+    request: Request,
+    search: Search | None = None,
+):
+    """Get opportunities for a given product
+
+    Example: /products/landsat-c2-l2/opportunities
+    """
+    if search is None:
+        start_datetime = datetime.now()
+        end_datetime = start_datetime + timedelta(days=40)
+        search = Search(
+            geometry=Point(coordinates=(45, 45)),
+            datetime=f"{start_datetime.isoformat()}/{end_datetime.isoformat()}",
+            limit=10,
+        )
+    search.product_id = id
+
+    return await post_opportunities(request, search)
+
 @app.get("/opportunities", response_model=OpportunityCollection)
 async def get_opportunities(
         request: Request,

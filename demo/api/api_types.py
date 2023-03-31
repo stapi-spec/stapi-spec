@@ -17,6 +17,7 @@ from stac_pydantic.collection import Range
 from stac_pydantic.links import Link
 from stac_pydantic.shared import Provider
 
+
 Geometry = Union[
     Point,
     MultiPoint,
@@ -106,8 +107,7 @@ class OpportunityCollection(FeatureCollection):  # type: ignore
 class Search(BaseModel):
     geometry: Optional[Geometry]
 
-    # Slash separated date time range
-    datetime: str
+    datetime: str = Field(description="Slash separated datetime range.")
     product_id: Optional[str]
     constraints: Optional[Dict[str, Any]] = None
     limit: int = 10
