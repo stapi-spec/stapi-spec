@@ -2,21 +2,14 @@ from datetime import datetime as Datetime
 from typing import Any, Dict, List, Literal, Optional, Union
 
 from geojson_pydantic.features import Feature, FeatureCollection
-from geojson_pydantic.geometries import (
-    GeometryCollection,
-    LineString,
-    MultiLineString,
-    MultiPoint,
-    MultiPolygon,
-    Point,
-    Polygon,
-)
+from geojson_pydantic.geometries import (GeometryCollection, LineString,
+                                         MultiLineString, MultiPoint,
+                                         MultiPolygon, Point, Polygon)
 from pydantic import BaseModel, Field
 from pydantic.datetime_parse import parse_datetime
 from stac_pydantic.collection import Range
 from stac_pydantic.links import Link
 from stac_pydantic.shared import Provider
-
 
 Geometry = Union[
     Point,
@@ -31,7 +24,6 @@ Geometry = Union[
 
 ProductConstraints = Dict[str, Union[Range, List[Any], Dict[str, Any]]]
 ProductParameters = Dict[str, Union[Range, List[Any], Dict[str, Any]]]
-
 
 
 class Order(BaseModel):

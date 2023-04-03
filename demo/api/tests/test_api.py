@@ -1,17 +1,15 @@
 import datetime
+import json
+import logging
 import os
+from typing import Optional, Tuple
 
 import pytest
 from fastapi.testclient import TestClient
 
-from api.main import app
+from api.api_types import Opportunity, OpportunityCollection, Order, Search
 from api.backends import BACKENDS
-from api.backends.base import get_token
-
-import logging
-import json
-
-from typing import Optional
+from api.main import app
 
 LOGGER = logging.getLogger(__name__)
 
@@ -19,11 +17,33 @@ client = TestClient(app)
 
 VALID_SEARCH_BODY = {
     "datetime": "2025-01-01T00:00:00Z/2025-01-02T00:00:00Z",
-    "geometry": {
-        "type": "Point",
-        "coordinates": [-75.16, 39.95]
-    }
+    "geometry": {"type": "Point", "coordinates": [-75.16, 39.95]},
 }
+
+PLANET_TOKEN = os.environ.get("PLANET_TOKEN")
+BLACKSKY_TOKEN = os.environ.get("BLACKSKY_TOKEN")
+UMBRA_TOKEN = os.environ.get("UMBRA_TOKEN")
+
+PLANET_MARK = pytest.mark.skipif(not PLANET_TOKEN, reason="No PLANET_TOKEN in env")
+BLACKSKY_MARK = pytest.mark.skipif(
+    not BLACKSKY_TOKEN, reason="No BLACKSKY_TOKEN in env"
+)
+UMBRA_MARK = pytest.mark.skipif(not UMBRA_TOKEN, reason="No UMBRA_TOKEN in env")
+
+
+@pytest.fixture(
+    params=[
+        pytest.param(("planet", PLANET_TOKEN), marks=PLANET_MARK),
+        pytest.param(("blacksky", BLACKSKY_TOKEN), marks=BLACKSKY_MARK),
+        pytest.param(("umbra", UMBRA_TOKEN), marks=UMBRA_MARK),
+    ]
+)
+def backend_and_token(request):
+    """
+    Parameterize tests with all backends and tokens available.
+    If token is not in env vars, skip the test for that backend.
+    """
+    return request.param
 
 
 def test_read_docs():
@@ -56,11 +76,8 @@ def test_post_to_opportunities_with_opportunities_body_and_header(backend: str):
     assert "features" in response.json()
 
 
-@pytest.mark.parametrize("backend", ["planet"])
-def test_products_authenticated(backend: str):
-    token = get_token(backend)
-    if not token:
-        return
+def test_products_authenticated(backend_and_token: Tuple[str, str]):
+    backend, token = backend_and_token
     _test_products(backend, token)
 
 
@@ -81,21 +98,19 @@ def _test_products(backend: str, token: Optional[str] = None):
     assert len(response.json()) > 0
 
 
-@pytest.mark.parametrize("backend", []) # "planet"
-def test_post_to_opportunities_with_opportunities_body_and_header_authenticated(backend: str):
-    token = get_token(backend)
-    if not token:
-        return
+def test_post_to_opportunities_with_opportunities_body_and_header_authenticated(
+    backend_and_token,
+):
+    backend, token = backend_and_token
 
-    start_time = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(minutes=1)
+    start_time = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(
+        minutes=1
+    )
     end_time = start_time + datetime.timedelta(days=1)
 
     search_body_now = {
-        "datetime":  f"{start_time.isoformat()}/{end_time.isoformat()}",
-        "geometry": {
-            "type": "Point",
-            "coordinates": [-75.16, 39.95]
-        }
+        "datetime": f"{start_time.isoformat()}/{end_time.isoformat()}",
+        "geometry": {"type": "Point", "coordinates": [-75.16, 39.95]},
     }
 
     response = client.post(
@@ -115,7 +130,10 @@ def test_post_to_opportunities_with_bad_backend_raises():
         json=VALID_SEARCH_BODY,
     )
     assert response.status_code == 404
-    assert response.json()["detail"] == f"Backend 'foo' not in options: {list(BACKENDS.keys())}"
+    assert (
+        response.json()["detail"]
+        == f"Backend 'foo' not in options: {list(BACKENDS.keys())}"
+    )
 
 
 def test_post_to_orders_raises_if_not_possible():
@@ -126,16 +144,16 @@ def test_post_to_orders_raises_if_not_possible():
         json={"product_id": product_id, **VALID_SEARCH_BODY},
     )
     assert response.status_code == 500
-    assert response.json()["detail"] == f"Unable to place an order for this product: '{product_id}'"
+    assert (
+        response.json()["detail"]
+        == f"Unable to place an order for this product: '{product_id}'"
+    )
 
 
 def test_post_to_orders():
     json_body = {
         "datetime": "2025-01-01T00:00:00Z/2025-05-02T00:00:00Z",
-        "geometry": {
-            "type": "Point",
-            "coordinates": [-75.16, 39.95]
-        },
+        "geometry": {"type": "Point", "coordinates": [-75.16, 39.95]},
         "product_id": "landsat-c2-l2",
     }
     response = client.post(
@@ -145,3 +163,33 @@ def test_post_to_orders():
     )
     assert response.status_code == 200
     assert response.json()["id"] == "LC09_L2SP_014032_20220501_02_T1"
+
+
+@pytest.mark.parametrize("endpoint", ["/orders", "/opportunities"])
+def test_token_is_passed_to_backend(endpoint):
+    TOKEN = "fake-token-for-tests"
+
+    class MockBackend:
+        async def find_opportunities(
+            self,
+            search: Search,
+            token: str,
+        ) -> Opportunity:
+            assert token == TOKEN
+            return OpportunityCollection(features=[])
+
+        async def place_order(
+            self,
+            search: Search,
+            token: str,
+        ) -> Order:
+            assert token == TOKEN
+            return Order(id="blahblahblah")
+
+    BACKENDS["mock"] = MockBackend
+
+    client.post(
+        endpoint,
+        headers={"Backend": "mock", "Authorization": f"Bearer {TOKEN}"},
+        json=VALID_SEARCH_BODY,
+    )
