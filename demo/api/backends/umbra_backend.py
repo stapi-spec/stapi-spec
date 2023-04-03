@@ -4,18 +4,13 @@ from typing import Any, Dict, List, Literal, Optional
 from uuid import UUID, uuid4
 
 import requests
-from api.api_types import (
-    Geometry,
-    Opportunity,
-    OpportunityCollection,
-    OpportunityProperties,
-    Product,
-    Search,
-)
-from api.backends.base import Backend
 from pydantic import BaseModel, Field
 from pystac import ProviderRole
 from stac_pydantic.shared import Provider
+
+from api.api_types import (Geometry, Opportunity, OpportunityCollection,
+                           OpportunityProperties, Product, Search)
+from api.backends.base import Backend
 
 UMBRA_BASE_URL = os.getenv("UMBRA_BASE_URL")
 UMBRA_FEASIBILITIES_URL = f"{UMBRA_BASE_URL}/tasking/feasibilities"
@@ -134,9 +129,6 @@ class UmbraBackend(Backend):
         token: str,
     ) -> OpportunityCollection:
         print(f"Umbra - find_opportunities, search: {search}")
-
-        # Grab token from env until we can get it from the header
-        token = os.getenv("UMBRA_TOKEN", "")
 
         if not token:
             raise Exception("Set UMBRA_TOKEN before running the server")
