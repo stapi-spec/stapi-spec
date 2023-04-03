@@ -7,9 +7,9 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import RedirectResponse
 from geojson_pydantic import Point
 
-from api.models import OpportunityCollection, Order, Product, Search
 from api.backends import BACKENDS
 from api.backends.base import Backend
+from api.models import OpportunityCollection, Order, Product, Search
 
 app = FastAPI(title="Tasking API")
 
@@ -82,7 +82,7 @@ async def get_product_opportunities(
         search = Search(
             geometry=Point(coordinates=(45, 45)),
             datetime=f"{start_datetime.isoformat()}/{end_datetime.isoformat()}",
-            limit=10,
+            product_id=id,
         )
     search.product_id = id
 
@@ -107,7 +107,6 @@ async def get_opportunities(
         search = Search(
             geometry=Point(coordinates=(45, 45)),
             datetime=f"{start_datetime.isoformat()}/{end_datetime.isoformat()}",
-            limit=10,
             product_id=product_id,
         )
 

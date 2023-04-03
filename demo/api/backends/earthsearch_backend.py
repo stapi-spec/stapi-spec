@@ -8,9 +8,16 @@ from geojson_pydantic.geometries import Point
 from pystac import Collection, ItemCollection
 from pystac_client.client import Client
 
-from api.models import (Opportunity, OpportunityCollection,
-                           OpportunityProperties, Order, Product,
-                           ProductConstraints, Provider, Search)
+from api.models import (
+    Opportunity,
+    OpportunityCollection,
+    OpportunityProperties,
+    Order,
+    Product,
+    ProductConstraints,
+    Provider,
+    Search,
+)
 
 DEFAULT_MAX_ITEMS = 10
 MAX_MAX_ITEMS = 100
@@ -89,7 +96,7 @@ class EarthSearchBackend:
         self.catalog = Client.open("https://earth-search.aws.element84.com/v1")  # type: ignore
 
     def _search(self, search) -> ItemCollection:
-        max_items = min(search.limit, MAX_MAX_ITEMS)
+        max_items = DEFAULT_MAX_ITEMS
 
         args: dict[str, Any] = {
             "collections": [search.product_id],

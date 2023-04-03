@@ -1,7 +1,6 @@
 import pystac
 
-from api.models import (Opportunity, OpportunityCollection, Product,
-                           Provider, Search)
+from api.models import Opportunity, OpportunityCollection, Product, Provider, Search
 
 STAC_ITEM_URL = (
     "https://raw.githubusercontent.com/stac-utils/pystac/main/"

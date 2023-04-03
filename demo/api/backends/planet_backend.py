@@ -3,8 +3,7 @@ import time
 
 import requests
 
-from api.models import (Opportunity, OpportunityCollection, Product,
-                           Provider, Search)
+from api.models import Opportunity, OpportunityCollection, Product, Provider, Search
 
 PLANET_BASE_URL = "https://api.staging.planet-labs.com"
 

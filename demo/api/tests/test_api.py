@@ -7,9 +7,9 @@ from typing import Optional, Tuple
 import pytest
 from fastapi.testclient import TestClient
 
-from api.models import Opportunity, OpportunityCollection, Order, Search
 from api.backends import BACKENDS
 from api.main import app
+from api.models import Opportunity, OpportunityCollection, Order, Search
 
 LOGGER = logging.getLogger(__name__)
 
@@ -18,6 +18,7 @@ client = TestClient(app)
 VALID_SEARCH_BODY = {
     "datetime": "2025-01-01T00:00:00Z/2025-01-02T00:00:00Z",
     "geometry": {"type": "Point", "coordinates": [-75.16, 39.95]},
+    "product_id": "landsat-c2-l2",
 }
 
 PLANET_TOKEN = os.environ.get("PLANET_TOKEN")
@@ -59,7 +60,7 @@ def test_post_to_opportunities_with_no_body():
 def test_post_to_opportunities_with_opportunities_body():
     response = client.post(
         "/opportunities",
-        json={"product_id": "landsat-c2-l2", **VALID_SEARCH_BODY},
+        json=VALID_SEARCH_BODY,
     )
     assert response.status_code == 200
     assert "features" in response.json()
@@ -70,7 +71,7 @@ def test_post_to_opportunities_with_opportunities_body_and_header(backend: str):
     response = client.post(
         "/opportunities",
         headers={"Backend": backend},
-        json={"product_id": "landsat-c2-l2", **VALID_SEARCH_BODY},
+        json=VALID_SEARCH_BODY,
     )
     assert response.status_code == 200
     assert "features" in response.json()
@@ -111,6 +112,7 @@ def test_post_to_opportunities_with_opportunities_body_and_header_authenticated(
     search_body_now = {
         "datetime": f"{start_time.isoformat()}/{end_time.isoformat()}",
         "geometry": {"type": "Point", "coordinates": [-75.16, 39.95]},
+        "product_id": "",
     }
 
     response = client.post(
@@ -137,16 +139,15 @@ def test_post_to_opportunities_with_bad_backend_raises():
 
 
 def test_post_to_orders_raises_if_not_possible():
-    product_id = "landsat-c2-l2"
     response = client.post(
         "/orders",
         headers={"Backend": "earthsearch"},
-        json={"product_id": product_id, **VALID_SEARCH_BODY},
+        json=VALID_SEARCH_BODY,
     )
     assert response.status_code == 500
     assert (
         response.json()["detail"]
-        == f"Unable to place an order for this product: '{product_id}'"
+        == f"Unable to place an order for this product: 'landsat-c2-l2'"
     )
 
 

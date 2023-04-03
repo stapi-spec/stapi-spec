@@ -2,13 +2,20 @@ from datetime import datetime as Datetime
 from typing import Any, Dict, List, Literal, Optional, Union
 
 from geojson_pydantic.features import Feature, FeatureCollection
-from geojson_pydantic.geometries import (GeometryCollection, LineString,
-                                         MultiLineString, MultiPoint,
-                                         MultiPolygon, Point, Polygon)
+from geojson_pydantic.geometries import (
+    GeometryCollection,
+    LineString,
+    MultiLineString,
+    MultiPoint,
+    MultiPolygon,
+    Point,
+    Polygon,
+)
 from pydantic import BaseModel, Field
 from pydantic.datetime_parse import parse_datetime
 from stac_pydantic.collection import Range
-
+from stac_pydantic.links import Link
+from stac_pydantic.shared import Provider
 
 Geometry = Union[
     Point,
@@ -33,15 +40,31 @@ class Product(BaseModel):
     """https://github.com/Element84/sat-tasking-sprint/tree/main/product-spec"""
 
     type: Literal["Product"] = Field(const=True, default="Product")
-    stat_version: str
-    stat_extensions: list[str]
-    id: str
-    title: str
-    description: str
-    # keywords: List[str]
-    # license: str
-    # providers: List[Provider]
-    # links: List[Link]
+    stat_version: str = Field(
+        const=True,
+        default="0.0.1",
+        description="The STAT version the Product implements",
+    )
+    stat_extensions: list[str] = Field(
+        default=[],
+        description="A list of extension identifiers the Product implements.",
+    )
+    id: str = Field(
+        description="Identifier for the Product that is unique across the provider."
+    )
+    title: Optional[str] = Field(
+        default=None, description="A short descriptive one-line title for the Product."
+    )
+    description: Optional[str] = Field(
+        default=None,
+        description="Detailed multi-line description to fully explain the Product.",
+    )
+    keywords: List[str] = Field(
+        default=[], description="List of keywords describing the Product."
+    )
+    # license: str = Field(description="Product's license(s), either a SPDX License identifier, various if multiple licenses apply or proprietary for all other cases.")
+    # providers: List[Provider] = Field(description="A list of providers, which may include all organizations capturing or processing the data or the hosting provider. Providers should be listed in chronological order with the most recent provider being the last element of the list.")
+    # links: List[Link] = Field(description="A list of references to other documents.")
     constraints: Optional[ProductConstraints] = Field(
         default=None,
         description="Query constraints that will filter the opportunity results list.",
@@ -52,19 +75,47 @@ class Product(BaseModel):
     )
 
 
+class Search(BaseModel):
+    """
+    Request body for `/opportunities` and `/orders`
+
+    https://github.com/Element84/sat-tasking-sprint/blob/main/order-spec
+    """
+
+    geometry: Geometry = Field(description="Point contained within opportunity")
+    datetime: str = Field(description="Slash separated datetime range")
+    product_id: str = Field(
+        description="Product identifier. The ID should be unique per provider."
+    )
+    constraints: Optional[Dict[str, Any]] = Field(
+        default=None,
+        description="A map of opportunity constraints, either a set of values, a range of values or a JSON Schema.",
+    )
+
+    @property
+    def start_date(self) -> Datetime:
+        values = self.datetime.split("/")
+        return parse_datetime(values[0])
+
+    @property
+    def end_date(self) -> Datetime:
+        values = self.datetime.split("/")
+        return parse_datetime(values[1])
+
+
 # Copied and modified from stack_pydantic.item.ItemProperties
 class OpportunityProperties(BaseModel):
-    """
-    https://github.com/radiantearth/stac-spec/blob/v1.0.0/item-spec/common-metadata.md#date-and-time-range
-    """
+    title: Optional[str] = Field(default=None)
+    description: Optional[str] = Field(default=None)
+    datetime: str = Field(description="Slash separated datetime range")
+    product_id: str = Field(
+        description="Product identifier. The ID should be unique per provider."
+    )
+    constraints: Optional[Dict[str, Any]] = Field(
+        default=None,
+        description="A map of opportunity constraints, either a set of values, a range of values or a JSON Schema.",
+    )
 
-    title: Optional[str] = Field(None, alias="title")
-    description: Optional[str] = Field(None, alias="description")
-    datetime: Optional[str] = Field(None, alias="datetime")
-    product_id: Optional[str] = Field(None, alias="product_id")
-    constraints: Optional[Dict[str, Any]] = Field(None, alias="constraints")
-
-    # TODO need to ask if this is exactly like stac with .., /, single datetime etc.
     @property
     def start_date(self) -> Datetime:
         values = self.datetime.split("/")
@@ -97,24 +148,3 @@ class OpportunityCollection(FeatureCollection):  # type: ignore
 
     def to_json(self, **kwargs: Any) -> str:
         return self.json(by_alias=True, exclude_unset=True, **kwargs)  # type: ignore
-
-
-# Copied and modified from stack_pydantic.api.search.Search
-class Search(BaseModel):
-    geometry: Optional[Geometry]
-
-    datetime: str = Field(description="Slash separated datetime range.")
-    product_id: Optional[str]
-    constraints: Optional[Dict[str, Any]] = None
-    limit: int = 10
-
-    # TODO need to ask if this is exactly like stac with .., /, single datetime etc.
-    @property
-    def start_date(self) -> Datetime:
-        values = self.datetime.split("/")
-        return parse_datetime(values[0])
-
-    @property
-    def end_date(self) -> Datetime:
-        values = self.datetime.split("/")
-        return parse_datetime(values[1])

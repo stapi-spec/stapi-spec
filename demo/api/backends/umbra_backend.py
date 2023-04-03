@@ -8,9 +8,15 @@ from pydantic import BaseModel, Field
 from pystac import ProviderRole
 from stac_pydantic.shared import Provider
 
-from api.models import (Geometry, Opportunity, OpportunityCollection,
-                           OpportunityProperties, Product, Search)
 from api.backends.base import Backend
+from api.models import (
+    Geometry,
+    Opportunity,
+    OpportunityCollection,
+    OpportunityProperties,
+    Product,
+    Search,
+)
 
 UMBRA_BASE_URL = os.getenv("UMBRA_BASE_URL")
 UMBRA_FEASIBILITIES_URL = f"{UMBRA_BASE_URL}/tasking/feasibilities"
