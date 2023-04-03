@@ -1,6 +1,6 @@
 import requests
 
-from api.api_types import Opportunity, OpportunityCollection, Search
+from api.models import Opportunity, OpportunityCollection, Search
 
 BLACKSKY_BASE_URL = "https://api.dev.blacksky.com/v1"
 

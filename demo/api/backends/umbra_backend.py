@@ -8,7 +8,7 @@ from pydantic import BaseModel, Field
 from pystac import ProviderRole
 from stac_pydantic.shared import Provider
 
-from api.api_types import (Geometry, Opportunity, OpportunityCollection,
+from api.models import (Geometry, Opportunity, OpportunityCollection,
                            OpportunityProperties, Product, Search)
 from api.backends.base import Backend
 

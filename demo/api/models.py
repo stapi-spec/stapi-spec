@@ -8,8 +8,7 @@ from geojson_pydantic.geometries import (GeometryCollection, LineString,
 from pydantic import BaseModel, Field
 from pydantic.datetime_parse import parse_datetime
 from stac_pydantic.collection import Range
-from stac_pydantic.links import Link
-from stac_pydantic.shared import Provider
+
 
 Geometry = Union[
     Point,

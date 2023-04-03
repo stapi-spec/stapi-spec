@@ -7,7 +7,7 @@ from typing import Optional, Tuple
 import pytest
 from fastapi.testclient import TestClient
 
-from api.api_types import Opportunity, OpportunityCollection, Order, Search
+from api.models import Opportunity, OpportunityCollection, Order, Search
 from api.backends import BACKENDS
 from api.main import app
 

@@ -7,7 +7,7 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import RedirectResponse
 from geojson_pydantic import Point
 
-from api.api_types import OpportunityCollection, Order, Product, Search
+from api.models import OpportunityCollection, Order, Product, Search
 from api.backends import BACKENDS
 from api.backends.base import Backend
 

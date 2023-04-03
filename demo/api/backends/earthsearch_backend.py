@@ -8,7 +8,7 @@ from geojson_pydantic.geometries import Point
 from pystac import Collection, ItemCollection
 from pystac_client.client import Client
 
-from api.api_types import (Opportunity, OpportunityCollection,
+from api.models import (Opportunity, OpportunityCollection,
                            OpportunityProperties, Order, Product,
                            ProductConstraints, Provider, Search)
 
