@@ -65,7 +65,7 @@ def test_post_to_opportunities_with_opportunities_body():
     assert "features" in response.json()
 
 
-@pytest.mark.parametrize("backend", ["fake", "historical"])
+@pytest.mark.parametrize("backend", ["fake", "earthsearch"])
 def test_post_to_opportunities_with_opportunities_body_and_header(backend: str):
     response = client.post(
         "/opportunities",
@@ -81,7 +81,7 @@ def test_products_authenticated(backend_and_token: Tuple[str, str]):
     _test_products(backend, token)
 
 
-@pytest.mark.parametrize("backend", ["fake", "historical"])
+@pytest.mark.parametrize("backend", ["fake", "earthsearch"])
 def test_products_unauthenticated(backend: str):
     _test_products(backend)
 
@@ -140,7 +140,7 @@ def test_post_to_orders_raises_if_not_possible():
     product_id = "landsat-c2-l2"
     response = client.post(
         "/orders",
-        headers={"Backend": "historical"},
+        headers={"Backend": "earthsearch"},
         json={"product_id": product_id, **VALID_SEARCH_BODY},
     )
     assert response.status_code == 500
@@ -158,7 +158,7 @@ def test_post_to_orders():
     }
     response = client.post(
         "/orders",
-        headers={"Backend": "historical"},
+        headers={"Backend": "earthsearch"},
         json=json_body,
     )
     assert response.status_code == 200

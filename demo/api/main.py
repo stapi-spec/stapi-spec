@@ -13,7 +13,7 @@ from api.backends.base import Backend
 
 app = FastAPI(title="Tasking API")
 
-DEFAULT_BACKEND = os.environ.get("DEFAULT_BACKEND", "historical")
+DEFAULT_BACKEND = os.environ.get("DEFAULT_BACKEND", "earthsearch")
 
 
 def throw(func):

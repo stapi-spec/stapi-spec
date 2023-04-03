@@ -82,7 +82,7 @@ def stac_collection_to_product(collection: Collection) -> Product:
     )
 
 
-class HistoricalBackend:
+class EarthSearchBackend:
     catalog: Client
 
     def __init__(self) -> None:
