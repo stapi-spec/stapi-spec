@@ -11,11 +11,10 @@ from geojson_pydantic.geometries import (
     Point,
     Polygon,
 )
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, constr
 from pydantic.datetime_parse import parse_datetime
 from stac_pydantic.collection import Range
 from stac_pydantic.links import Link
-
 
 Geometry = Union[
     Point,
@@ -32,13 +31,13 @@ ProductConstraints = Dict[str, Union[Range, tuple, list[Any], Dict[str, Any]]]
 ProductParameters = Dict[str, Union[Range, tuple, list[Any], Dict[str, Any]]]
 
 
-# derived from stac_pydantic.Provider
+# derived from stac_pydantic.shared.Provider
 class Provider(BaseModel):
     """
     https://github.com/radiantearth/stac-spec/blob/v1.0.0/collection-spec/collection-spec.md#provider-object
     """
 
-    name: str = Field(const=True)
+    name: constr(min_length=1)
     description: Optional[str] = Field(default=None)
     roles: Optional[list[str]] = Field(default=None)
     url: Optional[str] = Field(default=None)
