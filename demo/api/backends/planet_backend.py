@@ -2,14 +2,12 @@ import os
 import time
 
 import requests
-
-from api.api_types import (Opportunity, OpportunityCollection, Product,
-                           Provider, Search)
+from api.models import Opportunity, Product, Provider
 
 PLANET_BASE_URL = "https://api.staging.planet-labs.com"
 
 
-def search_to_imaging_window_request(search_request: Search) -> dict:
+def search_to_imaging_window_request(search_request: Opportunity) -> dict:
     """
     :param search: search object as passed on to find_opportunities
     :return: a corresponding request to retrieve imaging windows
@@ -58,7 +56,7 @@ def get_imaging_windows(planet_request, token: str) -> list:
             return r.json()["imaging_windows"]
         elif status == "FAILED":
             raise ValueError(
-                f"Retrieving Imaging Windows failed: {r.json['error_code']} - {r.json['error_message']}'"
+                f"Retrieving Imaging Windows failed: {r.json()['error_code']} - {r.json()['error_message']}'"
             )
         # todo async
         time.sleep(1)
@@ -74,14 +72,11 @@ def imaging_window_to_opportunity(iw, geom, search_request) -> Opportunity:
     return Opportunity(
         id=iw["id"],
         geometry=geom,
-        properties={
-            "title": "Planet Assured Imaging Window @ " + iw["start_time"],
-            "datetime": f"{iw['start_time']}/{iw['end_time']}",
-            "product_id": search_request.product_id,
-            "constraints": {
-                "off_nadir": [iw["start_off_nadir"], iw["end_off_nadir"]],
-                "cloud_cover": iw["cloud_forecast"][0]["prediction"],
-            },
+        datetime=f"{iw['start_time']}/{iw['end_time']}",
+        product_id=search_request.product_id,
+        constraints={
+            "off_nadir": [iw["start_off_nadir"], iw["end_off_nadir"]],
+            "cloud_cover": iw["cloud_forecast"][0]["prediction"],
         },
     )
 
@@ -89,9 +84,9 @@ def imaging_window_to_opportunity(iw, geom, search_request) -> Opportunity:
 class PlanetBackend:
     async def find_opportunities(
         self,
-        search_request: Search,
+        search_request: Opportunity,
         token: str,
-    ) -> OpportunityCollection:
+    ) -> list[Opportunity]:
         # this assumes we have an Assured product i.e. one which is ordered with respect to a
         # specific imaging window
         # todo: extend this flow to flexible orders
@@ -107,7 +102,7 @@ class PlanetBackend:
         # todo: combine original request and returned imaging window such that the returned
         #   opportunities are a valid order structure
 
-        return OpportunityCollection(features=opportunities)
+        return opportunities
 
     async def find_products(self, token: str) -> list[Product]:
         # todo: get real list of products

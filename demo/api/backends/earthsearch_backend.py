@@ -1,16 +1,18 @@
-import datetime
-import re
-from datetime import timedelta
-from typing import Any, Union
+from datetime import datetime, timedelta
+from typing import Any
 
 import pystac
+from api.models import (
+    Opportunity,
+    Order,
+    Product,
+    ProductConstraints,
+    ProductParameters,
+    Provider,
+)
 from geojson_pydantic.geometries import Point
 from pystac import Collection, ItemCollection
 from pystac_client.client import Client
-
-from api.api_types import (Opportunity, OpportunityCollection,
-                           OpportunityProperties, Order, Product,
-                           ProductConstraints, Provider, Search)
 
 DEFAULT_MAX_ITEMS = 10
 MAX_MAX_ITEMS = 100
@@ -24,25 +26,10 @@ PRODUCT_IDS = [LANDSAT_COLLECTION_ID, SENTINEL_COLLECTION_ID]
 # past. This is the amount of time in the past we search from a request.
 TIME_DELTA = timedelta(days=3 * 365)
 
-MaybeDate = Union[str, Any]
 
-
-def adjust_date_times(properties: dict[str, Any]) -> OpportunityProperties:
-    def adjust_date_time(value: MaybeDate) -> Any:
-        if isinstance(value, str) and re.match(
-            r"\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d\.\d+.*", value
-        ):
-            try:
-                date = datetime.datetime.fromisoformat(value.replace("Z", "+00:00"))
-                value = f"{(date + TIME_DELTA).isoformat()}/{(date + TIME_DELTA).isoformat()}"
-            except Exception as e:
-                print(f"Could not parse {value} as a datetime")
-                raise e
-        return value
-
-    return OpportunityProperties(
-        **{k: adjust_date_time(v) for k, v in properties.items()}
-    )
+def adjust_datetime(value: datetime) -> str:
+    date = value + TIME_DELTA
+    return f"{date.isoformat()}/{date.isoformat()}"
 
 
 def stac_item_to_opportunity(item: pystac.Item, product_id: str) -> Opportunity:
@@ -50,46 +37,43 @@ def stac_item_to_opportunity(item: pystac.Item, product_id: str) -> Opportunity:
 
     return Opportunity(
         geometry=Point(coordinates=(point_vals[0], point_vals[1])),
-        properties=adjust_date_times(
-            {"product_id": product_id, "title": item.id, **item.properties}
-        ),
+        product_id=product_id,
+        datetime=adjust_datetime(item.datetime)
+        if item.datetime
+        else f"{item.properties['start_datetime']/item.properties['end_datetime']}",
         id=item.id,
     )
 
 
 def stac_collection_to_product(collection: Collection) -> Product:
     constraints: ProductConstraints = {}
+    parameters: ProductParameters = {}
     summaries = collection.summaries.to_dict()
 
     if "gsd" in summaries:
         constraints["gsd"] = (min(*summaries["gsd"]), max(*summaries["gsd"]))
 
     return Product(
-        provider="EarthSearch",
         id=collection.id,
         title=collection.title or collection.id,
-        extends=[],
         description=collection.description,
         constraints=constraints,
-        parameters={},
-        properties=summaries,
-        stat_version="0.0.1",
-        stat_extensions=[],
+        parameters=parameters,
         license="",
         links=[],
         keywords=[],
-        providers=[Provider(name="Sentinel")],
+        providers=[Provider(name="EarthSearch")],
     )
 
 
-class HistoricalBackend:
+class EarthSearchBackend:
     catalog: Client
 
     def __init__(self) -> None:
         self.catalog = Client.open("https://earth-search.aws.element84.com/v1")  # type: ignore
 
     def _search(self, search) -> ItemCollection:
-        max_items = min(search.limit, MAX_MAX_ITEMS)
+        max_items = DEFAULT_MAX_ITEMS
 
         args: dict[str, Any] = {
             "collections": [search.product_id],
@@ -113,18 +97,16 @@ class HistoricalBackend:
 
     async def find_opportunities(
         self,
-        search: Search,
+        search: Opportunity,
         token: str,
-    ) -> OpportunityCollection:
+    ) -> list[Opportunity]:
         # Convert the STAC items from earth search into opportunities
         item_collection = self._search(search)
         opportunities: list[Opportunity] = [
             stac_item_to_opportunity(item, product_id=search.product_id)
             for item in item_collection.items
         ]
-        opportunity_collection = OpportunityCollection(features=opportunities)
-
-        return opportunity_collection
+        return opportunities
 
     async def find_products(self, token: str) -> list[Product]:
         def safe_get_coll(product_id: str) -> Collection:
@@ -140,7 +122,7 @@ class HistoricalBackend:
 
     async def place_order(
         self,
-        search: Search,
+        search: Opportunity,
         token: str,
     ) -> Order:
         """Get the first item off the search output and return that ID"""

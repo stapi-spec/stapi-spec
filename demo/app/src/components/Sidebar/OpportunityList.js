@@ -20,7 +20,7 @@ function mouseOutStyleChange(e) {
             const { start, end } = parseStacDatetime(opp.properties.datetime);
             return <Opportunity
                 key={index}
-                title={opp.properties.title}
+                title={opp.id}
                 start={start}
                 end={end}
                 // onMouseEnter={(e) => {

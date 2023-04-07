@@ -9,7 +9,7 @@ const useGetRequest = () => {
         fetch('/api/products')
         .then((res) => res.json())
         .then((data) => {
-            setData(data)
+            setData(data['products'])
             setIsLoading(false)
         }).catch(e => setError(e));
     }, []);
