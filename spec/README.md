@@ -73,8 +73,6 @@ When all three conformance classes (Core, Features, Item Search) are implemented
 various resources are shown in the following diagram. In each node, there is also a `self` and `root` link
 that are not depicted to keep the diagram more concise.
 
-![Diagram of STAC link relations](stac-api.png)
-
 The Landing Page will at least have the following `conformsTo` and `links`:
 
 ```json
