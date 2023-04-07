@@ -55,14 +55,14 @@ def get_oppurtunities(blacksky_request, token):
     return r.json()["opportunities"]
 
 
-def oppurtunity_to_stat(iw):
+def blacksky_oppurtunity_to_opportunity(iw):
     """
     translates a Planet Imaging Windows into a STAC item
     :param iw: an element from the 'imaging_windows' array of a /imaging_windows/[search_id] response
     :return: a corresponding STAC item
     """
 
-    item = Opportunity(
+    opportunity = Opportunity(
         id=iw["satellite"],
         product_id="BS-Test:Standard",
         geometry={"type": "Point", "coordinates": [iw["longitude"], iw["latitude"], 0]},
@@ -73,7 +73,7 @@ def oppurtunity_to_stat(iw):
         },
     )
 
-    return item
+    return opportunity
 
 
 class BlackskyBackend:
@@ -84,4 +84,4 @@ class BlackskyBackend:
     ) -> list[Opportunity]:
         blacksky_request = stat_to_oppurtunities_request(search_request)
         oppurtunities = get_oppurtunities(blacksky_request, token)
-        return [oppurtunity_to_stat(iw) for iw in oppurtunities]
+        return [blacksky_oppurtunity_to_opportunity(iw) for iw in oppurtunities]
