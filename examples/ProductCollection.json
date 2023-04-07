@@ -1,0 +1,166 @@
+{
+    "products": [
+        {
+            "type": "Product",
+            "stat_version": "stat_version",
+            "stat_extensions": [
+                "product_extention_schema_link_1",
+                "product_extention_schema_link_2"
+            ],
+            "id": "multispectral",
+            "title": "Multispectral",
+            "description": "Full color EO image",
+            "keywords": ["EO", "color"],
+            "license": "license",
+            "providers": {
+                "name": "planet",
+                "description": "planet description",
+                "roles": ["producer"],
+                "url": "planet link"
+            },
+            "links": {
+                "href": "https://example.com/",
+                "rel": "latest-version",
+                "type": "media type",
+                "title": "title"
+            },
+            "constraints": {
+                "gsd": {
+                    "minimum": 0.5,
+                    "maximum": 10.0
+                },
+                "target_elevation": {
+                    "minimum": 30.0,
+                    "maximum": 90.0
+                },
+                "target_azimuth": {
+                    "minimum": -360.0,
+                    "maximum": 360.0
+                },
+                "view:sun_elevation": {
+                    "minimum": 10.0,
+                    "maximum": 90.0
+                },
+                "view:sun_azimuth": {
+                    "minimum": -360.0,
+                    "maximum": 360.0
+                },
+                "view:off_nadir": {
+                    "minimum": 0.0,
+                    "maximum": 30.0
+                },
+                "cloud_coverage_prediction_max": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100,
+                    "multipleOf": 0.01
+                }
+            },
+            "parameters": {
+                "eo:cloud_cover": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100,
+                    "multipleOf": 0.01
+                }
+            },
+            "properties": {
+                "eo:bands": [
+                    {
+                        "name": "band1",
+                        "common_name": "blue",
+                        "center_wavelength": 0.47,
+                        "full_width_half_max": 0.07,
+                        "solar_illumination": 1959.66
+                    },
+                    {
+                        "name": "band2",
+                        "common_name": "green",
+                        "center_wavelength": 0.56,
+                        "full_width_half_max": 0.08,
+                        "solar_illumination": 1823.24
+                    },
+                    {
+                        "name": "band3",
+                        "common_name": "red",
+                        "center_wavelength": 0.645,
+                        "full_width_half_max": 0.09,
+                        "solar_illumination": 1512.06
+                    },
+                    {
+                        "name": "band4",
+                        "common_name": "nir",
+                        "center_wavelength": 0.8,
+                        "full_width_half_max": 0.152,
+                        "solar_illumination": 1041.63
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Product",
+            "stat_version": "stat_version",
+            "stat_extensions": [
+                "product_extention_schema_link_1",
+                "product_extention_schema_link_2"
+            ],
+            "id": "spotlight",
+            "title": "Spotlight",
+            "description": "SAR Spotlight frame",
+            "keywords": ["SAR", "spotlight"],
+            "license": "license",
+            "providers": {
+                "name": "planet",
+                "description": "planet description",
+                "roles": ["producer"],
+                "url": "planet link"
+            },
+            "links": {
+                "href": "https://example.com/",
+                "rel": "latest-version",
+                "type": "media type",
+                "title": "title"
+            },
+            "constraints": {
+                "sar:resolution_range": {
+                    "minimum": 0.5,
+                    "maximum": 5.0
+                },
+                "sar:resolution_azimuth": {
+                    "minimum": 0.5,
+                    "maximum": 5.0
+                },
+                "grazing": {
+                    "minimum": 20.0,
+                    "maximum": 40.0
+                },
+                "target_azimuth": {
+                    "minimum": -360.0,
+                    "maximum": 360.0
+                },
+                "squint": {
+                    "minimum": -5.0,
+                    "maximum": 5.0
+                }
+            },
+            "parameters": {
+                "sar:polarizarions": [
+                    "HH",
+                    "VV",
+                    "HV"
+                ]
+            },
+            "properties": {
+                "sar:product_type": "SSC",
+                "sar:frequency_band": "X"
+            }
+        }
+    ],
+    "links": {
+        "rel": "next",
+        "title": "Next page of Products",
+        "method": "GET",
+        "type": "application/geo+json",
+        "href": "stat-api.example.com?page=2"
+    }
+}
