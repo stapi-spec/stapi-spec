@@ -2,6 +2,8 @@
 
 This document explains the structure of a STAT Order request which is used for finding opportunities and placing orders. 
 
+Ordering with losely defined order values will give the provider more freedom to schedule. Define the values strict to increase the chance of the prefered capture moment.
+
 # Order Spec
 
 | Field Name | Type                                                                       | Description |
