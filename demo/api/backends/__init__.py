@@ -6,9 +6,9 @@ from api.backends.planet_backend import PlanetBackend
 from api.backends.umbra_backend import UmbraBackend
 
 BACKENDS: dict[str, Backend] = {
-    "fake": FakeBackend,
-    "earthsearch": EarthSearchBackend,
-    "blacksky": BlackskyBackend,
-    "planet": PlanetBackend,
-    "umbra": UmbraBackend,
+    "fake": FakeBackend(),  # type: ignore
+    "earthsearch": EarthSearchBackend(),  # type: ignore
+    "blacksky": BlackskyBackend(),  # type: ignore
+    "planet": PlanetBackend(),  # type: ignore
+    "umbra": UmbraBackend(),  # type: ignore
 }

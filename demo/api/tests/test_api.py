@@ -5,11 +5,10 @@ import os
 from typing import Optional, Tuple
 
 import pytest
-from fastapi.testclient import TestClient
-
 from api.backends import BACKENDS
 from api.main import app
-from api.models import OpportunityFeature, OpportunityCollection, Order, Opportunity
+from api.models import Opportunity, Order
+from fastapi.testclient import TestClient
 
 LOGGER = logging.getLogger(__name__)
 
@@ -175,9 +174,9 @@ def test_token_is_passed_to_backend(endpoint):
             self,
             search: Opportunity,
             token: str,
-        ) -> OpportunityFeature:
+        ) -> list[Opportunity]:
             assert token == TOKEN
-            return OpportunityCollection(features=[])
+            return []
 
         async def place_order(
             self,
@@ -187,7 +186,7 @@ def test_token_is_passed_to_backend(endpoint):
             assert token == TOKEN
             return Order(id="blahblahblah")
 
-    BACKENDS["mock"] = MockBackend
+    BACKENDS["mock"] = MockBackend()
 
     client.post(
         endpoint,

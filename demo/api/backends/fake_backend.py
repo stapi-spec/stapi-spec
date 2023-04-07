@@ -1,4 +1,4 @@
-from api.models import Product, Provider, Opportunity
+from api.models import Opportunity, Product, Provider
 
 
 class FakeBackend:

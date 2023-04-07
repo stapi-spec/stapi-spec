@@ -10,6 +10,7 @@ class Backend(Protocol):
     In order to create a backend a provider must create a class
     with the methods defined in this Protocol.
     """
+
     async def find_products(
         self,
         token: str,

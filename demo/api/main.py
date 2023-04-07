@@ -3,13 +3,17 @@ from datetime import datetime, timedelta
 from functools import wraps
 from typing import Tuple
 
+from api.backends import BACKENDS
+from api.backends.base import Backend
+from api.models import (
+    Opportunity,
+    OpportunityCollection,
+    Order,
+    ProductCollection,
+)
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import RedirectResponse
 from geojson_pydantic import Point
-
-from api.backends import BACKENDS
-from api.backends.base import Backend
-from api.models import OpportunityCollection, Order, Product, ProductCollection, Opportunity
 
 app = FastAPI(title="Tasking API")
 
@@ -41,7 +45,7 @@ def _get_backend_and_token(request: Request) -> Tuple[Backend, str]:
         token = authorization.replace("Bearer ", "")
 
     if backend_name in BACKENDS:
-        backend: Backend = BACKENDS[backend_name]()
+        backend: Backend = BACKENDS[backend_name]
     else:
         raise HTTPException(
             status_code=404,

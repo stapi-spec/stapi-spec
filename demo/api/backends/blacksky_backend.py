@@ -1,5 +1,4 @@
 import requests
-
 from api.models import Opportunity
 
 BLACKSKY_BASE_URL = "https://api.dev.blacksky.com/v1"
@@ -67,7 +66,7 @@ def blacksky_oppurtunity_to_opportunity(iw):
         product_id="BS-Test:Standard",
         geometry={"type": "Point", "coordinates": [iw["longitude"], iw["latitude"], 0]},
         datetime=f"{iw['timestamp']}/{iw['timestamp']}",
-        constraints = {
+        constraints={
             "off_nadir": iw["offNadirAngleDegrees"],
             "cloud_cover": iw["weatherForecast"]["cloudCover"],
         },

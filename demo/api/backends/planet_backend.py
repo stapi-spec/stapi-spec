@@ -2,8 +2,7 @@ import os
 import time
 
 import requests
-
-from api.models import Product, Provider, Opportunity
+from api.models import Opportunity, Product, Provider
 
 PLANET_BASE_URL = "https://api.staging.planet-labs.com"
 
@@ -57,7 +56,7 @@ def get_imaging_windows(planet_request, token: str) -> list:
             return r.json()["imaging_windows"]
         elif status == "FAILED":
             raise ValueError(
-                f"Retrieving Imaging Windows failed: {r.json['error_code']} - {r.json['error_message']}'"
+                f"Retrieving Imaging Windows failed: {r.json()['error_code']} - {r.json()['error_message']}'"
             )
         # todo async
         time.sleep(1)
@@ -75,7 +74,7 @@ def imaging_window_to_opportunity(iw, geom, search_request) -> Opportunity:
         geometry=geom,
         datetime=f"{iw['start_time']}/{iw['end_time']}",
         product_id=search_request.product_id,
-        constraints= {
+        constraints={
             "off_nadir": [iw["start_off_nadir"], iw["end_off_nadir"]],
             "cloud_cover": iw["cloud_forecast"][0]["prediction"],
         },

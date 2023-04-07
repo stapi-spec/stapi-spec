@@ -1,19 +1,13 @@
 import asyncio
 import os
-from typing import Any, Dict, List, Literal, Optional
+from typing import Any, Dict, Literal, Optional
 from uuid import UUID, uuid4
 
 import requests
+from api.backends.base import Backend
+from api.models import Geometry, Opportunity, Product, Provider
 from pydantic import BaseModel, Field
 from pystac import ProviderRole
-from stac_pydantic.shared import Provider
-
-from api.backends.base import Backend
-from api.models import (
-    Geometry,
-    Product,
-    Opportunity,
-)
 
 UMBRA_BASE_URL = os.getenv("UMBRA_BASE_URL")
 UMBRA_FEASIBILITIES_URL = f"{UMBRA_BASE_URL}/tasking/feasibilities"
@@ -52,7 +46,7 @@ def search_to_feasibility_request_payload(search: Opportunity) -> Dict[str, Any]
 
 
 def umbra_opportunity_to_opportunity(
-    opportunity: Dict[str, Any], geom: Optional[Geometry]
+    opportunity: Dict[str, Any], geom: Geometry
 ) -> Opportunity:
     return Opportunity(
         id=f"umb-spotlight: {str(uuid4())}",
@@ -72,7 +66,9 @@ def umbra_opportunity_to_opportunity(
     )
 
 
-def get_feasibility_request_id(search_request: Opportunity, headers: Dict[str, str]) -> str:
+def get_feasibility_request_id(
+    search_request: Opportunity, headers: Dict[str, str]
+) -> str:
     payload = search_to_feasibility_request_payload(search_request)
     response = requests.post(
         UMBRA_FEASIBILITIES_URL,
@@ -89,7 +85,7 @@ def get_feasibility_request_id(search_request: Opportunity, headers: Dict[str, s
 
 def get_umbra_opportunities(
     feasibility_request_id: str, headers: Dict[str, str]
-) -> Optional[List[Dict[str, Any]]]:
+) -> Optional[list[Dict[str, Any]]]:
     response = requests.get(
         f"{UMBRA_FEASIBILITIES_URL}/{feasibility_request_id}",
         headers=headers,
@@ -106,7 +102,7 @@ def get_umbra_opportunities(
 
 
 class UmbraSpotlightParameters(BaseModel):
-    data_products: List[
+    data_products: list[
         Literal["GEC"] | Literal["SICD"] | Literal["SIDD"] | Literal["CPHD"]
     ] = Field(title="Requested Data Products", default_factory=lambda: ["GEC"])
     delivery_config_id: UUID | None = Field(title="DeliveryConfig ID", default=None)

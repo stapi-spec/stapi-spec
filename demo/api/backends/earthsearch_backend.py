@@ -2,18 +2,17 @@ from datetime import datetime, timedelta
 from typing import Any
 
 import pystac
+from api.models import (
+    Opportunity,
+    Order,
+    Product,
+    ProductConstraints,
+    ProductParameters,
+    Provider,
+)
 from geojson_pydantic.geometries import Point
 from pystac import Collection, ItemCollection
 from pystac_client.client import Client
-
-from api.models import (
-    Order,
-    Product,
-    Provider,
-    ProductConstraints,
-    ProductParameters,
-    Opportunity,
-)
 
 DEFAULT_MAX_ITEMS = 10
 MAX_MAX_ITEMS = 100
@@ -28,9 +27,9 @@ PRODUCT_IDS = [LANDSAT_COLLECTION_ID, SENTINEL_COLLECTION_ID]
 TIME_DELTA = timedelta(days=3 * 365)
 
 
-def adjust_datetime(value: str) -> str:
-    date = datetime.fromisoformat(value.replace("Z", "+00:00"))
-    return f"{(date + TIME_DELTA).isoformat()}/{(date + TIME_DELTA).isoformat()}"
+def adjust_datetime(value: datetime) -> str:
+    date = value + TIME_DELTA
+    return f"{date.isoformat()}/{date.isoformat()}"
 
 
 def stac_item_to_opportunity(item: pystac.Item, product_id: str) -> Opportunity:
@@ -39,7 +38,9 @@ def stac_item_to_opportunity(item: pystac.Item, product_id: str) -> Opportunity:
     return Opportunity(
         geometry=Point(coordinates=(point_vals[0], point_vals[1])),
         product_id=product_id,
-        datetime=adjust_datetime(item.datetime),
+        datetime=adjust_datetime(item.datetime)
+        if item.datetime
+        else f"{item.properties['start_datetime']/item.properties['end_datetime']}",
         id=item.id,
     )
 
