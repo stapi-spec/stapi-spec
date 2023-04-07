@@ -1,6 +1,6 @@
 ## Overview
 
-This document explains the structure of a SPOT Order request which is used for finding opportunities and placing orders. 
+This document explains the structure of a STAT Order request which is used for finding opportunities and placing orders. 
 
 # Order Spec
 
