@@ -5,11 +5,16 @@ satellite tasking API.
 
 Stop by the [Gitter Channel](https://gitter.im/satellite-tasking/community?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
 
+See [the STAT spec](spec/)
+
 
 ## Community Sprints
 
-- [Sprint #1 - Alexandria, VA](community-sprints/sprint1-alexandria.md)
-- [Sprint #2 - Philadelphia, PA](community-sprints/sprint2-philly/README.md)
+- Sprint #1 - Alexandria, VA
+    - [Notes](community-sprints/sprint1-alexandria.md)
+    - [Blog Post](https://element84.com/blog/tasking-sprint)
+- Sprint #2 - Philadelphia, PA
+    - [Notes](community-sprints/sprint2-philly/README.md)
 
 
 # Existing Tasking Implementations
