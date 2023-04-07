@@ -9,7 +9,7 @@ from fastapi.testclient import TestClient
 
 from api.backends import BACKENDS
 from api.main import app
-from api.models import Opportunity, OpportunityCollection, Order, Search
+from api.models import OpportunityFeature, OpportunityCollection, Order, Opportunity
 
 LOGGER = logging.getLogger(__name__)
 
@@ -112,7 +112,7 @@ def test_post_to_opportunities_with_opportunities_body_and_header_authenticated(
     search_body_now = {
         "datetime": f"{start_time.isoformat()}/{end_time.isoformat()}",
         "geometry": {"type": "Point", "coordinates": [-75.16, 39.95]},
-        "product_id": "",
+        "product_id": "fake_product",
     }
 
     response = client.post(
@@ -173,15 +173,15 @@ def test_token_is_passed_to_backend(endpoint):
     class MockBackend:
         async def find_opportunities(
             self,
-            search: Search,
+            search: Opportunity,
             token: str,
-        ) -> Opportunity:
+        ) -> OpportunityFeature:
             assert token == TOKEN
             return OpportunityCollection(features=[])
 
         async def place_order(
             self,
-            search: Search,
+            search: Opportunity,
             token: str,
         ) -> Order:
             assert token == TOKEN

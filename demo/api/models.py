@@ -37,7 +37,11 @@ class Order(BaseModel):
 
 
 class Product(BaseModel):
-    """https://github.com/Element84/sat-tasking-sprint/tree/main/product-spec"""
+    """
+    One element in response body for `/products`
+
+    https://github.com/Element84/sat-tasking-sprint/tree/main/spec/product
+    """
 
     type: Literal["Product"] = Field(const=True, default="Product")
     stat_version: str = Field(
@@ -59,12 +63,10 @@ class Product(BaseModel):
         default=None,
         description="Detailed multi-line description to fully explain the Product.",
     )
-    keywords: List[str] = Field(
-        default=[], description="List of keywords describing the Product."
-    )
-    # license: str = Field(description="Product's license(s), either a SPDX License identifier, various if multiple licenses apply or proprietary for all other cases.")
-    # providers: List[Provider] = Field(description="A list of providers, which may include all organizations capturing or processing the data or the hosting provider. Providers should be listed in chronological order with the most recent provider being the last element of the list.")
-    # links: List[Link] = Field(description="A list of references to other documents.")
+    keywords: List[str] = Field(default=[], description="List of keywords describing the Product.")
+    license: str = Field(description="Product's license(s), either a SPDX License identifier, various if multiple licenses apply or proprietary for all other cases.")
+    providers: List[Provider] = Field(description="A list of providers, which may include all organizations capturing or processing the data or the hosting provider. Providers should be listed in chronological order with the most recent provider being the last element of the list.")
+    links: List[Link] = Field(description="A list of references to other documents.")
     constraints: Optional[ProductConstraints] = Field(
         default=None,
         description="Query constraints that will filter the opportunity results list.",
@@ -74,39 +76,12 @@ class Product(BaseModel):
         description="User supplied parameters that don't constrain tasking (e.g., output format)",
     )
 
-
-class Search(BaseModel):
-    """
-    Request body for `/opportunities` and `/orders`
-
-    https://github.com/Element84/sat-tasking-sprint/blob/main/order-spec
-    """
-
-    geometry: Geometry = Field(description="Point contained within opportunity")
-    datetime: str = Field(description="Slash separated datetime range")
-    product_id: str = Field(
-        description="Product identifier. The ID should be unique per provider."
-    )
-    constraints: Optional[Dict[str, Any]] = Field(
-        default=None,
-        description="A map of opportunity constraints, either a set of values, a range of values or a JSON Schema.",
-    )
-
-    @property
-    def start_date(self) -> Datetime:
-        values = self.datetime.split("/")
-        return parse_datetime(values[0])
-
-    @property
-    def end_date(self) -> Datetime:
-        values = self.datetime.split("/")
-        return parse_datetime(values[1])
+class ProductCollection(BaseModel):
+    products: list[Product]
 
 
 # Copied and modified from stack_pydantic.item.ItemProperties
 class OpportunityProperties(BaseModel):
-    title: Optional[str] = Field(default=None)
-    description: Optional[str] = Field(default=None)
     datetime: str = Field(description="Slash separated datetime range")
     product_id: str = Field(
         description="Product identifier. The ID should be unique per provider."
@@ -127,8 +102,7 @@ class OpportunityProperties(BaseModel):
         return parse_datetime(values[1])
 
 
-# Copied and modified from stack_pydantic.item.Item
-class Opportunity(Feature[Geometry, OpportunityProperties]):
+class OpportunityFeature(Feature[Geometry, OpportunityProperties]):
     id: Optional[str]
     properties: OpportunityProperties
 
@@ -139,12 +113,41 @@ class Opportunity(Feature[Geometry, OpportunityProperties]):
         return self.json(by_alias=True, exclude_unset=True, **kwargs)
 
 
-# Copied and modified from stack_pydantic.item.ItemCollection
+class Opportunity(OpportunityProperties):
+    """
+    Request body for `/opportunities` and `/orders`
+
+    https://github.com/Element84/sat-tasking-sprint/blob/main/spec/order
+    """
+    id: Optional[str]
+    geometry: Geometry = Field(description="Point contained within opportunity")
+
+    def to_feature(self) -> OpportunityFeature:
+        return OpportunityFeature(
+            id=self.id,
+            geometry=self.geometry,
+            properties=OpportunityProperties(
+                product_id=self.product_id,
+                datetime=self.datetime,
+                constraints=self.constraints,
+            ),
+        )
+
+
 class OpportunityCollection(FeatureCollection):  # type: ignore
-    features: list[Opportunity]
+    """
+    Resonse body from `/opportunities`
+
+    https://github.com/Element84/stat-api-spec/blob/main/examples/OpportunityCollection.json
+    """
+    features: list[OpportunityFeature]
 
     def to_dict(self, **kwargs: Any) -> Dict[str, Any]:
         return self.dict(by_alias=True, exclude_unset=True, **kwargs)  # type: ignore
 
     def to_json(self, **kwargs: Any) -> str:
         return self.json(by_alias=True, exclude_unset=True, **kwargs)  # type: ignore
+
+    @classmethod
+    def from_opportunities(cls, opportunities: list[Opportunity]) -> "OpportunityCollection":
+        return cls(features=[o.to_feature() for o in opportunities])

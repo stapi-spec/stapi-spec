@@ -11,11 +11,8 @@ from stac_pydantic.shared import Provider
 from api.backends.base import Backend
 from api.models import (
     Geometry,
-    Opportunity,
-    OpportunityCollection,
-    OpportunityProperties,
     Product,
-    Search,
+    Opportunity,
 )
 
 UMBRA_BASE_URL = os.getenv("UMBRA_BASE_URL")
@@ -25,7 +22,7 @@ GET_UMBRA_OPPORTUNITIES_DELAY_SECONDS = 1
 GET_UMBRA_OPPORTUNITIES_RETRY_LIMIT = 30
 
 
-def search_to_feasibility_request_payload(search: Search) -> Dict[str, Any]:
+def search_to_feasibility_request_payload(search: Opportunity) -> Dict[str, Any]:
     start_date = search.start_date.strftime("%Y-%m-%dT%H:%M:%SZ")
     end_date = search.end_date.strftime("%Y-%m-%dT%H:%M:%SZ")
     geometry = search.geometry
@@ -58,28 +55,24 @@ def umbra_opportunity_to_opportunity(
     opportunity: Dict[str, Any], geom: Optional[Geometry]
 ) -> Opportunity:
     return Opportunity(
-        id=None,
+        id=f"umb-spotlight: {str(uuid4())}",
         geometry=geom,
-        properties=OpportunityProperties(
-            title=f"umb-spotlight: {str(uuid4())}",
-            description="",
-            datetime=f"{opportunity['windowStartAt']}/{opportunity['windowEndAt']}",
-            product_id="umb-spotlight",
-            constraints={
-                "target_azimuth": [
-                    opportunity["targetAzimuthAngleStartDegrees"],
-                    opportunity["targetAzimuthAngleEndDegrees"],
-                ],
-                "grazing": [
-                    opportunity["grazingAngleStartDegrees"],
-                    opportunity["grazingAngleEndDegrees"],
-                ],
-            },
-        ),
+        datetime=f"{opportunity['windowStartAt']}/{opportunity['windowEndAt']}",
+        product_id="umb-spotlight",
+        constraints={
+            "target_azimuth": [
+                opportunity["targetAzimuthAngleStartDegrees"],
+                opportunity["targetAzimuthAngleEndDegrees"],
+            ],
+            "grazing": [
+                opportunity["grazingAngleStartDegrees"],
+                opportunity["grazingAngleEndDegrees"],
+            ],
+        },
     )
 
 
-def get_feasibility_request_id(search_request: Search, headers: Dict[str, str]) -> str:
+def get_feasibility_request_id(search_request: Opportunity, headers: Dict[str, str]) -> str:
     payload = search_to_feasibility_request_payload(search_request)
     response = requests.post(
         UMBRA_FEASIBILITIES_URL,
@@ -131,9 +124,9 @@ class UmbraSpotlightParameters(BaseModel):
 class UmbraBackend(Backend):
     async def find_opportunities(
         self,
-        search: Search,
+        search: Opportunity,
         token: str,
-    ) -> OpportunityCollection:
+    ) -> list[Opportunity]:
         print(f"Umbra - find_opportunities, search: {search}")
 
         if not token:
@@ -164,15 +157,13 @@ class UmbraBackend(Backend):
 
         if not umbra_opportunities:
             print("No Umbra opportunities found")
-            return OpportunityCollection(features=[])
+            return []
 
         print(f"Found {len(umbra_opportunities)} Umbra opportunities")
-        return OpportunityCollection(
-            features=[
-                umbra_opportunity_to_opportunity(umbra_opportunity, search.geometry)
-                for umbra_opportunity in umbra_opportunities
-            ]
-        )
+        return [
+            umbra_opportunity_to_opportunity(umbra_opportunity, search.geometry)
+            for umbra_opportunity in umbra_opportunities
+        ]
 
     async def find_products(self, token: str) -> list[Product]:
         return [

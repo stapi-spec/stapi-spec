@@ -1,11 +1,11 @@
 import requests
 
-from api.models import Opportunity, OpportunityCollection, Search
+from api.models import Opportunity
 
 BLACKSKY_BASE_URL = "https://api.dev.blacksky.com/v1"
 
 
-def stac_search_to_oppurtunities_request(search_request: Search):
+def stat_to_oppurtunities_request(search_request: Opportunity):
     """
     :param search_request: STAC search as passed on to find_future_items
     :return: a triple of iw request body, geom and bbox (geom and bbox needed again later to construct STAC answers)
@@ -55,7 +55,7 @@ def get_oppurtunities(blacksky_request, token):
     return r.json()["opportunities"]
 
 
-def oppurtunity_to_stac_item(iw):
+def oppurtunity_to_stat(iw):
     """
     translates a Planet Imaging Windows into a STAC item
     :param iw: an element from the 'imaging_windows' array of a /imaging_windows/[search_id] response
@@ -64,14 +64,12 @@ def oppurtunity_to_stac_item(iw):
 
     item = Opportunity(
         id=iw["satellite"],
+        product_id="BS-Test:Standard",
         geometry={"type": "Point", "coordinates": [iw["longitude"], iw["latitude"], 0]},
-        properties={
-            "title": "",
-            "datetime": f"{iw['timestamp']}/{iw['timestamp']}",
-            "constraints": {
-                "off_nadir": iw["offNadirAngleDegrees"],
-                "cloud_cover": iw["weatherForecast"]["cloudCover"],
-            },
+        datetime=f"{iw['timestamp']}/{iw['timestamp']}",
+        constraints = {
+            "off_nadir": iw["offNadirAngleDegrees"],
+            "cloud_cover": iw["weatherForecast"]["cloudCover"],
         },
     )
 
@@ -81,11 +79,9 @@ def oppurtunity_to_stac_item(iw):
 class BlackskyBackend:
     async def find_opportunities(
         self,
-        search_request: Search,
+        search_request: Opportunity,
         token: str,
-    ) -> OpportunityCollection:
-        blacksky_request = stac_search_to_oppurtunities_request(search_request)
+    ) -> list[Opportunity]:
+        blacksky_request = stat_to_oppurtunities_request(search_request)
         oppurtunities = get_oppurtunities(blacksky_request, token)
-        stac_items = [oppurtunity_to_stac_item(iw) for iw in oppurtunities]
-
-        return OpportunityCollection(features=stac_items, links=[])
+        return [oppurtunity_to_stat(iw) for iw in oppurtunities]
