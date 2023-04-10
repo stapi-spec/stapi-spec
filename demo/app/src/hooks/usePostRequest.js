@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import useLocalStorage from "./useLocalStorage";
 
 const usePostRequest = (postParams) => {
     const {params, provider} = !!postParams && postParams;
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
+    const { userToken } = useLocalStorage();
 
     useEffect(() => {
         if (params) {
@@ -14,7 +16,8 @@ const usePostRequest = (postParams) => {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json",
-                    "Backend": provider
+                    "Backend": provider,
+                    'Authorization': `Bearer ${userToken}`
                 },
                 body: JSON.stringify(params)
             })
