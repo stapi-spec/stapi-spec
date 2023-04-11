@@ -16,21 +16,24 @@ function mouseOutStyleChange(e) {
 
   return (
     <div className={styles.opportunityList}>
-        {(opportunities||[]).map((opp, index) => {
-            const { start, end } = parseStacDatetime(opp.properties.datetime);
-            return <Opportunity
-                key={index}
-                title={opp.id}
-                start={start}
-                end={end}
-                // onMouseEnter={(e) => {
-                //     mouseInStyleChange(e);
-                //     setHoveredOpportunity(index)}}
-                // onMouseLeave={(e) => {
-                //     mouseOutStyleChange(e);
-                //     setHoveredOpportunity(null)}}
-                // onClick={(e) => setSelectedOpportunity(index)}
-            />
+        {Object.entries(opportunities||{}).map(([provider, opps]) => {
+            return opps && opps.map((opp, index) => {
+              const { start, end } = parseStacDatetime(opp.properties.datetime);
+              return <Opportunity
+                  key={index}
+                  title={opp.id}
+                  provider={provider}
+                  start={start}
+                  end={end}
+                  // onMouseEnter={(e) => {
+                  //     mouseInStyleChange(e);
+                  //     setHoveredOpportunity(index)}}
+                  // onMouseLeave={(e) => {
+                  //     mouseOutStyleChange(e);
+                  //     setHoveredOpportunity(null)}}
+                  // onClick={(e) => setSelectedOpportunity(index)}
+              />
+            })
         })
         }
     </div>

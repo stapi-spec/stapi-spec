@@ -21,7 +21,8 @@ export default function AppProvider({ children }) {
       today,
       new Date(new Date(today).setDate(today.getDate() + 3)),
     ],
-    provider: 'earthsearch'
+    provider: null,
+    product: null
   });
   const [hoveredOpportunity, setHoveredOpportunity] = useState(null);
   const [selectedOpportunity, setSelectedOpportunity] = useState(null);
@@ -32,27 +33,14 @@ export default function AppProvider({ children }) {
         params: {
           "geometry": userParams.geometry,
           "datetime": formatToISOString(userParams.dateRange),
-          "product_id": userParams.provider === 'earthsearch' ? 'sentinel-2-l1c' : null
+          "product_id": userParams.product
         },
         provider: userParams.provider
       } : null;
   }, [userParams])
 
-  const { isLoading: isLoadingOpps, data: opportunities, error: errorOpps } = useGetOpportunities(postParams);
   const { isLoading: isLoadingProducts, data: products, error: errorProducts } = useGetProducts();
-  const providers = [{
-    id: 'earthsearch',
-    name: 'EarthSearch'
-  }, {
-    id: 'blacksky',
-    name: 'BlackSky'
-  }, {
-    id: 'planet',
-    name: 'Planet'
-  }, {
-    id: 'umbra',
-    name: 'Umbra'
-  }]
+  const { isLoading: isLoadingOpps, data: opportunities, error: errorOpps } = useGetOpportunities(products, postParams);
 
   const app = {
     userParams,
@@ -69,8 +57,7 @@ export default function AppProvider({ children }) {
     setHoveredOpportunity,
     openFilters,
     setOpenFilters,
-    setHoveredOpportunity,
-    providers
+    setHoveredOpportunity
   }
 
   return (

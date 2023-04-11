@@ -10,6 +10,7 @@ import styles from "./Sidebar.module.scss";
 import { useAppContext } from 'src/context/appContext';
 import OpportunityList from './OpportunityList';
 import { useEffect, useState } from 'react';
+import { ALL_PROVIDERS as providers } from 'src/utils/constants';
 
 export default function Sidebar(props) {
   const {
@@ -22,8 +23,7 @@ export default function Sidebar(props) {
     isLoadingProducts,
     isErrorProducts,
     userParams,
-    setUserParams,
-    providers
+    setUserParams
   } = useAppContext();
 
   function providerSelectHandler(e) {
