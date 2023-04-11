@@ -18,9 +18,10 @@ DEFAULT_MAX_ITEMS = 10
 MAX_MAX_ITEMS = 100
 
 LANDSAT_COLLECTION_ID = "landsat-c2-l2"
-SENTINEL_COLLECTION_ID = "sentinel-2-l1c"
+SENTINEL_L1C_COLLECTION_ID = "sentinel-2-l1c"
+SENTINEL_L2A_COLLECTION_ID = "sentinel-2-l2a"
 
-PRODUCT_IDS = [LANDSAT_COLLECTION_ID, SENTINEL_COLLECTION_ID]
+PRODUCT_IDS = [LANDSAT_COLLECTION_ID, SENTINEL_L1C_COLLECTION_ID, SENTINEL_L2A_COLLECTION_ID]
 
 # The api works by pretending the past is the future. It takes a users search request and searches for data in the
 # past. This is the amount of time in the past we search from a request.
