@@ -21,8 +21,8 @@ export default function AppProvider({ children }) {
       today,
       new Date(new Date(today).setDate(today.getDate() + 3)),
     ],
-    provider: null,
-    product: null
+    provider: 'all',
+    product: 'all'
   });
   const [hoveredOpportunity, setHoveredOpportunity] = useState(null);
   const [selectedOpportunity, setSelectedOpportunity] = useState(null);

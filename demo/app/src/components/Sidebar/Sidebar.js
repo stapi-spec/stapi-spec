@@ -29,12 +29,44 @@ export default function Sidebar(props) {
   function providerSelectHandler(e) {
     setUserParams({
       ...userParams,
-      provider: e.target.value
+      provider: e.target.value,
+      product: 'all'
+    })
+  }
+
+  function productSelectHandler(e) {
+    setUserParams({
+      ...userParams,
+      product: e.target.value
     })
   }
 
   function isProviderSelected(provider) {
     return provider === userParams.provider;
+  }
+
+  function isProductSelected(product) {
+    return product === userParams.product;
+  }
+
+  function getProductOptions(products){
+    return products && products.filter(product => product).map(({ title, id }) => {
+      return (
+        <option
+          key={id}
+          value={id}
+          selected={isProductSelected(id)}
+        >
+          {title}
+        </option>
+      );
+    });
+  }
+
+  function displayProducts() {
+    return userParams.provider !== 'all' ?
+      getProductOptions(products[userParams.provider])
+      : getProductOptions(Object.values(products).flat())
   }
 
   const filterButtonClass = openFilters
@@ -78,6 +110,13 @@ export default function Sidebar(props) {
                 <div>
                   <span>Providers: </span>
                   <select onChange={providerSelectHandler}>
+                    <option
+                        value='all'
+                        key='all'
+                        selected
+                      >
+                        All
+                      </option>
                     {providers.map((provider) => (
                       <option
                         value={provider.id}
@@ -91,17 +130,16 @@ export default function Sidebar(props) {
                 </div>
                 <div>
                   <div className={styles.blockLabel}>Products: </div>
-                  {products.length && (
-                    <select>
-                      {products.map(({ title, id }) => {
-                        return (
-                          <option key={id} value={id}>
-                            {title}
-                          </option>
-                        );
-                      })}
+                  <select onChange={productSelectHandler}>
+                      <option
+                        value='all'
+                        key='all'
+                        selected
+                      >
+                        All
+                      </option>
+                      {displayProducts()}
                     </select>
-                  )}
                 </div>
               </div>
             </div>
