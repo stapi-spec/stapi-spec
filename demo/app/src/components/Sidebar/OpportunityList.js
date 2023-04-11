@@ -4,7 +4,7 @@ import { useAppContext } from 'src/context/appContext';
 import { parseStacDatetime } from 'src/utils';
 
 export default function OpportunityList() {
-  const { opportunities, setHoveredOpportunity, setSelectedOpportunity } = useAppContext();
+  const { opportunities, selectedOpportunity, setHoveredOpportunity, setSelectedOpportunity } = useAppContext();
 
   function mouseInStyleChange(e) {
     e.target.style.outline = 'red';
@@ -25,13 +25,17 @@ function mouseOutStyleChange(e) {
                   provider={provider}
                   start={start}
                   end={end}
-                  // onMouseEnter={(e) => {
-                  //     mouseInStyleChange(e);
-                  //     setHoveredOpportunity(index)}}
-                  // onMouseLeave={(e) => {
-                  //     mouseOutStyleChange(e);
-                  //     setHoveredOpportunity(null)}}
-                  // onClick={(e) => setSelectedOpportunity(index)}
+                  onMouseEnter={(e) => {
+                    if(!selectedOpportunity){
+                      mouseInStyleChange(e);
+                      setHoveredOpportunity(opportunities[provider][index])}}
+                    }
+                  onMouseLeave={(e) => {
+                    if(!selectedOpportunity){
+                      mouseOutStyleChange(e);
+                      setHoveredOpportunity(null)}}
+                    }
+                  onClick={(e) => setSelectedOpportunity(opportunities[provider][index])}
               />
             })
         })

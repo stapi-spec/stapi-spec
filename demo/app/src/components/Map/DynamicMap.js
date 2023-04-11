@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import Leaflet from 'leaflet';
 import * as ReactLeaflet from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import Footprint from './Footprint';
 
 import styles from './Map.module.scss';
 
@@ -27,6 +28,7 @@ const Map = ({ children, className, width, height, ...rest }) => {
 
   return (
     <MapContainer className={mapClassName} {...rest}>
+      <Footprint />
       {children(ReactLeaflet, Leaflet)}
     </MapContainer>
   )

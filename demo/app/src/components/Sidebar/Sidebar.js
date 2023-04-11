@@ -11,17 +11,16 @@ import { useAppContext } from 'src/context/appContext';
 import OpportunityList from './OpportunityList';
 import { useEffect, useState } from 'react';
 import { ALL_PROVIDERS as providers } from 'src/utils/constants';
+import OpportunityDetail from './OpportunityDetail';
 
 export default function Sidebar(props) {
   const {
-    opportunities,
+    selectedOpportunity,
     isLoadingOpps,
     errorOpps,
     openFilters,
     setOpenFilters,
     products,
-    isLoadingProducts,
-    isErrorProducts,
     userParams,
     setUserParams
   } = useAppContext();
@@ -150,6 +149,9 @@ export default function Sidebar(props) {
         <div className={styles.loader}>
           <RingLoader color="#5fbb9d" />
         </div>
+      )}
+      {!!selectedOpportunity && (
+        <OpportunityDetail />
       )}
     </div>
   );

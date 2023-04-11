@@ -5,10 +5,18 @@ export default function Opportunity({
     title,
     provider,
     start,
-    end
+    end,
+    onMouseEnter,
+    onMouseLeave,
+    onClick
 }) {
   return (
-    <div className={styles.opportunityPreview}>
+    <div
+        className={styles.opportunityPreview}
+        onClick={onClick}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
         <h1>{title}</h1>
         <h2>{provider}</h2>
         <div className={styles.previewStartDate}>
