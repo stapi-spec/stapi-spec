@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useLocalStorage from "./useLocalStorage";
 
-const useGetRequest = () => {
+const useGetProducts = () => {
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState("");
@@ -22,4 +22,4 @@ const useGetRequest = () => {
     return { data, isLoading, error };
 };
 
-export default useGetRequest;
+export default useGetProducts;

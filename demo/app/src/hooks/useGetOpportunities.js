@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useLocalStorage from "./useLocalStorage";
 
-const usePostRequest = (postParams) => {
+const useGetOpportunities = (postParams) => {
     const {params, provider} = !!postParams && postParams;
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -35,4 +35,4 @@ const usePostRequest = (postParams) => {
     return { data, isLoading, error };
 };
 
-export default usePostRequest;
+export default useGetOpportunities;

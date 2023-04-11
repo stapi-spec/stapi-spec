@@ -1,6 +1,6 @@
 import { createContext, useContext, useMemo, useState } from 'react';
-import usePostRequest from 'src/hooks/usePostRequest';
-import useGetRequest from '../hooks/useGetRequest';
+import useGetOpportunities from 'src/hooks/useGetOpportunities';
+import useGetProducts from '../hooks/useGetProducts';
 import { formatToISOString } from 'src/utils';
 
 const AppContext = createContext();
@@ -38,8 +38,8 @@ export default function AppProvider({ children }) {
       } : null;
   }, [userParams])
 
-  const { isLoading: isLoadingOpps, data: opportunities, error: errorOpps } = usePostRequest(postParams);
-  const { isLoading: isLoadingProducts, data: products, error: errorProducts } = useGetRequest();
+  const { isLoading: isLoadingOpps, data: opportunities, error: errorOpps } = useGetOpportunities(postParams);
+  const { isLoading: isLoadingProducts, data: products, error: errorProducts } = useGetProducts();
   const providers = [{
     id: 'earthsearch',
     name: 'EarthSearch'
