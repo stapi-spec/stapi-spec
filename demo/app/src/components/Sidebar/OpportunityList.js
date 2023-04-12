@@ -25,6 +25,7 @@ function mouseOutStyleChange(e) {
                   provider={provider}
                   start={start}
                   end={end}
+                  selected={selectedOpportunity===opp}
                   onMouseEnter={(e) => {
                     if(!selectedOpportunity){
                       mouseInStyleChange(e);
@@ -35,7 +36,10 @@ function mouseOutStyleChange(e) {
                       mouseOutStyleChange(e);
                       setHoveredOpportunity(null)}}
                     }
-                  onClick={(e) => setSelectedOpportunity(opportunities[provider][index])}
+                  onClick={() => {
+                    (selectedOpportunity===opp) ? setSelectedOpportunity(null) :
+                    setSelectedOpportunity(opportunities[provider][index]);
+                  }}
               />
             })
         })

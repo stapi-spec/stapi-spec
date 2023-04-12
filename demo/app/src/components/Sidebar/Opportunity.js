@@ -6,13 +6,14 @@ export default function Opportunity({
     provider,
     start,
     end,
+    selected,
     onMouseEnter,
     onMouseLeave,
     onClick
 }) {
   return (
     <div
-        className={styles.opportunityPreview}
+        className={`${styles.opportunityPreview} ${selected && styles.selected}`}
         onClick={onClick}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
