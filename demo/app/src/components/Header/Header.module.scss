@@ -61,4 +61,19 @@
   height: 35px;
   background-color: $color-light-gray;
   z-index: 9999;
+
+  .resetSearch,
+  .resetSearchIcon {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .resetSearch {
+    margin-left: 20px;
+    background: none;
+    color: grey;
+    padding: 0;
+    text-decoration: none;
+    border: none;
+  }
 }

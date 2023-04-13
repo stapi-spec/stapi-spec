@@ -1,12 +1,21 @@
-import { createContext, useContext, useMemo, useState } from 'react';
+import { createContext, useContext, useRef, useMemo, useState } from 'react';
 import useGetOpportunities from 'src/hooks/useGetOpportunities';
 import useGetProducts from '../hooks/useGetProducts';
 import { formatToISOString } from 'src/utils';
 
 const AppContext = createContext();
 
+const today = new Date();
+const defaultUserParams = {
+  dateRange: [
+    today,
+    new Date(new Date(today).setDate(today.getDate() + 3)),
+  ],
+  provider: 'all',
+  product: 'all'
+}
+
 export default function AppProvider({ children }) {
-  const today = new Date();
   /**
    * @typedef {object} UserParams
    * @property {[Date, Date]} dateRange
@@ -16,17 +25,11 @@ export default function AppProvider({ children }) {
   const [
     userParams,
     setUserParams
-  ] = useState({
-    dateRange: [
-      today,
-      new Date(new Date(today).setDate(today.getDate() + 3)),
-    ],
-    provider: 'all',
-    product: 'all'
-  });
+  ] = useState({...defaultUserParams});
   const [hoveredOpportunity, setHoveredOpportunity] = useState(null);
   const [selectedOpportunity, setSelectedOpportunity] = useState(null);
   const [openFilters, setOpenFilters] = useState(false);
+  const opportunitiesRef = useRef(null);
 
   const postParams = useMemo(() => {
     return userParams.geometry ? {
@@ -40,7 +43,13 @@ export default function AppProvider({ children }) {
   }, [userParams])
 
   const { isLoading: isLoadingProducts, data: products, error: errorProducts } = useGetProducts();
-  const { isLoading: isLoadingOpps, data: opportunities, error: errorOpps } = useGetOpportunities(products, postParams);
+  const { isLoading: isLoadingOpps, data: opportunitiesData, error: errorOpps } = useGetOpportunities(products, postParams);
+
+  opportunitiesRef.current = (postParams && opportunitiesData) ? opportunitiesData : null;
+
+  function resetSearch(){
+    setUserParams({...defaultUserParams});
+  }
 
   const app = {
     userParams,
@@ -49,7 +58,7 @@ export default function AppProvider({ children }) {
     isLoadingProducts,
     products,
     errorProducts,
-    opportunities,
+    opportunities: opportunitiesRef.current,
     errorOpps,
     selectedOpportunity,
     setSelectedOpportunity,
@@ -57,7 +66,8 @@ export default function AppProvider({ children }) {
     setHoveredOpportunity,
     openFilters,
     setOpenFilters,
-    setHoveredOpportunity
+    setHoveredOpportunity,
+    resetSearch
   }
 
   return (

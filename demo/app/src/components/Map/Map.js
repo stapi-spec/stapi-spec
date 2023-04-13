@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useAppContext } from 'src/context/appContext';
 
 // react-leaflet-draw styles
@@ -44,6 +44,14 @@ const Map = (props) => {
   const [featureGroup, setFeatureGroup] = useState();
   const { userParams, setUserParams } = useAppContext();
   const { url, attribution } = whichMap('Stadia.AlidadeSmooth');
+  const markerRef = useRef(null);
+
+  useEffect(() => {
+    if(!userParams.geometry && markerRef.current){
+      featureGroup.removeLayer(markerRef.current);
+      markerRef.current = null;
+    }
+  }, [userParams]);
 
   /**
    * saves feature group ref for later editing
@@ -56,6 +64,7 @@ const Map = (props) => {
    * on layer created handler
    */
   function onCreated(e) {
+    markerRef.current = e.layer;
     setUserParams({...userParams, geometry: {
           "type": "Point",
           "coordinates": [e.layer._latlng.lng, e.layer._latlng.lat]
