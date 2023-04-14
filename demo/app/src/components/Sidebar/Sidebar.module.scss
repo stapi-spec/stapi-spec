@@ -184,6 +184,8 @@
 
 .opportunityPreview > h1 {
   font-size: medium;
+  position: absolute;
+  left: 25%;
 }
 
 .previewStartDate{
@@ -209,3 +211,17 @@
   padding-left: 10px;
   color: black;
 }
+
+.logoContainer {
+  position: absolute;
+  width: 25%;
+  top: 20px;
+
+  img {
+    width: 80%;
+    padding-right: 10px;
+    height: fit-content;
+    vertical-align: middle;
+  }
+}
+

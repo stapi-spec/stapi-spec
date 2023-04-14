@@ -8,6 +8,7 @@ import {
   UTurnArrowLeft
 } from '@vectopus/atlas-icons-react';
 
+import { STATLogo } from './../../utils/constants';
 import styles from './Header.module.scss';
 
 const Header = () => {
@@ -18,8 +19,8 @@ const Header = () => {
       <header className={styles.header}>
         <Container className={styles.headerContainer}>
           <p className={styles.headerTitle}>
+            {STATLogo}
             <Link href="/">
-              {/* <Image src="/logo.png" alt="logo" width={35} height={35} /> */}
               Task a Satellite
             </Link>
           </p>
