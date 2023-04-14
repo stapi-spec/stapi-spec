@@ -9,7 +9,7 @@ const today = new Date();
 const defaultUserParams = {
   dateRange: [
     today,
-    new Date(new Date(today).setDate(today.getDate() + 3)),
+    new Date(new Date(today).setDate(today.getDate() + 14)),
   ],
   provider: 'all',
   product: 'all'

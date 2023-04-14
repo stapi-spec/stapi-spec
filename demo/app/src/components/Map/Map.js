@@ -45,6 +45,11 @@ const Map = (props) => {
   const { userParams, setUserParams } = useAppContext();
   const { url, attribution } = whichMap('Stadia.AlidadeSmooth');
   const markerRef = useRef(null);
+  const userParamsRef = useRef();
+
+  useEffect(()=>{
+    userParamsRef.current = userParams;
+  }, [userParams]);
 
   useEffect(() => {
     if(!userParams.geometry && markerRef.current){
@@ -65,7 +70,7 @@ const Map = (props) => {
    */
   function onCreated(e) {
     markerRef.current = e.layer;
-    setUserParams({...userParams, geometry: {
+    setUserParams({...userParamsRef.current, geometry: {
           "type": "Point",
           "coordinates": [e.layer._latlng.lng, e.layer._latlng.lat]
       }
