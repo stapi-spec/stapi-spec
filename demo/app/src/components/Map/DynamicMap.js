@@ -2,12 +2,15 @@ import { useEffect } from 'react';
 import Leaflet from 'leaflet';
 import * as ReactLeaflet from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import Footprint from './Footprint';
+import { useAppContext } from 'src/context/appContext';
 
 import styles from './Map.module.scss';
 
 const { MapContainer } = ReactLeaflet;
 
 const Map = ({ children, className, width, height, ...rest }) => {
+  const { selectedOpportunity } = useAppContext();
   let mapClassName = styles.map;
 
   if ( className ) {
@@ -26,7 +29,8 @@ const Map = ({ children, className, width, height, ...rest }) => {
   }, []);
 
   return (
-    <MapContainer className={mapClassName} {...rest}>
+    <MapContainer className={`${mapClassName} ${selectedOpportunity && styles.mapContainerDetailView}`} {...rest}>
+      <Footprint />
       {children(ReactLeaflet, Leaflet)}
     </MapContainer>
   )

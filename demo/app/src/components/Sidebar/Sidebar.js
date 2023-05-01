@@ -2,40 +2,23 @@ import RingLoader from 'react-spinners/RingLoader';
 import Button from '@components/Button';
 import {
   HorizontalSlidersLines,
-  AlignJustifyDown,
-  ArrowRightLine
+  AlignJustifyDown
 } from '@vectopus/atlas-icons-react';
 import styles from "./Sidebar.module.scss";
 
 import { useAppContext } from 'src/context/appContext';
 import OpportunityList from './OpportunityList';
-import { useEffect, useState } from 'react';
+import OpportunityDetail from './OpportunityDetail';
+import RefinePane from './RefinePane';
 
 export default function Sidebar(props) {
   const {
-    opportunities,
+    selectedOpportunity,
     isLoadingOpps,
     errorOpps,
     openFilters,
-    setOpenFilters,
-    products,
-    isLoadingProducts,
-    isErrorProducts,
-    userParams,
-    setUserParams,
-    providers
+    setOpenFilters
   } = useAppContext();
-
-  function providerSelectHandler(e) {
-    setUserParams({
-      ...userParams,
-      provider: e.target.value
-    })
-  }
-
-  function isProviderSelected(provider) {
-    return provider === userParams.provider;
-  }
 
   const filterButtonClass = openFilters
     ? styles.filterButtonOpen
@@ -63,55 +46,16 @@ export default function Sidebar(props) {
 
           {!!errorOpps && <div>There was error</div>}
 
-          {!!openFilters && (
-            <div className={styles.filtersFlyout}>
-              <div className={styles.filtersTopBar}>
-                <h4>Filters</h4>
-                <Button
-                  className={styles.closeButton}
-                  onClick={() => setOpenFilters(false)}
-                >
-                  <ArrowRightLine size={12} />
-                </Button>
-              </div>
-              <div className={styles.filtersBody}>
-                <div>
-                  <span>Providers: </span>
-                  <select onChange={providerSelectHandler}>
-                    {providers.map((provider) => (
-                      <option
-                        value={provider.id}
-                        key={provider.id}
-                        selected={isProviderSelected(provider.id)}
-                      >
-                        {provider.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <div className={styles.blockLabel}>Products: </div>
-                  {products.length && (
-                    <select>
-                      {products.map(({ title, id }) => {
-                        return (
-                          <option key={id} value={id}>
-                            {title}
-                          </option>
-                        );
-                      })}
-                    </select>
-                  )}
-                </div>
-              </div>
-            </div>
-          )}
+          {!!openFilters && <RefinePane />}
         </>
       )}
       {!!isLoadingOpps && !errorOpps && (
         <div className={styles.loader}>
           <RingLoader color="#5fbb9d" />
         </div>
+      )}
+      {!!selectedOpportunity && (
+        <OpportunityDetail />
       )}
     </div>
   );

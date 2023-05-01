@@ -4,7 +4,7 @@ import { useAppContext } from 'src/context/appContext';
 import { parseStacDatetime } from 'src/utils';
 
 export default function OpportunityList() {
-  const { opportunities, setHoveredOpportunity, setSelectedOpportunity } = useAppContext();
+  const { opportunities, selectedOpportunity, setHoveredOpportunity, setSelectedOpportunity } = useAppContext();
 
   function mouseInStyleChange(e) {
     e.target.style.outline = 'red';
@@ -16,21 +16,32 @@ function mouseOutStyleChange(e) {
 
   return (
     <div className={styles.opportunityList}>
-        {(opportunities||[]).map((opp, index) => {
-            const { start, end } = parseStacDatetime(opp.properties.datetime);
-            return <Opportunity
-                key={index}
-                title={opp.id}
-                start={start}
-                end={end}
-                // onMouseEnter={(e) => {
-                //     mouseInStyleChange(e);
-                //     setHoveredOpportunity(index)}}
-                // onMouseLeave={(e) => {
-                //     mouseOutStyleChange(e);
-                //     setHoveredOpportunity(null)}}
-                // onClick={(e) => setSelectedOpportunity(index)}
-            />
+        {Object.entries(opportunities||{}).map(([provider, opps]) => {
+            return opps && opps.map((opp, index) => {
+              const { start, end } = parseStacDatetime(opp.properties.datetime);
+              return <Opportunity
+                  key={index}
+                  title={opp.id}
+                  provider={provider}
+                  start={start}
+                  end={end}
+                  selected={selectedOpportunity===opp}
+                  onMouseEnter={(e) => {
+                    if(!selectedOpportunity){
+                      mouseInStyleChange(e);
+                      setHoveredOpportunity(opportunities[provider][index])}}
+                    }
+                  onMouseLeave={(e) => {
+                    if(!selectedOpportunity){
+                      mouseOutStyleChange(e);
+                      setHoveredOpportunity(null)}}
+                    }
+                  onClick={() => {
+                    (selectedOpportunity===opp) ? setSelectedOpportunity(null) :
+                    setSelectedOpportunity(opportunities[provider][index]);
+                  }}
+              />
+            })
         })
         }
     </div>

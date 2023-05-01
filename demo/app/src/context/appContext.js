@@ -1,12 +1,21 @@
-import { createContext, useContext, useMemo, useState } from 'react';
-import usePostRequest from 'src/hooks/usePostRequest';
-import useGetRequest from '../hooks/useGetRequest';
+import { createContext, useContext, useRef, useMemo, useState } from 'react';
+import useGetOpportunities from 'src/hooks/useGetOpportunities';
+import useGetProducts from '../hooks/useGetProducts';
 import { formatToISOString } from 'src/utils';
 
 const AppContext = createContext();
 
+const today = new Date();
+const defaultUserParams = {
+  dateRange: [
+    today,
+    new Date(new Date(today).setDate(today.getDate() + 14)),
+  ],
+  provider: 'all',
+  product: 'all'
+}
+
 export default function AppProvider({ children }) {
-  const today = new Date();
   /**
    * @typedef {object} UserParams
    * @property {[Date, Date]} dateRange
@@ -16,43 +25,31 @@ export default function AppProvider({ children }) {
   const [
     userParams,
     setUserParams
-  ] = useState({
-    dateRange: [
-      today,
-      new Date(new Date(today).setDate(today.getDate() + 3)),
-    ],
-    provider: 'earthsearch'
-  });
+  ] = useState({...defaultUserParams});
   const [hoveredOpportunity, setHoveredOpportunity] = useState(null);
   const [selectedOpportunity, setSelectedOpportunity] = useState(null);
   const [openFilters, setOpenFilters] = useState(false);
+  const opportunitiesRef = useRef(null);
 
   const postParams = useMemo(() => {
     return userParams.geometry ? {
         params: {
           "geometry": userParams.geometry,
           "datetime": formatToISOString(userParams.dateRange),
-          "product_id": userParams.provider === 'earthsearch' ? 'sentinel-2-l1c' : null
+          "product_id": userParams.product
         },
         provider: userParams.provider
       } : null;
   }, [userParams])
 
-  const { isLoading: isLoadingOpps, data: opportunities, error: errorOpps } = usePostRequest(postParams);
-  const { isLoading: isLoadingProducts, data: products, error: errorProducts } = useGetRequest();
-  const providers = [{
-    id: 'earthsearch',
-    name: 'EarthSearch'
-  }, {
-    id: 'blacksky',
-    name: 'BlackSky'
-  }, {
-    id: 'planet',
-    name: 'Planet'
-  }, {
-    id: 'umbra',
-    name: 'Umbra'
-  }]
+  const { isLoading: isLoadingProducts, data: products, error: errorProducts } = useGetProducts();
+  const { isLoading: isLoadingOpps, data: opportunitiesData, error: errorOpps } = useGetOpportunities(products, postParams);
+
+  opportunitiesRef.current = (postParams && opportunitiesData) ? opportunitiesData : null;
+
+  function resetSearch(){
+    setUserParams({...defaultUserParams});
+  }
 
   const app = {
     userParams,
@@ -61,7 +58,7 @@ export default function AppProvider({ children }) {
     isLoadingProducts,
     products,
     errorProducts,
-    opportunities,
+    opportunities: opportunitiesRef.current,
     errorOpps,
     selectedOpportunity,
     setSelectedOpportunity,
@@ -70,7 +67,7 @@ export default function AppProvider({ children }) {
     openFilters,
     setOpenFilters,
     setHoveredOpportunity,
-    providers
+    resetSearch
   }
 
   return (
