@@ -11,8 +11,7 @@ An example json response can be found [here](../examples/tasking-api/opportuniti
 
 ## Opportunity fields
 
-This object describes a STAC Item. The fields `id`, `type`, `bbox`, `geometry` and `properties` are
-inherited from GeoJSON.
+This object describes a STAT Opportunity. The input fields will be contained `properties` of each Feature in the GeoJSON response.
 
 | Field Name | Type                                                                       | Description |
 | ---------- | -------------------------------------------------------------------------- | ----------- |
