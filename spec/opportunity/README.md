@@ -6,7 +6,7 @@ To know which constraints are available for which *product_id*, a user would hav
 
 Before ordering a user would be able to explore the opportunities which are available for chosen order configuration. The opportunities are 
 represented in a FeatureCollection, with order specific attributes and values in the feature properties.
-An example json response can be found [here](../examples/tasking-api/opportunities-response.json).
+An example json response can be found [here](../OpportunityCollection.json).
 
 
 ## Opportunity fields
