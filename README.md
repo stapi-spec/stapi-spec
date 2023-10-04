@@ -7,6 +7,7 @@ Stop by the [Gitter Channel](https://gitter.im/satellite-tasking/community?utm_s
 
 See [the STAT spec](spec/)
 
+See [the STAT API Demo](https://github.com/Element84/stat-api-demo)
 
 ## Community Sprints
 
