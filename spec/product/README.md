@@ -2,10 +2,6 @@
 ## Overview
 This document explains the structure of a STAT Product.
 
-STAT takes much of the work done by the STAC community and applies the lessons learned into this specification. The major departure from STAC is the requirement for uncertainty in many of the STAT properties.
-
-For example, a user requesting a data capture can provide a range of dates when they would like to capture. Conversly, a data provider cannot be certain of cloud cover in the future and must return a range of cloud cover probabilities to a user.
-
 STAT Product objects are represented in JSON format and are very flexible. Any JSON object that contains all the required fields is a valid STAT Product. A Product object contains a minimal set of required properties to be valid and can be extended through the use of constraints and parameters.
 
 # Product Spec

@@ -1,10 +1,10 @@
 # STAT Opportunity Spec
 
-The STAT Opportunity descripes a window of opportunity available for ordering.
+The STAT Opportunity describes a window of opportunity available for ordering.
 
-To know which constraints are available for which *product_id*, a user would have to first explore the [product](../product/README.md).
+To know which constraints are available for which *product_id*, a user must first explore the [product](../product/README.md).
 
-Before ordering a user would be able to explore the opportunities which are available for chosen order configuration. The opportunities are 
+Before ordering, a user explores the opportunities which are available for chosen order configuration. The opportunities are 
 represented in a FeatureCollection, with order specific attributes and values in the feature properties.
 An example json response can be found [here](../OpportunityCollection.json).
 

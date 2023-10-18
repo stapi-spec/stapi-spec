@@ -1,30 +1,25 @@
 # About
 
-The SpatioTemporal Asset Tasking (STAT) API define a JSON-based web API to query for potential future data
-and place orders ("tasking") for data from remote sensing data providers (satellite or airborne) that 
-will be collected in the future.
+The SpatioTemporal Asset Tasking (STAT) API defines a JSON-based web API to query for potential future data
+and place orders ("tasking") for potential future data from remote sensing data providers (satellite or airborne).
 
-The STAT specifications define several new entities (Products, Opportunities, and Orders) that are  
-derived from the [SpatioTemporal Asset Catalog](stac-spec/) (STAC) specification. Ideally, tasking requests
-to providers will be ultimately fulfilled via delivery of a STAC Item, so STAT aims to align
-with STAC core and extension field names where appropriate.
+STAT takes much of the work done by the STAC community and applies the lessons learned to this specification. The major departure from STAC is the requirement for uncertainty in many of the STAT properties.
 
-The core STAT specification provides a structure and language to describe Products, Opportunities, and Orders.
-The process of interacting with a data provider is done through a REST API.
+For example, a user requesting a data capture can provide a range of dates when they would like to capture. Conversely, a data provider cannot be certain of cloud cover in the future and must return a range of cloud cover probabilities to a user.
+
+The STAT specifications define several new entities: **Products**, **Opportunities**, and **Orders**. These are  
+derived from the [SpatioTemporal Asset Catalog](https://github.com/radiantearth/stac-spec) (STAC) specification. 
+Ideally, STAT requests to providers will be ultimately fulfilled via delivery of a STAC Item, so STAT aims to 
+align with STAC core and extensions.
+
+The core STAT specification provides a structure and language to describe **Products**, **Opportunities**, 
+and **Orders**. The process of interacting with a data provider is done through a REST API.
 
 ## STAT API Description
 
 ### Core
 
-The [Core](core/) of STAT API supports Products returned via the `/products` endpoint, and 
-
-
-returns JSON with a description of the STAT API specifications to which it conforms.
-The `links` section is the jumping-off point for the more powerful capabilities - it contains a list of URLs with
-link 'relationships' (`rel`) and descriptions to indicate their functionality. Note that the [STAT Core specification](stac-spec)
-provides most of the content of API responses - the STAT API is primarily concerned with the return of STAT Product and Order objects.
-
-The idea is that the /order endpoint can be 
+The core of STAT API includes the `/products` endpoint and the `/orders` endpoint.
 
 ### Opportunities
 
@@ -33,27 +28,27 @@ control and selection of available tasking opportunities.
 
 ## Endpoints
 
-STAC APIs follow the modern web API practices of using HTTP Request Methods ("verbs") and
+STAT APIs follow the modern web API practices of using HTTP Request Methods ("verbs") and
 the `Content-Type` header to drive behavior on resources ("nouns") in the endpoints listed below.
 
-The following table describes the service resources available in a STAC API implementation that
+The following table describes the service resources available in a STAT API implementation that
 supports all three of the foundation specifications. Note that the 'Endpoint'
-column is more of an example in some cases. OGC API makes some endpoint locations required, those will be bolded below.
+column is more of an example in some cases.
 
 | Endpoint                       | Specified in   | Returns                       | Description  |
 | ------------------------------ | -------------- | ----------------------------- | ------------ |
 | `/`                            | Core           | [?]()                         | |
-| `/products`                    | Core           | [ProductsCollection]()        | |
-| `/orders`                      | Core           | [OrdersCollection]()          | |
-| POST `/orders`                 | Core           | [Order]()                     | |
-| `/products/{productId}`        | Core           | [Product]()                   | |
-| `/opportunities`               | Opportunities  | [OpportunitiesCollection]()   | |
-| POST `/opportunities`          | Opportunities  | [Opportunity]()               | |
+| `/products`                    | Core           | [ProductsCollection](./product)        | |
+| `/orders`                      | Core           | [OrdersCollection](./order)          | |
+| POST `/orders`                 | Core           | [Order](./order)                     | |
+| `/products/{productId}`        | Core           | [Product](./product)                   | |
+| `/opportunities`               | Opportunities  | [OpportunitiesCollection](./opportunity)   | |
+| POST `/opportunities`          | Opportunities  | [Opportunity](./opportunity)               | |
 
 ## Conformance Classes
 
 STAT API utilizes OGC API Features [Conformance](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_declaration_of_conformance_classes)
-JSON structure. For STAT API, we declare new STAC conformance classes, with the core ones detailed in the table below.
+JSON structure. For STAT API, we declare new STAT conformance classes, with the core ones detailed in the table below.
 
 The core STAT conformance classes communicate the conformance JSON only in the root (`/`) document, while OGC API
 requires they also live at the `/conformance` endpoint. STAT's conformance structure is detailed in the
@@ -68,10 +63,6 @@ requires they also live at the `/conformance` endpoint. STAT's conformance struc
 
 
 ## Example Landing Page
-
-When all three conformance classes (Core, Features, Item Search) are implemented, the relationships among
-various resources are shown in the following diagram. In each node, there is also a `self` and `root` link
-that are not depicted to keep the diagram more concise.
 
 The Landing Page will at least have the following `conformsTo` and `links`:
 
