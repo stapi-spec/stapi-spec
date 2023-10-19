@@ -2,13 +2,6 @@
 
 The STAT Opportunity describes a window of opportunity available for ordering.
 
-To know which constraints are available for which *product_id*, a user must first explore the [product](../product/README.md).
-
-Before ordering, a user explores the opportunities which are available for chosen order configuration. The opportunities are 
-represented in a FeatureCollection, with order specific attributes and values in the feature properties.
-An example json response can be found [here](../OpportunityCollection.json).
-
-
 ## Opportunity fields
 
 This object describes a STAT Opportunity. The input fields will be contained `properties` of each Feature in the GeoJSON response.
