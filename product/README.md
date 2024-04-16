@@ -9,8 +9,6 @@ STAT Product objects are represented in JSON format and are very flexible. Any J
 | Element         | Type                                             | Description                                                  |
 | --------------- | ------------------------------------------------ | ------------------------------------------------------------ |
 | type            | string                                           | **REQUIRED.** Must be set to `Product` to be a valid Product. |
-| stat_version    | string                                           | **REQUIRED.** The STAT version the Product implements. |
-| stat_extensions | \[string]                                        | A list of extension identifiers the Product implements.   |
 | id              | string                                           | **REQUIRED.** Identifier for the Product that is unique across the provider. |
 | title           | string                                           | A short descriptive one-line title for the Product.       |
 | description     | string                                           | **REQUIRED.** Detailed multi-line description to fully explain the Collection. [CommonMark 0.29](http://commonmark.org/) syntax MAY be used for rich text representation. |
