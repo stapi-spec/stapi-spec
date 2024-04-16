@@ -84,34 +84,33 @@ def imaging_window_to_opportunity(iw, geom, search_request) -> Opportunity:
         })
 
 
-class PlanetBackend:
+def find_assured_opportunities(search_request: Search) -> OpportunityCollection:
+    planet_request = search_to_imaging_window_request(search_request)
+    imaging_windows = get_imaging_windows(planet_request)
+    opportunities = [
+        imaging_window_to_opportunity(iw, planet_request["geometry"], search_request)
+        for iw
+        in imaging_windows
+    ]
+    return OpportunityCollection(features=opportunities)
 
-    async def find_opportunities(
-        self,
-        search_request: Search,
-        token: str,
-    ) -> OpportunityCollection:
 
-        # this assumes we have an Assured product i.e. one which is ordered with respect to a
-        # specific imaging window
-        # todo: extend this flow to flexible orders
+def find_flexible_opportunities(search_request: Search) -> OpportunityCollection:
+    opportunity = Opportunity(
+        constraints=search_request.constraints, parameters=search_request.parameters
+    )
+    return OpportunityCollection(features=[opportunity, ])
 
-        planet_request = search_to_imaging_window_request(search_request)
-        imaging_windows = get_imaging_windows(planet_request)
-        opportunities = [
-            imaging_window_to_opportunity(iw, planet_request["geometry"], search_request)
-            for iw
-            in imaging_windows
-        ]
-        # todo: combine original request and returned imaging window such that the returned
-        #   opportunities are a valid order structure 
 
-        return OpportunityCollection(features=opportunities)
+def validate_search_request(search_request: Search) -> None:
+    product = PRODUCTS[search_request.product_id]
+    if not product:
+        raise ValueError(f"Unsupported product id: {search_request.product_id}")
+    if not search_request.constraints.get('scheduling_type') in product.constraints['scheduling_type']:
+        raise ValueError(f"Unsupported scheduling type: {search_request.constraints['scheduling_type']}")
 
-    async def find_products(self, token: str) -> list[Product]:
-        # todo: get real list of products
-        # todo: consider proper reactions for all types of products (i.e. non-assured)
-        return [
+
+PRODUCTS = [
             Product(
                 type="Product",
                 stat_version="0.0.1",
@@ -181,3 +180,25 @@ class PlanetBackend:
             )
 
         ]
+class PlanetBackend:
+
+    async def find_opportunities(
+        self,
+        search_request: Search,
+        token: str,
+    ) -> OpportunityCollection:
+
+        validate_search_request(search_request)
+        scheduling_type = search_request.constraints.get('scheduling_type')
+        match (scheduling_type):
+            case 'Assured':
+                return find_assured_opportunities(search_request)
+            case 'Flexible':
+                return find_flexible_opportunities(search_request)
+
+        raise NotImplementedError(f"Unsupported scheduling type: {scheduling_type}")
+
+    async def find_products(self, token: str) -> list[Product]:
+        # todo: get real list of products
+        # todo: consider proper reactions for all types of products (i.e. non-assured)
+        return PRODUCTS
