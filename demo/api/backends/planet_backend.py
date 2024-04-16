@@ -118,12 +118,66 @@ class PlanetBackend:
                 stat_extensions=[],
                 id="PL-QA:Assured Tasking",
                 title="Assured Tasking",
-                description="",
-                license="",
+                description="An assured capture at a specific time and location.",
+                license="Proprietary",
                 links=[],
                 keywords=[],
                 providers=[Provider(name="planet")],
-                constraints={},
-                parameters={}
+                constraints={
+                    'allowed_geometry': ['Point', 'LineString'],
+
+                    'max_aoi_size_sqkm': 500,
+                    # this does not correspond to a value the customer would send, but to a
+                    # property of the provided AOI that we'll validate
+
+                    'scheduling_type': 'Assured',
+                    # not a choice but using the constraints field to persist the product type
+
+                    'satellite_types': ['SkySat'],
+
+                    # calling `opportunities` for this product will return one opportunity per imaging window
+                },
+                parameters={
+                    'exclusivity_days': [0, 30]
+                    # or only [0] if exclusivity option not part of product
+                    # would we still send this?
+                }
+            ),
+
+            Product(
+                type="Product",
+                stat_version="0.0.1",
+                stat_extensions=[],
+                id="PL-QA:Assured Tasking",
+                title="Assured Tasking",
+                description="An assured capture at a specific time and location.",
+                license="Proprietary",
+                links=[],
+                keywords=[],
+                providers=[Provider(name="planet")],
+                constraints={
+                    'duration': Range('1d', '364d,23h,59m,59s'),
+                    'sat_elevation_deg': Range(20, 90),
+                    'sat_azimuth_deg': Range(-360, 360),
+                    'solar_zenith_deg': Range(0, 85),
+                    'solar_azimuth_deg': Range(-360, 360),
+                    'imagery_type': ['Image', 'Video', 'Stereo'],
+                    'allowed_geometry': ['Point', 'LineString', 'Polygon'],
+                    'scheduling_type': ['Flexible'],
+                    'satellite_types': ['SkySat'],
+                    'max_aoi_size_sqkm': 500,
+
+                    # calling `opportunities` for this product will most likely only return one
+                    # opportunity which takes the user-provided constraints:
+                    # - check if constraints are compatible with the above product specs
+                    # - return a single opportunity with the same constraints as confirmation
+                    #   and additional info like pricing
+                },
+                parameters={
+                    'exclusivity_days': [0, 30]
+                    # or only [0] if exclusivity option not part of product
+                    # would we still send this?
+                }
             )
+
         ]
