@@ -1,0 +1,448 @@
+openapi: 3.0.3
+info:
+  title: STAT API - Core
+  version: v0.1.0
+  description: >-
+    This is an OpenAPI definition of the SpatioTemporal Tasking API.
+  contact:
+    name: STAT Specification
+    url: "https://github.com/Element84/stat-api-spec"
+  license:
+    name: Apache License 2.0
+    url: "http://www.apache.org/licenses/LICENSE-2.0"
+tags:
+  - name: Core
+    description: Core endpoints
+  - name: Orders
+    description: Endpoint for creating and managing orders
+  - name: Opportunities
+    description: Endpoint for viewing  accepting opportunities
+  - name: Products
+    description: Products
+paths:
+  "/":
+    get:
+      tags:
+        - Core
+      summary: landing page
+      description: |-
+        ...
+      responses:
+        "200":
+          description: |-
+            The landing page provides links to the API definition
+            (link relations `service-desc` and `service-doc`).
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/conformanceClasses"
+                type: object
+                required:
+                  - id
+                  - description
+                  - links
+                properties:
+                  id:
+                    type: string
+                  title:
+                    type: string
+                  description:
+                    type: string
+                  links:
+                    $ref: "#/components/schemas/links"
+        "4XX":
+          $ref: "#/components/responses/Error"
+        "5XX":
+          $ref: "#/components/responses/Error"
+  "/conformance":
+    get:
+      tags:
+        - Core
+      summary: information about specifications that this API conforms to
+      description: |-
+        A list of all conformance classes specified in a standard that the
+        server conforms to.
+      operationId: getConformanceDeclaration
+      responses:
+        "200":
+          description: |-
+            The URIs of all conformance classes supported by the server.
+
+            To support "generic" clients that want to access multiple
+            OGC API Features implementations - and not "just" a specific
+            API / server, the server declares the conformance
+            classes it implements and conforms to.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/conformanceClasses"
+              example:
+                conformsTo:
+                  - "http://www.opengis.net/spec/ogcapi-features-1/1.0/conf/core"
+                  - "http://www.opengis.net/spec/ogcapi-features-1/1.0/conf/oas30"
+                  - "http://www.opengis.net/spec/ogcapi-features-1/1.0/conf/geojson"
+      
+        "4XX":
+          $ref: "#/components/responses/Error"
+        "5XX":
+          $ref: "#/components/responses/Error"
+  "/products":
+    get:
+      tags:
+        - Products
+      summary: the feature products in the dataset
+      description: |-
+        ...
+      responses:
+        "200":
+          description: |-
+            ...
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - links
+                  - products
+                properties:
+                  links:
+                    $ref: "#/components/schemas/links"
+                  products:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/product"
+        "4XX":
+          $ref: "#/components/responses/Error"
+        "5XX":
+          $ref: "#/components/responses/Error"
+  "/products/{productId}":
+    get:
+      tags:
+        - Products
+      summary: |-
+        describe the feature product with id `productId`
+      description: |-
+        ...
+      parameters:
+        - $ref: "#/components/parameters/productId"
+      responses:
+        "200":
+          description: |-
+            ...
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/product"
+        "4XX":
+          $ref: "#/components/responses/Error"
+        "5XX":
+          $ref: "#/components/responses/Error"
+  "/orders":
+    get:
+      tags:
+        - Orders
+      summary: a list of orders
+      description: |-
+        ...
+      responses:
+        "200":
+          description: |-
+            ...
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - links
+                  - orders
+                properties:
+                  links:
+                    $ref: "#/components/schemas/links"
+                  orders:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/order"
+        "4XX":
+          $ref: "#/components/responses/Error"
+        "5XX":
+          $ref: "#/components/responses/Error"
+    post:
+      tags:
+        - Orders
+      summary: create a new order
+      description: |-
+        ...
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/order_request"
+      responses:
+        "201":
+          description: |-
+            ...
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/order"
+        "4XX":
+          $ref: "#/components/responses/Error"
+        "5XX":
+          $ref: "#/components/responses/Error"
+components:
+  parameters:
+    productId:
+      name: productId
+      in: path
+      description: local identifier of a product
+      required: true
+      schema:
+        type: string
+  schemas:
+    order:
+      type: object
+      properties:
+        id:
+          type: string
+        user:
+          type: string
+        status:
+          type: string
+          enum:
+            - received
+            - waiting
+            - finished
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+        links:
+          $ref: "#/components/schemas/links"
+    order_request:
+      type: object
+      required:
+        - datetime
+        - product_id
+        - geometry
+      properties:
+        datetime:
+          type: string
+          description: A datetime interval according to ISO 8601.
+        product_id:
+          type: string
+        geometry:
+          $ref: "https://geojson.org/schema/Geometry.json"
+        constraints:
+          $ref: "#/components/schemas/jsonschemas"
+        parameters:
+          $ref: "#/components/schemas/jsonschemas"
+    license:
+      type: string
+      description: |-
+        License(s) of the data as a SPDX
+        [License identifier](https://spdx.org/licenses/). Alternatively, use
+        `proprietary` if the license is not on the SPDX license list or
+        `various` if multiple licenses apply. In these two cases links to the
+        license texts SHOULD be added, see the `license` link relation type.
+
+        Non-SPDX licenses SHOULD add a link to the license text with the
+        `license` relation in the links section. The license text MUST NOT be
+        provided as a value of this field. If there is no public license URL
+        available, it is RECOMMENDED to host the license text and
+        link to it.
+      example: Apache-2.0
+    providers:
+      type: array
+      description: >-
+        A list of providers, which may include all organizations capturing or
+        processing the data or the hosting provider. Providers should be listed
+        in chronological order with the most recent provider being the last
+        element of the list.
+      items:
+        type: object
+        title: Provider
+        required:
+          - name
+        properties:
+          name:
+            description: The name of the organization or the individual.
+            type: string
+          description:
+            description: >-
+              Multi-line description to add further provider information such as
+              processing details for processors and producers, hosting details
+              for hosts or basic contact information.
+
+
+              [CommonMark 0.29](http://commonmark.org/) syntax MAY be used for
+              rich text representation.
+            type: string
+          roles:
+            description: |-
+              Roles of the provider.
+
+              The provider's role(s) can be one or more of the following
+              elements:
+
+              * licensor: The organization that is licensing the dataset under
+                the license specified in the collection's license field.
+              * producer: The producer of the data is the provider that
+                initially captured and processed the source data, e.g. ESA for
+                Sentinel-2 data.
+              * processor: A processor is any provider who processed data to a
+                derived product.
+              * host: The host is the actual provider offering the data on their
+                storage. There should be no more than one host, specified as last
+                element of the list.
+            type: array
+            items:
+              type: string
+              enum:
+                - producer
+                - licensor
+                - processor
+                - host
+          url:
+            description: >-
+              Homepage on which the provider describes the dataset and publishes
+              contact information.
+            type: string
+            format: url
+    product:
+      type: object
+      description: STAT Product objects are represented in JSON format and are very flexible. 
+                  Any JSON object that contains all the required fields is a valid STAT Product. 
+                  A Product object contains a minimal set of required properties to be valid and 
+                  can be extended through the use of constraints and parameters.
+      required:
+        - type
+        - id
+        - description
+        - license
+        - links
+      properties:
+        type:
+          type: string
+          enum:
+            - Product
+        id:
+          description: identifier of the product used, for example, in URIs
+          type: string
+        title:
+          description: human readable title of the product
+          type: string
+        description:
+          type: string
+          description: >-
+            Detailed multi-line description to fully explain the catalog or
+            product.
+
+            [CommonMark 0.29](http://commonmark.org/) syntax MAY be used for
+            rich text representation.
+        keywords:
+          type: array
+          description: List of keywords describing the product.
+          items:
+            type: string
+        license:
+          $ref: "#/components/schemas/license"
+        providers:
+          $ref: "#/components/schemas/providers"
+        links:
+          $ref: "#/components/schemas/links"
+        constraints:
+          $ref: "#/components/schemas/jsonschemas"
+        parameters:
+          $ref: "#/components/schemas/jsonschemas"
+    links:
+      type: array
+      items:
+        type: object
+        required:
+          - href
+          - rel
+        properties:
+          href:
+            type: string
+            format: uri
+            description: The location of the resource
+          rel:
+            type: string
+            description: Relation type of the link
+          type:
+            type: string
+            description: The media type of the resource
+          title:
+            type: string
+            description: Title of the resource
+          method:
+            type: string
+            enum:
+              - GET
+              - POST
+            default: GET
+            description: Specifies the HTTP method that the resource expects
+          headers:
+            type: object
+            description: Object key values pairs they map to headers
+            example:
+              Accept: application/json
+          body:
+            type: object
+            description: For POST requests, the resource can specify the HTTP body as a JSON object.
+          merge:
+            type: boolean
+            default: false
+            description: |-
+              This is only valid when the server is responding to POST request.
+
+              If merge is true, the client is expected to merge the body value
+              into the current request body before following the link.
+              This avoids passing large post bodies back and forth when following
+              links, particularly for navigating pages through the `POST /search`
+              endpoint.
+
+              NOTE: To support form encoding it is expected that a client be able
+              to merge in the key value pairs specified as JSON
+              `{"next": "token"}` will become `&next=token`.
+    jsonschemas:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/jsonschema'
+    jsonschema:
+        title: JSON Schema
+        type: object
+    conformanceClasses:
+      type: object
+      required:
+        - conformsTo
+      properties:
+        conformsTo:
+          description: >-
+            A list of all conformance classes implemented by the server.
+            In addition to the STAC-specific conformance classes, all OGC-related
+            conformance classes listed at `GET /conformance` must be listed here.
+            This entry should mirror what `GET /conformance` returns, if implemented.
+          type: array
+          items:
+            type: string
+  responses:
+    Error:
+      description: An error occurred.
+      content:
+        application/json:
+          schema:
+            type: object
+            description: |-
+              Information about the exception: an error code plus an optional description.
+            required:
+              - code
+            properties:
+              code:
+                type: string
+              description:
+                type: string
