@@ -20,6 +20,7 @@ STAT Product objects are represented in JSON format and are very flexible. Any J
 | links           | \[[Link Object](#link-object)]                   | **REQUIRED.** A list of references to other documents.       |
 | constraints | Map<string, [ConstraintsObject](#constraints-object)> | User supplied constraints on a tasking request|
 | parameters | [ParametersObject](#parameters-object) | User supplied parameters that don't constrain tasking (e.g., output format)|
+| properties | [PropertiesObject](#properties-object) | REQUIRED. A dictionary of additional metadata for the Item.|
 
 
 ### Provider Object
@@ -114,3 +115,11 @@ It is recommended to use [JSON Schema draft-07](https://json-schema.org/specific
 to align with the JSON Schemas provided by STAC. Empty schemas are not allowed.
 
 For an introduction to JSON Schema, see "[Learn JSON Schema](https://json-schema.org/learn/)".
+
+### Properties Object
+
+Providers should include metadata fields that are relevant for users of STAC, but it is recommended to select only those necessary for search. Where possible metadata fields should be mapped to the STAC Common Metadata and widely used extensions, to enable cross-catalog search on known fields.
+
+STAC Common Metadata - A list of fields commonly used throughout all domains. These optional fields are included for STAC Items by default.
+Extensions - Additional fields that are more specific, such as EO, View.
+Custom Extensions - It is generally allowed to add custom fields but it is recommended to add multiple fields for related values instead of a nested object, e.g., two fields view:azimuth and view:off_nadir instead of a field view with an object value containing the two fields. The convention (as used within Extensions) is for related fields to use a common prefix on the field names to group them, e.g. view. A nested data structure should only be used when the data itself is nested, as with eo:bands.
