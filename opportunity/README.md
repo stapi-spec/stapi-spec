@@ -9,8 +9,6 @@ This object describes a STAT Opportunity. The input fields will be contained `pr
 | Field Name | Type                                                                       | Description |
 | ---------- | -------------------------------------------------------------------------- | ----------- |
 | type       | string                                                                     | **REQUIRED.** Type of the GeoJSON Object. MUST be set to `Feature`. |
-| stat_version | string                                                                   | **REQUIRED.** The STAT version the Opportunity implements. |
-| stat_extensions | \[string]                                                             | A list of extensions the Opportunity implements. |
 | product_id         | string                                                             | **REQUIRED.** Product identifier. The ID should be unique and is a reference to the constraints which can be used in the constraints field. |
 | id         | string                                                                     | Provider identifier. This is not required, unless the provider tracks user requests and state for opportunities. |
 | geometry   | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) \| [null](https://tools.ietf.org/html/rfc7946#section-3.2) | **REQUIRED.** Defines the full footprint of the asset represented by this item, formatted according to [RFC 7946, section 3.1](https://tools.ietf.org/html/rfc7946#section-3.1). The footprint should be the default GeoJSON geometry, though additional geometries can be included. Coordinates are specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS 84](http://www.opengis.net/def/crs/OGC/1.3/CRS84). |
@@ -20,12 +18,6 @@ This object describes a STAT Opportunity. The input fields will be contained `pr
 | constraints | Map<string, \[\*]\|[Range Object](#range-object)\|[JSON Schema Object](#json-schema-object)> | A map of opportunity constraints, either a set of values, a range of values or a JSON Schema. |
 
 ### Additional Field Information
-
-#### stat_extensions
-
-A list of extensions the Opportunity implements.
-The list consists of URLs to JSON Schema files that can be used for validation.
-This list must only contain extensions that extend the Opportunity specification itself.
 
 #### bbox
 

@@ -2,11 +2,6 @@
     "products": [
         {
             "type": "Product",
-            "stat_version": "stat_version",
-            "stat_extensions": [
-                "product_extention_schema_link_1",
-                "product_extention_schema_link_2"
-            ],
             "id": "multispectral",
             "title": "Multispectral",
             "description": "Full color EO image",
@@ -99,11 +94,6 @@
         },
         {
             "type": "Product",
-            "stat_version": "stat_version",
-            "stat_extensions": [
-                "product_extention_schema_link_1",
-                "product_extention_schema_link_2"
-            ],
             "id": "spotlight",
             "title": "Spotlight",
             "description": "SAR Spotlight frame",
