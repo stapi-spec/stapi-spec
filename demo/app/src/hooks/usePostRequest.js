@@ -6,6 +6,7 @@ const usePostRequest = (postParams) => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
 
+        // http://localhost:8000/opportunities
     useEffect(() => {
         if (params) {
             setIsLoading(true);
