@@ -70,22 +70,22 @@
                     "maximum": "364d,23h,59m,59s"
                 },
 
-                "sat_elevation_deg": {
+                "view:sat_elevation": {
                     "type": "number",
                     "min": 20,
                     "max": 90
                 },
-                "sat_azimuth_deg": {
+                "view:azimuth": {
                     "type": "number",
                     "min": -360,
                     "max": 360
                 },
-                "solar_zenith_deg": {
+                "view:sun_zenith": {
                     "type": "number",
                     "min": 0,
                     "max": 85
                 },
-                "solar_azimuth_deg": {
+                "view:sun-azimuth": {
                     "type": "number",
                     "min": -360,
                     "max": 360
