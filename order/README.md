@@ -25,6 +25,10 @@ See [Order Object](#order-object).
 | orders     | \[Order Object\]          | **REQUIRED.** A list of orders. |
 | links      | Map\<object, Link Object> | **REQUIRED.** Links for e.g. pagination. |
 
+# GET /order/{id}
+
+## Get Order Response
+See [Order Object](#order-object).
 
 # Order Object
 | Field Name | Type | Description |
