@@ -1,6 +1,8 @@
 # Opportunities
 
-1. Request opportunities for a given set of constraints (constraints are sent as ~~an Order-like~~ cql2json)
+1. Request opportunities
+** some required entities (product_id, datetime, geometry) could be on the top-level
+** others will fit into constraints and will be parsed 
 2. Receive opportunities (Order-likes)
 3. Select opportunities and send unchanged to /order
 
