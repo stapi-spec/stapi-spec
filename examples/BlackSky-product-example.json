@@ -147,6 +147,9 @@
                     "description": "Number of days to withhold collected product from the public archive catalog"
                 }
             },
+            "conformsTo": [
+                "https://api.stacspec.org/v1.0.0/point"
+            ],
             "if": {
                 "parameters": {
                     "offering": {
@@ -299,6 +302,9 @@
                     "description": "Number of days to withhold collected product from the public archive catalog"
                 }
             },
+            "conformsTo": [
+                "https://api.stacspec.org/v1.0.0/point"
+            ],
             "if": {
                 "parameters": {
                     "offering": {
