@@ -4,7 +4,7 @@
       "type": "Product",
       "stat_version": "0.0.1",
       "stat_extensions": [],
-      "id": "Satellite_Payload_PUSHBROOM_L0",
+      "id": "Satellite_Payload_PUSHBROOM_L0_MANUAL/AUTOMATED",
       "title": "Title",
       "description": "Description",
       "keywords": [],
@@ -33,28 +33,30 @@
           "label:assets": null
         }
       ],
-      "constraints": {
-        "roll_angle_deg": {
-          "minimum": -45,
-          "maximum": 45
-        }, // Or some jsonschema that contains min/max?
-        "oza_deg": {
-          "minimum": 0,
-          "maximum": 90
-        },
-        "sza_deg": {
-          "minimum": 0,
-          "maximum": 90
-        },
-        "cloud_cover": {
-          "minimum": 30,
-          "maximum": 100
-        }
-      },
       "parameters": {
         "$schema": "http://json-schema.org/draft-04/schema#",
         "$ref": "#/definitions/imageAcquisitionParameters",
         "definitions": {
+          "constraints":{
+            "properties":{
+              "oza_deg:min": {
+                "type": "number",
+                "title": "Observation Zenith Angle",
+                "description": "Minimum desired angle between the spacecraft nadir and the target [deg].",
+                "minimum": 0,
+                "maximum": 90,
+                "default": 30
+              },
+              "oza_deg:max": {
+                "type": "number",
+                "title": "Observation Zenith Angle",
+                "description": "Maximum desired angle between the spacecraft nadir and the target [deg].",
+                "minimum": 0,
+                "maximum": 90,
+                "default": 60
+              }
+            }
+          },
           "onboardProcessingParameters": {
             "properties": {
               "app_config": {
@@ -69,10 +71,12 @@
           },
           "platformParameters": {
             "properties": {
-              "roll_angle": {
+              "roll_angle:min": {
                 "type": "number",
                 "title": "Roll Angle",
-                "description": "Indicates how much the spacecraft needs to be rotated to capture the image [deg]."
+                "description": "Indicates how much the spacecraft needs to be rotated to capture the image [deg].",
+                "minimum": -45,
+                "maximum": 45
               }
             },
             "additionalProperties": false,
