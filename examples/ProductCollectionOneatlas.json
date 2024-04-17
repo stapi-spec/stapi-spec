@@ -55,14 +55,6 @@
         "$schema": "https://json-schema.org/draft-07/schema",
         "type": "object",
         "properties": {
-            "displayName": {
-                "title": "Order name",
-                "type": "string"
-            },
-            "extraDescription": {
-                "title": "Description",
-                "type": "string"
-            },
             "acquisitionMode": {
                 "title": "Acquisition mode",
                 "description": "Acquisition can be set to be monoscopic (imaging from one viewpoint on the same orbit) or stereoscopic (imaging from at least two viewpoints on the same orbit). Stereo imaging is ideal for creating 3D models and tristereo introduces an additional acquisition at nadir which minimises the risk of missing hidden items.",
@@ -163,7 +155,6 @@
             }
         },
         "required": [
-            "displayName",
             "acquisitionStart",
             "acquisitionEnd",
             "acquisitionMode",
