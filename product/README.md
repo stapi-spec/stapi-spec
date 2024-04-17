@@ -70,6 +70,13 @@ to align with the JSON Schemas provided by STAC. Empty schemas are not allowed.
 
 For an introduction to JSON Schema, see "[Learn JSON Schema](https://json-schema.org/learn/)".
 
+#### Constraints Best Practices
+
+There are many Tasking constraints that cannot be represented by JSON Schema. For these constraints, strongly consider documenting the constraint in the `"description"` property of the relevant constraint or use the `"links"` attribute to link the user out to documentation that describes additional constraints.
+
+TODO: Example
+TODO: Documented link type for client libraries to be able to find and surface to users
+
 ### Parameters Object
 
 Parameters are objects which do not affect the Tasking process, but are nevertheless useful. For example, a user may wish to select a preferred output format or a data provider may provide additional metadata about a product.
