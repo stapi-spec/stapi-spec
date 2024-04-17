@@ -21,7 +21,7 @@ Ordering with loosely defined order values will give the provider more freedom t
 | user | string | User or organization ID ? |
 | created | datetime | When the order was created |
 | links    | \[[Link Object](https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md#link-object)\] |  |
-| status | OrderStatus | Current Order Status object |
+| status | [Order Status Object](#order-status) | Current Order Status object |
 
 ## Order Collection
 
