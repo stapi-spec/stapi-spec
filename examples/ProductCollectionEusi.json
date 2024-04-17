@@ -36,9 +36,7 @@
                     "description": "Property containing the type of tasking scheme to apply to the subOrder",
                     "type": "string",
                     "enum": [
-                        "single_window",
-                        "monitoring",
-                        "multi_window"
+                        "single_window"
                     ],
                     "default": "single_window"
                 },
