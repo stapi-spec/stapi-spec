@@ -20,7 +20,7 @@
                 ],
                 "url": "www.blacksky.com"
             },
-            "constraints": {
+            "parameters": {
                 "eNiirs": {
                     "description": "NIIRS Score is a function of the GSD, Signal-to-Noise Ratio (SNR), and Relative Edge Response (RER) of an image. This NIIRS constraint will use a predicted SNR and RER based off an aggregation of previously taken and analyzed images.",
                     "minimum": 3,
@@ -83,9 +83,7 @@
                         10,
                         50
                     ]
-                }
-            },
-            "parameters": {
+                },
                 "eo:cloud_cover": {
                     "description": "Maximum allowable cloud cover in percent",
                     "type": "number",
@@ -95,6 +93,15 @@
                         30,
                         100
                     ]
+                },
+                "frequency:": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/$defs/Frequency"
+                        }
+                    ],
+                    "default": "ONCE",
+                    "description": "Reoccuring collections"
                 },
                 "offering": {
                     "oneOf": [
@@ -173,7 +180,7 @@
                 ],
                 "url": "www.blacksky.com"
             },
-            "constraints": {
+            "parameters": {
                 "eNiirs": {
                     "description": "NIIRS Score is a function of the GSD, Signal-to-Noise Ratio (SNR), and Relative Edge Response (RER) of an image. This NIIRS constraint will use a predicted SNR and RER based off an aggregation of previously taken and analyzed images.",
                     "minimum": 3,
@@ -227,9 +234,7 @@
                         60,
                         90
                     ]
-                }
-            },
-            "parameters": {
+                },
                 "eo:cloud_cover": {
                     "description": "Maximum allowable cloud cover in percent",
                     "type": "number",
@@ -239,6 +244,15 @@
                         30,
                         100
                     ]
+                },
+                "frequency:": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/$defs/Frequency"
+                        }
+                    ],
+                    "default": "ONCE",
+                    "description": "Reoccuring collections"
                 },
                 "offering": {
                     "oneOf": [
@@ -343,6 +357,21 @@
                 "blacksky-ing-type-type-0"
             ],
             "title": "EULA options",
+            "type": "string"
+        },
+        "Frequency": {
+            "enum": [
+                "ONCE",
+                "DAILY",
+                "WEELKY",
+                "BIWEEKLY",
+                "TRIWEEKLY",
+                "BIWEEKLY",
+                "MONTHLY",
+                "ALL_INCLUSIVE",
+                "USER_DEFINED"
+            ],
+            "title": "Reoccuring",
             "type": "string"
         }
     },
