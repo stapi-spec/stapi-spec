@@ -21,6 +21,8 @@ and **Orders**. The process of interacting with a data provider is done through 
 
 ### Core
 
+- **Conformance URI:** <https://stat-api.example.com/v0.1.0/core>
+
 The core of STAT API includes the `/products` endpoint and the `/orders` endpoint.
 
 To know which constraints are available for which *product_id*, users first explore [/products](./product).
@@ -43,15 +45,14 @@ The following table describes the service resources available in a STAT API impl
 supports all three of the foundation specifications. Note that the 'Endpoint'
 column is more of an example in some cases.
 
-| Endpoint                       | Specified in   | Returns                       | Description  |
-| ------------------------------ | -------------- | ----------------------------- | ------------ |
-| `/`                            | Core           | [?]()                         | |
-| `/products`                    | Core           | [ProductsCollection](./product) | Figure out which constraints are available for which `product_id` |
-| `/orders`                      | Core           | [OrdersCollection](./order)     |  |
-| POST `/orders`                 | Core           | [Order](./order)                | Order a capture with a particular set of constraints |
-| `/products/{productId}`        | Core           | [Product](./product)                   | |
-| `/opportunities`               | Opportunities  | [OpportunitiesCollection](./opportunity)   | |
-| POST `/opportunities`          | Opportunities  | [OpportunitiesCollection](./opportunity)    | Explore the opportunities available for a particular set of constraints |
+| Endpoint                    | Specified in  | Accepts                                                      | Returns                                                      | Description                                                  |
+| --------------------------- | ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `GET /`                     | Core          | -                                                            | [Landing Page](#landing-page)                                |                                                              |
+| `GET /products`             | Core          | -                                                            | [Products Collection](./product/README.md)                   | Figure out which constraints are available for which `product_id` |
+| `GET /products/{productId}` | Core          | -                                                            | [Product](./product/README.md)                               |                                                              |
+| `GET /orders`               | Core          | -                                                            | [Orders Collection](./order/README.md#order-collection)      |                                                              |
+| `POST /orders`              | Core          | [Order Request](./order/README.md#order-request)             | [Order Object](./order/README.md#order-pobject)              | Order a capture with a particular set of constraints         |
+| `POST /opportunities`       | Opportunities | [Opportunity Request](./opportunity/README.md#opportunity-request) | [Opportunities Collection](./opportunity/README.md#opportunities-collection) | Explore the opportunities available for a particular set of constraints |
 
 ## Conformance Classes
 
@@ -66,23 +67,30 @@ requires they also live at the `/conformance` endpoint. STAT's conformance struc
 
 | **Name**               | **Specified in**                            | **Conformance URI**                                    | **Description**                                                                                                 |
 | ---------------------- | ------------------------------------------- | ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------- |
-| STAT API - Core        | [Core](core)                                |            | Specifies the STAT Landing page `/`, communicating conformance and available endpoints.                         |
-| STAT API - Opportunities | [Opportunities](opportunity)                  |    | Enables request of potential tasking opportunities |                            |
+| STAT API - Core        | Core               | https://stat-api.example.com/v0.1.0/core | Specifies the STAT Landing page `/`, communicating conformance and available endpoints.                         |
+| STAT API - Opportunities | [Opportunities](opportunity/README.md)        | https://stat-api.example.com/v0.1.0/opportunities | Enables request of potential tasking opportunities |
+| STAT API - Core | Core | https://geojson.org/schema/Point.json | Allows submitting orders with GeoJSON points |
+| STAT API - Core | Core | https://geojson.org/schema/Linestring.json | Allows submitting orders with GeoJSON linestrings |
+| STAT API - Core | Core | https://geojson.org/schema/Polygon.json | Allows submitting orders with GeoJSON polygons |
+| STAT API - Core | Core | https://geojson.org/schema/MultiPoint.json | Allows submitting orders with GeoJSON multi points |
+| STAT API - Core | Core | https://geojson.org/schema/MultiPolygon.json | Allows submitting orders with GeoJSON multi polygons |
+| STAT API - Core | Core | https://geojson.org/schema/MultiLineString.json | Allows submitting orders with GeoJSON multi linestring |
 
 See [the STAT API Demo](https://github.com/Element84/stat-api-demo)
 
-## Example Landing Page
+## Landing Page
 
 The Landing Page will at least have the following `conformsTo` and `links`:
 
 ```json
 {
-    "stat_version": "0.1.0",
     "id": "example-stat-api",
     "title": "A simple STAT API Example",
     "description": "This API demonstrated the landing page for a SpatioTemporal Asset Tasking API",
     "conformsTo" : [
-        "https://stat-api.example.com/v0.1.0/core"
+        "https://stat-api.example.com/v0.1.0/core",
+        "https://geojson.org/schema/Point.json",
+        "https://geojson.org/schema/Polygon.json"
     ],
     "links": [
         {
