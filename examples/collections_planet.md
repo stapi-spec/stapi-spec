@@ -1,15 +1,18 @@
 # Opportunities
 
 1. Request opportunities
-** some required entities (product_id, datetime, geometry) could be on the top-level
-** others will fit into constraints and will be parsed 
+
+ * some required entities (product_id, datetime, geometry) could be on the top-level
+ * others will fit into constraints and will be parsed
+
+
 2. Receive opportunities (Order-likes)
 3. Select opportunities and send unchanged to /order
 
 
-Two different scenarios:
+# Two different scenarios: (+1 extra)
 
-## Flexible
+## 1 Flexible
 We'll validate the request and make sure it's compatible with the product constraints.  
 This could also include feasibility checks. There aren't several imaging windows, 
 so we'll just return the Order-like search argument as an opportunity in case 
@@ -39,12 +42,12 @@ returns
     "coordinates": [...]
   },
   "constraints": {
-    
+    // same as above
   }
 }]
 ```
 
-## Assured
+## 2 Assured
 Again we validate that the request is valid and feasible.
 We'll identify (probably multiple) imaging windows and create an opportunity for each one,
 taking the provided order-like search as a basis for each but adapting the time to a specific
@@ -87,10 +90,13 @@ returns
     "coordinates": [...]
   },
   "constraints": {
+    // same as above, here: nothing
     'imaging_window_id': '1235'
   }
 }
 ]
 ```
+
+## 3 Archive :D 
 
 
