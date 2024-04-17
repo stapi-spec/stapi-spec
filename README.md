@@ -51,7 +51,7 @@ column is more of an example in some cases.
 | POST `/orders`                 | Core           | [Order](./order)                | Order a capture with a particular set of constraints |
 | `/products/{productId}`        | Core           | [Product](./product)                   | |
 | `/opportunities`               | Opportunities  | [OpportunitiesCollection](./opportunity)   | |
-| POST `/opportunities`          | Opportunities  | [Opportunity](./opportunity)    | Explore the opportunities available for a particular set of constraints |
+| POST `/opportunities`          | Opportunities  | [OpportunitiesCollection](./opportunity)    | Explore the opportunities available for a particular set of constraints |
 
 ## Conformance Classes
 
