@@ -51,7 +51,7 @@
             "title": "API reference - Glossary overview"
         }
     ],
-    "summary": {
+    "constraints": {
         "$schema": "https://json-schema.org/draft-07/schema",
         "type": "object",
         "properties": {
@@ -63,14 +63,6 @@
                         "$ref": "#/definitions/Polygon"
                     }
                 ]
-            },
-            "displayName": {
-                "title": "Order name",
-                "type": "string"
-            },
-            "extraDescription": {
-                "title": "Description",
-                "type": "string"
             },
             "acquisitionStart": {
                 "title": "Start",
@@ -92,14 +84,14 @@
                     }
                 ]
             },
-            "cloudCoverage": {
+            "eo:cloud_cover": {
                 "title": "Maximum cloud coverage (%)",
                 "description": "Maximum allowed cloud coverage in percentage.",
                 "minimum": 5,
                 "maximum": 20,
                 "type": "integer"
             },
-            "incidenceAngle": {
+            "view:incidence_angle": {
                 "title": "Maximum incidence angle (°)",
                 "description": "Maximum allowed incidence angle in degree.",
                 "minimum": 5,
@@ -332,23 +324,6 @@
                         "title": "Reflectance"
                     }
                 ]
-            },
-            "deliveredAs": {
-                "title": "deliveredAs",
-                "anyOf": [
-                    {
-                        "const": "geotiff",
-                        "title": "DIMAP-GeoTIFF"
-                    },
-                    {
-                        "const": "jpeg_2000_regular",
-                        "title": "DIMAP-Regular JPEG 2000"
-                    },
-                    {
-                        "const": "jpeg_2000_optimized",
-                        "title": "DIMAP-Optimized JPEG 2000"
-                    }
-                ]
             }
         },
         "additionalProperties": false,
@@ -495,5 +470,41 @@
                 }
             }
         ]
-    }
+    },
+    "parameters": {
+        "$schema": "https://json-schema.org/draft-07/schema",
+        "type": "object",
+        "properties": {
+            "displayName": {
+                "title": "Order name",
+                "type": "string"
+            },
+            "extraDescription": {
+                "title": "Description",
+                "type": "string"
+            },
+            "deliveredAs": {
+                "title": "deliveredAs",
+                "anyOf": [
+                    {
+                        "const": "geotiff",
+                        "title": "DIMAP-GeoTIFF"
+                    },
+                    {
+                        "const": "jpeg_2000_regular",
+                        "title": "DIMAP-Regular JPEG 2000"
+                    },
+                    {
+                        "const": "jpeg_2000_optimized",
+                        "title": "DIMAP-Optimized JPEG 2000"
+                    }
+                ]
+            }
+        },
+        "required": [
+            "displayName",
+            "deliveredAs"
+        ]
+    },
+    "properties": {}
 }
