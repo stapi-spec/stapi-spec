@@ -2,6 +2,11 @@
     "type": "Product",
     "stac_version": "1.0.0",
     "stac_extensions": [],
+    "conformsTo": [
+        "https://stat-api.example.com/v0.1.0/core",
+        "https://stat-api.example.com/v0.1.0/opportunities",
+        "https://geojson.org/schema/MultiPolygon.json"
+    ],
     "id": "4f866cd3-d816-4c98-ace3-e6105623cf13",
     "title": "PHR-tasking",
     "description": "Very high resolution 50 cm optical satellite imagery, acquired worldwide with a daily revisit rate.",
