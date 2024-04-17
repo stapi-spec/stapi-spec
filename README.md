@@ -43,15 +43,15 @@ The following table describes the service resources available in a STAT API impl
 supports all three of the foundation specifications. Note that the 'Endpoint'
 column is more of an example in some cases.
 
-| Endpoint                       | Specified in   | Returns                       | Description  |
-| ------------------------------ | -------------- | ----------------------------- | ------------ |
-| `/`                            | Core           | [?]()                         | |
-| `/products`                    | Core           | [ProductsCollection](./product) | Figure out which constraints are available for which `product_id` |
-| `/orders`                      | Core           | [OrdersCollection](./order)     |  |
-| POST `/orders`                 | Core           | [Order](./order)                | Order a capture with a particular set of constraints |
-| `/products/{productId}`        | Core           | [Product](./product)                   | |
-| `/opportunities`               | Opportunities  | [OpportunitiesCollection](./opportunity)   | |
-| POST `/opportunities`          | Opportunities  | [OpportunitiesCollection](./opportunity)    | Explore the opportunities available for a particular set of constraints |
+| Endpoint                       | Specified in   | Accepts | Returns                       | Description  |
+| ------------------------------ | -------------- | ------- | ----------------------------- | ------------ |
+| `/`                            | Core           | | [?]()                         | |
+| `/products`                    | Core           | | [ProductsCollection](./product) | Figure out which constraints are available for which `product_id` |
+| `/orders`                      | Core           | | [OrdersCollection](./order)     |  |
+| POST `/orders`                 | Core           | | [Order](./order)                | Order a capture with a particular set of constraints |
+| `/products/{productId}`        | Core           | | [Product](./product)                   | |
+| `/opportunities`               | Opportunities  | | [OpportunitiesCollection](./opportunity)   | |
+| POST `/opportunities`          | Opportunities  | | [OpportunitiesCollection](./opportunity)    | Explore the opportunities available for a particular set of constraints |
 
 ## Conformance Classes
 
