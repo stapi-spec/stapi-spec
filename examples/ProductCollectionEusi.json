@@ -1,0 +1,228 @@
+{
+    "products": [
+        {
+            "type": "Product",
+            "stat_version": "0.0.1",
+            "stat_extensions": [],
+            "id": "maxar_opt",
+            "title": "Maxar tasking",
+            "description": "",
+            "keywords": [
+                "EO",
+                "OPTICAL",
+                "WV01",
+                "WV02",
+                "WV03",
+                "GE01",
+                "VHR"
+            ],
+            "license": "proprietary",
+            "providers": [
+                {
+                    "name": "EUSI",
+                    "description": null,
+                    "roles": [
+                        "licensor",
+                        "processor",
+                        "producer",
+                        "host"
+                    ],
+                    "url": "https://www.euspaceimaging.com"
+                }
+            ],
+            "links": [],
+            "constraints": {
+                "taskingScheme": {
+                    "description": "Property containing the type of tasking scheme to apply to the subOrder",
+                    "type": "string",
+                    "enum": [
+                        "single_window"
+                    ],
+                    "default": "single_window"
+                },
+                "taskingPriority": {
+                    "description": "Property containing the tasking priority level to apply to the subOrder",
+                    "type": "string",
+                    "enum": [
+                        "Select",
+                        "Select Plus"
+                    ],
+                    "default": "Select"
+                },
+                "maxCloudCover": {
+                    "minimum": 5.0,
+                    "maximum": 100.0
+                },
+                "minOffNadir": {
+                    "minimum": 0.0,
+                    "maximum": 15.0
+                },
+                "maxOffNadir": {
+                    "minimum": 10.0,
+                    "maximum": 45.0
+                },
+                "scanDirection": {
+                    "description": "Property describing the allowed scan direction value to apply to the subOrder",
+                    "type": "string",
+                    "enum": [
+                        "Any"
+                    ]
+                },
+                "singleSensor": {
+                    "description": "Property forcing collection of the area of interest with a single sensor",
+                    "type": "boolean",
+                    "default": false
+                },
+                "sensors": {
+                    "description": "Array containing the values of the allowed sensors for imagery collection",
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "WV01",
+                            "WV02",
+                            "WV03",
+                            "GE01"
+                        ]
+                    }
+                },
+                "stereo": {
+                    "description": "Property describing whether to collect this subOrder as in-track stereo",
+                    "type": "boolean",
+                    "default": false
+                },
+                "required": [
+                    "taskingScheme",
+                    "maxCloudCover",
+                    "maxOffNadir",
+                    "stereo",
+                    "sensors",
+                    "taskingPriority"
+                ]
+            },
+            "parameters": {
+                "customerReference": {
+                    "title": "Customer Reference",
+                    "description": "Free text parameter containing the client reference to the overall order",
+                    "type": "string"
+                },
+                "purchaseOrderNo": {
+                    "title": "Purchase Order Number",
+                    "description": "Free text parameter containing the a client-side purchase order number to apply to the invoice",
+                    "type": "string"
+                },
+                "projectName": {
+                    "title": "Project Name",
+                    "description": "Free text parameter containing a client-side reference to an overarching project",
+                    "type": "string"
+                },
+                "productLevel": {
+                    "title": "Product Level",
+                    "description": "Property containing the production level to apply to delivered product",
+                    "type": "string",
+                    "enum": [
+                        "OR2A",
+                        "ORTHO",
+                        "2A"
+                    ],
+                    "default": "OR2A"
+                },
+                "bandCombination": {
+                    "title": "Band combination",
+                    "description": "Property containing the band combination to apply to delivered product",
+                    "type": "string",
+                    "enum": [
+                        "PAN",
+                        "4PS",
+                        "4BB",
+                        "8BB"
+                    ],
+                    "default": "4BB"
+                },
+                "resolution": {
+                    "title": "Resolution",
+                    "description": "Property containing the resolution apply to delivered product",
+                    "type": "number",
+                    "enum": [
+                        0.5,
+                        0.4,
+                        0.3
+                    ],
+                    "default": 0.5
+                },
+                "bitDepth": {
+                    "title": "Bit depth",
+                    "description": "Property containing the bit depth to apply to delivered product",
+                    "type": "integer",
+                    "enum": [
+                        8,
+                        11,
+                        16
+                    ],
+                    "default": 16
+                },
+                "resamplingKernel": {
+                    "title": "Resampling Kernel",
+                    "description": "Property containing the resampling kernel to apply to delivered product",
+                    "type": "string",
+                    "enum": [
+                        "NN",
+                        "MTF",
+                        "CC",
+                        "PS",
+                        "ENH"
+                    ],
+                    "default": "CC"
+                },
+                "dra": {
+                    "title": "DRA",
+                    "description": "Property describing whether to apply dynamic range adjustment to delivered product",
+                    "type": "boolean",
+                    "default": false
+                },
+                "acomp": {
+                    "title": "ACOMP",
+                    "description": "Property describing whether to apply atmospheric compensation to delivered product",
+                    "type": "boolean",
+                    "default": false
+                },
+                "format": {
+                    "title": "Format",
+                    "description": "Property containing the final product format to apply to delivered product",
+                    "type": "string",
+                    "enum": [
+                        "GeoTIFF"
+                    ],
+                    "default": "GeoTIFF"
+                },
+                "fullStrip": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "projection": {
+                    "title": "Product projection",
+                    "description": "Property containing the projection to apply to delivered product",
+                    "type": "string",
+                    "enum": [
+                        "UTM_WGS84_Meter",
+                        "Geographic_WGS84_DecimalDegree"
+                    ]
+                },
+                "priority": {
+                    "title": "Production priority",
+                    "description": "Property containing the priority class of the order",
+                    "type": "string",
+                    "enum": [
+                        "Standard"
+                    ]
+                },
+                "required": [
+                    "productLevel",
+                    "bandCombination",
+                    "resolution",
+                    "priority"
+                ]
+            }
+        }
+    ]
+}
