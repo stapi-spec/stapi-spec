@@ -21,6 +21,8 @@ and **Orders**. The process of interacting with a data provider is done through 
 
 ### Core
 
+- **Conformance URI:** <https://stat-api.example.com/v0.1.0/core>
+
 The core of STAT API includes the `/products` endpoint and the `/orders` endpoint.
 
 To know which constraints are available for which *product_id*, users first explore [/products](./product).
@@ -65,8 +67,11 @@ requires they also live at the `/conformance` endpoint. STAT's conformance struc
 
 | **Name**               | **Specified in**                            | **Conformance URI**                                    | **Description**                                                                                                 |
 | ---------------------- | ------------------------------------------- | ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------- |
-| STAT API - Core        | [Core](core)                                |            | Specifies the STAT Landing page `/`, communicating conformance and available endpoints.                         |
-| STAT API - Opportunities | [Opportunities](opportunity)                  |    | Enables request of potential tasking opportunities |                            |
+| STAT API - Core        | Core               | https://stat-api.example.com/v0.1.0/core | Specifies the STAT Landing page `/`, communicating conformance and available endpoints.                         |
+| STAT API - Opportunities | [Opportunities](opportunity/README.md)        | https://stat-api.example.com/v0.1.0/opportunities | Enables request of potential tasking opportunities |
+| STAT API - Core | Core | https://geojson.org/schema/Point.json | Allows submitting orders with GeoJSON points |
+| STAT API - Core | Core | https://geojson.org/schema/Linestring.json | Allows submitting orders with GeoJSON linestrings |
+| STAT API - Core | Core | https://geojson.org/schema/Polygon.json | Allows submitting orders with GeoJSON polygons |
 
 See [the STAT API Demo](https://github.com/Element84/stat-api-demo)
 
@@ -80,7 +85,9 @@ The Landing Page will at least have the following `conformsTo` and `links`:
     "title": "A simple STAT API Example",
     "description": "This API demonstrated the landing page for a SpatioTemporal Asset Tasking API",
     "conformsTo" : [
-        "https://stat-api.example.com/v0.1.0/core"
+        "https://stat-api.example.com/v0.1.0/core",
+        "https://geojson.org/schema/Point.json",
+        "https://geojson.org/schema/Polygon.json"
     ],
     "links": [
         {
