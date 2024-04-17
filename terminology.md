@@ -1,8 +1,8 @@
 # Terminology / Ontology
 
-During the tasking sprint 2024, we realize that all providers call the same things slightly differently, but are mostly share the same concepts. Also, we found some confusion about what the ´orders´ and ´products´ refer to in STAT current proposal. 
+During the tasking sprint 2024, we realize that all providers call the same things slightly differently, but are mostly share the same concepts. Also, we found some confusion about what the ´orders´, ´opportunities´ and ´products´ refer to in STAT current proposal. 
 
-## Layers
+## Findings
 We've found that more or less we all do the same operations at different layers.
 
 - **Business:** the to most level for any company, where we expect our customers to interact with us through. At this level, we all handle business logic operations like order fulfillment logic, archive/tasking discrimination/ retasking, etc. 
@@ -24,3 +24,15 @@ Most agreed that an order can spawn multiple tasks, and each task can spawn mult
 - If orders are the topmost  `business` layer and the interface to interact with customers, should STAC have an analog order concept too? or even the same one? 
 - There is an ´opportunity´ endpoint. What is an opportunity in this context? Is a capture/collect/acquisition/attempt? or is it a generic answer for an order?
 - Are opportunities used for optionality, to allow users select which capture to take, or for information to show customers what their order will do.
+
+## My personal view of the curren status of the spec
+
+There seems to be a mismatch in abstraction level between the orders and the opportunities endpoints. 
+
+Orders are business layer problems. They are ad-hoc to company, and might also encompass for example ordering data from the archives (via STAC, which is not per-se supported by the standard). Also other problems like, pricing, availability, retasking, priorities, seems to be complex enough to be dealt at this moment. Also, when talking about the opportunities endpoint, we are finding difficulties to make them compatible with orders, and this is because opportunities is a low level aspect of EO satellites (geometrical access, for example) while orders are talking about high level business operations.
+
+To me, there are two solutions to this problem:
+- Or we raise the level of abstraction of the rest of the spec (products and opportunities) to match the orders layer of abstraction
+- or we lower the level of abstraction of the orders, to match the opportunities and products and become a "tasks" level of abstractions (w.r.t above table) instead.
+
+I believe the last one, is better aligned with the level of abstraction of STAC and leaves the business problem to the businesses. 
