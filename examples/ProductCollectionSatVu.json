@@ -11,7 +11,7 @@
             "license": "license",
             "providers": {
                 "name": "SatVu",
-                "description": "",
+                "description": "High-resolution thermal data provider.",
                 "roles": ["producer"],
                 "url": "https://www.satellitevu.com/"
             },
@@ -21,8 +21,35 @@
                 "type": "media type",
                 "title": "title"
             }],
-            "constraints": {},
-            "parameters": {},
+            "constraints": {
+                "datetime": {
+                    "description": "The closed date-time interval of the tasking order request.",
+                    "type": "string"
+                  },
+                "product": {
+                    "description": "The data product.",
+                    "type": "string",
+                    "enum": [
+                        "standard",
+                        "assured"
+                    ],
+                    "default": "standard"
+                },
+                "required": [
+                    "datetime",
+                    "product"
+                ]
+            },
+            "parameters": {
+                "signature": {
+                    "description": "The signature that represents the exact opportunity.",
+                    "type": "string"
+                },
+                "required": [
+                    "product",
+                    "signature"
+                ]
+            },
             "properties": {}
         },
         {
@@ -46,16 +73,61 @@
                 "type": "media type",
                 "title": "title"
             }],
-            "constraints": {},
+            "constraints": {
+                "datetime": {
+                    "description": "The closed date-time interval of the tasking order request.",
+                    "type": "string"
+                  },
+                "product": {
+                    "description": "The data product.",
+                    "type": "string",
+                    "enum": [
+                        "standard",
+                        "assured"
+                    ],
+                    "default": "standard"
+                },
+                "satvu:day_night_mode": {
+                    "description": "The mode of data capture.",
+                    "type": "string",
+                    "enum": [
+                        "day",
+                        "night",
+                        "day-night"
+                    ],
+                    "default": "day-night"
+                },
+                "max_cloud_cover": {
+                    "minimum": 0,
+                    "maximum": 100,
+                    "default": 15
+                },
+                "min_off_nadir": {
+                    "minimum": 0,
+                    "maximum": 45,
+                    "default": 0
+                },
+                "max_off_nadir": {
+                    "minimum": 10.0,
+                    "maximum": 45.0,
+                    "default": 30
+                },
+                "min_gsd": {
+                    "minimum": 3.5,
+                    "maximum": 6.8,
+                    "default": 3.5
+                },
+                "max_gsd": {
+                    "minimum": 3.5,
+                    "maximum": 6.8,
+                    "default": 6.8
+                },
+                "required": [
+                    "datetime"
+                ]
+            },
             "parameters": {},
             "properties": {}
         }
-    ],
-    "links": {
-        "rel": "next",
-        "title": "Next page of Products",
-        "method": "GET",
-        "type": "application/geo+json",
-        "href": "stat-api.example.com?page=2"
-    }
+    ]
 }
