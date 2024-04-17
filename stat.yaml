@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.1.0
 info:
   title: STAT API - Core
   version: v0.1.0
@@ -236,10 +236,8 @@ components:
           type: string
         geometry:
           $ref: "https://geojson.org/schema/Geometry.json"
-        constraints:
-          $ref: "#/components/schemas/jsonschemas"
-        parameters:
-          $ref: "#/components/schemas/jsonschemas"
+        filters:
+          $ref: "#/components/schemas/cql2"
     license:
       type: string
       description: |-
@@ -355,9 +353,9 @@ components:
         links:
           $ref: "#/components/schemas/links"
         constraints:
-          $ref: "#/components/schemas/jsonschemas"
+          $ref: "#/components/schemas/jsonschema"
         parameters:
-          $ref: "#/components/schemas/jsonschemas"
+          $ref: "#/components/schemas/jsonschema"
     links:
       type: array
       items:
@@ -409,12 +407,11 @@ components:
               NOTE: To support form encoding it is expected that a client be able
               to merge in the key value pairs specified as JSON
               `{"next": "token"}` will become `&next=token`.
-    jsonschemas:
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/jsonschema'
     jsonschema:
         title: JSON Schema
+        type: object
+    cql2:
+        title: CQL2 JSON
         type: object
     conformanceClasses:
       type: object

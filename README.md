@@ -43,15 +43,14 @@ The following table describes the service resources available in a STAT API impl
 supports all three of the foundation specifications. Note that the 'Endpoint'
 column is more of an example in some cases.
 
-| Endpoint                       | Specified in   | Returns                       | Description  |
-| ------------------------------ | -------------- | ----------------------------- | ------------ |
-| `/`                            | Core           | [?]()                         | |
-| `/products`                    | Core           | [ProductsCollection](./product) | Figure out which constraints are available for which `product_id` |
-| `/orders`                      | Core           | [OrdersCollection](./order)     |  |
-| POST `/orders`                 | Core           | [Order](./order)                | Order a capture with a particular set of constraints |
-| `/products/{productId}`        | Core           | [Product](./product)                   | |
-| `/opportunities`               | Opportunities  | [OpportunitiesCollection](./opportunity)   | |
-| POST `/opportunities`          | Opportunities  | [OpportunitiesCollection](./opportunity)    | Explore the opportunities available for a particular set of constraints |
+| Endpoint                    | Specified in  | Accepts                                                      | Returns                                                      | Description                                                  |
+| --------------------------- | ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `GET /`                     | Core          | -                                                            | [Landing Page](#landing-page)                                |                                                              |
+| `GET /products`             | Core          | -                                                            | [Products Collection](./product/README.md)                   | Figure out which constraints are available for which `product_id` |
+| `GET /products/{productId}` | Core          | -                                                            | [Product](./product/README.md)                               |                                                              |
+| `GET /orders`               | Core          | -                                                            | [Orders Collection](./order/README.md#order-collection)      |                                                              |
+| `POST /orders`              | Core          | [Order Request](./order/README.md#order-request)             | [Order Object](./order/README.md#order-pobject)              | Order a capture with a particular set of constraints         |
+| `POST /opportunities`       | Opportunities | [Opportunity Request](./opportunity/README.md#opportunity-request) | [Opportunities Collection](./opportunity/README.md#opportunities-collection) | Explore the opportunities available for a particular set of constraints |
 
 ## Conformance Classes
 
@@ -71,13 +70,12 @@ requires they also live at the `/conformance` endpoint. STAT's conformance struc
 
 See [the STAT API Demo](https://github.com/Element84/stat-api-demo)
 
-## Example Landing Page
+## Landing Page
 
 The Landing Page will at least have the following `conformsTo` and `links`:
 
 ```json
 {
-    "stat_version": "0.1.0",
     "id": "example-stat-api",
     "title": "A simple STAT API Example",
     "description": "This API demonstrated the landing page for a SpatioTemporal Asset Tasking API",

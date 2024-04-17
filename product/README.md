@@ -16,9 +16,8 @@ STAT Product objects are represented in JSON format and are very flexible. Any J
 | license         | string                                           | **REQUIRED.** Collection's license(s), either a SPDX [License identifier](https://spdx.org/licenses/), `various` if multiple licenses apply or `proprietary` for all other cases. |
 | providers       | \[[Provider Object](#provider-object)]           | A list of providers, which may include all organizations capturing or processing the data or the hosting provider. Providers should be listed in chronological order with the most recent provider being the last element of the list. |                |
 | links           | \[[Link Object](#link-object)]                   | **REQUIRED.** A list of references to other documents.       |
-| constraints | Map<string, [ConstraintsObject](#constraints-object)> | User supplied constraints on a tasking request|
-| parameters | [ParametersObject](#parameters-object) | User supplied parameters that don't constrain tasking (e.g., output format)|
-| properties | [PropertiesObject](#properties-object) | REQUIRED. A dictionary of additional metadata for the Item.|
+| constraints | Map<string, [Constraints Object](#constraints-object)> | User supplied constraints on a tasking request |
+| parameters | [Parameters Object](#parameters-object) | User supplied parameters that don't constrain tasking (e.g., output format) |
 
 
 ### Provider Object
@@ -59,35 +58,28 @@ For a full discussion of the situations where relative and absolute links are re
 ['Use of links'](../best-practices.md#use-of-links) section of the STAC best practices.
 
 ### Constraints Object
+
 Constraints are limitations imposed by the user and the data provider as to what data is desired, and what data is available. In addition to space, time, and product limitations, constraints filter the needs of the user and capacity of the provider through an API negotiation. Constraints build off STAC extensions and modify them in order to support ranges of values.
 
 Users of the Tasking API Should follow STAC Extension naming conventions when adding constraints.
 
+A Constraints Object is a definitions for fine-grained information, see the [JSON Schema Object](#json-schema-object) section for more.
 
-The constraints for a field can be specified in three ways:
+It is recommended to use [JSON Schema draft-07](https://json-schema.org/specification-links.html#draft-7)
+to align with the JSON Schemas provided by STAC. Empty schemas are not allowed.
 
-1. A set of all distinct values in an array: The set of values must contain at least one element and it is strongly recommended to list all values.
-2. A Range in a [Range Object](#range-object): Statistics by default only specify the range (minimum and maximum values),
-   but can optionally be accompanied by additional statistical values.
-   The range specified by the `minimum` and `maximum` properties can specify the potential range of values,
-   but it is recommended to be as precise as possible.
-3. Extensible JSON Schema definitions for fine-grained information, see the [JSON Schema Object](#json-schema-object)
-   section for more.
+For an introduction to JSON Schema, see "[Learn JSON Schema](https://json-schema.org/learn/)".
 
 ### Parameters Object
 
 Parameters are objects which do not affect the Tasking process, but are nevertheless useful. For example, a user may wish to select a preferred output format or a data provider may provide additional metadata about a product.
 
+A Constraints Object is a definitions for fine-grained information, see the [JSON Schema Object](#json-schema-object) section for more.
 
-A summary for a field can be specified in three ways:
+It is recommended to use [JSON Schema draft-07](https://json-schema.org/specification-links.html#draft-7)
+to align with the JSON Schemas provided by STAC. Empty schemas are not allowed.
 
-1. A set of all distinct values in an array: The set of values must contain at least one element and it is strongly recommended to list all values.
-2. A Range in a [Range Object](#range-object): Statistics by default only specify the range (minimum and maximum values),
-   but can optionally be accompanied by additional statistical values.
-   The range specified by the `minimum` and `maximum` properties can specify the potential range of values,
-   but it is recommended to be as precise as possible.
-3. Extensible JSON Schema definitions for fine-grained information, see the [JSON Schema Object](#json-schema-object)
-   section for more.
+For an introduction to JSON Schema, see "[Learn JSON Schema](https://json-schema.org/learn/)".
 
 ### Range Object
 
@@ -102,17 +94,6 @@ Implementors are free to add other derived statistical values to the object, for
 | ---------- | -------------- | ----------- |
 | minimum    | number\|string | **REQUIRED.** Minimum value. |
 | maximum    | number\|string | **REQUIRED.** Maximum value. |
-
-### JSON Schema Object
-
-For a full understanding of the summarized field, a JSON Schema can be added for each summarized field.
-This allows very fine-grained information for each field and each value as JSON Schema is also extensible.
-Each schema must be valid against all corresponding values available for the property in the sub-Items.
-
-It is recommended to use [JSON Schema draft-07](https://json-schema.org/specification-links.html#draft-7)
-to align with the JSON Schemas provided by STAC. Empty schemas are not allowed.
-
-For an introduction to JSON Schema, see "[Learn JSON Schema](https://json-schema.org/learn/)".
 
 ### Properties Object
 
