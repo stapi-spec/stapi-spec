@@ -39,5 +39,5 @@ for GET /orders
 
 | field | type | description |
 |-----|------|------------|
-| type | string | **REQUIRED** Identifies how the value field should be parsed and interpreted.<br />`GeoJSON`<br />`GeometryIdentifier`<br />`OGCFeatureURI` |
+| type | Enum | **REQUIRED** Identifies how the value field should be parsed and interpreted.<br />`GeoJSON`<br />`ProviderIdentifier`<br />`OGCFeatureURI` |
 | value | string | **REQUIRED** Provides the geometry according to the type field. Defines the full footprint of the asset represented by this item. The footprint should be the default geometry, though additional geometries can be included. Coordinates are specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS 84](http://www.opengis.net/def/crs/OGC/1.3/CRS84).<br />`{"type": "Feature", ...}`<br />`fe24dc99-65ec-44ac-bcc3-556067af8309`<br />`https://domain/collections/123/items/321` |
