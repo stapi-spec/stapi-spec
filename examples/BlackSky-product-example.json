@@ -169,7 +169,8 @@
             "description": "Single image scene collected in daylight with standard product specifications",
             "keywords": [
                 "EO",
-                "Stereo"
+                "Single frame",
+                "Daytime"
             ],
             "license": "?",
             "providers": {
@@ -201,7 +202,7 @@
                 },
                 "view:sun_elevation": {
                     "description": "Angle between the target ground plane and Sun. Images collected in low-light conditions have quality outside standard specifications.",
-                    "minimum": 10.0,
+                    "minimum": -4.0,
                     "maximum": 90.0,
                     "defaultValue": [
                         10,
