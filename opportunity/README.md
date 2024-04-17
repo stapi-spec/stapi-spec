@@ -15,7 +15,7 @@ for POST /opportunities
 
 ## Opportunity Collection
 
-for GET /opportunities
+for POST /opportunities
 
 This is a GeoJSON FeatureCollection.
 

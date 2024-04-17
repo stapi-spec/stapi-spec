@@ -45,13 +45,12 @@ column is more of an example in some cases.
 
 | Endpoint                    | Specified in  | Accepts                                                      | Returns                                                      | Description                                                  |
 | --------------------------- | ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `GET /`                     | Core          | -                                                            | [Landing Page](#landing-page)                                                 |                                                              |
+| `GET /`                     | Core          | -                                                            | [Landing Page](#landing-page)                                |                                                              |
 | `GET /products`             | Core          | -                                                            | [Products Collection](./product/README.md)                   | Figure out which constraints are available for which `product_id` |
 | `GET /products/{productId}` | Core          | -                                                            | [Product](./product/README.md)                               |                                                              |
 | `GET /orders`               | Core          | -                                                            | [Orders Collection](./order/README.md#order-collection)      |                                                              |
 | `POST /orders`              | Core          | [Order Request](./order/README.md#order-request)             | [Order Object](./order/README.md#order-pobject)              | Order a capture with a particular set of constraints         |
-| `GET /opportunities`        | Opportunities | -                                                            | [Opportunities Collection](./opportunity/README.md#opportunities-collection) |                                                              |
-| `POST /opportunities`       | Opportunities | [Opportunity Request](./opportunity/README.md#opportunity-request) | [Opportunity Object](./opportunity/README.md#opportunity-object) | Explore the opportunities available for a particular set of constraints |
+| `POST /opportunities`       | Opportunities | [Opportunity Request](./opportunity/README.md#opportunity-request) | [Opportunities Collection](./opportunity/README.md#opportunities-collection) | Explore the opportunities available for a particular set of constraints |
 
 ## Conformance Classes
 
