@@ -11,11 +11,15 @@ List operation only in specced API.
 
 ## Order Status Response
 
+### Order Status Response
+
 Response has two fields:
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
 | current | OrderStatus | The current/official status object |
 | history | [OrderStatus] | History of statuses |
+
+### Order Status Object
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
