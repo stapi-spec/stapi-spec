@@ -1,6 +1,6 @@
 # Opportunities
 
-1. Request opportunities for a given set of constraints (constraints are sent as an Order-like)
+1. Request opportunities for a given set of constraints (constraints are sent as ~~an Order-like~~ cql2json)
 2. Receive opportunities (Order-likes)
 3. Select opportunities and send unchanged to /order
 
@@ -23,7 +23,7 @@ POST /opportunities
     "coordinates": [...]
   },
   "constraints": {
-    
+      // cql2 here but no constraints given
   }
 }
 ```
