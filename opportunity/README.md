@@ -2,7 +2,7 @@
 
 The STAT Opportunity describes a window of opportunity available for ordering.
 
-# Opportunity Request
+## Opportunity Request
 
 for POST /opportunities
 
@@ -13,9 +13,19 @@ for POST /opportunities
 | geometry   | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) | **REQUIRED.** Defines the full footprint of the asset represented by this item, formatted according to [RFC 7946, section 3.1](https://tools.ietf.org/html/rfc7946#section-3.1). The footprint should be the default GeoJSON geometry, though additional geometries can be included. Coordinates are specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS 84](http://www.opengis.net/def/crs/OGC/1.3/CRS84). |
 | filter | CQL2 JSON | A set of additional constraints in CQL2 JSON based on the constraints exposed in the product. |
 
-## Opportunity Response
+## Opportunity Collection
 
-for GET /opportunities in the `opportunities` array.
+for GET /opportunities
+
+This is a GeoJSON FeatureCollection.
+
+| Field Name    | Type                      | Description |
+| ------------- | ------------------------- | ----------- |
+| type          | string                    | **REQUIRED.** Always `FeatureCollection`. |
+| features      | \[Opportunity Object\]    | **REQUIRED.** A list of opportunities. |
+| links         | Map\<object, Link Object> | **REQUIRED.** Links for e.g. pagination. |
+
+### Opportunity Object
 
 This object describes a STAT Opportunity. The input fields will be contained `properties` of each Feature in the GeoJSON response.
 
@@ -29,8 +39,6 @@ This object describes a STAT Opportunity. The input fields will be contained `pr
 | properties | [Properties Object](#properties-object)                                    | **REQUIRED.** A dictionary of additional metadata for the Item. |
 | links      | \[[Link Object](#link-object)]                                             | List of link objects to resources and related URLs. |
 
-### Additional Field Information
-
 #### bbox
 
 Bounding Box of the asset represented by this Item using either 2D or 3D geometries,
@@ -43,7 +51,7 @@ and the elevation of the northeasterly most extent is the maximum.
 This field enables more naive clients to easily index and search geospatially.
 STAC compliant APIs are required to compute intersection operations with the Item's geometry field, not its bbox.
 
-### Properties Object
+#### Properties Object
 
 Additional metadata fields can be added to the GeoJSON Object Properties. The only required field
 is `datetime` but it is recommended to add more fields, see [Additional Fields](#additional-fields)

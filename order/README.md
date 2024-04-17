@@ -4,7 +4,7 @@ This document explains the structure of a STAT **Order** request which is used f
 
 Ordering with loosely defined order values will give the provider more freedom to schedule. Define the values strictly to increase the chance of the preferred capture moment.
 
-# Order Request
+## Order Request
 
 for POST /orders
 
@@ -15,10 +15,16 @@ for POST /orders
 | geometry   | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) | **REQUIRED.** Defines the full footprint of the asset represented by this item, formatted according to [RFC 7946, section 3.1](https://tools.ietf.org/html/rfc7946#section-3.1). The footprint should be the default GeoJSON geometry, though additional geometries can be included. Coordinates are specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS 84](http://www.opengis.net/def/crs/OGC/1.3/CRS84). |
 | filter | CQL2 JSON | A set of additional constraints in CQL2 JSON based on the constraints exposed in the product. |
 
+## Order Collection
 
-# Order Response
+for GET /orders
 
-for GET /orders in the `orders` array.
+| Field Name | Type                      | Description |
+| ---------- | ------------------------- | ----------- |
+| orders     | \[Order Object\]          | **REQUIRED.** A list of orders. |
+| links      | Map\<object, Link Object> | **REQUIRED.** Links for e.g. pagination. |
+
+### Order Object
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
