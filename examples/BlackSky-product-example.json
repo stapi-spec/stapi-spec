@@ -26,6 +26,84 @@
             "parameters": {
                 "$schema": "https://json-schema.org/draft-07/schema",
                 "type": "object",
+                "$defs": {
+                    "Analytics": {
+                        "const": "VOLUMETIC",
+                        "title": "Volume Analytics"
+                    },
+                    "OfferingTier": {
+                        "anyOf": [
+                            {
+                                "const": "STANDARD",
+                                "title": "Standard Offering Tier"
+                            },
+                            {
+                                "const": "PREFERRED",
+                                "title": "Preferred Offering Tier"
+                            },
+                            {
+                                "const": "ELITE",
+                                "title": "Elite Offering Tier"
+                            }
+                        ],
+                        "title": "Offering Tier"
+                    },
+                    "Withhold": {
+                        "anyOf": [
+                            {
+                                "const": "None",
+                                "title": "Public"
+                            },
+                            {
+                                "const": "30_DAYS",
+                                "title": "Withhold 30 days"
+                            },
+                            {
+                                "const": "ELITE",
+                                "title": "Permanent Withhold"
+                            }
+                        ],
+                        "title": "Days to withhold product"
+                    },
+                    "Frequency": {
+                        "anyOf": [
+                            {
+                                "const": "ONCE",
+                                "title": "Once"
+                            },
+                            {
+                                "const": "DAILY",
+                                "title": "Daily"
+                            },
+                            {
+                                "const": "WEELKY",
+                                "title": "Weekly"
+                            },
+                            {
+                                "const": "BIWEEKLY",
+                                "title": "Bi-weekly"
+                            },
+                            {
+                                "const": "TRIWEEKLY",
+                                "title": "Tri-weekly"
+                            },
+                            {
+                                "const": "MONTHLY",
+                                "title": "Monthly"
+                            },
+                            {
+                                "const": "ALL_INCLUSIVE",
+                                "title": "All Opportunities"
+                            },
+                            {
+                                "const": "USER_DEFINED",
+                                "title": "User Defined"
+                            }
+                        ],
+                        "title": "Reoccuring collection configuration",
+                        "type": "string"
+                    }
+                },
                 "properties": {
                     "eNiirs": {
                         "type": "number",
@@ -73,7 +151,8 @@
                         "type": "integer",
                         "description": "Maximum allowable cloud cover in percent",
                         "minimum": 30,
-                        "maximum": 100
+                        "maximum": 100,
+                        "default": 30
                     },
                     "frequency:": {
                         "oneOf": [
@@ -173,6 +252,84 @@
             "parameters": {
                 "$schema": "https://json-schema.org/draft-07/schema",
                 "type": "object",
+                "$defs": {
+                    "Analytics": {
+                        "const": "VOLUMETIC",
+                        "title": "Volume Analytics"
+                    },
+                    "OfferingTier": {
+                        "anyOf": [
+                            {
+                                "const": "STANDARD",
+                                "title": "Standard Offering Tier"
+                            },
+                            {
+                                "const": "PREFERRED",
+                                "title": "Preferred Offering Tier"
+                            },
+                            {
+                                "const": "ELITE",
+                                "title": "Elite Offering Tier"
+                            }
+                        ],
+                        "title": "Offering Tier"
+                    },
+                    "Withhold": {
+                        "anyOf": [
+                            {
+                                "const": "None",
+                                "title": "Public"
+                            },
+                            {
+                                "const": "30_DAYS",
+                                "title": "Withhold 30 days"
+                            },
+                            {
+                                "const": "ELITE",
+                                "title": "Permanent Withhold"
+                            }
+                        ],
+                        "title": "Days to withhold product"
+                    },
+                    "Frequency": {
+                        "anyOf": [
+                            {
+                                "const": "ONCE",
+                                "title": "Once"
+                            },
+                            {
+                                "const": "DAILY",
+                                "title": "Daily"
+                            },
+                            {
+                                "const": "WEELKY",
+                                "title": "Weekly"
+                            },
+                            {
+                                "const": "BIWEEKLY",
+                                "title": "Bi-weekly"
+                            },
+                            {
+                                "const": "TRIWEEKLY",
+                                "title": "Tri-weekly"
+                            },
+                            {
+                                "const": "MONTHLY",
+                                "title": "Monthly"
+                            },
+                            {
+                                "const": "ALL_INCLUSIVE",
+                                "title": "All Opportunities"
+                            },
+                            {
+                                "const": "USER_DEFINED",
+                                "title": "User Defined"
+                            }
+                        ],
+                        "title": "Reoccuring collection configuration",
+                        "type": "string"
+                    }
+                },
                 "properties": {
                     "eNiirs": {
                         "type": "number",
@@ -268,18 +425,6 @@
                         "default": "NONE",
                         "description": "Number of days to withhold collected product from the public archive catalog"
                     }
-                },
-                "if": {
-                    "parameters": {
-                        "offering": {
-                            "enum": [
-                                "ELITE"
-                            ]
-                        }
-                    }
-                },
-                "then": {
-                    "eo:cloud_cover": 100
                 }
             },
             "allOf": [
@@ -306,93 +451,5 @@
         "method": "GET",
         "type": "application/geo+json",
         "href": "stat-api.example.com?page=2"
-    },
-    "$defs": {
-        "Analytics": {
-            "enum": [
-                "VOLUMETIC",
-                "VESSEL",
-                "AIRCRAFT",
-                "BUILDING"
-            ],
-            "title": "Analytics",
-            "type": "string"
-        },
-        "OfferingTier": {
-            "enum": [
-                "STANDARD",
-                "PREFERRED",
-                "ELITE"
-            ],
-            "title": "Offering Tier",
-            "type": "string"
-        },
-        "Withhold": {
-            "enum": [
-                "NONE",
-                "30_DAYS",
-                "PERMANENT"
-            ],
-            "title": "Withhold options",
-            "type": "string"
-        },
-        "License": {
-            "enum": [
-                "blacksky-com-internal",
-                "blacksky-com-group-2-5",
-                "blacksky-com-public-release",
-                "blacksky-usg-type-0",
-                "blacksky-ing-type-type-0"
-            ],
-            "title": "EULA options",
-            "type": "string"
-        },
-        "Frequency": {
-            "enum": [
-                "ONCE",
-                "DAILY",
-                "WEELKY",
-                "BIWEEKLY",
-                "TRIWEEKLY",
-                "BIWEEKLY",
-                "MONTHLY",
-                "ALL_INCLUSIVE",
-                "USER_DEFINED"
-            ],
-            "title": "Reoccuring",
-            "type": "string"
-        }
-    },
-    "oneOf": [
-        {
-            "products": {
-                "id": {
-                    "const": "BSKY_STEREO"
-                }
-            },
-            "parameters": {
-                "analytics": {
-                    "enum": [
-                        "VOLUMETRICS"
-                    ]
-                }
-            }
-        },
-        {
-            "products": {
-                "id": {
-                    "const": "BSKY_DAYLIGHT"
-                }
-            },
-            "parameters": {
-                "analytics": {
-                    "enum": [
-                        "VESSEL",
-                        "AIRCRAFT",
-                        "BUILDING"
-                    ]
-                }
-            }
-        }
-    ]
+    }
 }
