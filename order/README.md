@@ -12,7 +12,7 @@ for POST /orders
 | ---------- | -------------------------------------------------------------------------- | ----------- |
 | datetime       | string                                                                     | **REQUIRED.** Datetime field is a [ISO8601 Time Interval](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals) |
 | product_id         | string                                                                     | **REQUIRED.** Product identifier. The ID should be unique and is a reference to the constraints which can be used in the constraints field. |
-| geometry   | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) | **REQUIRED.** Defines the full footprint of the asset represented by this item, formatted according to [RFC 7946, section 3.1](https://tools.ietf.org/html/rfc7946#section-3.1). The footprint should be the default GeoJSON geometry, though additional geometries can be included. Coordinates are specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS 84](http://www.opengis.net/def/crs/OGC/1.3/CRS84). |
+| geometry   | [OrderGeometry object](#ordergeometry-object) | **REQUIRED.** |
 | filter | CQL2 JSON | A set of additional constraints in [CQL2 JSON](https://docs.ogc.org/DRAFTS/21-065.html) based on the constraints exposed in the product. |
 
 ## Order Collection
@@ -34,3 +34,10 @@ for GET /orders
 | created | datetime | When the order was created |
 | updated | datetime | When the order was last updated |
 | links    | [string] | List of URIs or IDs of Items |
+
+### OrderGeometry Object
+
+| field | type | description |
+|-----|------|------------|
+| type | string | **REQUIRED** Identifies how the value field should be parsed and interpreted.<br />`GeoJSON`<br />`GeometryIdentifier`<br />`OGCFeatureURI` |
+| value | string | **REQUIRED** Provides the geometry according to the type field. Defines the full footprint of the asset represented by this item. The footprint should be the default geometry, though additional geometries can be included. Coordinates are specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS 84](http://www.opengis.net/def/crs/OGC/1.3/CRS84).<br />`{"type": "Feature", ...}`<br />`fe24dc99-65ec-44ac-bcc3-556067af8309`<br />`https://domain/collections/123/items/321` |
