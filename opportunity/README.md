@@ -40,7 +40,6 @@ This object describes a STAT Opportunity. The input fields will be contained `pr
 | properties | [Properties Object](#properties-object)                                    | **REQUIRED.** A dictionary of additional metadata for the Item. |
 | links      | \[[Link Object](#link-object)]                                             | List of link objects to resources and related URLs. |
 
-
 #### bbox
 
 Bounding Box of the asset represented by this Item using either 2D or 3D geometries,
