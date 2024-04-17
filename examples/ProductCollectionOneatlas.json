@@ -51,28 +51,17 @@
             "title": "API reference - Glossary overview"
         }
     ],
-    "constraints": {
+    "parameters": {
         "$schema": "https://json-schema.org/draft-07/schema",
         "type": "object",
         "properties": {
-            "geometry": {
-                "title": "Geometry",
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/definitions/Polygon"
-                    }
-                ]
+            "displayName": {
+                "title": "Order name",
+                "type": "string"
             },
-            "acquisitionStart": {
-                "title": "Start",
-                "type": "string",
-                "format": "date-time"
-            },
-            "acquisitionEnd": {
-                "title": "End",
-                "type": "string",
-                "format": "date-time"
+            "extraDescription": {
+                "title": "Description",
+                "type": "string"
             },
             "acquisitionMode": {
                 "title": "Acquisition mode",
@@ -174,13 +163,12 @@
             }
         },
         "required": [
-            "geometry",
             "displayName",
             "acquisitionStart",
             "acquisitionEnd",
             "acquisitionMode",
-            "cloudCoverage",
-            "incidenceAngle",
+            "eo:cloud_cover",
+            "view:incidence_angle",
             "geometricProcessing",
             "spectralProcessing",
             "pixelCoding",
@@ -188,37 +176,6 @@
             "deliveredAs"
         ],
         "definitions": {
-            "Polygon": {
-                "title": "Polygon",
-                "description": "Polygon Model.",
-                "type": "object",
-                "properties": {
-                    "type": {
-                        "title": "Type",
-                        "default": "Polygon",
-                        "const": "Polygon",
-                        "type": "string"
-                    },
-                    "coordinates": {
-                        "type": "array",
-                        "items": {
-                            "type": "array",
-                            "minItems": 4,
-                            "items": {
-                                "type": "array",
-                                "minItems": 2,
-                                "maxItems": 2,
-                                "items": {
-                                    "type": "number"
-                                }
-                            }
-                        }
-                    }
-                },
-                "required": [
-                    "coordinates"
-                ]
-            },
             "acquisitionMode": {
                 "title": "acquisitionMode",
                 "anyOf": [
@@ -233,6 +190,23 @@
                     {
                         "const": "tristereo",
                         "title": "TRISTEREO"
+                    }
+                ]
+            },
+            "deliveredAs": {
+                "title": "deliveredAs",
+                "anyOf": [
+                    {
+                        "const": "geotiff",
+                        "title": "DIMAP-GeoTIFF"
+                    },
+                    {
+                        "const": "jpeg_2000_regular",
+                        "title": "DIMAP-Regular JPEG 2000"
+                    },
+                    {
+                        "const": "jpeg_2000_optimized",
+                        "title": "DIMAP-Optimized JPEG 2000"
                     }
                 ]
             },
@@ -470,41 +444,5 @@
                 }
             }
         ]
-    },
-    "parameters": {
-        "$schema": "https://json-schema.org/draft-07/schema",
-        "type": "object",
-        "properties": {
-            "displayName": {
-                "title": "Order name",
-                "type": "string"
-            },
-            "extraDescription": {
-                "title": "Description",
-                "type": "string"
-            },
-            "deliveredAs": {
-                "title": "deliveredAs",
-                "anyOf": [
-                    {
-                        "const": "geotiff",
-                        "title": "DIMAP-GeoTIFF"
-                    },
-                    {
-                        "const": "jpeg_2000_regular",
-                        "title": "DIMAP-Regular JPEG 2000"
-                    },
-                    {
-                        "const": "jpeg_2000_optimized",
-                        "title": "DIMAP-Optimized JPEG 2000"
-                    }
-                ]
-            }
-        },
-        "required": [
-            "displayName",
-            "deliveredAs"
-        ]
-    },
-    "properties": {}
+    }
 }
