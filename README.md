@@ -72,6 +72,7 @@ requires they also live at the `/conformance` endpoint. STAT's conformance struc
 | STAT API - Core | Core | https://geojson.org/schema/Point.json | Allows submitting orders with GeoJSON points |
 | STAT API - Core | Core | https://geojson.org/schema/Linestring.json | Allows submitting orders with GeoJSON linestrings |
 | STAT API - Core | Core | https://geojson.org/schema/Polygon.json | Allows submitting orders with GeoJSON polygons |
+| STAT API - Core | Core | https://geojson.org/schema/MultiPoint.json | Allows submitting orders with GeoJSON multi points |
 | STAT API - Core | Core | https://geojson.org/schema/MultiPolygon.json | Allows submitting orders with GeoJSON multi polygons |
 | STAT API - Core | Core | https://geojson.org/schema/MultiLineString.json | Allows submitting orders with GeoJSON multi linestring |
 
