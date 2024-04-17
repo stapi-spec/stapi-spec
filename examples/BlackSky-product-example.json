@@ -79,10 +79,9 @@
                     "description": "Angle between satellite-to-target vectors at each image time",
                     "minimum": 10.0,
                     "maximum": 50.0,
-                    "defaultValue": [
-                        10,
-                        50
-                    ]
+                    "type":"number",
+                    
+                    "defaultValue": 40
                 },
                 "eo:cloud_cover": {
                     "description": "Maximum allowable cloud cover in percent",
@@ -148,7 +147,7 @@
                 }
             },
             "conformsTo": [
-                "https://api.stacspec.org/v1.0.0/point"
+                "https://geojson.org/schema/Point.json"
             ],
             "if": {
                 "parameters": {
@@ -303,7 +302,7 @@
                 }
             },
             "conformsTo": [
-                "https://api.stacspec.org/v1.0.0/point"
+                "https://geojson.org/schema/Point.json"
             ],
             "if": {
                 "parameters": {
