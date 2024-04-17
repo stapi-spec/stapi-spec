@@ -16,8 +16,8 @@ STAT Product objects are represented in JSON format and are very flexible. Any J
 | license         | string                                           | **REQUIRED.** Collection's license(s), either a SPDX [License identifier](https://spdx.org/licenses/), `various` if multiple licenses apply or `proprietary` for all other cases. |
 | providers       | \[[Provider Object](#provider-object)]           | A list of providers, which may include all organizations capturing or processing the data or the hosting provider. Providers should be listed in chronological order with the most recent provider being the last element of the list. |                |
 | links           | \[[Link Object](#link-object)]                   | **REQUIRED.** A list of references to other documents.       |
-| constraints | Map<string, [Constraints Object](#constraints-object)> | User supplied constraints on a tasking request|
-| parameters | [Parameters Object](#parameters-object) | User supplied parameters that don't constrain tasking (e.g., output format)|
+| constraints | Map<string, [Constraints Object](#constraints-object)> | User supplied constraints on a tasking request |
+| parameters | [Parameters Object](#parameters-object) | User supplied parameters that don't constrain tasking (e.g., output format) |
 
 
 ### Provider Object
