@@ -22,7 +22,60 @@ Endpoint: GET /order, POST /order
 | ---------- | ---- | ----------- |
 | id   | string | Unique provider generated order ID |
 | user | string | User or organization ID ? |
-| status | OrderStatus | Enumerated Status of the Order |
 | created | datetime | When the order was created |
-| updated | datetime | When the order was last updated |
 | links    | [string] | List of URIs or IDs of Items |
+| status | OrderStatus | Current Order Status object |
+
+# Order Status
+
+| Field Name | Type | Description |
+| ---------- | ---- | ----------- |
+| timestamp  | datetime | ISO 8601 timestamp for the order status (required) |
+| status_code | string | Enumerated status code (required) |
+| reason_code | string | Enumerated reason code for why the status was set (optional) |
+| reason_text | string | Textual description for why the status was set (optional) |
+| links | [Link] | list of references to documents, such as delivered asset, processing log, delivery manifest, etc. (required, may be empty) |
+
+Links is intended to be the same data structure as links collection in STAC.  Links will be very provider specific.
+
+## Enumerated status codes
+
+### Code status codes
+
+* received (indicates order received by provider and it passed format validation.)
+* accepted (indicates order has been accepted)
+* rejected (indicates order will not be fulfilled)
+* completed (indicates provider was able to successfully collect imagery)
+* canceled (indicates provider was unable to collect imagery)
+
+Providers must support these statuses.
+
+State machine intent (currently no mandate to enforce)
+* Received -> accepted or rejected.
+* Accepted -> completed or canceled.
+
+### Optional status codes
+
+Providers may support these statuses.
+
+* scheduled (indicates order has been scheduled, no longer subject to customer cancellation)
+* held (order held for manual review)
+* processing (indicates some sort of processing has taken place, such as data was downlinked, processed or delivered)
+* reserved (action needed by customer prior to acceptance, such as payment)
+
+### Extension status codes
+
+Providers may support additional statuses through extensions.  For example:
+
+* tasked (indicates tasking commands have been issued to the satellite/constellation)
+* user_cancelled (indicates that )
+
+## Enumerated reason codes
+
+Code indicating why a status was set.  These are just examples at the moment.  No consensus has been achieved as to what reasons should be core and handled in the same way by all providers, and which should be by extension.
+
+* invalid_geometry (invalid should be renamed, means that a valid geometry failed business rules)
+* competition (e.g., failed tasking auction)
+* cloud_cover (imagery rejected for cloud coverage)
+* partial_delivery (indicates a file was processed and placed in catalog, used with processing)
+

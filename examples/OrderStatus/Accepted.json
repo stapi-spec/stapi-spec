@@ -1,0 +1,16 @@
+{
+    "timestamp": "2007-03-01T13:00:00Z",
+    "status_code": "accepted",
+    "links": [
+        {
+            "rel": "invoice",
+            "type": "application/pdf",
+            "href": "https://provider.com/order-id/invoice"
+        },
+        {
+            "rel": "schedule",
+            "type": "application/json",
+            "href": "https://provider.com/order-id/task-schedule"
+        }
+    ]
+}
