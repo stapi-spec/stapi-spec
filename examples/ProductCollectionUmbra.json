@@ -2,98 +2,30 @@
   "products": [
     {
       "type": "Product",
-      "stat_version": "stat_version",
-      "stat_extensions": [
-        "product_extention_schema_link_1",
-        "product_extention_schema_link_2"
+      "conformsTo": [
+        "https://api.statspec.org/geojson#point"
       ],
       "id": "umbra_spotlight",
       "title": "Umbra Spotlight",
-      "description": "Spotlight images served from the Archive or by creating new Orders. Way more detail here or a link down in links to Product documentation.",
+      "description": "Spotlight images served by creating new Orders. Way more detail here or a link down in links to Product documentation.",
       "keywords": [
         "SAR",
-        ""
+        "Spotlight"
       ],
-      "license": "license",
+      "license": "CC-BY-4.0",
       "providers": {
-        "name": "umbra",
-        "description": "umbra description",
+        "name": "Umbra",
+        "description": "Global Omniscience",
         "roles": [
           "producer"
         ],
-        "url": "umbra link"
+        "url": "https://umbra.space"
       },
       "links": {
-        "href": "https://example.com/",
-        "rel": "latest-version",
-        "type": "media type",
-        "title": "title"
-      },
-      "constraints": {
-        "$defs": {
-          "SceneSize": {
-            "enum": [
-              "5x5_KM",
-              "10x10_KM"
-            ],
-            "title": "SceneSize",
-            "type": "string"
-          }
-        },
-        "description": "Umbra Spotlight OpportunityConstraints docstring yay!",
-        "properties": {
-          "windowStartAt": {
-            "description": "windowStartAt must be a ISO8601 string and be before windowEndAt. If this field is in the past, Umbra's Archive Catalog may be used to satisfy the Opportunity.",
-            "format": "date-time",
-            "title": "Windowstartat",
-            "type": "string"
-          },
-          "windowEndAt": {
-            "description": "windowEndAt must be a ISO8601 string and be after windowStartAt. If this field is in the past, Umbra's Archive Catalog will be used to satisfy the Opportunity.",
-            "format": "date-time",
-            "title": "Windowendat",
-            "type": "string"
-          },
-          "sceneSize": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/SceneSize"
-              }
-            ],
-            "default": "5x5_KM",
-            "description": "The scene size of the Spotlight collect. The first "
-          },
-          "grazingAngleMinDegrees": {
-            "default": 10,
-            "description": "The minimum angle between the local tangent plane at the target location and the line of sight vector between the satellite and the target.",
-            "minimum": 10,
-            "title": "Grazinganglemindegrees",
-            "type": "integer"
-          },
-          "grazingAngleMaxDegrees": {
-            "default": 80,
-            "description": "The maximum angle between the local tangent plane at the target location and the line of sight vector between the satellite and the target.",
-            "maximum": 80,
-            "title": "Grazinganglemaxdegrees",
-            "type": "integer"
-          },
-          "satelliteIds": {
-            "description": "The satellites to consider for this Opportunity. ",
-            "items": {
-              "type": "string",
-              "regex": "Umbra-\\d{2}"
-            },
-            "title": "Satelliteids",
-            "type": "array"
-          }
-        },
-        "required": [
-          "windowStartAt",
-          "windowEndAt",
-          "satelliteIds"
-        ],
-        "title": "UmbraSpotlightOpportunityConstraints",
-        "type": "object"
+        "href": "https://docs.canopy.umbra.space",
+        "rel": "documentation",
+        "type": "docs",
+        "title": "Canopy Documentation"
       },
       "parameters": {
         "$defs": {
@@ -104,9 +36,43 @@
             ],
             "title": "ProductType",
             "type": "string"
+          },
+          "SceneSize": {
+            "enum": [
+              "5x5_KM",
+              "10x10_KM"
+            ],
+            "title": "SceneSize",
+            "type": "string"
           }
         },
+        "description": "Umbra Spotlight Parameters docstring yay!",
         "properties": {
+          "sceneSize": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/SceneSize"
+              }
+            ],
+            "default": "5x5_KM",
+            "description": "The scene size of the Spotlight collect. The first "
+          },
+          "grazingAngleDegrees": {
+            "type": "number",
+            "minimum": 40,
+            "maximum": 70,
+            "description": "The minimum angle between the local tangent plane at the target location and the line of sight vector between the satellite and the target. First value is the minimum grazing angle the second is the maximum.",
+            "title": "Grazing Angle Degrees"
+          },
+          "satelliteIds": {
+            "description": "The satellites to consider for this Opportunity.",
+            "items": {
+              "type": "string",
+              "regex": "Umbra-\\d{2}"
+            },
+            "title": "Satelliteids",
+            "type": "array"
+          },
           "deliveryConfigId": {
             "anyOf": [
               {
@@ -133,7 +99,66 @@
             "type": "array"
           }
         },
-        "title": "UmbraSpotlightOrderParameters",
+        "required": [
+          "satelliteIds"
+        ],
+        "title": "UmbraSpotlightParameters",
+        "type": "object"
+      }
+    },
+    {
+      "type": "Product",
+      "conformsTo": [
+        "https://api.statspec.org/geojson#polygon",
+        "https://api.statspec.org/geojson#multipolygon"
+      ],
+      "id": "umbra_archive_catalog",
+      "title": "Umbra Archive Catalog",
+      "description": "Umbra SAR Images served by the Archive Catalog. Way more detail here or a link down in links to Product documentation.",
+      "keywords": [
+        "SAR",
+        "Archive"
+      ],
+      "license": "CC-BY-4.0",
+      "providers": {
+        "name": "Umbra",
+        "description": "Global Omniscience",
+        "roles": [
+          "producer"
+        ],
+        "url": "https://umbra.space"
+      },
+      "links": {
+        "href": "https://docs.canopy.umbra.space/",
+        "rel": "documentation",
+        "type": "docs",
+        "title": "Canopy Documentation"
+      },
+      "parameters": {
+        "description": "Umbra Archive Catalog Parameters docstring yay!",
+        "properties": {
+          "sar:resolution_range": {
+            "type": "number",
+            "minimum": 0.25,
+            "maximum": 1,
+            "description": "The range resolution of the SAR Image. This is equivalent to the resolution of the ground plane projected GEC Cloud-Optimized Geotiff",
+            "title": "Range Resolution (m)"
+          },
+          "sar:looks_azimuth": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 10,
+            "description": "The azimuth looks in the SAR Image. This value times the sar:resolution_range gives the azimuth resolution of the complex products.",
+            "title": "Range Resolution (m)"
+          },
+          "platform": {
+            "description": "The satellites to consider for this Opportunity.",
+            "title": "Platform (Satellite)",
+            "type": "string",
+            "regex": "Umbra-\\d{2}"
+          }
+        },
+        "title": "UmbraArchiveCatalogParameters",
         "type": "object"
       }
     }
