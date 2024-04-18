@@ -1,13 +1,7 @@
 {
-  "conformsTo": [
-    "https://stat-api.example.com/v0.1.0/core",
-    "https://stat-api.example.com/v0.1.0/opportunities"
-  ],
   "products": [
     {
       "type": "Product",
-      "stac_version": "1.0.0",
-      "stac_extensions": [],
       "conformsTo": [
         "https://geojson.org/schema/MultiPolygon.json",
         "https://geojson.org/schema/Polygon.json"
@@ -28,12 +22,6 @@
           "name": "up42",
           "description": "up42 description",
           "roles": ["processor"],
-          "url": "https://up42.com/"
-        },
-        {
-          "name": "up42",
-          "description": "up42 description",
-          "roles": ["host"],
           "url": "https://up42.com/"
         }
       ],
