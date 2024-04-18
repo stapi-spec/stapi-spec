@@ -1,0 +1,65 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {"type": "Point", "coordinates": [0, 0]},
+            "id": "abc",
+            "properties": {
+                "product_id": "xyz",
+                "datetime": "2020-01-01T00:00:00Z/2020-01-02T00:00:00Z",
+                "view:offnadir_angle": 20,
+                "view:sun_azimuth": 150,
+                "view:sun_elevation": 30,
+                "weather:cloud_cover": 20,
+                "weather:precipitation": 0,
+            },
+            "links": [
+                {
+                    "rel": "order",
+                    "method": "POST",
+                    "href": "https://example.com/order",
+                    "body": {
+                        "opportunity_id": "abc"
+                    }
+                }
+            ]
+        }
+    ],
+    "links": [
+        {
+            "rel": "order",
+            "method": "POST",
+            "href": "https://example.com/order",
+            "body": {
+                "product_id": "xyz",
+                "geometry": {
+                  "type": "Polygon",
+                  "coordinates": [
+                    [
+                      [0, 0],
+                      [1, 0],
+                      [1, 1],
+                      [0, 1],
+                      [0, 0]
+                    ]
+                  ]
+                },
+                "datetime": "2020-01-01T00:00:00Z/2020-01-02T00:00:00Z",
+                "filters": {
+                  "op": "and",
+                  "args": [
+                    {
+                      "op": "between",
+                      "args": [{ "property": "weather:cloud_cover" }, 20, 30]
+                    },
+                    {
+                      "op": "between",
+                      "args": [{ "property": "view:offnadir_angle" }, 15, 30]
+                    }
+                  ]
+                }
+              }
+        }
+    ]
+}
