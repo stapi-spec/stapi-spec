@@ -25,7 +25,7 @@ This is a GeoJSON FeatureCollection.
 | ------------- | ------------------------- | ----------- |
 | type          | string                    | **REQUIRED.** Always `FeatureCollection`. |
 | features      | \[Opportunity Object\]    | **REQUIRED.** A list of opportunities. |
-| links         | Map\<object, Link Object> | **REQUIRED.** Links for e.g. pagination. It is **strongly recommended** to include a `rel=create-order` link to allow the user to resubmit this Opportunities request as an Order if they do not wish to choose a specific Opportunity. |
+| links         | Map\<object, Link Object> | **REQUIRED.** Links for e.g. pagination. It is **strongly recommended** to include a link with relation type `create-order` link to allow the user to resubmit this Opportunities request as an Order if they do not wish to choose a specific Opportunity. |
 
 ### Opportunity Object
 
