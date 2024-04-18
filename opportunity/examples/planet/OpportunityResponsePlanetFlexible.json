@@ -1,0 +1,44 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.403258555886767,
+          52.473696635108176
+        ]
+      },
+      "properties": {
+        "product_id": "PL-123546:Flexible Tasking",
+        "datetime": "2024-04-19T00:00:00Z/2024-04-23T00:00:00Z",
+        "satelliteTypes": [
+          "SKYSAT"
+        ],
+        "exclusivity_days": 0,
+        "scheduling_type": "Flexible"
+      },
+      "links": [
+        {
+          "rel": "order",
+          "method": "POST",
+          "href": "https://example.com/orders",
+          "body": {
+            "product_id": "PL-123546:Flexible Tasking",
+            "datetime": "2024-04-19T00:00:00Z/2024-04-23T00:00:00Z",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                13.403258555886767,
+                52.473696635108176
+              ]
+            },
+            "filter": {}
+          }
+        }
+      ]
+    }
+  ],
+  "links": []
+}
