@@ -11,7 +11,7 @@ for POST /orders
 ### Request
 | Field Name | Type                             | Description                                                  |
 | ---------- | -------------------------------- | ------------------------------------------------------------ |
-| datetime   | string                           | **REQUIRED.** Single date+time, or a range ('/' separator), formatted to [RFC 3339, section 5.6.](https://tools.ietf.org/html/rfc3339#section-5.6) Use double dots .. for open date ranges. \[Copied from [STAC API spec](https://github.com/radiantearth/stac-api-spec/tree/release/v1.0.0/item-search#query-parameter-table)\] |
+| datetime   | string                           | **REQUIRED.** Two datetimes with a forward slash `/` separator. Datetimes must be formatted to [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6). Open ranges in time intervals at the start or end are supported using a double-dot `..` or an empty string for the start/end. Examples:<br />`2024-04-18T10:56:00+01:00/2024-04-25T10:56:00+01:00`<br />`2024-04-18T10:56:00+01:00/..`<br />`/2024-04-25T10:56:00+01:00` |
 | product_id | string                           | **REQUIRED.** Product identifier. The ID should be unique and is a reference to the constraints which can be used in the constraints field. |
 | geometry   | GeoJSON Object \| JSON Reference | **REQUIRED.** Provide a Geometry that the tasked data must be within. |
 | filter     | CQL2 JSON                        | A set of additional constraints in [CQL2 JSON](https://docs.ogc.org/DRAFTS/21-065.html) based on the constraints exposed in the product. |
