@@ -35,10 +35,10 @@
 				"product_id": "maxar_opt",
 				"collectionLikelihood": 0.8,
         "unit": 50,
-        "unit_description": "km2",
-        "price_per_unit": 5.00,
+        "unitDescription": "km2",
+        "pricePerUnit": 5.00,
         "currency": "EUR",
-        "price_total_net": "250.00",
+        "priceTotalNet": "250.00",
 				"startDateTime": "2024-04-19T00:00:00Z",
 				"endDateTime": "2024-04-25T00:00:00Z",
 				"sensors": [
