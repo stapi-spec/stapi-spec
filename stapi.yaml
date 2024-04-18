@@ -1,11 +1,11 @@
 openapi: 3.1.0
 info:
-  title: STAT API - Core
+  title: STAPI API - Core
   version: v0.1.0
   description: >-
     This is an OpenAPI definition of the SpatioTemporal Tasking API.
   contact:
-    name: STAT Specification
+    name: STAPI Specification
     url: "https://github.com/Element84/stat-api-spec"
   license:
     name: Apache License 2.0
@@ -329,8 +329,8 @@ components:
             format: url
     product:
       type: object
-      description: STAT Product objects are represented in JSON format and are very flexible. 
-                  Any JSON object that contains all the required fields is a valid STAT Product. 
+      description: STAPI Product objects are represented in JSON format and are very flexible. 
+                  Any JSON object that contains all the required fields is a valid STAPI Product. 
                   A Product object contains a minimal set of required properties to be valid and 
                   can be extended through the use of constraints and parameters.
       required:

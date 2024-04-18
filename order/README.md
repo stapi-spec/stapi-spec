@@ -1,6 +1,6 @@
 # Overview
 
-This document explains the structure of a STAT **Order** request which is used for placing orders. 
+This document explains the structure of a STAPI **Order** request which is used for placing orders. 
 
 Ordering with loosely defined order values will give the provider more freedom to schedule. Define the values strictly to increase the chance of the preferred capture moment.
 

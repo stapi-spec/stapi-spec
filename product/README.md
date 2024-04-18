@@ -1,8 +1,16 @@
 
 # Overview
-This document explains the structure of a STAT Product.
+This document explains the structure of a STAPI Product.
 
-STAT Product objects are represented in JSON format and are very flexible. Any JSON object that contains all the required fields is a valid STAT Product. A Product object contains a minimal set of required properties to be valid and can be extended through the use of constraints and parameters.
+STAPI Product objects are represented in JSON format and are very flexible. Any JSON object that contains all the required fields is a valid STAPI Product. A Product object contains a minimal set of required properties to be valid and can be extended through the use of constraints and parameters.
+
+## Product Collection Spec
+
+| Element       | Type    | Description |
+| ---- | --- | --- |
+| products | [[Provider](#product-spec)] | List of `Product` offered in the application. |
+| links | [[Link Object](#link-object)] | Links to the other refereces |
+
 
 ## Product Spec
 
