@@ -5,8 +5,6 @@
             "type": "Product",
             "id": "maxar_opt",
             "conformsTo": [
-                "https://stat-api.example.com/v0.1.0/core",
-                "https://stat-api.example.com/v0.1.0/opportunities",
                 "https://geojson.org/schema/Polygon.json"
             ],
             "title": "Maxar tasking",
@@ -217,14 +215,14 @@
                         "type": "string",
                         "enum": [
                             "Standard"
-                        ]
+                        ],
+                        "default": "Standard"
                     }
                 },
                 "required": [
                     "productLevel",
                     "bandCombination",
                     "resolution",
-                    "priority",
                     "taskingScheme",
                     "maxCloudCover",
                     "maxOffNadir",
