@@ -1,12 +1,14 @@
 {
+  "conformsTo": [
+    "https://stat-api.example.com/v0.1.0/core",
+    "https://stat-api.example.com/v0.1.0/opportunities"
+  ],
   "products": [
     {
       "type": "Product",
       "stac_version": "1.0.0",
       "stac_extensions": [],
       "conformsTo": [
-        "https://stat-api.example.com/v0.1.0/core",
-        "https://stat-api.example.com/v0.1.0/opportunities",
         "https://geojson.org/schema/MultiPolygon.json",
         "https://geojson.org/schema/Polygon.json"
       ],
@@ -37,11 +39,11 @@
       ],
       "links": [
         {
-            "href": "https://docs.up42.com/tasking-products/4f866cd3-d816-4c98-ace3-e6105623cf13/parameters",
-            "rel": "parameters",
-            "method": "GET",
-            "type": "application/schema+json",
-            "title": "Endpoint to place an order for this product. Payload should conform to the parameters schema definition"
+          "href": "https://docs.up42.com/tasking-products/4f866cd3-d816-4c98-ace3-e6105623cf13/parameters",
+          "rel": "product-parameters",
+          "method": "GET",
+          "type": "application/schema+json",
+          "title": "Endpoint to place an order for this product. Payload should conform to the parameters schema definition"
         },
         {
           "href": "https://docs.up42.com/tasking-products/4f866cd3-d816-4c98-ace3-e6105623cf13/orders",
