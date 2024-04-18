@@ -89,6 +89,6 @@
         "title": "Next page of Opportunities",
         "method": "GET",
         "type": "application/geo+json",
-        "href": "stapi.example.com?page=2"
+        "href": "https://stapi.example.com?page=2"
     }
 }
