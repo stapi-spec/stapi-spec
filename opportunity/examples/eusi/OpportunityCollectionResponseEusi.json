@@ -1,0 +1,104 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              13.34140753116992,
+              52.5427526175211
+            ],
+            [
+              13.34140753116992,
+              52.4722618327375
+            ],
+            [
+              13.500875567587116,
+              52.4722618327375
+            ],
+            [
+              13.500875567587116,
+              52.5427526175211
+            ],
+            [
+              13.34140753116992,
+              52.5427526175211
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": "uuid-identifier-goes-here",
+        "product_id": "maxar_opt",
+        "collectionLikelihood": 0.8,
+        "unit": 50,
+        "unitDescription": "km2",
+        "pricePerUnit": 5.0,
+        "currency": "EUR",
+        "priceTotalNet": "250.00",
+        "startDateTime": "2024-04-19T00:00:00Z",
+        "endDateTime": "2024-04-25T00:00:00Z",
+        "sensors": [
+          "WV02",
+          "WV03",
+          "GE01"
+        ],
+        "taskingScheme": "single_window",
+        "taskingPriority": "Select",
+        "maxCloudCover": 100.0,
+        "minOffNadir": 0.0,
+        "maxOffNadir": 25.0,
+        "singleSensor": false
+      },
+      "links": {
+        "rel": "create-order",
+        "method": "POST",
+        "type": "application/geo+json",
+        "href": "https://apps.euspaceimaging.com/tara/stat/orders",
+        "body": {
+          "product_id": "maxar_opt",
+          "datetime": "2024-04-19T00:00:00Z/2024-04-25T00:00:00Z",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  13.34140753116992,
+                  52.5427526175211
+                ],
+                [
+                  13.34140753116992,
+                  52.4722618327375
+                ],
+                [
+                  13.500875567587116,
+                  52.4722618327375
+                ],
+                [
+                  13.500875567587116,
+                  52.5427526175211
+                ],
+                [
+                  13.34140753116992,
+                  52.5427526175211
+                ]
+              ]
+            ]
+          },
+          "filter": {
+            "op": "=",
+            "args": [
+              {
+                "property": "id"
+              },
+              "uuid-identifier-goes-here"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
