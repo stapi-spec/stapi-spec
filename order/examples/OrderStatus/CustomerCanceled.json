@@ -6,8 +6,8 @@
     "links": [
         {
             "rel": "audit_log",
-            "type": "application/log",
-            "href": "https://provider.com/order-id/audit-log"
+            "type": "text/plain",
+            "href": "https://provider.com/orders/1234/audit-log"
         }
     ]
 }

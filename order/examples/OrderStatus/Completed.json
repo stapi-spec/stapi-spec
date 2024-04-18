@@ -5,7 +5,7 @@
         {
             "rel": "invoice",
             "type": "application/pdf",
-            "href": "https://provider.com/order-id/invoice"
+            "href": "https://provider.com/orders/1234/invoice"
         },
         {
             "rel": "stac",
@@ -14,7 +14,7 @@
         },
         {
             "rel": "footprint",
-            "type": "application/JSON",
+            "type": "application/json",
             "href": "https://provider.com/order_id/collected-footprint"
         }
     ]

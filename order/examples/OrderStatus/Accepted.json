@@ -5,12 +5,12 @@
         {
             "rel": "invoice",
             "type": "application/pdf",
-            "href": "https://provider.com/order-id/invoice"
+            "href": "https://provider.com/orders/1234/invoice"
         },
         {
             "rel": "schedule",
             "type": "application/json",
-            "href": "https://provider.com/order-id/task-schedule"
+            "href": "https://provider.com/orders/1234/task-schedule"
         }
     ]
 }
