@@ -21,10 +21,26 @@ and **Orders**. The process of interacting with a data provider is done through 
 
 ### Core
 
+- **Conformance URI:** <https://stat-api.example.com/v0.1.0/core>
+
 The core of STAT API includes the `/products` endpoint and the `/orders` endpoint.
 
 To know which constraints are available for which *product_id*, users first explore [/products](./product).
 These constraints can be used to form a POST to the [/orders](./order) endpoint.
+
+#### Landing Page
+
+- [Example](core/examples/landingpage.json)
+
+Fields that can be included in the response body for `GET /`.
+
+| Field Name  | Type            | Description                                                  |
+| ----------- | --------------- | ------------------------------------------------------------ |
+| id          | string          | **REQUIRED.** Identifier for the API.                        |
+| conformsTo  | \[string\]      | **REQUIRED.** Conformance classes that apply to the API globally. |
+| title       | string          | A short descriptive one-line title for the API.              |
+| description | string          | **REQUIRED.** Detailed multi-line description to fully explain the API. [CommonMark 0.29](http://commonmark.org/) syntax MAY be used for rich text representation. |
+| links       | \[Link Object\] | **REQUIRED.** A list of references to other documents and endpoints. |
 
 ### Opportunities
 
@@ -65,39 +81,17 @@ requires they also live at the `/conformance` endpoint. STAT's conformance struc
 
 | **Name**               | **Specified in**                            | **Conformance URI**                                    | **Description**                                                                                                 |
 | ---------------------- | ------------------------------------------- | ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------- |
-| STAT API - Core        | [Core](core)                                |            | Specifies the STAT Landing page `/`, communicating conformance and available endpoints.                         |
-| STAT API - Opportunities | [Opportunities](opportunity)                  |    | Enables request of potential tasking opportunities |                            |
+| STAT API - Core        | Core               | https://stat-api.example.com/v0.1.0/core | Specifies the STAT Landing page `/`, communicating conformance and available endpoints.                         |
+| STAT API - Opportunities | [Opportunities](opportunity/README.md)        | https://stat-api.example.com/v0.1.0/opportunities | Enables request of potential tasking opportunities |
+| STAT API - Core | Core | https://geojson.org/schema/Point.json | Allows submitting orders with GeoJSON points |
+| STAT API - Core | Core | https://geojson.org/schema/Linestring.json | Allows submitting orders with GeoJSON linestrings |
+| STAT API - Core | Core | https://geojson.org/schema/Polygon.json | Allows submitting orders with GeoJSON polygons |
+| STAT API - Core | Core | https://geojson.org/schema/MultiPoint.json | Allows submitting orders with GeoJSON multi points |
+| STAT API - Core | Core | https://geojson.org/schema/MultiPolygon.json | Allows submitting orders with GeoJSON multi polygons |
+| STAT API - Core | Core | https://geojson.org/schema/MultiLineString.json | Allows submitting orders with GeoJSON multi linestring |
 
 See [the STAT API Demo](https://github.com/Element84/stat-api-demo)
 
 ## Landing Page
 
 The Landing Page will at least have the following `conformsTo` and `links`:
-
-```json
-{
-    "id": "example-stat-api",
-    "title": "A simple STAT API Example",
-    "description": "This API demonstrated the landing page for a SpatioTemporal Asset Tasking API",
-    "conformsTo" : [
-        "https://stat-api.example.com/v0.1.0/core"
-    ],
-    "links": [
-        {
-            "rel": "conformance",
-            "type": "application/json",
-            "href": "https://stat-api.example.com/conformance"
-        },
-        {
-            "rel": "service-desc",
-            "type": "application/vnd.oai.openapi+json;version=3.0",
-            "href": "https://stat-api.example.com/api"
-        },
-        {
-            "rel": "service-doc",
-            "type": "text/html",
-            "href": "https://stat-api.example.com/api.html"
-        },
-    ]
-}
-```

@@ -1,6 +1,8 @@
 # STAT Opportunity Spec
 
-The STAT Opportunity describes a window of opportunity available for ordering.
+- **Conformance URI:** <https://stat-api.example.com/v0.1.0/opportunities>
+
+The STAT Opportunity describes a single business unit available for ordering.
 
 ## Opportunity Request
 
@@ -32,7 +34,6 @@ This object describes a STAT Opportunity. The input fields will be contained `pr
 | Field Name | Type                                                                       | Description |
 | ---------- | -------------------------------------------------------------------------- | ----------- |
 | type       | string                                                                     | **REQUIRED.** Type of the GeoJSON Object. MUST be set to `Feature`. |
-| product_id         | string                                                             | **REQUIRED.** Product identifier. The ID should be unique and is a reference to the constraints which can be used in the constraints field. |
 | id         | string                                                                     | Provider identifier. This is not required, unless the provider tracks user requests and state for opportunities. |
 | geometry   | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) \| [null](https://tools.ietf.org/html/rfc7946#section-3.2) | **REQUIRED.** Defines the full footprint of the asset represented by this item, formatted according to [RFC 7946, section 3.1](https://tools.ietf.org/html/rfc7946#section-3.1). The footprint should be the default GeoJSON geometry, though additional geometries can be included. Coordinates are specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS 84](http://www.opengis.net/def/crs/OGC/1.3/CRS84). |
 | bbox       | \[number]                                                                  | **REQUIRED if `geometry` is not `null`.** Bounding Box of the asset represented by this Item, formatted according to [RFC 7946, section 5](https://tools.ietf.org/html/rfc7946#section-5). |
@@ -59,5 +60,6 @@ resources below.
 
 | Field Name | Type         | Description                                                  |
 | ---------- | ------------ | ------------------------------------------------------------ |
+| product_id | string | **REQUIRED.**  Product identifier. The ID should be unique and is a reference to the constraints which can be used in the constraints field. |
 | start_datetime | string\|null | **REQUIRED.** The earliest datetime for the Opportunity, which must be in UTC. It is formatted according to [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6). |
 | end_datetime   | string\|null | **REQUIRED.** The last possible datetime for the Opportunity, which must be in UTC. It is formatted according to [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6). |

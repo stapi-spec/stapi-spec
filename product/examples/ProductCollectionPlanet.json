@@ -1,0 +1,209 @@
+{
+    "products": [
+        {
+            "type": "Product",
+            "conformsTo": [
+                "https://geojson.org/schema/Point.json",
+                "https://geojson.org/schema/LineString.json"
+            ],
+
+            "id": "PL-123456:Assured Tasking",
+            "title": "SkySat Assured Tasking",
+            "description": "An assured SkySat capture at a specific time and location.",
+            "keywords": [
+                "EO",
+                "color",
+                "assured"
+            ],
+            "license": "Planet",
+            "providers": [{
+                "name": "Planet",
+                "description": "Planet Labs, Inc.",
+                "roles": ["producer"],
+                "url": "https://planet.com/"
+            }],
+            "links": [{
+                "href": "https://oden.prod.planet-labs.com/",
+                "rel": "documentation",
+                "type": "docs",
+                "title": "Planet Tasking API OpenAPI specs"
+            }],
+            "parameters": {
+                "$defs": {
+                    "scheduling_type": {
+                        "enum": [
+                            "Assured"
+                        ],
+                        "title": "Scheduling Type",
+                        "type": "string"
+                    },
+                    "satellite_types": {
+                        "enum": [
+                            "SkySat"
+                        ],
+                        "title": "Satellite Types",
+                        "type": "string"
+                    },
+                    "exclusivity_days": {
+                        "enum": [0, 30],
+                        "title": "Exclusivity Days",
+                        "type": "number"
+                    }
+                },
+                "description": "Planet Assured Parameters docstring",
+                "properties": {
+                    "scheduling_type": {
+                        "allOf": [
+                            {
+                                "$ref": "#/parameters/$defs/scheduling_type"
+                            }
+                        ],
+                        "default": "Assured",
+                        "title": "Scheduling Type"
+                    },
+                    "satellite_types": {
+                        "items": [
+                            {
+                                "$ref": "#/parameters/$defs/satellite_types"
+                            }
+                        ],
+                        "default": ["SkySat"],
+                        "type": "array",
+                        "title": "Satellite Types"
+                    },
+                    "exclusivity_days": {
+                        "allOf": [
+                            {
+                                "$ref": "#/parameters/$defs/exclusivity_days"
+                            }
+                        ],
+                        "default": 0,
+                        "title": "Exclusivity Days"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Product",
+            "conformsTo": [
+                "https://geojson.org/schema/Point.json",
+                "https://geojson.org/schema/LineString.json",
+                "https://geojson.org/schema/Polygon.json",
+                "https://geojson.org/schema/MultiPoint.json",
+                "https://geojson.org/schema/MultiPolygon.json",
+                "https://geojson.org/schema/MultiLineString.json"
+            ],
+            "id": "PL-123456:Flexible Tasking",
+            "title": "SkySat Flexible Tasking",
+            "description": "A flexible SkySat order at a specific location, to be fulfilled over a defined timerange.",
+            "keywords": [
+                "EO",
+                "color",
+                "flexible"
+            ],
+            "license": "Planet",
+            "providers": [{
+                "name": "Planet",
+                "description": "Planet Labs, Inc.",
+                "roles": [
+                    "producer"
+                ],
+                "url": "https://planet.com/"
+            }],
+            "links": [
+                {
+                    "href": "https://oden.prod.planet-labs.com/",
+                    "rel": "documentation",
+                    "type": "docs",
+                    "title": "Planet Tasking API OpenAPI specs"
+                }
+            ],
+            "parameters": {
+                "$defs": {
+                    "scheduling_type": {
+                        "enum": [
+                            "Flexible"
+                        ],
+                        "title": "Scheduling Type",
+                        "type": "string"
+                    },
+                    "satellite_types": {
+                        "enum": [
+                            "SkySat"
+                        ],
+                        "title": "Satellite Types",
+                        "type": "string"
+                    },
+                    "exclusivity_days": {
+                        "enum": [
+                            0,
+                            30
+                        ],
+                        "title": "Exclusivity Days",
+                        "type": "number"
+                    }
+                },
+                "description": "Planet Flexible Parameters docstring",
+                "properties": {
+                    "scheduling_type": {
+                        "allOf": [
+                            {
+                                "$ref": "#/parameters/$defs/scheduling_type"
+                            }
+                        ],
+                        "default": "Flexible",
+                        "title": "Scheduling Type"
+                    },
+                    "satellite_types": {
+                        "items": [
+                            {
+                                "$ref": "#/parameters/$defs/satellite_types"
+                            }
+                        ],
+                        "default": [
+                            "SkySat"
+                        ],
+                        "type": "array",
+                        "title": "Satellite Types"
+                    },
+                    "exclusivity_days": {
+                        "allOf": [
+                            {
+                                "$ref": "#/parameters/$defs/exclusivity_days"
+                            }
+                        ],
+                        "default": 0,
+                        "title": "Exclusivity Days"
+                    },
+                    "view:sat_elevation": {
+                        "type": "number",
+                        "min": 20,
+                        "max": 90
+                    },
+                    "view:azimuth": {
+                        "type": "number",
+                        "min": -360,
+                        "max": 360
+                    },
+                    "view:sun_zenith": {
+                        "type": "number",
+                        "min": 0,
+                        "max": 85
+                    },
+                    "view:sun-azimuth": {
+                        "type": "number",
+                        "min": -360,
+                        "max": 360
+                    }
+                }
+            }
+        }
+    ],
+    "links": {
+        "rel": "next",
+        "title": "Next page of Products",
+        "method": "GET",
+        "type": "application/geo+json",
+        "href": "stat-api.example.com?page=2"
+    }
+}
