@@ -3,8 +3,8 @@
         {
             "type": "Product",
             "conformsTo": [
-                "https://api.statspec.org/geojson#point",
-                "https://api.statspec.org/geojson#linestring"
+                "https://geojson.org/schema/Point.json",
+                "https://geojson.org/schema/LineString.json"
             ],
 
             "id": "PL-123456:Assured Tasking",
