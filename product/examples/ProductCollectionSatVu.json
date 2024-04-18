@@ -43,8 +43,7 @@
                         "product"
                     ]
                 },
-            },
-            "properties": {}
+            }
         },
         {
             "type": "Product",
