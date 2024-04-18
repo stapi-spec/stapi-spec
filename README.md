@@ -53,7 +53,7 @@ Fields that can be included in the response body for `GET /`.
 | `GET /orders`                          | `orders`             |
 | `POST /orders`                         | `create-order`       |
 | `GET /orders/{orderId}`                | `order`              |
-| `GET /orders/{orderId}/status`         | `monitor`            |
+| `GET /orders/{orderId}/status`         | `status`            |
 | `POST /opportunities`                  | `opportunities`      |
 
 ### Opportunities
