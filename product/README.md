@@ -8,7 +8,7 @@ STAPI Product objects are represented in JSON format and are very flexible. Any 
 
 | Element       | Type    | Description |
 | ---- | --- | --- |
-| products | [[Product](#product-spec)] | **REQUIRED** List of `Product` offered in the application. |
+| products | [[Product Object](#product-object)] | **REQUIRED** List of `Product` offered in the application. |
 | links | [[Link Object](#link-object)] | **REQUIRED** Links for e.g. pagination. |
 
 
