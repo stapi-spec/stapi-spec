@@ -16,12 +16,12 @@
                 "assured"
             ],
             "license": "Planet",
-            "providers": {
+            "providers": [{
                 "name": "Planet",
                 "description": "Planet Labs, Inc.",
                 "roles": ["producer"],
                 "url": "https://planet.com/"
-            },
+            }],
             "links": [{
                 "href": "https://oden.prod.planet-labs.com/",
                 "rel": "documentation",
