@@ -42,6 +42,20 @@ Fields that can be included in the response body for `GET /`.
 | description | string          | **REQUIRED.** Detailed multi-line description to fully explain the API. [CommonMark 0.29](http://commonmark.org/) syntax MAY be used for rich text representation. |
 | links       | \[Link Object\] | **REQUIRED.** A list of references to other documents and endpoints. |
 
+##### Relation Types
+
+| Endpoint                               | Relation Type        |
+| -------------------------------------- | -------------------- |
+| `GET /conformance`                     | `conformance`        |
+| `GET /products`                        | `products`           |
+| `GET /products/{productId}`            | `product`            |
+| `GET /products/{productId}/parameters` | `product-parameters` |
+| `GET /orders`                          | `orders`             |
+| `POST /orders`                         | `create-order`       |
+| `GET /orders/{orderId}`                | `order`              |
+| `GET /orders/{orderId}/status`         | `monitor`            |
+| `POST /opportunities`                  | `opportunities`      |
+
 ### Opportunities
 
 The `/opportunities` endpoint provides additional functionality on top of core and is designed to be used
@@ -59,14 +73,17 @@ The following table describes the service resources available in a STAT API impl
 supports all three of the foundation specifications. Note that the 'Endpoint'
 column is more of an example in some cases.
 
-| Endpoint                    | Specified in  | Accepts                                                      | Returns                                                      | Description                                                  |
-| --------------------------- | ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `GET /`                     | Core          | -                                                            | [Landing Page](#landing-page)                                |                                                              |
-| `GET /products`             | Core          | -                                                            | [Products Collection](./product/README.md)                   | Figure out which constraints are available for which `product_id` |
-| `GET /products/{productId}` | Core          | -                                                            | [Product](./product/README.md)                               |                                                              |
-| `GET /orders`               | Core          | -                                                            | [Orders Collection](./order/README.md#order-collection)      |                                                              |
-| `POST /orders`              | Core          | [Order Request](./order/README.md#order-request)             | [Order Object](./order/README.md#order-pobject)              | Order a capture with a particular set of constraints         |
-| `POST /opportunities`       | Opportunities | [Opportunity Request](./opportunity/README.md#opportunity-request) | [Opportunities Collection](./opportunity/README.md#opportunities-collection) | Explore the opportunities available for a particular set of constraints |
+| Endpoint                               | Specified in  | Accepts                                                      | Returns                                                      | Description                                                  |
+| -------------------------------------- | ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `GET /`                                | Core          | -                                                            | [Landing Page](#landing-page)                                |                                                              |
+| `GET /conformance`                     | Core          | -                                                            | Conformance Classes                                          |                                                              |
+| `GET /products`                        | Core          | -                                                            | [Products Collection](./product/README.md)                   | Figure out which constraints are available for which `product_id` |
+| `GET /products/{productId}`            | Core          | -                                                            | [Product](./product/README.md)                               |                                                              |
+| `GET /products/{productId}/parameters` | Core          | -                                                            | JSON Schema                                                  |                                                              |
+| `GET /orders`                          | Core          | -                                                            | [Orders Collection](./order/README.md#order-collection)      |                                                              |
+| `GET /orderds/{orderId}`               | Core          | -                                                            | [Order Object](./order/README.md#order-pobject)              |                                                              |
+| `POST /orders`                         | Core          | [Order Request](./order/README.md#order-request)             | [Order Object](./order/README.md#order-pobject)              | Order a capture with a particular set of constraints         |
+| `POST /opportunities`                  | Opportunities | [Opportunity Request](./opportunity/README.md#opportunity-request) | [Opportunities Collection](./opportunity/README.md#opportunities-collection) | Explore the opportunities available for a particular set of constraints |
 
 ## Conformance Classes
 
@@ -91,7 +108,3 @@ requires they also live at the `/conformance` endpoint. STAT's conformance struc
 | STAT API - Core | Core | https://geojson.org/schema/MultiLineString.json | Allows submitting orders with GeoJSON multi linestring |
 
 See [the STAT API Demo](https://github.com/Element84/stat-api-demo)
-
-## Landing Page
-
-The Landing Page will at least have the following `conformsTo` and `links`:
