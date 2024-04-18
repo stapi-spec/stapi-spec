@@ -8,16 +8,16 @@ STAT Product objects are represented in JSON format and are very flexible. Any J
 
 | Element         | Type                                             | Description                                                  |
 | --------------- | ------------------------------------------------ | ------------------------------------------------------------ |
-| type            | string                                           | **REQUIRED.** Must be set to `Product` to be a valid Product. |
+| type            | string                                           | **REQUIRED.** Must be set to `Collection` to be a valid Product. |
 | id              | string                                           | **REQUIRED.** Identifier for the Product that is unique across the provider. |
 | conformsTo      | \[string\]                                       | Conformance classes that apply to the product specifically. |
 | title           | string                                           | A short descriptive one-line title for the Product.       |
 | description     | string                                           | **REQUIRED.** Detailed multi-line description to fully explain the Collection. [CommonMark 0.29](http://commonmark.org/) syntax MAY be used for rich text representation. |
 | keywords        | \[string]                                        | List of keywords describing the Product.                  |
-| license         | string                                           | **REQUIRED.** Collection's license(s), either a SPDX [License identifier](https://spdx.org/licenses/), `various` if multiple licenses apply or `proprietary` for all other cases. |
+| license         | string                                           | Collection's license(s), either a SPDX [License identifier](https://spdx.org/licenses/), `other` for all other cases. |
 | providers       | \[[Provider Object](#provider-object)]           | A list of providers, which may include all organizations capturing or processing the data or the hosting provider. Providers should be listed in chronological order with the most recent provider being the last element of the list. |                |
 | links           | \[[Link Object](#link-object)]                   | **REQUIRED.** A list of references to other documents.       |
-| parameters | JSON Schema | JSON Schema that defines the Opportunity and Order properties that can be used in cql2json filter statements. |
+| parameters      | JSON Schema                                      | JSON Schema that defines the Opportunity and Order properties that can be used in cql2json filter statements. |
 
 
 ### Provider Object
@@ -31,7 +31,7 @@ May also include information about the final storage provider hosting the data.
 | ----------- | --------- | ------------------------------------------------------------ |
 | name        | string    | **REQUIRED.** The name of the organization or the individual. |
 | description | string    | Multi-line description to add further provider information such as processing details for processors and producers, hosting details for hosts or basic contact information. [CommonMark 0.29](http://commonmark.org/) syntax MAY be used for rich text representation. |
-| roles       | \[string] | Role of the provider. Set to `producer` or `reseller`|
+| roles       | \[string] | Role of the provider. Set to `producer` or `reseller`. |
 | url         | string    | Homepage on which the provider describes the dataset and publishes contact information. |
 
 **roles**: The provider's role(s) can be one or more of the following elements:

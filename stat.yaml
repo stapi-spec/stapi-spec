@@ -87,7 +87,7 @@ paths:
           $ref: "#/components/responses/Error"
         "5XX":
           $ref: "#/components/responses/Error"
-  "/products":
+  "/collections":
     get:
       tags:
         - Products
@@ -116,7 +116,7 @@ paths:
           $ref: "#/components/responses/Error"
         "5XX":
           $ref: "#/components/responses/Error"
-  "/products/{productId}":
+  "/collections/{productId}":
     get:
       tags:
         - Products

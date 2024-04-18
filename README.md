@@ -23,15 +23,15 @@ and **Orders**. The process of interacting with a data provider is done through 
 
 - **Conformance URI:** <https://stat-api.example.com/v0.1.0/core>
 
-The core of STAT API includes the `/products` endpoint and the `/orders` endpoint.
+The core of STAT API includes the `/collections` endpoint and the `/orders` endpoint.
 
-To know which constraints are available for which *product_id*, users first explore [/products](./product).
+To know which constraints are available for which *product_id*, users first explore [/collections](./product).
 These constraints can be used to form a POST to the [/orders](./order) endpoint.
 
 ### Opportunities
 
 The `/opportunities` endpoint provides additional functionality on top of core and is designed to be used
-after `/products` and before `/orders`. It allows users more fine-grained 
+after `/collections` and before `/orders`. It allows users more fine-grained 
 control and selection of available tasking opportunities by letting them explore the opportunities which 
 are available for a chosen order configuration. The opportunities are 
 represented in a FeatureCollection, with order specific attributes and values in the feature properties.
@@ -48,8 +48,8 @@ column is more of an example in some cases.
 | Endpoint                    | Specified in  | Accepts                                                      | Returns                                                      | Description                                                  |
 | --------------------------- | ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | `GET /`                     | Core          | -                                                            | [Landing Page](#landing-page)                                |                                                              |
-| `GET /products`             | Core          | -                                                            | [Products Collection](./product/README.md)                   | Figure out which constraints are available for which `product_id` |
-| `GET /products/{productId}` | Core          | -                                                            | [Product](./product/README.md)                               |                                                              |
+| `GET /collections`             | Core          | -                                                            | [Products Collection](./product/README.md)                   | Figure out which constraints are available for which `product_id` |
+| `GET /collections/{productId}` | Core          | -                                                            | [Product](./product/README.md)                               |                                                              |
 | `GET /orders`               | Core          | -                                                            | [Orders Collection](./order/README.md#order-collection)      |                                                              |
 | `POST /orders`              | Core          | [Order Request](./order/README.md#order-request)             | [Order Object](./order/README.md#order-pobject)              | Order a capture with a particular set of constraints         |
 | `POST /opportunities`       | Opportunities | [Opportunity Request](./opportunity/README.md#opportunity-request) | [Opportunities Collection](./opportunity/README.md#opportunities-collection) | Explore the opportunities available for a particular set of constraints |
