@@ -34,7 +34,14 @@
                     "url": "https://www.euspaceimaging.com"
                 }
             ],
-            "links": [],
+            "links": [
+                { 
+                    "href": "https://tinyurl.com/eusi-tara-docs",
+                    "rel": "documentation",
+                    "type": "docs",
+                    "title": "TARA Documentation"
+                }
+            ],
             "parameters": {
                 "type": "Object",
                 "properties": {
