@@ -44,6 +44,7 @@
                 "type": "Object",
                 "properties": {
                     "taskingScheme": {
+                        "title": "Tasking Scheme",
                         "description": "Property containing the type of tasking scheme to apply to the subOrder",
                         "type": "string",
                         "enum": [
@@ -52,6 +53,7 @@
                         "default": "single_window"
                     },
                     "taskingPriority": {
+                        "title": "Tasking Priority",
                         "description": "Property containing the tasking priority level to apply to the subOrder",
                         "type": "string",
                         "enum": [
@@ -61,30 +63,32 @@
                         "default": "Select"
                     },
                     "maxCloudCover": {
+                        "title": "Max Cloud Cover",
+                        "type": "number",
                         "minimum": 5.0,
                         "maximum": 100.0
                     },
                     "minOffNadir": {
+                        "title": "Min ONA Angle",
+                        "type": "number",
                         "minimum": 0.0,
                         "maximum": 15.0
+
                     },
                     "maxOffNadir": {
+                        "title": "Max ONA Angle",
+                        "type": "number",
                         "minimum": 10.0,
                         "maximum": 45.0
                     },
-                    "scanDirection": {
-                        "description": "Property describing the allowed scan direction value to apply to the subOrder",
-                        "type": "string",
-                        "enum": [
-                            "Any"
-                        ]
-                    },
                     "singleSensor": {
+                        "title": "Single Sensor",
                         "description": "Property forcing collection of the area of interest with a single sensor",
                         "type": "boolean",
                         "default": false
                     },
                     "sensors": {
+                        "title": "Stereo",
                         "description": "Array containing the values of the allowed sensors for imagery collection",
                         "type": "array",
                         "items": {
@@ -98,6 +102,7 @@
                         }
                     },
                     "stereo": {
+                        "title": "Stereo",
                         "description": "Property describing whether to collect this subOrder as in-track stereo",
                         "type": "boolean",
                         "default": false
