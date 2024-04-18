@@ -59,13 +59,13 @@ If the `GET /orders/{orderId}/status` endpoint is implemented, there must be a l
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
-| timestamp  | datetime | ISO 8601 timestamp for the order status (required) |
-| status_code | string | Enumerated status code (required) |
-| reason_code | string | Enumerated reason code for why the status was set (optional) |
-| reason_text | string | Textual description for why the status was set (optional) |
-| links | [Link] | list of references to documents, such as delivered asset, processing log, delivery manifest, etc. (required, may be empty) |
+| timestamp  | datetime | **REQUIRED.** ISO 8601 timestamp for the order status |
+| status_code | string | **REQUIRED.** Enumerated status code |
+| reason_code | string | Enumerated reason code for why the status was set |
+| reason_text | string | Textual description for why the status was set |
+| links | \[Link Object\] | **REQUIRED.** list of references to documents, such as delivered asset, processing log, delivery manifest, etc. |
 
-Links is intended to be the same data structure as links collection in STAC.  Links will be very provider specific.
+Links is intended to be the same data structure as links collection in STAC. Links will be very provider specific.
 
 ### Enumerated status codes
 
@@ -94,10 +94,10 @@ Providers may support these statuses.
 
 #### Extension status codes
 
-Providers may support additional statuses through extensions.  For example:
+Providers may support additional statuses through extensions. For example:
 
 * tasked (indicates tasking commands have been issued to the satellite/constellation)
-* user_cancelled (indicates that )
+* user_cancelled (indicates that the user cancelled the request)
 
 ### Enumerated reason codes
 

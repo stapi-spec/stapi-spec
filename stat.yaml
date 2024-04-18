@@ -226,17 +226,28 @@ components:
         user:
           type: string
         status:
-          type: string
-          enum:
-            - received
-            - waiting
-            - finished
+          $ref: "#/components/schemas/order_status"
         created:
           type: string
           format: date-time
-        updated:
+        links:
+          $ref: "#/components/schemas/links"
+    order_status:
+      type: object
+      required:
+        - timestamp
+        - status_code
+        - links
+      properties:
+        timestamp:
           type: string
           format: date-time
+        status_code:
+          type: string
+        reason_code:
+          type: string
+        reason_text:
+          type: string
         links:
           $ref: "#/components/schemas/links"
     order_request:
@@ -248,12 +259,11 @@ components:
       properties:
         datetime:
           type: string
-          description: A datetime interval according to ISO 8601.
         product_id:
           type: string
         geometry:
           $ref: "https://geojson.org/schema/Geometry.json"
-        filters:
+        filter:
           $ref: "#/components/schemas/cql2"
     license:
       type: string
