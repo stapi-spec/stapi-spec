@@ -1,14 +1,20 @@
 # SpatioTemporal Asset Tasking (STAT) API
 
 ## Table of Contents
-- [About](#about)
-- [Introduction](#introduction)
-- [STAT API Description](#stat-api-description)
+- [SpatioTemporal Asset Tasking (STAT) API](#spatiotemporal-asset-tasking-stat-api)
+  - [Table of Contents](#table-of-contents)
+  - [About](#about)
+  - [Introduction](#introduction)
+  - [STAT API Description](#stat-api-description)
     - [Core](#core)
+      - [Landing Page](#landing-page)
+        - [Relation Types](#relation-types)
     - [Opportunities](#opportunities)
-- [Endpoints](#endpoints)
-- [Conformance Classes](#conformance-classes)
-- [Example workflows](#example-workflows)
+  - [Endpoints](#endpoints)
+  - [Conformance Classes](#conformance-classes)
+    - [Conformance Class Table](#conformance-class-table)
+  - [Example workflows](#example-workflows)
+  - [Basic Workflows](#basic-workflows)
 
 ## About
 The SpatioTemporal Asset Tasking (STAT) API defines a JSON-based web API to query for potential future data and place orders ("tasking") for potential future data from remote sensing data providers (satellite or airborne).
@@ -19,7 +25,6 @@ The STAT specifications define several new entities: Products, Opportunities, an
 derived from the [SpatioTemporal Asset Catalog](https://github.com/radiantearth/stac-spec) (STAC) specification. Ideally, STAT requests to providers will be ultimately fulfilled via delivery of a STAC Item, so STAT aims to align with STAC core and extensions.
 
 The core STAT specification provides a structure and language to describe Products, Opportunities, and Orders. The process of interacting with a data provider is done through a REST API.
-
 
 ## Introduction
 
@@ -48,6 +53,24 @@ Fields that can be included in the response body for `GET /`.
 | description | string          | **REQUIRED.** Detailed multi-line description to fully explain the API. [CommonMark 0.29](http://commonmark.org/) syntax MAY be used for rich text representation. |
 | links       | \[Link Object\] | **REQUIRED.** A list of references to other documents and endpoints. |
 
+##### Relation Types
+
+| Endpoint                               | Relation Type        |
+| -------------------------------------- | -------------------- |
+| `GET /conformance`                     | `conformance`        |
+| `GET /products`                        | `products`           |
+| `GET /products/{productId}`            | `product`            |
+| `GET /products/{productId}/parameters` | `product-parameters` |
+| `GET /orders`                          | `orders`             |
+| `POST /orders`                         | `create-order`       |
+| `GET /orders/{orderId}`                | `order`              |
+| `GET /orders/{orderId}/status`         | `status`             |
+| `POST /opportunities`                  | `opportunities`      |
+
+`create-order`: A link with this relation type should only be provided in the landing page
+if a user can directly go from the products to the order endpoint without 
+going through the `POST /opportunities` endpoint.
+
 ### Opportunities
 
 The `/opportunities` endpoint provides additional functionality on top of core and is designed to be used
@@ -65,14 +88,17 @@ The following table describes the service resources available in a STAT API impl
 supports all three of the foundation specifications. Note that the 'Endpoint'
 column is more of an example in some cases.
 
-| Endpoint                    | Specified in  | Accepts                                                      | Returns                                                      | Description                                                  |
-| --------------------------- | ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `GET /`                     | Core          | -                                                            | [Landing Page](#landing-page)                                |                                                              |
-| `GET /products`             | Core          | -                                                            | [Products Collection](./product/README.md)                   | Figure out which [parameters](https://github.com/Element84/stat-api-spec/blob/main/product/README.md#parameters) are available for which `product_id` |
-| `GET /products/{productId}` | Core          | -                                                            | [Product](./product/README.md)                               |                                                              |
-| `GET /orders`               | Core          | -                                                            | [Orders Collection](./order/README.md#order-collection)      |                                                              |
-| `POST /orders`              | Core          | [Order Request](./order/README.md#order-request)             | [Order Object](./order/README.md#order-pobject)              | Order a capture with a particular set of [parameters](https://github.com/Element84/stat-api-spec/blob/main/product/README.md#parameters)         |
-| `POST /opportunities`       | Opportunities | [Opportunity Request](./opportunity/README.md#opportunity-request) | [Opportunities Collection](./opportunity/README.md#opportunities-collection) | Explore the opportunities available for a particular set of [parameters](https://github.com/Element84/stat-api-spec/blob/main/product/README.md#parameters) |
+| Endpoint                               | Specified in  | Accepts                                                      | Returns                                                      | Description                                                  |
+| -------------------------------------- | ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `GET /`                                | Core          | -                                                            | [Landing Page](#landing-page)                                |                                                              |
+| `GET /conformance`                     | Core          | -                                                            | Conformance Classes                                          |                                                              |
+| `GET /products`                        | Core          | -                                                            | [Products Collection](./product/README.md)                   | Figure out which constraints are available for which `product_id` |
+| `GET /products/{productId}`            | Core          | -                                                            | [Product](./product/README.md)                               |                                                              |
+| `GET /products/{productId}/parameters` | Core          | -                                                            | JSON Schema                                                  |                                                              |
+| `GET /orders`                          | Core          | -                                                            | [Orders Collection](./order/README.md#order-collection)      |                                                              |
+| `GET /orderds/{orderId}`               | Core          | -                                                            | [Order Object](./order/README.md#order-pobject)              |                                                              |
+| `POST /orders`                         | Core          | [Order Request](./order/README.md#order-request) or any object | - | Order a capture with a particular set of constraints as defined in the products or a request that was provided through the opportunities endpoint. |
+| `POST /opportunities`                  | Opportunities | [Opportunity Request](./opportunity/README.md#opportunity-request) | [Opportunities Collection](./opportunity/README.md#opportunities-collection) | Explore the opportunities available for a particular set of constraints |
 
 ## Conformance Classes
 

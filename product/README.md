@@ -32,6 +32,8 @@ This is a GeoJSON FeatureCollection.
 | providers       | \[[Provider Object](#provider-object)]           | A list of providers, which may include all organizations capturing or processing the data or the hosting provider. Providers should be listed in chronological order with the most recent provider being the last element of the list. |                |
 | links           | \[[Link Object](#link-object)]                   | **REQUIRED.** A list of references to other documents.       |
 
+Additional properties are allowed to be placed in the top-level object, comparable to how STAC Collections work. 
+STAC Collection fields can be reused, including fields defined in STAC Collection extensions.
 
 ### Provider Object
 

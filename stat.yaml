@@ -195,15 +195,35 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/order_request"
+              anyOf:
+                - title: Direct Order Request based on Products
+                  type: object
+                  required:
+                    - datetime
+                    - product_id
+                    - geometry
+                  properties:
+                    datetime:
+                      type: string
+                    product_id:
+                      type: string
+                    geometry:
+                      $ref: "https://geojson.org/schema/Geometry.json"
+                    filter:
+                      $ref: "#/components/schemas/cql2"
+                - title: Order Request based on Opportunities
+                  type: object 
+                  description: |-
+                    Any body that was provided by the links in the individual opportunities.
       responses:
         "201":
-          description: |-
-            ...
-          content:
-            application/json:
+          description: Pointer to the newly created entity
+          headers:
+            Location:
+              description: The URL of the newly added resource (i.e. path of the resource end point)
               schema:
-                $ref: "#/components/schemas/order"
+                type: string
+                format: url
         "4XX":
           $ref: "#/components/responses/Error"
         "5XX":
@@ -226,35 +246,30 @@ components:
         user:
           type: string
         status:
-          type: string
-          enum:
-            - received
-            - waiting
-            - finished
+          $ref: "#/components/schemas/order_status"
         created:
-          type: string
-          format: date-time
-        updated:
           type: string
           format: date-time
         links:
           $ref: "#/components/schemas/links"
-    order_request:
+    order_status:
       type: object
       required:
-        - datetime
-        - product_id
-        - geometry
+        - timestamp
+        - status_code
+        - links
       properties:
-        datetime:
+        timestamp:
           type: string
-          description: A datetime interval according to ISO 8601.
-        product_id:
+          format: date-time
+        status_code:
           type: string
-        geometry:
-          $ref: "https://geojson.org/schema/Geometry.json"
-        filters:
-          $ref: "#/components/schemas/cql2"
+        reason_code:
+          type: string
+        reason_text:
+          type: string
+        links:
+          $ref: "#/components/schemas/links"
     license:
       type: string
       description: |-

@@ -16,7 +16,7 @@
             },
             "links": [
                 {
-                    "rel": "order",
+                    "rel": "create-order",
                     "method": "POST",
                     "href": "https://example.com/orders",
                     "body": {
@@ -28,7 +28,7 @@
     ],
     "links": [
         {
-            "rel": "order",
+            "rel": "create-order",
             "method": "POST",
             "href": "https://example.com/orders",
             "body": {
@@ -46,7 +46,7 @@
                   ]
                 },
                 "datetime": "2020-01-01T00:00:00Z/2020-01-02T00:00:00Z",
-                "filters": {
+                "filter": {
                   "op": "and",
                   "args": [
                     {
