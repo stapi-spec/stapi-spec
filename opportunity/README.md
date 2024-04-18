@@ -1,6 +1,6 @@
 # STAPI Opportunity Spec
 
-- **Conformance URI:** <https://stat-api.example.com/v0.1.0/opportunities>
+- **Conformance URI:** <https://stapi.example.com/v0.1.0/opportunities>
 
 The STAPI Opportunity describes a single business unit available for ordering.
 
