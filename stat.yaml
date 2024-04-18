@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.1.0
 info:
   title: STAT API - Core
   version: v0.1.0
@@ -77,11 +77,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/conformanceClasses"
-              example:
-                conformsTo:
-                  - "http://www.opengis.net/spec/ogcapi-features-1/1.0/conf/core"
-                  - "http://www.opengis.net/spec/ogcapi-features-1/1.0/conf/oas30"
-                  - "http://www.opengis.net/spec/ogcapi-features-1/1.0/conf/geojson"
       
         "4XX":
           $ref: "#/components/responses/Error"
@@ -134,6 +129,28 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/product"
+        "4XX":
+          $ref: "#/components/responses/Error"
+        "5XX":
+          $ref: "#/components/responses/Error"
+  "/products/{productId}/parameters":
+    get:
+      tags:
+        - Products
+      summary: |-
+        describe the parameters for a product
+      description: |-
+        ...
+      parameters:
+        - $ref: "#/components/parameters/productId"
+      responses:
+        "200":
+          description: |-
+            ...
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/jsonschema"
         "4XX":
           $ref: "#/components/responses/Error"
         "5XX":
@@ -236,10 +253,8 @@ components:
           type: string
         geometry:
           $ref: "https://geojson.org/schema/Geometry.json"
-        constraints:
-          $ref: "#/components/schemas/jsonschemas"
-        parameters:
-          $ref: "#/components/schemas/jsonschemas"
+        filters:
+          $ref: "#/components/schemas/cql2"
     license:
       type: string
       description: |-
@@ -354,10 +369,6 @@ components:
           $ref: "#/components/schemas/providers"
         links:
           $ref: "#/components/schemas/links"
-        constraints:
-          $ref: "#/components/schemas/jsonschemas"
-        parameters:
-          $ref: "#/components/schemas/jsonschemas"
     links:
       type: array
       items:
@@ -409,12 +420,11 @@ components:
               NOTE: To support form encoding it is expected that a client be able
               to merge in the key value pairs specified as JSON
               `{"next": "token"}` will become `&next=token`.
-    jsonschemas:
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/jsonschema'
     jsonschema:
         title: JSON Schema
+        type: object
+    cql2:
+        title: CQL2 JSON
         type: object
     conformanceClasses:
       type: object

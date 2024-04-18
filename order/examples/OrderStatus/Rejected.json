@@ -1,0 +1,7 @@
+{
+    "timestamp": "2007-03-01T13:00:00Z",
+    "status_code": "rejected",
+    "reason_code": "invalid_geometry",
+    "reason_text": "The AOI size is 1500 sq km, exceeding the maximum size of 10 sq km",
+    "links": []
+}
