@@ -11,6 +11,7 @@
         ]
       },
       "properties": {
+        "product_id": "umbra_spotlight",
         "datetime": "2024-04-22T06:21:00Z/2024-04-20T06:22:21Z",
         "grazingAngleDegrees": [
           58,
@@ -22,7 +23,7 @@
       },
       "links": [
         {
-          "rel": "order",
+          "rel": "create-order",
           "method": "POST",
           "href": "https://example.com/orders",
           "body": {
@@ -50,6 +51,7 @@
         ]
       },
       "properties": {
+        "product_id": "umbra_spotlight",
         "datetime": "2024-04-20T01:21:00Z/2024-04-20T01:22:21Z",
         "grazingAngleDegrees": [
           58,
@@ -61,7 +63,7 @@
       },
       "links": [
         {
-          "rel": "order",
+          "rel": "create-order",
           "method": "POST",
           "href": "https://example.com/orders",
           "body": {

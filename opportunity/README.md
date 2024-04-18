@@ -25,7 +25,7 @@ This is a GeoJSON FeatureCollection.
 | ------------- | ------------------------- | ----------- |
 | type          | string                    | **REQUIRED.** Always `FeatureCollection`. |
 | features      | \[Opportunity Object\]    | **REQUIRED.** A list of opportunities. |
-| links         | Map\<object, Link Object> | **REQUIRED.** Links for e.g. pagination. It is **strongly recommended** to include a `rel=order` link to allow the user to resubmit this Opportunities request as an Order if they do not wish to choose a specific Opportunity. |
+| links         | Map\<object, Link Object> | **REQUIRED.** Links for e.g. pagination. It is **strongly recommended** to include a `rel=create-order` link to allow the user to resubmit this Opportunities request as an Order if they do not wish to choose a specific Opportunity. |
 
 ### Opportunity Object
 
@@ -38,7 +38,7 @@ This object describes a STAT Opportunity. The input fields will be contained `pr
 | geometry   | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) \| [null](https://tools.ietf.org/html/rfc7946#section-3.2) | **REQUIRED.** Defines the full footprint of the asset represented by this item, formatted according to [RFC 7946, section 3.1](https://tools.ietf.org/html/rfc7946#section-3.1). The footprint should be the default GeoJSON geometry, though additional geometries can be included. Coordinates are specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS 84](http://www.opengis.net/def/crs/OGC/1.3/CRS84). |
 | bbox       | \[number]                                                                  | **REQUIRED if `geometry` is not `null`.** Bounding Box of the asset represented by this Item, formatted according to [RFC 7946, section 5](https://tools.ietf.org/html/rfc7946#section-5). |
 | properties | [Properties Object](#properties-object)                                    | **REQUIRED.** A dictionary of additional metadata for the Item. |
-| links      | \[[Link Object](#link-object)]                                             | List of link objects to resources and related URLs. It is **strongly recommended** to include a `rel=order` link that allows the user to Order this opportunity. |
+| links      | \[[Link Object](#link-object)]                                             | List of link objects to resources and related URLs. It is **strongly recommended** to include a `rel=create-order` link that allows the user to Order this opportunity. |
 
 #### bbox
 
