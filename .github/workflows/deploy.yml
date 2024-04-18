@@ -1,0 +1,24 @@
+name: Publish API docs
+on:
+  push:
+    branches:
+      - master
+jobs:
+  test_job:
+    runs-on: ubuntu-latest
+    name: Publish
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: create docs
+        run: |
+          npm install
+          npm run api-docs
+      - name: deploy to latest
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: tmp
+          destination_dir: dev
+          user_name: 'STAPI CI'
+          user_email: ci@stapi.example

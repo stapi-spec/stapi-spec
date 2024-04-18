@@ -1,21 +1,33 @@
-# About
+# Sensor Tasking API (STAPI)
 
+## Table of Contents
+- [Sensor Tasking API (STAPI)](#sensor-tasking-api-stapi)
+  - [Table of Contents](#table-of-contents)
+  - [About](#about)
+  - [Introduction](#introduction)
+  - [STAPI Description](#stapi-description)
+    - [Core](#core)
+      - [Landing Page](#landing-page)
+        - [Relation Types](#relation-types)
+    - [Opportunities](#opportunities)
+  - [Endpoints](#endpoints)
+  - [Conformance Classes](#conformance-classes)
+    - [Conformance Class Table](#conformance-class-table)
+  - [Example workflows](#example-workflows)
+
+## About
 The Sensor Tasking API (STAPI) defines a JSON-based web API to query for potential future data
 and place orders ("tasking") for potential future data from remote sensing data providers (satellite or airborne).
 
-STAPI takes much of the work done by the STAC community and applies the lessons learned to this specification. 
-The major departure from STAC is the requirement for uncertainty in many of the STAPI properties.For example, 
-a user requesting a data capture can provide a range of dates when they would like to capture. Conversely, 
-a data provider cannot be certain of cloud cover in the future and must return a range of cloud cover 
-probabilities to a user.
+STAPI takes much of the work done by the STAC community and applies the lessons learned to this specification. The major departure from STAC is the requirement for uncertainty in many of the STAPI properties. For example, a user requesting a data capture can provide a range of dates when they would like to capture. Conversely, a data provider cannot be certain of cloud cover in the future and must return a range of cloud cover probabilities to a user.
 
-The STAPI specifications define several new entities: **Products**, **Opportunities**, and **Orders**. These are  
-derived from the [SpatioTemporal Asset Catalog](https://github.com/radiantearth/stac-spec) (STAC) specification. 
-Ideally, STAPI requests to providers will be ultimately fulfilled via delivery of a STAC Item, so STAPI aims to 
-align with STAC core and extensions.
+The STAPI specifications define several new entities: **Products**, **Opportunities**, and **Orders**. These are derived from the [SpatioTemporal Asset Catalog](https://github.com/radiantearth/stac-spec) (STAC) specification. 
 
-The core STAPI specification provides a structure and language to describe **Products**, **Opportunities**, 
-and **Orders**. The process of interacting with a data provider is done through a REST API.
+Ideally, STAPI requests to providers will be ultimately fulfilled via delivery of a STAC Item, so STAPI aims to align with STAC core and extensions.
+
+The core STAPI specification provides a structure and language to describe **Products**, **Opportunities**, and **Orders**. The process of interacting with a data provider is done through a REST API.
+
+## Introduction
 
 ## STAPI Description
 
@@ -25,8 +37,8 @@ and **Orders**. The process of interacting with a data provider is done through 
 
 The core of STAPI includes the `/products` endpoint and the `/orders` endpoint.
 
-To know which constraints are available for which *product_id*, users first explore [/products](./product).
-These constraints can be used to form a POST to the [/orders](./order) endpoint.
+To know which parameters are available for which *product_id*, users first explore [/products](./product).
+These parameters can be used to form a POST to the [/orders](./order) endpoint.
 
 #### Landing Page
 
@@ -86,8 +98,8 @@ column is more of an example in some cases.
 | `GET /products/{productId}/parameters` | Core          | -                                                            | JSON Schema                                                  |                                                              |
 | `GET /orders`                          | Core          | -                                                            | [Orders Collection](./order/README.md#order-collection)      |                                                              |
 | `GET /orderds/{orderId}`               | Core          | -                                                            | [Order Object](./order/README.md#order-pobject)              |                                                              |
-| `POST /orders`                         | Core          | [Order Request](./order/README.md#order-request) or any object | - | Order a capture with a particular set of constraints as defined in the products or a request that was provided through the opportunities endpoint. |
-| `POST /opportunities`                  | Opportunities | [Opportunity Request](./opportunity/README.md#opportunity-request) | [Opportunities Collection](./opportunity/README.md#opportunities-collection) | Explore the opportunities available for a particular set of constraints |
+| `POST /orders`                         | Core          | [Order Request](./order/README.md#order-request) or any object | - | Order a capture with a particular set of [parameters](https://github.com/Element84/stat-api-spec/blob/main/product/README.md#parameters) as defined in the products or a request that was provided through the opportunities endpoint. |
+| `POST /opportunities`                  | Opportunities | [Opportunity Request](./opportunity/README.md#opportunity-request) | [Opportunities Collection](./opportunity/README.md#opportunities-collection) | Explore the opportunities available for a particular set of [parameters](https://github.com/Element84/stat-api-spec/blob/main/product/README.md#parameters) |
 
 ## Conformance Classes
 
@@ -112,3 +124,60 @@ requires they also live at the `/conformance` endpoint. STAT's conformance struc
 | STAPI - Core | Core | https://geojson.org/schema/MultiLineString.json | Allows submitting orders with GeoJSON multi linestring |
 
 See [the STAPI Demo](https://github.com/Element84/stat-api-demo)
+
+## Example workflows
+
+A user with broad requirements browses available products and orders based on available opportunities.
+
+```mermaid
+sequenceDiagram
+    USER->>PROVIDER: GET /products
+    activate PROVIDER
+    PROVIDER-->>USER: Response: Products Collection
+    deactivate PROVIDER
+
+    USER->>PROVIDER: POST /opportunities
+    activate PROVIDER
+    PROVIDER-->>USER: Response: Opportunities Collection
+    deactivate PROVIDER
+
+    USER->>PROVIDER: POST /orders
+    activate PROVIDER
+    PROVIDER-->>USER: Response: Order Object
+    deactivate PROVIDER
+```
+
+A user with a specific product in mind views available opportunities and places and order.
+
+```mermaid
+sequenceDiagram
+    USER->>PROVIDER: GET /products/{productId}
+    activate PROVIDER
+    PROVIDER-->>USER: Response: Product Object
+    deactivate PROVIDER
+
+    USER->>PROVIDER: POST /opportunities
+    activate PROVIDER
+    PROVIDER-->>USER: Response: Opportunities Collection
+    deactivate PROVIDER
+
+    USER->>PROVIDER: POST /orders
+    activate PROVIDER
+    PROVIDER-->>USER: Response: Order Object
+    deactivate PROVIDER
+```
+
+A user with a specific product and without a specific need in mind views available products and places an order.
+
+```mermaid
+sequenceDiagram
+    USER->>PROVIDER: GET /products/{productId}
+    activate PROVIDER
+    PROVIDER-->>USER: Response: Product Object
+    deactivate PROVIDER
+
+    USER->>PROVIDER: POST /orders
+    activate PROVIDER
+    PROVIDER-->>USER: Response: Order Object
+    deactivate PROVIDER
+```

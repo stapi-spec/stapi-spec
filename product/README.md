@@ -1,5 +1,5 @@
 
-# Overview
+# STAPI Product Spec
 This document explains the structure of a STAPI Product.
 
 STAPI Product objects are represented in JSON format and are very flexible. Any JSON object that contains all the required fields is a valid STAPI Product. A Product object contains a minimal set of required properties to be valid and can be extended through the use of constraints and parameters.
@@ -8,12 +8,11 @@ STAPI Product objects are represented in JSON format and are very flexible. Any 
 
 | Element       | Type    | Description |
 | ---- | --- | --- |
-| products | [[Product](#product-spec)] | List of `Product` offered in the application. |
-| links | [[Link Object](#link-object)] | Links to the other refereces |
+| products | [[Product](#product-spec)] | **REQUIRED** List of `Product` offered in the application. |
+| links | [[Link Object](#link-object)] | **REQUIRED** Links for e.g. pagination. |
 
 
-## Product Spec
-
+## Product Object 
 | Element         | Type                                             | Description                                                  |
 | --------------- | ------------------------------------------------ | ------------------------------------------------------------ |
 | type            | string                                           | **REQUIRED.** Must be set to `Product` to be a valid Product. |
@@ -81,7 +80,8 @@ For an introduction to JSON Schema, see
 
 #### Parameters Best Practices
 
-There are many Tasking constraints that cannot be represented by JSON Schema. For these constraints, strongly consider documenting the constraint in the `"description"` property of the relevant constraint or use the `"links"` attribute to link the user out to documentation that describes additional constraints.
+There are many Tasking parameters that cannot be represented by JSON Schema. For these parameters, strongly consider documenting the constraint in the `"description"` property of the relevant constraint or use the `"links"` attribute to link the user out to documentation that describes additional parameters.
 
 TODO: Example
 TODO: Documented link type for client libraries to be able to find and surface to users
+

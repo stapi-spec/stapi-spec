@@ -37,7 +37,9 @@
           "SKYSAT"
         ],
         "exclusivity_days": 30,
-        "scheduling_type": "Assured"
+        "scheduling_type": "Assured",
+        "eo:cloud_cover": 0.1,
+        "view:off_nadir": "0.0"
       },
       "links": [
         {
@@ -117,7 +119,9 @@
           "SKYSAT"
         ],
         "exclusivity_days": 30,
-        "scheduling_type": "Assured"
+        "scheduling_type": "Assured",
+        "eo:cloud_cover": 0.5,
+        "view:off_nadir": "10.5"
       },
       "links": [
         {
