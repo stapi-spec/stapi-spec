@@ -1,20 +1,15 @@
 
-# STAT Product Spec
+# STAPI Product Spec
+This document explains the structure of a STAPI Product.
 
-This document explains the structure of a STAT Product.
+STAPI Product objects are represented in JSON format and are very flexible. Any JSON object that contains all the required fields is a valid STAPI Product. A Product object contains a minimal set of required properties to be valid and can be extended through the use of constraints and parameters.
 
-STAT Product objects are represented in JSON format and are very flexible. Any JSON object that contains all the required fields is a valid STAT Product. A Product object contains a minimal set of required properties to be valid and can be extended through the use of parameters.
+## Product Collection Spec
 
-
-## Product Collection
-
-This is a GeoJSON FeatureCollection.
-
-| Field Name    | Type                      | Description |
-| ------------- | ------------------------- | ----------- |
-| type          | string                    | **REQUIRED.** Always `FeatureCollection`. |
-| features      | \[Product Object\]    | **REQUIRED.** A list of products. |
-| links         | Map\<object, Link Object> | **REQUIRED.** Links for e.g. pagination. |
+| Element       | Type    | Description |
+| ---- | --- | --- |
+| products | [[Product Object](#product-object)] | **REQUIRED** List of `Product` offered in the application. |
+| links | [[Link Object](#link-object)] | **REQUIRED** Links for e.g. pagination. |
 
 
 ## Product Object 

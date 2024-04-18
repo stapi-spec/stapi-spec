@@ -1,8 +1,8 @@
-# STAT Opportunity Spec
+# STAPI Opportunity Spec
 
-- **Conformance URI:** <https://stat-api.example.com/v0.1.0/opportunities>
+- **Conformance URI:** <https://stapi.example.com/v0.1.0/opportunities>
 
-The STAT Opportunity describes a single business unit available for ordering.
+The STAPI Opportunity describes a single business unit available for ordering.
 
 ## Opportunity Request
 
@@ -29,7 +29,7 @@ This is a GeoJSON FeatureCollection.
 
 ### Opportunity Object
 
-This object describes a STAT Opportunity. The input fields will be contained `properties` of each Feature in the GeoJSON response.
+This object describes a STAPI Opportunity. The input fields will be contained `properties` of each Feature in the GeoJSON response.
 
 | Field Name | Type                                                                       | Description |
 | ---------- | -------------------------------------------------------------------------- | ----------- |
