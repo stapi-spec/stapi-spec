@@ -2,7 +2,7 @@ name: Publish API docs
 on:
   push:
     branches:
-      - master
+      - main
 jobs:
   test_job:
     runs-on: ubuntu-latest
