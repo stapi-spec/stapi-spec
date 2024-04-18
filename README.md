@@ -34,6 +34,8 @@ The core STAPI specification provides a structure and language to describe **Pro
 ### Core
 
 - **Conformance URI:** <https://stapi.example.com/v0.1.0/core>
+- [OpenAPI document](openapi.yaml)
+- [Rendered API documentation](https://Element84.github.io/stapi-spec/dev/)
 
 The core of STAPI includes the `/products` endpoint and the `/orders` endpoint.
 
