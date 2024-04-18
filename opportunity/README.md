@@ -61,5 +61,3 @@ resources below.
 | ---------- | ------------ | ------------------------------------------------------------ |
 | datetime       | string                                                                     | **REQUIRED.** Datetime field is a [ISO8601 Time Interval](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals) |
 | product_id | string | **REQUIRED.**  Product identifier. The ID should be unique and is a reference to the [parameters](https://github.com/Element84/stat-api-spec/blob/main/product/README.md#parameters) which can be used in the [parameters](https://github.com/Element84/stat-api-spec/blob/main/product/README.md#parameters) field. |
-| start_datetime | string\|null | **REQUIRED.** The earliest datetime for the Opportunity, which must be in UTC. It is formatted according to [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6). |
-| end_datetime   | string\|null | **REQUIRED.** The last possible datetime for the Opportunity, which must be in UTC. It is formatted according to [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6). |
