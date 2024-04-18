@@ -1,6 +1,5 @@
 # Overview
 
-This document explains the structure of a STAPI **Order Status** request. Operation returns a list/array of statuses that have affected an order.  The most recent status code is the current status of the order.
 - **Conformance URI:** <https://stapi.example.com/v0.1.0/order-status>
 
 This document explains the structure of a STAT **Order Status** request. Operation returns a list/array of statuses that have affected an order.  The most recent status code is the current status of the order.
