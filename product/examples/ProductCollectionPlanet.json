@@ -48,6 +48,10 @@
                         "enum": [0, 30],
                         "title": "Exclusivity Days",
                         "type": "number"
+                    },
+                    "imaging_window_id": {
+                        "title": "Imaging Window ID (added to filters in the opportunities response)",
+                        "type": "string"
                     }
                 },
                 "description": "Planet Assured Parameters docstring",
