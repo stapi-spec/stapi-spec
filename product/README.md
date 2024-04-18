@@ -1,11 +1,23 @@
 
-# Overview
+# STAT Product Spec
+
 This document explains the structure of a STAT Product.
 
-STAT Product objects are represented in JSON format and are very flexible. Any JSON object that contains all the required fields is a valid STAT Product. A Product object contains a minimal set of required properties to be valid and can be extended through the use of constraints and parameters.
+STAT Product objects are represented in JSON format and are very flexible. Any JSON object that contains all the required fields is a valid STAT Product. A Product object contains a minimal set of required properties to be valid and can be extended through the use of parameters.
 
-## Product Spec
 
+## Product Collection
+
+This is a GeoJSON FeatureCollection.
+
+| Field Name    | Type                      | Description |
+| ------------- | ------------------------- | ----------- |
+| type          | string                    | **REQUIRED.** Always `FeatureCollection`. |
+| features      | \[Product Object\]    | **REQUIRED.** A list of products. |
+| links         | Map\<object, Link Object> | **REQUIRED.** Links for e.g. pagination. |
+
+
+## Product Object 
 | Element         | Type                                             | Description                                                  |
 | --------------- | ------------------------------------------------ | ------------------------------------------------------------ |
 | type            | string                                           | **REQUIRED.** Must be set to `Product` to be a valid Product. |
@@ -73,7 +85,8 @@ For an introduction to JSON Schema, see
 
 #### Parameters Best Practices
 
-There are many Tasking constraints that cannot be represented by JSON Schema. For these constraints, strongly consider documenting the constraint in the `"description"` property of the relevant constraint or use the `"links"` attribute to link the user out to documentation that describes additional constraints.
+There are many Tasking parameters that cannot be represented by JSON Schema. For these parameters, strongly consider documenting the constraint in the `"description"` property of the relevant constraint or use the `"links"` attribute to link the user out to documentation that describes additional parameters.
 
 TODO: Example
 TODO: Documented link type for client libraries to be able to find and surface to users
+
