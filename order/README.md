@@ -4,11 +4,10 @@ This document explains the structure of a STAT **Order** request which is used f
 
 Ordering with loosely defined order values will give the provider more freedom to schedule. Define the values strictly to increase the chance of the preferred capture moment.
 
-## Order Request
+## POST /orders
 
-for POST /orders
+### Create Order Request
 
-### Request
 | Field Name | Type                             | Description                                                  |
 | ---------- | -------------------------------- | ------------------------------------------------------------ |
 | datetime   | string                           | **REQUIRED.** Two datetimes with a forward slash `/` separator. Datetimes must be formatted to [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6). Open ranges in time intervals at the start or end are supported using a double-dot `..` or an empty string for the start/end. Examples:<br />`2024-04-18T10:56:00+01:00/2024-04-25T10:56:00+01:00`<br />`2024-04-18T10:56:00+01:00/..`<br />`/2024-04-25T10:56:00+01:00` |
@@ -27,28 +26,38 @@ Example for JSON Reference:
 }
 ```
 
-### Response
-| Field Name | Type                                                         | Description                        |
-| ---------- | ------------------------------------------------------------ | ---------------------------------- |
-| id         | string                                                       | Unique provider generated order ID |
-| user       | string                                                       | User or organization ID ?          |
-| status     | OrderStatus                                                  | Enumerated Status of the Order     |
-| created    | datetime                                                     | When the order was created         |
-| status | [Order Status Object](#order-status) | Current Order Status object |
-| links      | \[[Link Object](https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md#link-object)\] |                                    |
+### Create Order Response
 
-## Order Collection
+See [Order Object](#order-object).
 
-for GET /orders
+## GET /orders
 
-| Field Name | Type                      | Description                              |
-| ---------- | ------------------------- | ---------------------------------------- |
-| orders     | \[Order Object\]          | **REQUIRED.** A list of orders.          |
+### Get Orders Response
+
+| Field Name | Type                      | Description |
+| ---------- | ------------------------- | ----------- |
+| orders     | \[[Order Object](#order-object)\]          | **REQUIRED.** A list of orders. |
 | links      | Map\<object, Link Object> | **REQUIRED.** Links for e.g. pagination. |
 
 If the `GET /orders/{orderId}/status` endpoint is implemented, there must be a link to the endpoint using the relation type `status`.
 
-# Order Status
+## GET /orders/\{id\}
+
+### Get Order Response
+See [Order Object](#order-object).
+
+## Order Object
+| Field Name | Type | Description |
+| ---------- | ---- | ----------- |
+| id   | string | Unique provider generated order ID |
+| user | string | User or organization ID ? |
+| created | datetime | When the order was created |
+| status | [Order Status Object](#order-status) | Current Order Status object |
+| links    | \[[Link Object](https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md#link-object)\] |  |
+
+If the `GET /orders/{orderId}/status` endpoint is implemented, there must be a link to the endpoint using the relation type `monitor`.
+
+## Order Status
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
@@ -60,9 +69,9 @@ If the `GET /orders/{orderId}/status` endpoint is implemented, there must be a l
 
 Links is intended to be the same data structure as links collection in STAC.  Links will be very provider specific.
 
-## Enumerated status codes
+### Enumerated status codes
 
-### Code status codes
+#### Code status codes
 
 * received (indicates order received by provider and it passed format validation.)
 * accepted (indicates order has been accepted)
@@ -76,7 +85,7 @@ State machine intent (currently no mandate to enforce)
 * Received -> accepted or rejected.
 * Accepted -> completed or canceled.
 
-### Optional status codes
+#### Optional status codes
 
 Providers may support these statuses.
 
@@ -85,14 +94,14 @@ Providers may support these statuses.
 * processing (indicates some sort of processing has taken place, such as data was downlinked, processed or delivered)
 * reserved (action needed by customer prior to acceptance, such as payment)
 
-### Extension status codes
+#### Extension status codes
 
 Providers may support additional statuses through extensions.  For example:
 
 * tasked (indicates tasking commands have been issued to the satellite/constellation)
 * user_cancelled (indicates that )
 
-## Enumerated reason codes
+### Enumerated reason codes
 
 Code indicating why a status was set.  These are just examples at the moment.  No consensus has been achieved as to what reasons should be core and handled in the same way by all providers, and which should be by extension.
 
@@ -100,4 +109,3 @@ Code indicating why a status was set.  These are just examples at the moment.  N
 * competition (e.g., failed tasking auction)
 * cloud_cover (imagery rejected for cloud coverage)
 * partial_delivery (indicates a file was processed and placed in catalog, used with processing)
-
