@@ -198,12 +198,13 @@ paths:
               $ref: "#/components/schemas/order_request"
       responses:
         "201":
-          description: |-
-            ...
-          content:
-            application/json:
+          description: Pointer to the newly created entity
+          headers:
+            Location:
+              description: The URL of the newly added resource (i.e. path of the resource end point)
               schema:
-                $ref: "#/components/schemas/order"
+                type: string
+                format: url
         "4XX":
           $ref: "#/components/responses/Error"
         "5XX":
