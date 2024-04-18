@@ -3,8 +3,6 @@
     "products": [
         {
             "type": "Product",
-            "stat_version": "0.0.1",
-            "stat_extensions": [],
             "id": "maxar_opt",
             "conformsTo": [
                 "https://stat-api.example.com/v0.1.0/core",
