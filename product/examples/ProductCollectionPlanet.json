@@ -148,7 +148,7 @@
                     "scheduling_type": {
                         "allOf": [
                             {
-                                "$ref": "#/parameters/scheduling_type"
+                                "$ref": "#/parameters/$defs/scheduling_type"
                             }
                         ],
                         "default": "Flexible",
