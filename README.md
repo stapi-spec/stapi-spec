@@ -53,8 +53,12 @@ Fields that can be included in the response body for `GET /`.
 | `GET /orders`                          | `orders`             |
 | `POST /orders`                         | `create-order`       |
 | `GET /orders/{orderId}`                | `order`              |
-| `GET /orders/{orderId}/status`         | `status`            |
+| `GET /orders/{orderId}/status`         | `status`             |
 | `POST /opportunities`                  | `opportunities`      |
+
+`create-order`: A link with this relation type should only be provided in the landing page
+if a user can directly go from the products to the order endpoint without 
+going through the `POST /opportunities` endpoint.
 
 ### Opportunities
 
@@ -82,7 +86,7 @@ column is more of an example in some cases.
 | `GET /products/{productId}/parameters` | Core          | -                                                            | JSON Schema                                                  |                                                              |
 | `GET /orders`                          | Core          | -                                                            | [Orders Collection](./order/README.md#order-collection)      |                                                              |
 | `GET /orderds/{orderId}`               | Core          | -                                                            | [Order Object](./order/README.md#order-pobject)              |                                                              |
-| `POST /orders`                         | Core          | [Order Request](./order/README.md#order-request)             | [Order Object](./order/README.md#order-pobject)              | Order a capture with a particular set of constraints         |
+| `POST /orders`                         | Core          | [Order Request](./order/README.md#order-request) or any object | - | Order a capture with a particular set of constraints as defined in the products or a request that was provided through the opportunities endpoint. |
 | `POST /opportunities`                  | Opportunities | [Opportunity Request](./opportunity/README.md#opportunity-request) | [Opportunities Collection](./opportunity/README.md#opportunities-collection) | Explore the opportunities available for a particular set of constraints |
 
 ## Conformance Classes

@@ -195,15 +195,35 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/order_request"
+              anyOf:
+                - title: Direct Order Request based on Products
+                  type: object
+                  required:
+                    - datetime
+                    - product_id
+                    - geometry
+                  properties:
+                    datetime:
+                      type: string
+                    product_id:
+                      type: string
+                    geometry:
+                      $ref: "https://geojson.org/schema/Geometry.json"
+                    filter:
+                      $ref: "#/components/schemas/cql2"
+                - title: Order Request based on Opportunities
+                  type: object 
+                  description: |-
+                    Any body that was provided by the links in the individual opportunities.
       responses:
         "201":
-          description: |-
-            ...
-          content:
-            application/json:
+          description: Pointer to the newly created entity
+          headers:
+            Location:
+              description: The URL of the newly added resource (i.e. path of the resource end point)
               schema:
-                $ref: "#/components/schemas/order"
+                type: string
+                format: url
         "4XX":
           $ref: "#/components/responses/Error"
         "5XX":
@@ -250,21 +270,6 @@ components:
           type: string
         links:
           $ref: "#/components/schemas/links"
-    order_request:
-      type: object
-      required:
-        - datetime
-        - product_id
-        - geometry
-      properties:
-        datetime:
-          type: string
-        product_id:
-          type: string
-        geometry:
-          $ref: "https://geojson.org/schema/Geometry.json"
-        filter:
-          $ref: "#/components/schemas/cql2"
     license:
       type: string
       description: |-

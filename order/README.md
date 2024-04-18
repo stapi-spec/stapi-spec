@@ -4,9 +4,9 @@ This document explains the structure of a STAT **Order** request which is used f
 
 Ordering with loosely defined order values will give the provider more freedom to schedule. Define the values strictly to increase the chance of the preferred capture moment.
 
-## POST /orders
+## Create Order Request
 
-### Create Order Request
+The following fields can be sent to `POST /orders`:
 
 | Field Name | Type                             | Description                                                  |
 | ---------- | -------------------------------- | ------------------------------------------------------------ |
@@ -28,7 +28,14 @@ Example for JSON Reference:
 
 ### Create Order Response
 
-See [Order Object](#order-object).
+The response is using HTTP status code 201 and provides the location of the newly created order, which points to `GET /order/{orderId}`.
+
+Example:
+
+```http
+HTTP 201 Created
+Location: https://example.com/orders/123
+```
 
 ## GET /orders
 
