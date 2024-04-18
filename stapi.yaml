@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: STAPI API - Core
+  title: STAPI - Core
   version: v0.1.0
   description: >-
     This is an OpenAPI definition of the SpatioTemporal Tasking API.

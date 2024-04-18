@@ -1,6 +1,6 @@
 # About
 
-The SpatioTemporal Asset Tasking (STAT) API defines a JSON-based web API to query for potential future data
+The Sensor Tasking API (STAPI) defines a JSON-based web API to query for potential future data
 and place orders ("tasking") for potential future data from remote sensing data providers (satellite or airborne).
 
 STAPI takes much of the work done by the STAC community and applies the lessons learned to this specification. 
@@ -17,13 +17,13 @@ align with STAC core and extensions.
 The core STAPI specification provides a structure and language to describe **Products**, **Opportunities**, 
 and **Orders**. The process of interacting with a data provider is done through a REST API.
 
-## STAPI API Description
+## STAPI Description
 
 ### Core
 
-- **Conformance URI:** <https://stat-api.example.com/v0.1.0/core>
+- **Conformance URI:** <https://stapi.example.com/v0.1.0/core>
 
-The core of STAPI API includes the `/products` endpoint and the `/orders` endpoint.
+The core of STAPI includes the `/products` endpoint and the `/orders` endpoint.
 
 To know which constraints are available for which *product_id*, users first explore [/products](./product).
 These constraints can be used to form a POST to the [/orders](./order) endpoint.
@@ -52,10 +52,10 @@ represented in a FeatureCollection, with order specific attributes and values in
 
 ## Endpoints
 
-STAPI APIs follow the modern web API practices of using HTTP Request Methods ("verbs") and
+STAPI follow the modern web API practices of using HTTP Request Methods ("verbs") and
 the `Content-Type` header to drive behavior on resources ("nouns") in the endpoints listed below.
 
-The following table describes the service resources available in a STAPI API implementation that
+The following table describes the service resources available in a STAPI implementation that
 supports all three of the foundation specifications. Note that the 'Endpoint'
 column is more of an example in some cases.
 
@@ -70,8 +70,8 @@ column is more of an example in some cases.
 
 ## Conformance Classes
 
-STAPI API utilizes OGC API Features [Conformance](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_declaration_of_conformance_classes)
-JSON structure. For STAPI API, we declare new STAPI conformance classes, with the core ones detailed in the table below.
+STAPI utilizes OGC API Features [Conformance](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_declaration_of_conformance_classes)
+JSON structure. For STAPI, we declare new STAPI conformance classes, with the core ones detailed in the table below.
 
 The core STAPI conformance classes communicate the conformance JSON only in the root (`/`) document, while OGC API
 requires they also live at the `/conformance` endpoint. STAT's conformance structure is detailed in the
@@ -81,16 +81,16 @@ requires they also live at the `/conformance` endpoint. STAT's conformance struc
 
 | **Name**               | **Specified in**                            | **Conformance URI**                                    | **Description**                                                                                                 |
 | ---------------------- | ------------------------------------------- | ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------- |
-| STAPI API - Core        | Core               | https://stat-api.example.com/v0.1.0/core | Specifies the STAPI Landing page `/`, communicating conformance and available endpoints.                         |
-| STAPI API - Opportunities | [Opportunities](opportunity/README.md)        | https://stat-api.example.com/v0.1.0/opportunities | Enables request of potential tasking opportunities |
-| STAPI API - Core | Core | https://geojson.org/schema/Point.json | Allows submitting orders with GeoJSON points |
-| STAPI API - Core | Core | https://geojson.org/schema/Linestring.json | Allows submitting orders with GeoJSON linestrings |
-| STAPI API - Core | Core | https://geojson.org/schema/Polygon.json | Allows submitting orders with GeoJSON polygons |
-| STAPI API - Core | Core | https://geojson.org/schema/MultiPoint.json | Allows submitting orders with GeoJSON multi points |
-| STAPI API - Core | Core | https://geojson.org/schema/MultiPolygon.json | Allows submitting orders with GeoJSON multi polygons |
-| STAPI API - Core | Core | https://geojson.org/schema/MultiLineString.json | Allows submitting orders with GeoJSON multi linestring |
+| STAPI - Core        | Core               | https://stapi.example.com/v0.1.0/core | Specifies the STAPI Landing page `/`, communicating conformance and available endpoints.                         |
+| STAPI - Opportunities | [Opportunities](opportunity/README.md)        | https://stapi.example.com/v0.1.0/opportunities | Enables request of potential tasking opportunities |
+| STAPI - Core | Core | https://geojson.org/schema/Point.json | Allows submitting orders with GeoJSON points |
+| STAPI - Core | Core | https://geojson.org/schema/Linestring.json | Allows submitting orders with GeoJSON linestrings |
+| STAPI - Core | Core | https://geojson.org/schema/Polygon.json | Allows submitting orders with GeoJSON polygons |
+| STAPI - Core | Core | https://geojson.org/schema/MultiPoint.json | Allows submitting orders with GeoJSON multi points |
+| STAPI - Core | Core | https://geojson.org/schema/MultiPolygon.json | Allows submitting orders with GeoJSON multi polygons |
+| STAPI - Core | Core | https://geojson.org/schema/MultiLineString.json | Allows submitting orders with GeoJSON multi linestring |
 
-See [the STAPI API Demo](https://github.com/Element84/stat-api-demo)
+See [the STAPI Demo](https://github.com/Element84/stat-api-demo)
 
 ## Landing Page
 

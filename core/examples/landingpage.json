@@ -1,7 +1,7 @@
 
 {
     "id": "example-stat-api",
-    "title": "A simple STAPI API Example",
+    "title": "A simple STAPI Example",
     "description": "This API demonstrated the landing page for a SpatioTemporal Asset Tasking API",
     "conformsTo" : [
         "https://stat-api.example.com/v0.1.0/core",
