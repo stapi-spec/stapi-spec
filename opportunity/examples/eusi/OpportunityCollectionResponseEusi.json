@@ -49,7 +49,7 @@
 				"singleSensor": false
 			},
 			"links": {
-				"rel": "order",
+				"rel": "create-order",
 				"method": "POST",
 				"type": "application/geo+json",
 				"href": "https://apps.euspaceimaging.com/tara/stat/orders",
