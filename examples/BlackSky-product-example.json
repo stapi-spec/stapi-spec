@@ -12,14 +12,16 @@
                 "Stereo"
             ],
             "license": "?",
-            "providers": {
-                "name": "BlackSky",
-                "description": "First To Know",
-                "roles": [
-                    "producer"
-                ],
-                "url": "www.blacksky.com"
-            },
+            "providers": [
+                {
+                    "name": "BlackSky",
+                    "description": "First To Know",
+                    "roles": [
+                        "producer"
+                    ],
+                    "url": "https://www.blacksky.com"
+                }
+            ],
             "conformsTo": [
                 "https://geojson.org/schema/Point.json"
             ],
@@ -238,14 +240,16 @@
                 "Daytime"
             ],
             "license": "?",
-            "providers": {
-                "name": "BlackSky",
-                "description": "First To Know",
-                "roles": [
-                    "producer"
-                ],
-                "url": "www.blacksky.com"
-            },
+            "providers": [
+                {
+                    "name": "BlackSky",
+                    "description": "First To Know",
+                    "roles": [
+                        "producer"
+                    ],
+                    "url": "https://www.blacksky.com"
+                }
+            ],
             "conformsTo": [
                 "https://geojson.org/schema/Point.json"
             ],
