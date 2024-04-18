@@ -16,7 +16,7 @@
             },
             "links": [
                 {
-                    "rel": "order",
+                    "rel": "create-order",
                     "method": "POST",
                     "href": "https://example.com/orders",
                     "body": {
@@ -28,7 +28,7 @@
     ],
     "links": [
         {
-            "rel": "order",
+            "rel": "create-order",
             "method": "POST",
             "href": "https://example.com/orders",
             "body": {
