@@ -1,11 +1,25 @@
 
-# Overview
+# STAT Product Spec
+
+- **Conformance URI:** <https://stat-api.example.com/v0.1.0/products>
+
 This document explains the structure of a STAT Product.
 
-STAT Product objects are represented in JSON format and are very flexible. Any JSON object that contains all the required fields is a valid STAT Product. A Product object contains a minimal set of required properties to be valid and can be extended through the use of constraints and parameters.
+STAT Product objects are represented in JSON format and are very flexible. Any JSON object that contains all the required fields is a valid STAT Product. A Product object contains a minimal set of required properties to be valid and can be extended through the use of parameters.
 
-## Product Spec
 
+## Product Collection
+
+This is a GeoJSON FeatureCollection.
+
+| Field Name    | Type                      | Description |
+| ------------- | ------------------------- | ----------- |
+| type          | string                    | **REQUIRED.** Always `FeatureCollection`. |
+| features      | \[Product Object\]    | **REQUIRED.** A list of products. |
+| links         | Map\<object, Link Object> | **REQUIRED.** Links for e.g. pagination. |
+
+
+## Product Object 
 | Element         | Type                                             | Description                                                  |
 | --------------- | ------------------------------------------------ | ------------------------------------------------------------ |
 | type            | string                                           | **REQUIRED.** Must be set to `Product` to be a valid Product. |
@@ -18,8 +32,6 @@ STAT Product objects are represented in JSON format and are very flexible. Any J
 | providers       | \[[Provider Object](#provider-object)]           | A list of providers, which may include all organizations capturing or processing the data or the hosting provider. Providers should be listed in chronological order with the most recent provider being the last element of the list. |                |
 | links           | \[[Link Object](#link-object)]                   | **REQUIRED.** A list of references to other documents.       |
 
-Additional properties are allowed to be placed in the top-level object, comparable to how STAC Collections work. 
-STAC Collection fields can be reused, including fields defined in STAC Collection extensions.
 
 ### Provider Object
 
@@ -71,9 +83,3 @@ It is recommended to use [JSON Schema draft-07](https://json-schema.org/specific
 For an introduction to JSON Schema, see
 [Learn JSON Schema](https://json-schema.org/learn/getting-started-step-by-step).
 
-#### Parameters Best Practices
-
-There are many Tasking constraints that cannot be represented by JSON Schema. For these constraints, strongly consider documenting the constraint in the `"description"` property of the relevant constraint or use the `"links"` attribute to link the user out to documentation that describes additional constraints.
-
-TODO: Example
-TODO: Documented link type for client libraries to be able to find and surface to users

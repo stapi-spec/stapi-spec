@@ -11,9 +11,9 @@ Ordering with loosely defined order values will give the provider more freedom t
 | Field Name | Type                             | Description                                                  |
 | ---------- | -------------------------------- | ------------------------------------------------------------ |
 | datetime   | string                           | **REQUIRED.** Two datetimes with a forward slash `/` separator. Datetimes must be formatted to [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6). Open ranges in time intervals at the start or end are supported using a double-dot `..` or an empty string for the start/end. Examples:<br />`2024-04-18T10:56:00+01:00/2024-04-25T10:56:00+01:00`<br />`2024-04-18T10:56:00+01:00/..`<br />`/2024-04-25T10:56:00+01:00` |
-| product_id | string                           | **REQUIRED.** Product identifier. The ID should be unique and is a reference to the constraints which can be used in the constraints field. |
+| product_id | string                           | **REQUIRED.** Product identifier. The ID should be unique and is a reference to the [parameters](https://github.com/Element84/stat-api-spec/blob/main/product/README.md#parameters) which can be used in the [parameters](https://github.com/Element84/stat-api-spec/blob/main/product/README.md#parameters) field. |
 | geometry   | GeoJSON Object \| JSON Reference | **REQUIRED.** Provide a Geometry that the tasked data must be within. |
-| filter     | CQL2 JSON                        | A set of additional constraints in [CQL2 JSON](https://docs.ogc.org/DRAFTS/21-065.html) based on the constraints exposed in the product. |
+| filter     | CQL2 JSON                        | A set of additional [parameters](https://github.com/Element84/stat-api-spec/blob/main/product/README.md#parameters) in [CQL2 JSON](https://docs.ogc.org/DRAFTS/21-065.html) based on the [parameters](https://github.com/Element84/stat-api-spec/blob/main/product/README.md#parameters) exposed in the product. |
 
 #### geometry
 
@@ -39,8 +39,6 @@ See [Order Object](#order-object).
 | orders     | \[[Order Object](#order-object)\]          | **REQUIRED.** A list of orders. |
 | links      | Map\<object, Link Object> | **REQUIRED.** Links for e.g. pagination. |
 
-If the `GET /orders/{orderId}/status` endpoint is implemented, there must be a link to the endpoint using the relation type `status`.
-
 ## GET /orders/\{id\}
 
 ### Get Order Response
@@ -61,13 +59,13 @@ If the `GET /orders/{orderId}/status` endpoint is implemented, there must be a l
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
-| timestamp  | datetime | **REQUIRED.** ISO 8601 timestamp for the order status |
-| status_code | string | **REQUIRED.** Enumerated status code |
-| reason_code | string | Enumerated reason code for why the status was set |
-| reason_text | string | Textual description for why the status was set |
-| links | \[Link Object\] | **REQUIRED.** list of references to documents, such as delivered asset, processing log, delivery manifest, etc. |
+| timestamp  | datetime | ISO 8601 timestamp for the order status (required) |
+| status_code | string | Enumerated status code (required) |
+| reason_code | string | Enumerated reason code for why the status was set (optional) |
+| reason_text | string | Textual description for why the status was set (optional) |
+| links | [Link] | list of references to documents, such as delivered asset, processing log, delivery manifest, etc. (required, may be empty) |
 
-Links is intended to be the same data structure as links collection in STAC. Links will be very provider specific.
+Links is intended to be the same data structure as links collection in STAC.  Links will be very provider specific.
 
 ### Enumerated status codes
 
@@ -96,10 +94,10 @@ Providers may support these statuses.
 
 #### Extension status codes
 
-Providers may support additional statuses through extensions. For example:
+Providers may support additional statuses through extensions.  For example:
 
 * tasked (indicates tasking commands have been issued to the satellite/constellation)
-* user_cancelled (indicates that the user cancelled the request)
+* user_cancelled (indicates that )
 
 ### Enumerated reason codes
 
