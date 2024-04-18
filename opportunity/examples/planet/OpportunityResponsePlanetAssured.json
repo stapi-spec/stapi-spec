@@ -1,0 +1,127 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.403258555886767,
+          52.473696635108176
+        ]
+      },
+      "properties": {
+        "product_id": "PL-123546:Flexible Tasking",
+        "datetime": "2024-04-19T12:00:00Z/2024-04-19T12:05:00Z",
+        "satelliteTypes": [
+          "SKYSAT"
+        ],
+        "exclusivity_days": 30,
+        "scheduling_type": "Assured"
+      },
+      "links": [
+        {
+          "rel": "order",
+          "method": "POST",
+          "href": "https://example.com/orders",
+          "body": {
+            "product_id": "PL-123546:Assured Tasking",
+            "datetime": "2024-04-19T12:00:00Z/2024-04-19T12:05:00Z",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                13.403258555886767,
+                52.473696635108176
+              ]
+            },
+            "filter": {
+              "op": "and",
+              "args": [
+                {
+                  "op": "=",
+                  "args": [
+                    {
+                      "property": "imaging_window_id"
+                    },
+                    "imaging-window-id-representing-12:00-window"
+                  ]
+                },
+                {
+                  "op": "=",
+                  "args": [
+                    {
+                      "property": "exclusivity_days"
+                    },
+                    30
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.403258555886767,
+          52.473696635108176
+        ]
+      },
+      "properties": {
+        "product_id": "PL-123546:Flexible Tasking",
+        "datetime": "2024-04-19T12:14:00Z/2024-04-19T14:05:00Z",
+        "satelliteTypes": [
+          "SKYSAT"
+        ],
+        "exclusivity_days": 30,
+        "scheduling_type": "Assured"
+      },
+      "links": [
+        {
+          "rel": "order",
+          "method": "POST",
+          "href": "https://example.com/orders",
+          "body": {
+            "product_id": "PL-123546:Assured Tasking",
+            "datetime": "2024-04-19T14:00:00Z/2024-04-19T14:05:00Z",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                13.403258555886767,
+                52.473696635108176
+              ]
+            },
+            "filter": {
+              "op": "and",
+              "args": [
+                {
+                  "op": "=",
+                  "args": [
+                    {
+                      "property": "imaging_window_id"
+                    },
+                    "imaging-window-id-representing-14:00-window"
+                  ]
+                },
+                {
+                  "op": "=",
+                  "args": [
+                    {
+                      "property": "exclusivity_days"
+                    },
+                    30
+                  ]
+                }
+              ]
+            }
+          }
+          }
+        }
+      ]
+    }
+  ],
+  "links": []
+}
