@@ -1,0 +1,34 @@
+{
+  "product_id": "umbra_spotlight",
+  "datetime": "2024-04-19T00:00:00Z/2024-04-23T00:00:00Z",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [
+      13.403258555886767,
+      52.473696635108176
+    ]
+  },
+  "filter": {
+    "op": "and",
+    "args": [
+      {
+        "op": ">=",
+        "args": [
+          {
+            "property": "grazingAngleDegrees"
+          },
+          45
+        ]
+      },
+      {
+        "op": "<=",
+        "args": [
+          {
+            "property": "grazingAngleDegrees"
+          },
+          70
+        ]
+      }
+    ]
+  }
+}

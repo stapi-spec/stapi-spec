@@ -1,0 +1,21 @@
+{
+    "timestamp": "2007-03-01T13:00:00Z",
+    "status_code": "completed",
+    "links": [
+        {
+            "rel": "invoice",
+            "type": "application/pdf",
+            "href": "https://provider.com/orders/1234/invoice"
+        },
+        {
+            "rel": "stac",
+            "type": "application/json",
+            "href": "https://provider.com/stac/query?order-id=THE_ORDER_ID"
+        },
+        {
+            "rel": "footprint",
+            "type": "application/json",
+            "href": "https://provider.com/order_id/collected-footprint"
+        }
+    ]
+}

@@ -10,7 +10,7 @@ Ordering with loosely defined order values will give the provider more freedom t
 
 | Field Name | Type                             | Description                                                  |
 | ---------- | -------------------------------- | ------------------------------------------------------------ |
-| datetime   | string                           | **REQUIRED.** Datetime field is a [ISO8601 Time Interval](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals) |
+| datetime   | string                           | **REQUIRED.** Two datetimes with a forward slash `/` separator. Datetimes must be formatted to [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6). Open ranges in time intervals at the start or end are supported using a double-dot `..` or an empty string for the start/end. Examples:<br />`2024-04-18T10:56:00+01:00/2024-04-25T10:56:00+01:00`<br />`2024-04-18T10:56:00+01:00/..`<br />`/2024-04-25T10:56:00+01:00` |
 | product_id | string                           | **REQUIRED.** Product identifier. The ID should be unique and is a reference to the constraints which can be used in the constraints field. |
 | geometry   | GeoJSON Object \| JSON Reference | **REQUIRED.** Provide a Geometry that the tasked data must be within. |
 | filter     | CQL2 JSON                        | A set of additional constraints in [CQL2 JSON](https://docs.ogc.org/DRAFTS/21-065.html) based on the constraints exposed in the product. |
@@ -27,11 +27,13 @@ Example for JSON Reference:
 ```
 
 ### Create Order Response
+
 See [Order Object](#order-object).
 
 ## GET /orders
 
 ### Get Orders Response
+
 | Field Name | Type                      | Description |
 | ---------- | ------------------------- | ----------- |
 | orders     | \[[Order Object](#order-object)\]          | **REQUIRED.** A list of orders. |
@@ -47,6 +49,61 @@ See [Order Object](#order-object).
 | ---------- | ---- | ----------- |
 | id   | string | Unique provider generated order ID |
 | user | string | User or organization ID ? |
-| status | OrderStatus | Enumerated Status of the Order |
 | created | datetime | When the order was created |
+| status | [Order Status Object](#order-status) | Current Order Status object |
 | links    | \[[Link Object](https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md#link-object)\] |  |
+
+If the `GET /orders/{orderId}/status` endpoint is implemented, there must be a link to the endpoint using the relation type `monitor`.
+
+## Order Status
+
+| Field Name | Type | Description |
+| ---------- | ---- | ----------- |
+| timestamp  | datetime | ISO 8601 timestamp for the order status (required) |
+| status_code | string | Enumerated status code (required) |
+| reason_code | string | Enumerated reason code for why the status was set (optional) |
+| reason_text | string | Textual description for why the status was set (optional) |
+| links | [Link] | list of references to documents, such as delivered asset, processing log, delivery manifest, etc. (required, may be empty) |
+
+Links is intended to be the same data structure as links collection in STAC.  Links will be very provider specific.
+
+### Enumerated status codes
+
+#### Code status codes
+
+* received (indicates order received by provider and it passed format validation.)
+* accepted (indicates order has been accepted)
+* rejected (indicates order will not be fulfilled)
+* completed (indicates provider was able to successfully collect imagery)
+* canceled (indicates provider was unable to collect imagery)
+
+Providers must support these statuses.
+
+State machine intent (currently no mandate to enforce)
+* Received -> accepted or rejected.
+* Accepted -> completed or canceled.
+
+#### Optional status codes
+
+Providers may support these statuses.
+
+* scheduled (indicates order has been scheduled, no longer subject to customer cancellation)
+* held (order held for manual review)
+* processing (indicates some sort of processing has taken place, such as data was downlinked, processed or delivered)
+* reserved (action needed by customer prior to acceptance, such as payment)
+
+#### Extension status codes
+
+Providers may support additional statuses through extensions.  For example:
+
+* tasked (indicates tasking commands have been issued to the satellite/constellation)
+* user_cancelled (indicates that )
+
+### Enumerated reason codes
+
+Code indicating why a status was set.  These are just examples at the moment.  No consensus has been achieved as to what reasons should be core and handled in the same way by all providers, and which should be by extension.
+
+* invalid_geometry (invalid should be renamed, means that a valid geometry failed business rules)
+* competition (e.g., failed tasking auction)
+* cloud_cover (imagery rejected for cloud coverage)
+* partial_delivery (indicates a file was processed and placed in catalog, used with processing)
