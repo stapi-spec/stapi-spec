@@ -6,8 +6,8 @@
     "links": [
         {
             "rel": "cloud",
-            "type": "application/JSON",
-            "href": "https://provider.com/order-id/cloud.json"
+            "type": "application/json",
+            "href": "https://provider.com/orders/1234/cloud.json"
         }
     ]
 }

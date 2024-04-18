@@ -2,9 +2,9 @@
 
 This document explains the structure of a STAT **Order Status** request. Operation returns a list/array of statuses that have affected an order.  The most recent status code is the current status of the order.
 
-The `GET /order/{orderId}` endpoint must add a link to this endpoint using the relation type `monitor`.
+The `GET /orders/{orderId}` endpoint must add a link to this endpoint using the relation type `monitor`.
 
-Endpoint: GET /order/{id}/status
+Endpoint: `GET /orders/{id}/status`
 
 ## Order Status Request
 
