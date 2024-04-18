@@ -17,3 +17,4 @@ Response has two fields:
 | current | OrderStatus | The current/official status object |
 | history | [OrderStatus] | History of statuses |
 
+The [Order Status](../order/README.md#order-status) object is described in the order README.
