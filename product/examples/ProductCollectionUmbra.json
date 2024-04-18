@@ -3,7 +3,7 @@
     {
       "type": "Product",
       "conformsTo": [
-        "https://api.statspec.org/geojson#point"
+        "https://geojson.org/schema/Point.json"
       ],
       "id": "umbra_spotlight",
       "title": "Umbra Spotlight",
@@ -13,20 +13,20 @@
         "Spotlight"
       ],
       "license": "CC-BY-4.0",
-      "providers": {
+      "providers": [{
         "name": "Umbra",
         "description": "Global Omniscience",
         "roles": [
           "producer"
         ],
         "url": "https://umbra.space"
-      },
-      "links": {
+      }],
+      "links": [{
         "href": "https://docs.canopy.umbra.space",
         "rel": "documentation",
         "type": "docs",
         "title": "Canopy Documentation"
-      },
+      }],
       "parameters": {
         "$defs": {
           "ProductType": {
@@ -51,7 +51,7 @@
           "sceneSize": {
             "allOf": [
               {
-                "$ref": "#/$defs/SceneSize"
+                "$ref": "#/parameters/$defs/SceneSize"
               }
             ],
             "default": "5x5_KM",
@@ -93,7 +93,7 @@
             ],
             "description": "",
             "items": {
-              "$ref": "#/$defs/ProductType"
+              "$ref": "#/parameters/$defs/ProductType"
             },
             "title": "Producttypes",
             "type": "array"
@@ -109,8 +109,8 @@
     {
       "type": "Product",
       "conformsTo": [
-        "https://api.statspec.org/geojson#polygon",
-        "https://api.statspec.org/geojson#multipolygon"
+        "https://geojson.org/schema/Polygon.json",
+        "https://geojson.org/schema/MultiPolygon.json"
       ],
       "id": "umbra_archive_catalog",
       "title": "Umbra Archive Catalog",
@@ -120,20 +120,20 @@
         "Archive"
       ],
       "license": "CC-BY-4.0",
-      "providers": {
+      "providers": [{
         "name": "Umbra",
         "description": "Global Omniscience",
         "roles": [
           "producer"
         ],
         "url": "https://umbra.space"
-      },
-      "links": {
+      }],
+      "links": [{
         "href": "https://docs.canopy.umbra.space/",
         "rel": "documentation",
         "type": "docs",
         "title": "Canopy Documentation"
-      },
+      }],
       "parameters": {
         "description": "Umbra Archive Catalog Parameters docstring yay!",
         "properties": {
