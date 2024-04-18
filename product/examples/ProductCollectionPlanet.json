@@ -15,7 +15,7 @@
                 "color",
                 "assured"
             ],
-            "satellite_types": ["SkySat", "An example for an arbitrary additional property, see https://github.com/Element84/stat-api-spec/pull/184"],
+            "satellite_types": ["SkySat", "An example for an arbitrary additional property, see https://github.com/Element84/stapi-spec/pull/184"],
             "license": "Planet",
             "providers": [{
                 "name": "Planet",
