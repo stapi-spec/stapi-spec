@@ -39,6 +39,8 @@ See [Order Object](#order-object).
 | orders     | \[[Order Object](#order-object)\]          | **REQUIRED.** A list of orders. |
 | links      | Map\<object, Link Object> | **REQUIRED.** Links for e.g. pagination. |
 
+If the `GET /orders/{orderId}/status` endpoint is implemented, there must be a link to the endpoint using the relation type `status`.
+
 ## GET /orders/\{id\}
 
 ### Get Order Response
