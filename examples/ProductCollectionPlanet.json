@@ -86,12 +86,12 @@
         {
             "type": "Product",
             "conformsTo": [
-                "https://api.statspec.org/geojson#point",
-                "https://api.statspec.org/geojson#linestring",
-                "https://api.statspec.org/geojson#polygon",
-                "https://api.statspec.org/geojson#multipoint",
-                "https://api.statspec.org/geojson#multilinestring",
-                "https://api.statspec.org/geojson#multipolygon"
+                "https://geojson.org/schema/Point.json",
+                "https://geojson.org/schema/LineString.json",
+                "https://geojson.org/schema/Polygon.json",
+                "https://geojson.org/schema/MultiPoint.json",
+                "https://geojson.org/schema/MultiPolygon.json",
+                "https://geojson.org/schema/MultiLineString.json"
             ],
             "id": "PL-123456:Flexible Tasking",
             "title": "SkySat Flexible Tasking",
