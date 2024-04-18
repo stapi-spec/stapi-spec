@@ -4,7 +4,7 @@ This document explains the structure of a STAT **Order** request which is used f
 
 Ordering with loosely defined order values will give the provider more freedom to schedule. Define the values strictly to increase the chance of the preferred capture moment.
 
-## POST /order
+## POST /orders
 
 ### Create Order Request
 
@@ -39,7 +39,7 @@ See [Order Object](#order-object).
 | orders     | \[[Order Object](#order-object)\]          | **REQUIRED.** A list of orders. |
 | links      | Map\<object, Link Object> | **REQUIRED.** Links for e.g. pagination. |
 
-## GET /order/\{id\}
+## GET /orders/\{id\}
 
 ### Get Order Response
 See [Order Object](#order-object).
