@@ -55,7 +55,7 @@
                     "scheduling_type": {
                         "allOf": [
                             {
-                                "$ref": "#/$defs/scheduling_type"
+                                "$ref": "#/parameters/$defs/scheduling_type"
                             }
                         ],
                         "default": "Assured",
@@ -64,7 +64,7 @@
                     "satellite_types": {
                         "items": [
                             {
-                                "$ref": "#/$defs/satellite_types"
+                                "$ref": "#/parameters/$defs/satellite_types"
                             }
                         ],
                         "default": ["SkySat"],
@@ -74,7 +74,7 @@
                     "exclusivity_days": {
                         "allOf": [
                             {
-                                "$ref": "#/$defs/exclusivity_days"
+                                "$ref": "#/parameters/$defs/exclusivity_days"
                             }
                         ],
                         "default": 0,
@@ -148,7 +148,7 @@
                     "scheduling_type": {
                         "allOf": [
                             {
-                                "$ref": "#/$defs/scheduling_type"
+                                "$ref": "#/parameters/scheduling_type"
                             }
                         ],
                         "default": "Flexible",
@@ -157,7 +157,7 @@
                     "satellite_types": {
                         "items": [
                             {
-                                "$ref": "#/$defs/satellite_types"
+                                "$ref": "#/parameters/$defs/satellite_types"
                             }
                         ],
                         "default": [
@@ -169,7 +169,7 @@
                     "exclusivity_days": {
                         "allOf": [
                             {
-                                "$ref": "#/$defs/exclusivity_days"
+                                "$ref": "#/parameters/$defs/exclusivity_days"
                             }
                         ],
                         "default": 0,
