@@ -2,26 +2,27 @@
     "products": [
         {
             "type": "Product",
-            "stat_version": "stat_version",
-            "stat_extensions": [],
+            "conformsTo": [
+                "https://geojson.org/schema/Point.json"
+            ],
             "id": "satvu:assured_priority_tasking",
             "title": "Assured Priority Tasking",
             "description": "Assured priority tasking enables you to select a specific pass of the satellite over your target area of interest. In addition, this product has a higher priority level in the satellite management system, increasing the chance of successful data acquisition.",
             "keywords": ["Thermal", "MWIR"],
             "license": "license",
-            "providers": {
-                "name": "SatVu",
-                "description": "High-resolution thermal data provider.",
-                "roles": ["producer"],
-                "url": "https://www.satellitevu.com/"
-            },
+            "providers": [{
+                            "name": "SatVu",
+                            "description": "High-resolution thermal data provider.",
+                            "roles": ["producer"],
+                            "url": "https://www.satellitevu.com/"
+                        }],
             "links": [{
                 "href": "https://example.com/",
                 "rel": "latest-version",
                 "type": "media type",
                 "title": "title"
             }],
-            "constraints": {
+            "parameters": {
                 "datetime": {
                     "description": "The closed date-time interval of the tasking order request.",
                     "type": "string"
@@ -38,16 +39,6 @@
                 "required": [
                     "datetime",
                     "product"
-                ]
-            },
-            "parameters": {
-                "signature": {
-                    "description": "The signature that represents the exact opportunity.",
-                    "type": "string"
-                },
-                "required": [
-                    "product",
-                    "signature"
                 ]
             },
             "properties": {}
