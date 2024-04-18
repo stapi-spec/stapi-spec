@@ -1,10 +1,10 @@
 
-## Overview
+# Overview
 This document explains the structure of a STAT Product.
 
 STAT Product objects are represented in JSON format and are very flexible. Any JSON object that contains all the required fields is a valid STAT Product. A Product object contains a minimal set of required properties to be valid and can be extended through the use of constraints and parameters.
 
-# Product Spec
+## Product Spec
 
 | Element         | Type                                             | Description                                                  |
 | --------------- | ------------------------------------------------ | ------------------------------------------------------------ |
@@ -17,8 +17,6 @@ STAT Product objects are represented in JSON format and are very flexible. Any J
 | license         | string                                           | **REQUIRED.** Collection's license(s), either a SPDX [License identifier](https://spdx.org/licenses/), `various` if multiple licenses apply or `proprietary` for all other cases. |
 | providers       | \[[Provider Object](#provider-object)]           | A list of providers, which may include all organizations capturing or processing the data or the hosting provider. Providers should be listed in chronological order with the most recent provider being the last element of the list. |                |
 | links           | \[[Link Object](#link-object)]                   | **REQUIRED.** A list of references to other documents.       |
-| parameters | JSON Schema | JSON Schema that defines the Opportunity and Order properties that can be used in cql2json filter statements. |
-
 
 ### Provider Object
 
@@ -50,23 +48,25 @@ This object describes a relationship with another entity. Data providers are adv
 | Field Name | Type   | Description                                                  |
 | ---------- | ------ | ------------------------------------------------------------ |
 | href       | string | **REQUIRED.** The actual link in the format of an URL. Relative and absolute links are both allowed. |
-| rel        | string | **REQUIRED.** Relationship between the current document and the linked document. See chapter "[Relation types](#relation-types)" for more information. |
-| type       | string | [Media type](../catalog-spec/catalog-spec.md#media-types) of the referenced entity. |
+| rel        | string | **REQUIRED.** Relationship between the current document and the linked document.  |
+| type       | string | Media Type of the referenced entity. |
 | title      | string | A human readable title to be used in rendered displays of the link. |
 
-For a full discussion of the situations where relative and absolute links are recommended see the
-['Use of links'](../best-practices.md#use-of-links) section of the STAC best practices.
+The relation type `product-parameters` is to be used to link to the `GET /products/{productId}/parameters` endpoint.
 
-### Parameters Object
+## Parameters
 
-Parameters are fields that can be filtered on in Opportunity and Order requests to reduce the results set. For example, a `parameter` might be `eo:cloud_cover` which allows users to filter Opportunities to only results with `eo:cloud_cover` within a certain range. 
+Parameters define the Opportunity and Order properties that can be used in CQL2 JSON filter statements  to reduce the results set.
+For example, a `parameter` might be `eo:cloud_cover` which allows users to filter Opportunities to only results with `eo:cloud_cover` within a certain range. 
 
-A Parameters Object is a definitions for fine-grained information, see the [JSON Schema Object](#json-schema-object) section for more.
+The parameters must be exposed as a separate endpoint that is provided at 
+`GET /products/{productId}/parameters`.
 
-It is recommended to use [JSON Schema draft-07](https://json-schema.org/specification-links.html#draft-7)
-to align with the JSON Schemas provided by STAC. Empty schemas are not allowed.
-
-For an introduction to JSON Schema, see "[Learn JSON Schema](https://json-schema.org/learn/)".
+A The response body for parameters is a JSON Schema definition.
+Empty schemas are not allowed.
+It is recommended to use [JSON Schema draft-07](https://json-schema.org/specification-links.html#draft-7).
+For an introduction to JSON Schema, see
+[Learn JSON Schema](https://json-schema.org/learn/getting-started-step-by-step).
 
 #### Parameters Best Practices
 

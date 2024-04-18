@@ -133,6 +133,28 @@ paths:
           $ref: "#/components/responses/Error"
         "5XX":
           $ref: "#/components/responses/Error"
+  "/products/{productId}/parameters":
+    get:
+      tags:
+        - Products
+      summary: |-
+        describe the parameters for a product
+      description: |-
+        ...
+      parameters:
+        - $ref: "#/components/parameters/productId"
+      responses:
+        "200":
+          description: |-
+            ...
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/jsonschema"
+        "4XX":
+          $ref: "#/components/responses/Error"
+        "5XX":
+          $ref: "#/components/responses/Error"
   "/orders":
     get:
       tags:
@@ -347,10 +369,6 @@ components:
           $ref: "#/components/schemas/providers"
         links:
           $ref: "#/components/schemas/links"
-        constraints:
-          $ref: "#/components/schemas/jsonschema"
-        parameters:
-          $ref: "#/components/schemas/jsonschema"
     links:
       type: array
       items:
