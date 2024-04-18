@@ -46,6 +46,7 @@ for GET /orders
 | orders     | \[Order Object\]          | **REQUIRED.** A list of orders.          |
 | links      | Map\<object, Link Object> | **REQUIRED.** Links for e.g. pagination. |
 
+If the `GET /orders/{orderId}/status` endpoint is implemented, there must be a link to the endpoint using the relation type `monitor`.
 
 # Order Status
 
