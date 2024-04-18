@@ -14,7 +14,6 @@
   - [Conformance Classes](#conformance-classes)
     - [Conformance Class Table](#conformance-class-table)
   - [Example workflows](#example-workflows)
-  - [Basic Workflows](#basic-workflows)
 
 ## About
 The SpatioTemporal Asset Tasking (STAT) API defines a JSON-based web API to query for potential future data and place orders ("tasking") for potential future data from remote sensing data providers (satellite or airborne).
@@ -126,7 +125,6 @@ See [the STAT API Demo](https://github.com/Element84/stat-api-demo)
 
 ## Example workflows
 
-## Basic Workflows
 A user with broad requirements browses available products and orders based on available opportunities.
 
 ```mermaid
