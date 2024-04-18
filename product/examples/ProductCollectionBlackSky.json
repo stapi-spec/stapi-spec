@@ -2,8 +2,6 @@
     "products": [
         {
             "type": "Product",
-            "stat_version": "stat_version",
-            "stat_extensions": [],
             "id": "BSKY_STEREO",
             "title": "BlackSky EO STEREO",
             "description": "A pair of images collected from different viewing angles for 3D visualization and analysis",
@@ -229,8 +227,6 @@
         },
         {
             "type": "Product",
-            "stat_version": "stat_version",
-            "stat_extensions": [],
             "id": "BSKY_DAYLIGHT",
             "title": "BlackSky EO Daylight",
             "description": "Single image scene collected in daylight with standard product specifications",
