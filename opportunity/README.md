@@ -2,7 +2,7 @@
 
 - **Conformance URI:** <https://stat-api.example.com/v0.1.0/opportunities>
 
-The STAT Opportunity describes a window of opportunity available for ordering.
+The STAT Opportunity describes a single business unit available for ordering.
 
 ## Opportunity Request
 
