@@ -1,0 +1,87 @@
+{
+  "products": [
+    {
+      "type": "Product",
+      "stac_version": "1.0.0",
+      "stac_extensions": [],
+      "conformsTo": [
+        "https://stat-api.example.com/v0.1.0/core",
+        "https://stat-api.example.com/v0.1.0/opportunities",
+        "https://geojson.org/schema/MultiPolygon.json",
+        "https://geojson.org/schema/Polygon.json"
+      ],
+      "id": "4f866cd3-d816-4c98-ace3-e6105623cf13",
+      "title": "PHR-tasking",
+      "description": "Very high resolution 50 cm optical satellite imagery, acquired worldwide with a daily revisit rate.",
+      "keywords": ["optical", "oneatlas", "tasking"],
+      "license": "proprietary",
+      "providers": [
+        {
+          "name": "oneatlas",
+          "description": "oneatlas description",
+          "roles": ["producer"],
+          "url": "https://intelligence.airbus.com/"
+        },
+        {
+          "name": "up42",
+          "description": "up42 description",
+          "roles": ["processor"],
+          "url": "https://up42.com/"
+        },
+        {
+          "name": "up42",
+          "description": "up42 description",
+          "roles": ["host"],
+          "url": "https://up42.com/"
+        }
+      ],
+      "links": [
+        {
+            "href": "https://docs.up42.com/tasking-products/4f866cd3-d816-4c98-ace3-e6105623cf13/parameters",
+            "rel": "parameters",
+            "method": "GET",
+            "type": "application/schema+json",
+            "title": "Endpoint to place an order for this product. Payload should conform to the parameters schema definition"
+        },
+        {
+          "href": "https://docs.up42.com/tasking-products/4f866cd3-d816-4c98-ace3-e6105623cf13/orders",
+          "rel": "orders",
+          "method": "POST",
+          "title": "Endpoint to place an order for this product. Payload should conform to the parameters schema definition"
+        },
+        {
+          "href": "https://docs.up42.com/tasking-products/4f866cd3-d816-4c98-ace3-e6105623cf13/opportunities",
+          "rel": "opportunities",
+          "method": "POST",
+          "title": "Endpoint to place an order for this product"
+        },
+        {
+          "href": "https://docs.up42.com/developers/api-tasking/tasking-place-order",
+          "rel": "documentation",
+          "type": "html",
+          "title": "Tasking orders - Step 2. Create an order"
+        },
+        {
+          "href": "https://developer.up42.com/reference/overview#glossary",
+          "rel": "documentation",
+          "type": "html",
+          "title": "API reference - Glossary overview"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "href": "https://docs.up42.com/developers/api-tasking/tasking-place-order",
+      "rel": "latest-version",
+      "type": "html",
+      "title": "Tasking orders - Step 2. Create an order"
+    },
+    {
+      "href": "https://developer.up42.com/reference/overview#glossary",
+      "rel": "latest-version",
+      "type": "html",
+      "title": "API reference - Glossary overview"
+    }
+  ]
+}
