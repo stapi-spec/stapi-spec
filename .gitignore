@@ -2,6 +2,7 @@
 htmlcov
 dist
 .direnv
+/tmp
 
 # dependencies
 node_modules
@@ -33,3 +34,4 @@ sat-tasking-sprint.code-workspace
 .venv
 __pycache__
 .env
+/package-lock.json

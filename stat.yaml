@@ -197,20 +197,8 @@ paths:
             schema:
               anyOf:
                 - title: Direct Order Request based on Products
-                  type: object
-                  required:
-                    - datetime
-                    - product_id
-                    - geometry
-                  properties:
-                    datetime:
-                      type: string
-                    product_id:
-                      type: string
-                    geometry:
-                      $ref: "https://geojson.org/schema/Geometry.json"
-                    filter:
-                      $ref: "#/components/schemas/cql2"
+                  allOf:
+                   - $ref: "#/components/schemas/order_request"
                 - title: Order Request based on Opportunities
                   type: object 
                   description: |-
@@ -224,6 +212,68 @@ paths:
               schema:
                 type: string
                 format: url
+        "4XX":
+          $ref: "#/components/responses/Error"
+        "5XX":
+          $ref: "#/components/responses/Error"
+  "/opportunities":
+    post:
+      tags:
+        - Opportunities
+      summary: create a new opportunity request
+      description: |-
+        ...
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/cql2"
+      responses:
+        "200":
+          description: |-
+            ...
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - type
+                  - features
+                  - links
+                properties:
+                  type:
+                    type: string
+                    enum:
+                      - FeatureCollection
+                  features:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - type
+                        - geometry
+                        - properties
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                            - Feature
+                        id:
+                          type: string
+                        geometry:
+                          $ref: "https://geojson.org/schema/Geometry.json"
+                        bbox:
+                          type: array
+                          items:
+                            type: number
+                            minItems: 4
+                        properties:
+                          type: object
+                        links:
+                          $ref: "#/components/schemas/links"
+                  links:
+                    $ref: "#/components/schemas/links"
         "4XX":
           $ref: "#/components/responses/Error"
         "5XX":

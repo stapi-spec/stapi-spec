@@ -5,12 +5,13 @@
     "repository": "https://github.com/Element84/stat-api-spec",
     "license": "Apache-2.0",
     "scripts": {
-        "check-markdown": "remark . --frail --ignore-pattern"
+        "check-markdown": "remark . --frail --ignore-pattern",
+        "api-docs": "redocly build-docs stat.yaml --output tmp/index.html"
     },
     "dependencies": {
         "remark-cli": "^11.0.0",
-        "remark-lint": "^9.1.1",
         "remark-gfm": "^3.0.1",
+        "remark-lint": "^9.1.1",
         "remark-lint-no-html": "^3.1.1",
         "remark-preset-lint-consistent": "^5.1.1",
         "remark-preset-lint-markdown-style-guide": "^5.1.2",
@@ -84,5 +85,8 @@
                 false
             ]
         ]
+    },
+    "devDependencies": {
+        "@redocly/cli": "^1.11.0"
     }
 }
