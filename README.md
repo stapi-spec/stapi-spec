@@ -82,7 +82,7 @@ column is more of an example in some cases.
 | `GET /products/{productId}/parameters` | Core          | -                                                            | JSON Schema                                                  |                                                              |
 | `GET /orders`                          | Core          | -                                                            | [Orders Collection](./order/README.md#order-collection)      |                                                              |
 | `GET /orderds/{orderId}`               | Core          | -                                                            | [Order Object](./order/README.md#order-pobject)              |                                                              |
-| `POST /orders`                         | Core          | [Order Request](./order/README.md#order-request)             | -                                                            | Order a capture with a particular set of constraints         |
+| `POST /orders`                         | Core          | [Order Request](./order/README.md#order-request) or any object | -                                                            | Order a capture with a particular set of constraints         |
 | `POST /opportunities`                  | Opportunities | [Opportunity Request](./opportunity/README.md#opportunity-request) | [Opportunities Collection](./opportunity/README.md#opportunities-collection) | Explore the opportunities available for a particular set of constraints |
 
 ## Conformance Classes
