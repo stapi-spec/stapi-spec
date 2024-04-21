@@ -6,7 +6,7 @@ info:
     This is an OpenAPI definition of the SpatioTemporal Tasking API.
   contact:
     name: STAPI Specification
-    url: "https://github.com/Element84/stat-api-spec"
+    url: "https://github.com/Element84/stapi-spec"
   license:
     name: Apache License 2.0
     url: "http://www.apache.org/licenses/LICENSE-2.0"

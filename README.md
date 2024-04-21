@@ -34,6 +34,8 @@ The core STAPI specification provides a structure and language to describe **Pro
 ### Core
 
 - **Conformance URI:** <https://stapi.example.com/v0.1.0/core>
+- [OpenAPI document](openapi.yaml)
+- [Rendered API documentation](https://Element84.github.io/stapi-spec/dev/)
 
 The core of STAPI includes the `/products` endpoint and the `/orders` endpoint.
 
@@ -98,8 +100,8 @@ column is more of an example in some cases.
 | `GET /products/{productId}/parameters` | Core          | -                                                            | JSON Schema                                                  |                                                              |
 | `GET /orders`                          | Core          | -                                                            | [Orders Collection](./order/README.md#order-collection)      |                                                              |
 | `GET /orderds/{orderId}`               | Core          | -                                                            | [Order Object](./order/README.md#order-pobject)              |                                                              |
-| `POST /orders`                         | Core          | [Order Request](./order/README.md#order-request) or any object | - | Order a capture with a particular set of [parameters](https://github.com/Element84/stat-api-spec/blob/main/product/README.md#parameters) as defined in the products or a request that was provided through the opportunities endpoint. |
-| `POST /opportunities`                  | Opportunities | [Opportunity Request](./opportunity/README.md#opportunity-request) | [Opportunities Collection](./opportunity/README.md#opportunities-collection) | Explore the opportunities available for a particular set of [parameters](https://github.com/Element84/stat-api-spec/blob/main/product/README.md#parameters) |
+| `POST /orders`                         | Core          | [Order Request](./order/README.md#order-request) or any object | - | Order a capture with a particular set of [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) as defined in the products or a request that was provided through the opportunities endpoint. |
+| `POST /opportunities`                  | Opportunities | [Opportunity Request](./opportunity/README.md#opportunity-request) | [Opportunities Collection](./opportunity/README.md#opportunities-collection) | Explore the opportunities available for a particular set of [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) |
 
 ## Conformance Classes
 
@@ -107,7 +109,7 @@ STAPI utilizes OGC API Features [Conformance](http://docs.opengeospatial.org/is/
 JSON structure. For STAPI, we declare new STAPI conformance classes, with the core ones detailed in the table below.
 
 The core STAPI conformance classes communicate the conformance JSON only in the root (`/`) document, while OGC API
-requires they also live at the `/conformance` endpoint. STAT's conformance structure is detailed in the
+requires they also live at the `/conformance` endpoint. STAPI's conformance structure is detailed in the
 [core](core/). Note all conformance URIs serve up a rendered HTML version of the corresponding OpenAPI document at the given location.
 
 ### Conformance Class Table

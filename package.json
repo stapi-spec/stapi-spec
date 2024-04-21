@@ -1,14 +1,15 @@
 {
-    "name": "api-spec",
+    "name": "stapi-spec",
     "version": "v0.1.0",
-    "description": "STAT API helpers to generate, serve and check the API spec.",
-    "repository": "https://github.com/Element84/stat-api-spec",
+    "description": "STAPI helpers to generate, serve and check the API spec.",
+    "repository": "https://github.com/Element84/stapi-spec",
     "license": "Apache-2.0",
     "scripts": {
         "check-markdown": "remark . --frail --ignore-pattern",
-        "api-docs": "redocly build-docs stat.yaml --output tmp/index.html"
+        "api-docs": "redocly build-docs openapi.yaml --output tmp/index.html"
     },
     "dependencies": {
+        "@redocly/cli": "^1.11.0",
         "remark-cli": "^11.0.0",
         "remark-gfm": "^3.0.1",
         "remark-lint": "^9.1.1",
@@ -85,8 +86,5 @@
                 false
             ]
         ]
-    },
-    "devDependencies": {
-        "@redocly/cli": "^1.11.0"
     }
 }
