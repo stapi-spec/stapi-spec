@@ -38,7 +38,7 @@ This object describes a STAPI Opportunity. The input fields will be contained `p
 | geometry   | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) \| [null](https://tools.ietf.org/html/rfc7946#section-3.2) | **REQUIRED.** Defines the full footprint of the asset represented by this item, formatted according to [RFC 7946, section 3.1](https://tools.ietf.org/html/rfc7946#section-3.1). The footprint should be the default GeoJSON geometry, though additional geometries can be included. Coordinates are specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS 84](http://www.opengis.net/def/crs/OGC/1.3/CRS84). |
 | bbox       | \[number]                                                                  | **REQUIRED if `geometry` is not `null`.** Bounding Box of the asset represented by this Item, formatted according to [RFC 7946, section 5](https://tools.ietf.org/html/rfc7946#section-5). |
 | properties | [Properties Object](#properties-object)                                    | **REQUIRED.** A dictionary of additional metadata for the Item. |
-| links      | \[[Link Object](#link-object)]                                             | List of link objects to resources and related URLs. It is **strongly recommended** to include a `rel=create-order` link that allows the user to Order this opportunity. |
+| links      | \[[Link Object](#link-object)]                                             | List of link objects to resources and related URLs. There **must** be a `rel=create-order` link that allows the user to Order this opportunity. See [Link Object - rel=create-order](#rel=create-order) below. |
 
 #### bbox
 
@@ -61,3 +61,15 @@ resources below.
 | ---------- | ------------ | ------------------------------------------------------------ |
 | datetime       | string                                                                     | **REQUIRED.** Datetime field is a [ISO8601 Time Interval](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals) |
 | product_id | string | **REQUIRED.**  Product identifier. The ID should be unique and is a reference to the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) which can be used in the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) field. |
+
+#### Link Object
+
+Each link in the links array must be a [Link](https://github.com/radiantearth/stac-spec/blob/master/commons/links.md#link-object) Object.
+
+##### rel=create-order
+
+This Link object fully describes the necessary HTTP request to submit an Order for this Opportunity via [Create Order](https://github.com/stapi-spec/stapi-spec/tree/main/order#create-order-request).
+
+To conform to the Create Order spec, use `"method": "POST"`.
+
+If no Body parameters apply to an Opportunity, use `"body": {}`.
