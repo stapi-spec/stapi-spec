@@ -51,9 +51,11 @@ If the `GET /orders/{orderId}/status` endpoint is implemented, there must be a l
 ## GET /orders/\{id\}
 
 ### Get Order Response
+
 See [Order Object](#order-object).
 
 ## Order Object
+
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
 | id   | string | Unique provider generated order ID |
