@@ -13,6 +13,8 @@ A STAPI Product is remote sensing data or derived insights with spatio-temporal 
 - Object (movable) detection
 - Change detection
 
+Some Providers may offer only data or analytic Products while some may offer both. The Product specification is flexible enough to offer constraints at the level of the product offering. For example, a ship (object) detection Product may only specify constraints like location, datetime, and min ship length. The specific data products -- SAR, EO, or otherwise can be left as an implementation detail to the analytic Product Provider.
+
 STAPI Product objects are represented in JSON format and are very flexible. Any JSON object that contains all the required fields is a valid STAPI Product. A Product object contains a minimal set of required properties to be valid and can be extended through the use of constraints and parameters.
 
 ## Product Collection Spec
