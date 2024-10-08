@@ -1,0 +1,146 @@
+{
+    "products": [
+        {
+            "type": "Product",
+            "conformsTo": [
+                "https://geojson.org/schema/Point.json"
+            ],
+            "id": "satvu:assured_priority_tasking",
+            "title": "Assured Priority Tasking",
+            "description": "Assured priority tasking enables you to select a specific pass of the satellite over your target area of interest. In addition, this product has a higher priority level in the satellite management system, increasing the chance of successful data acquisition.",
+            "keywords": [
+                "Thermal",
+                "MWIR"
+            ],
+            "license": "license",
+            "providers": [
+                {
+                    "name": "SatVu",
+                    "description": "High-resolution thermal data provider.",
+                    "roles": [
+                        "producer"
+                    ],
+                    "url": "https://www.satellitevu.com/"
+                }
+            ],
+            "links": [
+                {
+                    "href": "https://example.com/",
+                    "rel": "latest-version",
+                    "type": "media type",
+                    "title": "title"
+                }
+            ],
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "datetime": {
+                        "description": "The closed date-time interval of the tasking order request.",
+                        "type": "string"
+                    },
+                    "product": {
+                        "description": "The data product.",
+                        "type": "string",
+                        "enum": [
+                            "standard",
+                            "assured"
+                        ],
+                        "default": "standard"
+                    }
+                },
+                "required": [
+                    "datetime",
+                    "product"
+                ]
+            }
+        },
+        {
+            "type": "Product",
+            "conformsTo": [
+                "https://geojson.org/schema/Point.json"
+            ],
+            "id": "satvu:standard_priority_tasking",
+            "title": "Standard Priority Tasking",
+            "description": "Assured priority tasking enables you to select a specific pass of the satellite over your target area of interest. In addition, this product has a higher priority level in the satellite management system, increasing the chance of successful data acquisition.",
+            "keywords": [
+                "Thermal",
+                "MWIR"
+            ],
+            "license": "license",
+            "providers": [
+                {
+                    "name": "SatVu",
+                    "description": "",
+                    "roles": [
+                        "producer"
+                    ],
+                    "url": "https://www.satellitevu.com/"
+                }
+            ],
+            "links": [
+                {
+                    "href": "https://example.com/",
+                    "rel": "latest-version",
+                    "type": "media type",
+                    "title": "title"
+                }
+            ],
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "datetime": {
+                        "description": "The closed date-time interval of the tasking order request.",
+                        "type": "string"
+                    },
+                    "product": {
+                        "description": "The data product.",
+                        "type": "string",
+                        "enum": [
+                            "standard",
+                            "assured"
+                        ],
+                        "default": "standard"
+                    },
+                    "satvu:day_night_mode": {
+                        "description": "The mode of data capture.",
+                        "type": "string",
+                        "enum": [
+                            "day",
+                            "night",
+                            "day-night"
+                        ],
+                        "default": "day-night"
+                    },
+                    "max_cloud_cover": {
+                        "minimum": 0,
+                        "maximum": 100,
+                        "default": 15
+                    },
+                    "min_off_nadir": {
+                        "minimum": 0,
+                        "maximum": 45,
+                        "default": 0
+                    },
+                    "max_off_nadir": {
+                        "minimum": 10,
+                        "maximum": 45,
+                        "default": 30
+                    },
+                    "min_gsd": {
+                        "minimum": 3.5,
+                        "maximum": 6.8,
+                        "default": 3.5
+                    },
+                    "max_gsd": {
+                        "minimum": 3.5,
+                        "maximum": 6.8,
+                        "default": 6.8
+                    }
+                },
+                "required": [
+                    "datetime"
+                ]
+            }
+        }
+    ]
+}
