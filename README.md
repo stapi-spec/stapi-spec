@@ -17,7 +17,7 @@
 
 ## About
 
-The Sensor Tasking API (STAPI) defies a JSON-based web API to query for spatio-temporal analytic and data products derived from remote sensing (satellite or airborne) providers. The specification supports both products derived from new tasking and products from provider archives.
+The Sensor Tasking API (STAPI) defines a JSON-based web API to query for spatio-temporal analytic and data products derived from remote sensing (satellite or airborne) providers. The specification supports both products derived from new tasking and products from provider archives.
 
 STAPI takes much of the work done by the STAC community and applies the lessons learned to this specification. The major departure from STAC is the requirement for uncertainty in many of the STAPI properties. For example, a user requesting a data product can provide a range of dates when they would like to capture. Conversely, a data provider cannot be certain of cloud cover in the future and must return a range of cloud cover probabilities to a user.
 
