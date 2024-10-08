@@ -1,0 +1,107 @@
+{
+  "products": [
+    {
+      "type": "Product",
+      "stat_version": "0.0.1",
+      "stat_extensions": [],
+      "id": "Satellite_Payload_PUSHBROOM_L0_MANUAL/AUTOMATED",
+      "title": "Title",
+      "description": "Description",
+      "keywords": [],
+      "license": "proprietary",
+      "providers": [
+        {
+          "name": "OpenCosmos",
+          "description": null,
+          "roles": null,
+          "url": null
+        }
+      ],
+      "links": [
+        {
+          "href": "Link",
+          "rel": "items",
+          "type": "application/json",
+          "title": "",
+          "label:assets": null
+        },
+        {
+          "href": "Link",
+          "rel": "self",
+          "type": "application/json",
+          "title": "",
+          "label:assets": null
+        }
+      ],
+      "parameters": {
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "$ref": "#/definitions/imageAcquisitionParameters",
+        "definitions": {
+          "constraints":{
+            "properties":{
+              "oza_deg:min": {
+                "type": "number",
+                "title": "Observation Zenith Angle",
+                "description": "Minimum desired angle between the spacecraft nadir and the target [deg].",
+                "minimum": 0,
+                "maximum": 90,
+                "default": 30
+              },
+              "oza_deg:max": {
+                "type": "number",
+                "title": "Observation Zenith Angle",
+                "description": "Maximum desired angle between the spacecraft nadir and the target [deg].",
+                "minimum": 0,
+                "maximum": 90,
+                "default": 60
+              }
+            }
+          },
+          "onboardProcessingParameters": {
+            "properties": {
+              "app_config": {
+                "$schema": "http://json-schema.org/draft-04/schema#",
+                "$ref": "#/definitions/applicationConfig",
+                "title": "Application Configuration",
+                "description": "Application configuration settings for the onboard processing apps."
+              }
+            },
+            "additionalProperties": false,
+            "type": "object"
+          },
+          "platformParameters": {
+            "properties": {
+              "roll_angle:min": {
+                "type": "number",
+                "title": "Roll Angle",
+                "description": "Indicates how much the spacecraft needs to be rotated to capture the image [deg].",
+                "minimum": -45,
+                "maximum": 45
+              }
+            },
+            "additionalProperties": false,
+            "type": "object"
+          },
+          "imageAcquisitionParameters": {
+            "properties": {
+              "onboard_processing": {
+                "$schema": "http://json-schema.org/draft-04/schema#",
+                "$ref": "#/definitions/onboardProcessingParameters",
+                "title": "On-board Processing",
+                "description": "Image processing applied to the captured image on-board the spacecraft."
+              },
+              "platform": {
+                "$schema": "http://json-schema.org/draft-04/schema#",
+                "$ref": "#/definitions/platformParameters",
+                "title": "Platform",
+                "description": "Spacecraft platform configuration such as pointing angles."
+              }
+            },
+            "additionalProperties": false,
+            "type": "object"
+          }
+        }
+      }
+    }
+  ]
+}
