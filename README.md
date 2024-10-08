@@ -16,31 +16,24 @@
   - [Example workflows](#example-workflows)
 
 ## About
-The Sensor Tasking API (STAPI) defines a JSON-based web API to query for potential future data
-and place orders ("tasking") for potential future data from geospatial data providers. The core STAPI
-specification provides a structure and language to describe **Products**, **Opportunities**, and **Orders**.
-The process of interacting with a data provider is done through a REST API.
 
-Ideally, STAPI requests to providers will be ultimately fulfilled by creating one or more STAC Items,
-so STAPI aims to align with STAC core and extensions. Users of STAC will notice many similarities 
-in the concepts and names used in STAPI. STAPI is also, like STAC, based on OGC APIs and use 
-Conformance Classes to describe supported API features.
+The Sensor Tasking API (STAPI) defies a JSON-based web API to query for spatio-temporal analytic and data products derived from remote sensing (satellite or airborne) providers. The specification supports both products derived from new tasking and products from provider archives.
 
-In the example below STAPI is being used to order future data from a satelite data provider. 
-The user can search an archive of data using the STAC API, or order data to be collected in the future from
-the STAPI. When an STAPI order is fulfilled it will contain links to the STAC Items in the STAC API.
+STAPI takes much of the work done by the STAC community and applies the lessons learned to this specification. The major departure from STAC is the requirement for uncertainty in many of the STAPI properties. For example, a user requesting a data product can provide a range of dates when they would like to capture. Conversely, a data provider cannot be certain of cloud cover in the future and must return a range of cloud cover probabilities to a user.
 
-![Satellite Data Providers](images/stapi-1.png)
+The STAPI specifications define several new entities: **Products**, **Opportunities**, and **Orders**. These are derived from the [SpatioTemporal Asset Catalog](https://github.com/radiantearth/stac-spec) (STAC) specification.
 
-STAPI can also be used for ordering derived geospatial products. In this more complex example the
-user orders a derived product that requires some additional processing. The order is fulfilled 
-by tasking the appropriate satellite imagery then running a processing workflow to generate some
-derived data. Note that in this case the data provider could be using another data provider for
-getting the imagery through another STAPI.
+In many cases STAPI requests to providers will be ultimately fulfilled via delivery of a STAC Item, so STAPI aims to align with STAC core and extensions.
 
-![Satellite Data Providers](images/stapi-2.png)
+The core STAPI specification provides a structure and language to describe **Products**, **Opportunities**, and **Orders**. The process of interacting with a Product provider is done through a REST API.
 
 ## Introduction
+
+Generally speaking, users of STAPI will review available Products from one or more providers, request Opportunities that are possible Orders for those Products, and then submit one or more Orders to receive Products from Providers represented by one or more data artifacts.
+
+The STAPI is primarily designed around machine-to-machine interactions.
+
+See the [Product README](product/README.md) for more.
 
 ## STAPI Description
 
@@ -84,15 +77,15 @@ Fields that can be included in the response body for `GET /`.
 | `POST /products/{productId}/opportunities` | `opportunities`      |
 
 `create-order`: A link with this relation type should only be provided in the landing page
-if a user can directly go from the products to the order endpoint without 
+if a user can directly go from the products to the order endpoint without
 going through the `POST /products/{productId}/opportunities` endpoint.
 
 ### Opportunities
 
 The `POST /products/{productId}/opportunities` endpoint provides additional functionality on top of core and is designed to be used
-after `GET /products` and before `POST /products/{productId}/order`. It allows users more fine-grained 
-control and selection of available tasking opportunities by letting them explore the opportunities which 
-are available for a chosen order configuration. The opportunities are 
+after `GET /products` and before `POST /products/{productId}/order`. It allows users more fine-grained
+control and selection of available tasking opportunities by letting them explore the opportunities which
+are available for a chosen order configuration. The opportunities are
 represented in a FeatureCollection, with order specific attributes and values in the feature properties.
 
 ## Endpoints
