@@ -32,8 +32,14 @@ the STAPI. When an STAPI order is fulfilled it will contain links to the STAC It
 
 ![Satellite Data Providers](images/stapi.png)
 
-STAPI can also be used for ordering derived geospatial products. In this example there is newly collected data
-but there is a processing workflow.
+STAPI can also be used for ordering derived geospatial products. In this more complex example the
+user orders a derived product such as the location of objects of interest. The order is fulfilled 
+tasking the appropriate satellite imagery then running a processing workflow to generate 
+vector locations. This final result is provided via an OGC Features API rather than giving the user
+imagery. Note that in this case the data provider could be using another data provider for
+getting the imagery through another STAPI.
+
+![Satellite Data Providers](images/stapi-analytic.png)
 
 
 ## Introduction
