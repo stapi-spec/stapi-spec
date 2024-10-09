@@ -17,15 +17,24 @@
 
 ## About
 The Sensor Tasking API (STAPI) defines a JSON-based web API to query for potential future data
-and place orders ("tasking") for potential future data from remote sensing data providers (satellite or airborne).
+and place orders ("tasking") for potential future data from geospatial data providers. The core STAPI
+specification provides a structure and language to describe **Products**, **Opportunities**, and **Orders**.
+The process of interacting with a data provider is done through a REST API.
 
-STAPI takes much of the work done by the STAC community and applies the lessons learned to this specification. The major departure from STAC is the requirement for uncertainty in many of the STAPI properties. For example, a user requesting a data capture can provide a range of dates when they would like to capture. Conversely, a data provider cannot be certain of cloud cover in the future and must return a range of cloud cover probabilities to a user.
+Ideally, STAPI requests to providers will be ultimately fulfilled by creating one or more STAC Items,
+so STAPI aims to align with STAC core and extensions. Users of STAC will notice many similarities 
+in the concepts and names used in STAPI. STAPI is also, like STAC, based on OGC APIs and use 
+Conformance Classes to describe supported API features.
 
-The STAPI specifications define several new entities: **Products**, **Opportunities**, and **Orders**. These are derived from the [SpatioTemporal Asset Catalog](https://github.com/radiantearth/stac-spec) (STAC) specification. 
+In the example below STAPI is being used as to order future data from a satelite data provider. 
+The user can search an archive of data using the STAC API, or order data to be collected in the future from
+the STAPI. When an STAPI order is fulfilled it will contain links to the STAC Items in the STAC API.
 
-Ideally, STAPI requests to providers will be ultimately fulfilled via delivery of a STAC Item, so STAPI aims to align with STAC core and extensions.
+![Satellite Data Providers](images/stapi.png)
 
-The core STAPI specification provides a structure and language to describe **Products**, **Opportunities**, and **Orders**. The process of interacting with a data provider is done through a REST API.
+STAPI can also be used for ordering derived geospatial products. In this example there is newly collected data
+but there is a processing workflow.
+
 
 ## Introduction
 
