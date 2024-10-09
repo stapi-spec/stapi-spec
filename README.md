@@ -26,21 +26,19 @@ so STAPI aims to align with STAC core and extensions. Users of STAC will notice 
 in the concepts and names used in STAPI. STAPI is also, like STAC, based on OGC APIs and use 
 Conformance Classes to describe supported API features.
 
-In the example below STAPI is being used as to order future data from a satelite data provider. 
+In the example below STAPI is being used to order future data from a satelite data provider. 
 The user can search an archive of data using the STAC API, or order data to be collected in the future from
 the STAPI. When an STAPI order is fulfilled it will contain links to the STAC Items in the STAC API.
 
-![Satellite Data Providers](images/stapi.png)
+![Satellite Data Providers](images/stapi-1.png)
 
 STAPI can also be used for ordering derived geospatial products. In this more complex example the
-user orders a derived product such as the location of objects of interest. The order is fulfilled 
-tasking the appropriate satellite imagery then running a processing workflow to generate 
-vector locations. This final result is provided via an OGC Features API rather than giving the user
-imagery. Note that in this case the data provider could be using another data provider for
+user orders a derived product that requires some additional processing. The order is fulfilled 
+by tasking the appropriate satellite imagery then running a processing workflow to generate some
+derived data. Note that in this case the data provider could be using another data provider for
 getting the imagery through another STAPI.
 
-![Satellite Data Providers](images/stapi-analytic.png)
-
+![Satellite Data Providers](images/stapi-2.png)
 
 ## Introduction
 
