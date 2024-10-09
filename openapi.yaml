@@ -184,10 +184,11 @@ paths:
           $ref: "#/components/responses/Error"
         "5XX":
           $ref: "#/components/responses/Error"
+  "/products/{productId}/order":
     post:
       tags:
         - Orders
-      summary: create a new order
+      summary: create a new order for product with id `productId`
       description: |-
         ...
       requestBody:
@@ -216,11 +217,11 @@ paths:
           $ref: "#/components/responses/Error"
         "5XX":
           $ref: "#/components/responses/Error"
-  "/opportunities":
+  "products/{productId}/opportunities":
     post:
       tags:
         - Opportunities
-      summary: create a new opportunity request
+      summary: create a new opportunity request for product with id `productId`
       description: |-
         ...
       requestBody:
