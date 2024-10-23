@@ -57,9 +57,8 @@
         "rel": "create-order",
         "method": "POST",
         "type": "application/geo+json",
-        "href": "https://apps.euspaceimaging.com/tara/stat/orders",
+        "href": "https://apps.euspaceimaging.com/tara/stapi/products/maxar_opt/order",
         "body": {
-          "product_id": "maxar_opt",
           "datetime": "2024-04-19T00:00:00Z/2024-04-25T00:00:00Z",
           "geometry": {
             "type": "Polygon",

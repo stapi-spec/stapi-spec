@@ -39,8 +39,8 @@ The core STAPI specification provides a structure and language to describe **Pro
 
 The core of STAPI includes the `/products` endpoint and the `/orders` endpoint.
 
-To know which parameters are available for which *product_id*, users first explore [/products](./product).
-These parameters can be used to form a POST to the [/orders](./order) endpoint.
+To know which parameters are available for which `productId`, users first explore [/products](./product).
+These parameters can be used to form a POST to the `/products/{productId}/order` endpoint.
 
 #### Landing Page
 
@@ -58,26 +58,26 @@ Fields that can be included in the response body for `GET /`.
 
 ##### Relation Types
 
-| Endpoint                               | Relation Type        |
-| -------------------------------------- | -------------------- |
-| `GET /conformance`                     | `conformance`        |
-| `GET /products`                        | `products`           |
-| `GET /products/{productId}`            | `product`            |
-| `GET /products/{productId}/parameters` | `product-parameters` |
-| `GET /orders`                          | `orders`             |
-| `POST /orders`                         | `create-order`       |
-| `GET /orders/{orderId}`                | `order`              |
-| `GET /orders/{orderId}/status`         | `status`             |
-| `POST /opportunities`                  | `opportunities`      |
+| Endpoint                                   | Relation Type        |
+|--------------------------------------------| -------------------- |
+| `GET /conformance`                         | `conformance`        |
+| `GET /products`                            | `products`           |
+| `GET /products/{productId}`                | `product`            |
+| `GET /products/{productId}/parameters`     | `product-parameters` |
+| `GET /orders`                              | `orders`             |
+| `POST /products/{productId}/order`         | `create-order`       |
+| `GET /orders/{orderId}`                    | `order`              |
+| `GET /orders/{orderId}/status`             | `status`             |
+| `POST /products/{productId}/opportunities` | `opportunities`      |
 
 `create-order`: A link with this relation type should only be provided in the landing page
 if a user can directly go from the products to the order endpoint without 
-going through the `POST /opportunities` endpoint.
+going through the `POST /products/{productId}/opportunities` endpoint.
 
 ### Opportunities
 
-The `/opportunities` endpoint provides additional functionality on top of core and is designed to be used
-after `/products` and before `/orders`. It allows users more fine-grained 
+The `POST /products/{productId}/opportunities` endpoint provides additional functionality on top of core and is designed to be used
+after `GET /products` and before `POST /products/{productId}/order`. It allows users more fine-grained 
 control and selection of available tasking opportunities by letting them explore the opportunities which 
 are available for a chosen order configuration. The opportunities are 
 represented in a FeatureCollection, with order specific attributes and values in the feature properties.
@@ -91,17 +91,17 @@ The following table describes the service resources available in a STAPI impleme
 supports all three of the foundation specifications. Note that the 'Endpoint'
 column is more of an example in some cases.
 
-| Endpoint                               | Specified in  | Accepts                                                      | Returns                                                      | Description                                                  |
-| -------------------------------------- | ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `GET /`                                | Core          | -                                                            | [Landing Page](#landing-page)                                |                                                              |
-| `GET /conformance`                     | Core          | -                                                            | Conformance Classes                                          |                                                              |
-| `GET /products`                        | Core          | -                                                            | [Products Collection](./product/README.md)                   | Figure out which constraints are available for which `product_id` |
-| `GET /products/{productId}`            | Core          | -                                                            | [Product](./product/README.md)                               |                                                              |
-| `GET /products/{productId}/parameters` | Core          | -                                                            | JSON Schema                                                  |                                                              |
-| `GET /orders`                          | Core          | -                                                            | [Orders Collection](./order/README.md#order-collection)      |                                                              |
-| `GET /orderds/{orderId}`               | Core          | -                                                            | [Order Object](./order/README.md#order-pobject)              |                                                              |
-| `POST /orders`                         | Core          | [Order Request](./order/README.md#order-request) or any object | - | Order a capture with a particular set of [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) as defined in the products or a request that was provided through the opportunities endpoint. |
-| `POST /opportunities`                  | Opportunities | [Opportunity Request](./opportunity/README.md#opportunity-request) | [Opportunities Collection](./opportunity/README.md#opportunities-collection) | Explore the opportunities available for a particular set of [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) |
+| Endpoint                                  | Specified in  | Accepts                                                      | Returns                                                      | Description                                                                                                                                                                                                                         |
+|-------------------------------------------| ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `GET /`                                   | Core          | -                                                            | [Landing Page](#landing-page)                                |                                                                                                                                                                                                                                     |
+| `GET /conformance`                        | Core          | -                                                            | Conformance Classes                                          |                                                                                                                                                                                                                                     |
+| `GET /products`                           | Core          | -                                                            | [Products Collection](./product/README.md)                   | Figure out which constraints are available for which `productId`                                                                                                                                                                    |
+| `GET /products/{productId}`               | Core          | -                                                            | [Product](./product/README.md)                               |                                                                                                                                                                                                                                     |
+| `GET /products/{productId}/parameters`    | Core          | -                                                            | JSON Schema                                                  |                                                                                                                                                                                                                                     |
+| `GET /orders`                             | Core          | -                                                            | [Orders Collection](./order/README.md#order-collection)      |                                                                                                                                                                                                                                     |
+| `GET /orders/{orderId}`                   | Core          | -                                                            | [Order Object](./order/README.md#order-pobject)              |                                                                                                                                                                                                                                     |
+| `POST /products/{productId}/order`        | Core          | [Order Request](./order/README.md#order-request) or any object | - | Order a capture with a particular set of [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) as defined in the products or a request that was provided through the opportunities endpoint. |
+| `POST /products/{productId}/opportunities` | Opportunities | [Opportunity Request](./opportunity/README.md#opportunity-request) | [Opportunities Collection](./opportunity/README.md#opportunities-collection) | Explore the opportunities available for a particular set of [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters)                                                                            |
 
 ## Conformance Classes
 
@@ -131,7 +131,7 @@ See [the STAPI Demo](https://github.com/Element84/stat-api-demo)
 
 STAPI supports paging through hypermedia links for the following resources:
 - `GET /products`
-- `POST /opportunities`
+- `POST /products/{productId}/opportunities`
 - `GET /orders`
 - `GET /orders/{orderId}/status`
 
@@ -190,12 +190,12 @@ sequenceDiagram
     PROVIDER-->>USER: Response: Products Collection
     deactivate PROVIDER
 
-    USER->>PROVIDER: POST /opportunities
+    USER->>PROVIDER: POST /products/{productId}/opportunities
     activate PROVIDER
     PROVIDER-->>USER: Response: Opportunities Collection
     deactivate PROVIDER
 
-    USER->>PROVIDER: POST /orders
+    USER->>PROVIDER: POST /products/{productId}/order
     activate PROVIDER
     PROVIDER-->>USER: Response: Order Object
     deactivate PROVIDER
@@ -210,12 +210,12 @@ sequenceDiagram
     PROVIDER-->>USER: Response: Product Object
     deactivate PROVIDER
 
-    USER->>PROVIDER: POST /opportunities
+    USER->>PROVIDER: POST /products/{productId}/opportunities
     activate PROVIDER
     PROVIDER-->>USER: Response: Opportunities Collection
     deactivate PROVIDER
 
-    USER->>PROVIDER: POST /orders
+    USER->>PROVIDER: POST /products/{productId}/order
     activate PROVIDER
     PROVIDER-->>USER: Response: Order Object
     deactivate PROVIDER
@@ -230,7 +230,7 @@ sequenceDiagram
     PROVIDER-->>USER: Response: Product Object
     deactivate PROVIDER
 
-    USER->>PROVIDER: POST /orders
+    USER->>PROVIDER: POST /products/{productId}/order
     activate PROVIDER
     PROVIDER-->>USER: Response: Order Object
     deactivate PROVIDER

@@ -35,3 +35,6 @@ sat-tasking-sprint.code-workspace
 __pycache__
 .env
 /package-lock.json
+
+# intellij
+.idea
