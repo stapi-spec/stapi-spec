@@ -45,9 +45,8 @@
         {
           "rel": "create-order",
           "method": "POST",
-          "href": "https://example.com/orders",
+          "href": "https://example.com/products/PL-123546:Assured Tasking/order",
           "body": {
-            "product_id": "PL-123546:Assured Tasking",
             "datetime": "2024-04-19T12:00:00Z/2024-04-19T12:05:00Z",
             "geometry": {
               "type": "Point",
@@ -127,9 +126,8 @@
         {
           "rel": "create-order",
           "method": "POST",
-          "href": "https://example.com/orders",
+          "href": "https://example.com/products/PL-123546:Flexible Tasking/order",
           "body": {
-            "product_id": "PL-123546:Assured Tasking",
             "datetime": "2024-04-19T14:00:00Z/2024-04-19T14:05:00Z",
             "geometry": {
               "type": "Point",

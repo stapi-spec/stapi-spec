@@ -25,9 +25,8 @@
         {
           "rel": "create-order",
           "method": "POST",
-          "href": "https://example.com/orders",
+          "href": "https://example.com/products/umbra_spotlight/order",
           "body": {
-            "product_id": "umbra_spotlight",
             "datetime": "2024-04-22T06:21:00Z/2024-04-20T06:22:21Z",
             "geometry": {
               "type": "Point",
@@ -65,9 +64,8 @@
         {
           "rel": "create-order",
           "method": "POST",
-          "href": "https://example.com/orders",
+          "href": "https://example.com/products/umbra_spotlight/order",
           "body": {
-            "product_id": "umbra_spotlight",
             "datetime": "2024-04-20T01:21:00Z/2024-04-20T01:22:21Z",
             "geometry": {
               "type": "Point",
@@ -86,9 +84,8 @@
     {
       "rel": "order",
       "method": "POST",
-      "href": "https://example.com/orders",
+      "href": "https://example.com/products/umbra_spotlight/order",
       "body": {
-        "product_id": "umbra_spotlight",
         "datetime": "2024-04-19T00:00:00Z/2024-04-23T00:00:00Z",
         "geometry": {
           "type": "Point",

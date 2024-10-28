@@ -93,9 +93,8 @@
         {
           "rel": "create-order",
           "method": "POST",
-          "href": "https://example.com/orders",
+          "href": "https://example.com/products/PL-123546:Flexible Tasking/order",
           "body": {
-            "product_id": "PL-123546:Flexible Tasking",
             "datetime": "2024-04-19T00:00:00Z/2024-04-23T00:00:00Z",
             "geometry": {
               "type": "Point",

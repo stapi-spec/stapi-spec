@@ -16,7 +16,7 @@ tags:
   - name: Orders
     description: Endpoint for creating and managing orders
   - name: Opportunities
-    description: Endpoint for viewing  accepting opportunities
+    description: Endpoint for viewing and accepting opportunities
   - name: Products
     description: Products
 paths:
@@ -184,12 +184,15 @@ paths:
           $ref: "#/components/responses/Error"
         "5XX":
           $ref: "#/components/responses/Error"
+  "/products/{productId}/order":
     post:
       tags:
         - Orders
-      summary: create a new order
+      summary: create a new order for product with id `productId`
       description: |-
         ...
+      parameters:
+        - $ref: "#/components/parameters/productId"
       requestBody:
         required: true
         content:
@@ -216,13 +219,15 @@ paths:
           $ref: "#/components/responses/Error"
         "5XX":
           $ref: "#/components/responses/Error"
-  "/opportunities":
+  "products/{productId}/opportunities":
     post:
       tags:
         - Opportunities
-      summary: create a new opportunity request
+      summary: create a new opportunity request for product with id `productId`
       description: |-
         ...
+      parameters:
+        - $ref: "#/components/parameters/productId"
       requestBody:
         required: true
         content:
