@@ -10,10 +10,19 @@ The following fields can be sent to `POST /products/{productId}/order`:
 
 | Field Name | Type                             | Description                                                  |
 |------------| -------------------------------- | ------------------------------------------------------------ |
-| datetime   | string                           | **REQUIRED.** Two datetimes with a forward slash `/` separator. Datetimes must be formatted to [RFC 3339, section 5.6](https://tools.ietf.org/html/rfc3339#section-5.6). Open ranges in time intervals at the start or end are supported using a double-dot `..` or an empty string for the start/end. Examples:<br />`2024-04-18T10:56:00+01:00/2024-04-25T10:56:00+01:00`<br />`2024-04-18T10:56:00+01:00/..`<br />`/2024-04-25T10:56:00+01:00` |
+| datetime   | string                                                                     | **REQUIRED.** Time interval with a solidus (forward slash, `/`)  separator, using [RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6) datetime, empty string, or `..` values. |
 | productId  | string                           | **REQUIRED.** Product identifier. The ID should be unique and is a reference to the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) which can be used in the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) field. |
 | geometry   | GeoJSON Object \| JSON Reference | **REQUIRED.** Provide a Geometry that the tasked data must be within. |
 | filter     | CQL2 JSON                        | A set of additional [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) in [CQL2 JSON](https://docs.ogc.org/DRAFTS/21-065.html) based on the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) exposed in the product. |
+
+##### datetime
+
+The datetime parameter represents a time interval with which the temporal property of the results must intersect. This parameter allows a subset of the allowed values for a [ISO 8601 Time Interval](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals) or a 
+[OAF datetime](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_parameter_datetime) parameter.
+This allows for either
+open or closed intervals, with end definitions separated by a solidus (forward slash, `/`) separator. Closed ends are represented by
+[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) datetimes. Open ends are represented
+by either an empty string or `..`. Only singly-open intervals are allowed.  Examples of valid datetime intervals include `2024-04-18T10:56:00+01:00/2024-04-25T10:56:00+01:00`, `2024-04-18T10:56:00Z/..`, and `/2024-04-25T10:56:00+01:00`
 
 #### geometry
 
