@@ -133,12 +133,34 @@ paths:
           $ref: "#/components/responses/Error"
         "5XX":
           $ref: "#/components/responses/Error"
-  "/products/{productId}/parameters":
+  "/products/{productId}/constraints":
     get:
       tags:
         - Products
       summary: |-
-        describe the parameters for a product
+        describe the constraints for a product
+      description: |-
+        ...
+      parameters:
+        - $ref: "#/components/parameters/productId"
+      responses:
+        "200":
+          description: |-
+            ...
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/jsonschema"
+        "4XX":
+          $ref: "#/components/responses/Error"
+        "5XX":
+          $ref: "#/components/responses/Error"
+ "/products/{productId}/order-parameters":
+    get:
+      tags:
+        - Products
+      summary: |-
+        describe the order parameters for a product
       description: |-
         ...
       parameters:
