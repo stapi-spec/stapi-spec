@@ -3,7 +3,7 @@
 
 This document defines a Product and explains its specification and structure.
 
-A STAPI Product is remote sensing data or derived insights with spatio-temporal components that can be deliver value to the user. A non-exhaustive list of examples includes:
+A STAPI Product is remote sensing data or derived insights with spatio-temporal components that can deliver value to the user. A non-exhaustive list of examples includes:
 
 - Electro-optical (EO) images
 - Synthetic Aperture Radar (SAR) images
