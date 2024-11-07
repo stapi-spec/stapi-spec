@@ -155,7 +155,7 @@ paths:
           $ref: "#/components/responses/Error"
         "5XX":
           $ref: "#/components/responses/Error"
- "/products/{productId}/order-parameters":
+  "/products/{productId}/order-parameters":
     get:
       tags:
         - Products
