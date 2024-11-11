@@ -6,7 +6,7 @@ This document explains the structure of a STAPI **Order Status** request. Operat
 
 The `GET /orders/{orderId}` endpoint must add a link to this endpoint using the relation type `monitor`.
 
-Endpoint: `GET /orders/{id}/status`
+Endpoint: `GET /orders/{orderId}/statuses`
 
 ## Order Status Request
 

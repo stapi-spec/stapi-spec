@@ -155,7 +155,7 @@ paths:
           $ref: "#/components/responses/Error"
         "5XX":
           $ref: "#/components/responses/Error"
-  "/products/{productId}/order":
+  "/products/{productId}/orders":
     post:
       tags:
         - Orders
@@ -186,6 +186,36 @@ paths:
               schema:
                 type: string
                 format: url
+        "4XX":
+          $ref: "#/components/responses/Error"
+        "5XX":
+          $ref: "#/components/responses/Error"
+    get:
+      tags:
+        - Orders
+      summary: a list of orders for the specific product
+      description: |-
+        ...
+      parameters:
+        - $ref: "#/components/parameters/productId"
+      responses:
+        "200":
+          description: |-
+            ...
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - links
+                  - orders
+                properties:
+                  links:
+                    $ref: "#/components/schemas/links"
+                  orders:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/order"
         "4XX":
           $ref: "#/components/responses/Error"
         "5XX":
@@ -305,7 +335,7 @@ paths:
           $ref: "#/components/responses/Error"
         "5XX":
           $ref: "#/components/responses/Error"
-  "/orders/{orderId}/status":
+  "/orders/{orderId}/statuses":
     get:
       tags:
         - Orders

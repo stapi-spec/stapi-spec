@@ -6,7 +6,7 @@ Ordering with loosely defined order values will give the provider more freedom t
 
 ## Create Order Request
 
-The following fields can be sent to `POST /products/{productId}/order`:
+The following fields can be sent to `POST /products/{productId}/orders`:
 
 | Field Name | Type                             | Description                                                  |
 |------------| -------------------------------- | ------------------------------------------------------------ |
@@ -55,7 +55,7 @@ Location: https://example.com/orders/123
 | orders     | \[[Order Object](#order-object)\]          | **REQUIRED.** A list of orders. |
 | links      | Map\<object, Link Object> | **REQUIRED.** Links for e.g. pagination. |
 
-If the `GET /orders/{orderId}/status` endpoint is implemented, there must be a link to the endpoint using the relation type `status`.
+If the `GET /orders/{orderId}/statuses` endpoint is implemented, there must be a link to the endpoint using the relation type `status`.
 
 ## GET /orders/\{id\}
 
@@ -73,7 +73,7 @@ See [Order Object](#order-object).
 | status | [Order Status Object](#order-status) | Current Order Status object |
 | links    | \[[Link Object](https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md#link-object)\] |  |
 
-If the `GET /orders/{orderId}/status` endpoint is implemented, there must be a link to the endpoint using the relation type `monitor`.
+If the `GET /orders/{orderId}/statuses` endpoint is implemented, there must be a link to the endpoint using the relation type `monitor`.
 
 ## Order Status
 

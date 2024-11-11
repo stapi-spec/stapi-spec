@@ -13,6 +13,7 @@
   - [Endpoints](#endpoints)
   - [Conformance Classes](#conformance-classes)
     - [Conformance Class Table](#conformance-class-table)
+  - [Pagination](#pagination)
   - [Example workflows](#example-workflows)
 
 ## About
@@ -46,7 +47,7 @@ See the [Product README](product/README.md) for more.
 The core of STAPI includes the `/products` endpoint and the `/orders` endpoint.
 
 To know which parameters are available for which `productId`, users first explore [/products](./product).
-These parameters can be used to form a POST to the `/products/{productId}/order` endpoint.
+These parameters can be used to form a POST to the `/products/{productId}/orders` endpoint.
 
 #### Landing Page
 
@@ -54,27 +55,28 @@ These parameters can be used to form a POST to the `/products/{productId}/order`
 
 Fields that can be included in the response body for `GET /`.
 
-| Field Name  | Type            | Description                                                  |
-| ----------- | --------------- | ------------------------------------------------------------ |
-| id          | string          | **REQUIRED.** Identifier for the API.                        |
-| conformsTo  | \[string\]      | **REQUIRED.** Conformance classes that apply to the API globally. |
-| title       | string          | A short descriptive one-line title for the API.              |
+| Field Name  | Type            | Description                                                                                                                                                        |
+| ----------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| id          | string          | **REQUIRED.** Identifier for the API.                                                                                                                              |
+| conformsTo  | \[string\]      | **REQUIRED.** Conformance classes that apply to the API globally.                                                                                                  |
+| title       | string          | A short descriptive one-line title for the API.                                                                                                                    |
 | description | string          | **REQUIRED.** Detailed multi-line description to fully explain the API. [CommonMark 0.29](http://commonmark.org/) syntax MAY be used for rich text representation. |
-| links       | \[Link Object\] | **REQUIRED.** A list of references to other documents and endpoints. |
+| links       | \[Link Object\] | **REQUIRED.** A list of references to other documents and endpoints.                                                                                               |
 
 ##### Relation Types
 
 | Endpoint                                   | Relation Type        |
-|--------------------------------------------| -------------------- |
+| ------------------------------------------ | -------------------- |
 | `GET /conformance`                         | `conformance`        |
 | `GET /products`                            | `products`           |
 | `GET /products/{productId}`                | `product`            |
 | `GET /products/{productId}/parameters`     | `product-parameters` |
 | `POST /products/{productId}/opportunities` | `opportunities`      |
-| `POST /products/{productId}/order`         | `create-order`       |
+| `POST /products/{productId}/orders`        | `create-order`       |
+| `GET /products/{productId}/orders`         | `orders`             |
 | `GET /orders`                              | `orders`             |
 | `GET /orders/{orderId}`                    | `order`              |
-| `GET /orders/{orderId}/status`             | `status`             |
+| `GET /orders/{orderId}/statuses`           | `status`             |
 
 `create-order`: A link with this relation type should only be provided in the landing page
 if a user can directly go from the products to the order endpoint without
@@ -83,7 +85,7 @@ going through the `POST /products/{productId}/opportunities` endpoint.
 ### Opportunities
 
 The `POST /products/{productId}/opportunities` endpoint provides additional functionality on top of core and is designed to be used
-after `GET /products` and before `POST /products/{productId}/order`. It allows users more fine-grained
+after `GET /products` and before `POST /products/{productId}/orders`. It allows users more fine-grained
 control and selection of available tasking opportunities by letting them explore the opportunities which
 are available for a chosen order configuration. The opportunities are
 represented in a FeatureCollection, with order specific attributes and values in the feature properties.
@@ -97,16 +99,16 @@ The following table describes the service resources available in a STAPI impleme
 supports all three of the foundation specifications. Note that the 'Endpoint'
 column is more of an example in some cases.
 
-| Endpoint                                  | Specified in  | Accepts                                                      | Returns                                                      | Description                                                                                                                                                                                                                         |
-|-------------------------------------------| ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `GET /`                                   | Core          | -                                                            | [Landing Page](#landing-page)                                |                                                                                                                                                                                                                                     |
-| `GET /conformance`                        | Core          | -                                                            | Conformance Classes                                          |                                                                                                                                                                                                                                     |
-| `GET /products`                           | Core          | -                                                            | [Products Collection](./product/README.md)                   | Figure out which constraints are available for which `productId`                                                                                                                                                                    |
-| `GET /products/{productId}`               | Core          | -                                                            | [Product](./product/README.md)                               |                                                                                                                                                                                                                                     |
-| `GET /products/{productId}/parameters`    | Core          | -                                                            | JSON Schema                                                  |                                                                                                                                                                                                                                     |
-| `GET /orders`                             | Core          | -                                                            | [Orders Collection](./order/README.md#order-collection)      |                                                                                                                                                                                                                                     |
-| `GET /orders/{orderId}`                   | Core          | -                                                            | [Order Object](./order/README.md#order-pobject)              |                                                                                                                                                                                                                                     |
-| `POST /products/{productId}/order`        | Core          | [Order Request](./order/README.md#order-request) or any object | - | Order a capture with a particular set of [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) as defined in the products or a request that was provided through the opportunities endpoint. |
+| Endpoint                                   | Specified in  | Accepts                                                            | Returns                                                                      | Description                                                                                                                                                                                                                         |
+| ------------------------------------------ | ------------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GET /`                                    | Core          | -                                                                  | [Landing Page](#landing-page)                                                |                                                                                                                                                                                                                                     |
+| `GET /conformance`                         | Core          | -                                                                  | Conformance Classes                                                          |                                                                                                                                                                                                                                     |
+| `GET /products`                            | Core          | -                                                                  | [Products Collection](./product/README.md)                                   | Figure out which constraints are available for which `productId`                                                                                                                                                                    |
+| `GET /products/{productId}`                | Core          | -                                                                  | [Product](./product/README.md)                                               |                                                                                                                                                                                                                                     |
+| `GET /products/{productId}/parameters`     | Core          | -                                                                  | JSON Schema                                                                  |                                                                                                                                                                                                                                     |
+| `GET /orders`                              | Core          | -                                                                  | [Orders Collection](./order/README.md#order-collection)                      |                                                                                                                                                                                                                                     |
+| `GET /orders/{orderId}`                    | Core          | -                                                                  | [Order Object](./order/README.md#order-pobject)                              |                                                                                                                                                                                                                                     |
+| `POST /products/{productId}/orders`        | Core          | [Order Request](./order/README.md#order-request) or any object     | -                                                                            | Order a capture with a particular set of [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) as defined in the products or a request that was provided through the opportunities endpoint. |
 | `POST /products/{productId}/opportunities` | Opportunities | [Opportunity Request](./opportunity/README.md#opportunity-request) | [Opportunities Collection](./opportunity/README.md#opportunities-collection) | Explore the opportunities available for a particular set of [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters)                                                                            |
 
 ## Conformance Classes
@@ -120,16 +122,16 @@ requires they also live at the `/conformance` endpoint. STAPI's conformance stru
 
 ### Conformance Class Table
 
-| **Name**               | **Specified in**                            | **Conformance URI**                                    | **Description**                                                                                                 |
-| ---------------------- | ------------------------------------------- | ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------- |
-| STAPI - Core        | Core               | https://stapi.example.com/v0.1.0/core | Specifies the STAPI Landing page `/`, communicating conformance and available endpoints.                         |
-| STAPI - Opportunities | [Opportunities](opportunity/README.md)        | https://stapi.example.com/v0.1.0/opportunities | Enables request of potential tasking opportunities |
-| STAPI - Core | Core | https://geojson.org/schema/Point.json | Allows submitting orders with GeoJSON points |
-| STAPI - Core | Core | https://geojson.org/schema/Linestring.json | Allows submitting orders with GeoJSON linestrings |
-| STAPI - Core | Core | https://geojson.org/schema/Polygon.json | Allows submitting orders with GeoJSON polygons |
-| STAPI - Core | Core | https://geojson.org/schema/MultiPoint.json | Allows submitting orders with GeoJSON multi points |
-| STAPI - Core | Core | https://geojson.org/schema/MultiPolygon.json | Allows submitting orders with GeoJSON multi polygons |
-| STAPI - Core | Core | https://geojson.org/schema/MultiLineString.json | Allows submitting orders with GeoJSON multi linestring |
+| **Name**              | **Specified in**                       | **Conformance URI**                             | **Description**                                                                          |
+| --------------------- | -------------------------------------- | ----------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| STAPI - Core          | Core                                   | https://stapi.example.com/v0.1.0/core           | Specifies the STAPI Landing page `/`, communicating conformance and available endpoints. |
+| STAPI - Opportunities | [Opportunities](opportunity/README.md) | https://stapi.example.com/v0.1.0/opportunities  | Enables request of potential tasking opportunities                                       |
+| STAPI - Core          | Core                                   | https://geojson.org/schema/Point.json           | Allows submitting orders with GeoJSON points                                             |
+| STAPI - Core          | Core                                   | https://geojson.org/schema/Linestring.json      | Allows submitting orders with GeoJSON linestrings                                        |
+| STAPI - Core          | Core                                   | https://geojson.org/schema/Polygon.json         | Allows submitting orders with GeoJSON polygons                                           |
+| STAPI - Core          | Core                                   | https://geojson.org/schema/MultiPoint.json      | Allows submitting orders with GeoJSON multi points                                       |
+| STAPI - Core          | Core                                   | https://geojson.org/schema/MultiPolygon.json    | Allows submitting orders with GeoJSON multi polygons                                     |
+| STAPI - Core          | Core                                   | https://geojson.org/schema/MultiLineString.json | Allows submitting orders with GeoJSON multi linestring                                   |
 
 See [the STAPI Demo](https://github.com/Element84/stat-api-demo)
 
@@ -139,7 +141,7 @@ STAPI supports paging through hypermedia links for the following resources:
 - `GET /products`
 - `POST /products/{productId}/opportunities`
 - `GET /orders`
-- `GET /orders/{orderId}/status`
+- `GET /orders/{orderId}/statuses`
 
 The following relation types are available for pagination:
 - `next` to provide a link to the next page
@@ -201,7 +203,7 @@ sequenceDiagram
     PROVIDER-->>USER: Response: Opportunities Collection
     deactivate PROVIDER
 
-    USER->>PROVIDER: POST /products/{productId}/order
+    USER->>PROVIDER: POST /products/{productId}/orders
     activate PROVIDER
     PROVIDER-->>USER: Response: Order Object
     deactivate PROVIDER
@@ -221,7 +223,7 @@ sequenceDiagram
     PROVIDER-->>USER: Response: Opportunities Collection
     deactivate PROVIDER
 
-    USER->>PROVIDER: POST /products/{productId}/order
+    USER->>PROVIDER: POST /products/{productId}/orders
     activate PROVIDER
     PROVIDER-->>USER: Response: Order Object
     deactivate PROVIDER
@@ -236,7 +238,7 @@ sequenceDiagram
     PROVIDER-->>USER: Response: Product Object
     deactivate PROVIDER
 
-    USER->>PROVIDER: POST /products/{productId}/order
+    USER->>PROVIDER: POST /products/{productId}/orders
     activate PROVIDER
     PROVIDER-->>USER: Response: Order Object
     deactivate PROVIDER
