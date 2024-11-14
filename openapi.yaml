@@ -86,7 +86,7 @@ paths:
     get:
       tags:
         - Products
-      summary: the feature products in the dataset
+      summary: the products in the dataset
       description: |-
         ...
       responses:
@@ -116,7 +116,7 @@ paths:
       tags:
         - Products
       summary: |-
-        describe the feature product with id `productId`
+        describe the product with id `productId`
       description: |-
         ...
       parameters:
@@ -173,35 +173,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/jsonschema"
-        "4XX":
-          $ref: "#/components/responses/Error"
-        "5XX":
-          $ref: "#/components/responses/Error"
-  "/orders":
-    get:
-      tags:
-        - Orders
-      summary: a list of orders
-      description: |-
-        ...
-      responses:
-        "200":
-          description: |-
-            ...
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - links
-                  - orders
-                properties:
-                  links:
-                    $ref: "#/components/schemas/links"
-                  orders:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/order"
         "4XX":
           $ref: "#/components/responses/Error"
         "5XX":
@@ -289,7 +260,7 @@ paths:
                         id:
                           type: string
                         geometry:
-                          $ref: "https://geojson.org/schema/Geometry.json"
+                          $ref: "#/components/schemas/geometryGeoJSON"
                         bbox:
                           type: array
                           items:
@@ -305,12 +276,92 @@ paths:
           $ref: "#/components/responses/Error"
         "5XX":
           $ref: "#/components/responses/Error"
+  "/orders":
+    get:
+      tags:
+        - Orders
+      summary: a list of orders
+      description: |-
+        ...
+      responses:
+        "200":
+          description: |-
+            ...
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - links
+                  - orders
+                properties:
+                  links:
+                    $ref: "#/components/schemas/links"
+                  orders:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/order"
+        "4XX":
+          $ref: "#/components/responses/Error"
+        "5XX":
+          $ref: "#/components/responses/Error"
+  "/orders/{orderId}":
+    get:
+      tags:
+        - Orders
+      summary: |-
+        describe the order with id `orderId`
+      description: |-
+        ...
+      parameters:
+        - $ref: "#/components/parameters/orderId"
+      responses:
+        "200":
+          description: |-
+            ...
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/order"
+        "4XX":
+          $ref: "#/components/responses/Error"
+        "5XX":
+          $ref: "#/components/responses/Error"
+  "/orders/{orderId}/status":
+    get:
+      tags:
+        - Orders
+      summary: |-
+        describe the statuses that the order with id `orderId` has had
+      description: |-
+        ...
+      parameters:
+        - $ref: "#/components/parameters/orderId"
+      responses:
+        "200":
+          description: |-
+            ...
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/order_statuses"
+        "4XX":
+          $ref: "#/components/responses/Error"
+        "5XX":
+          $ref: "#/components/responses/Error"
 components:
   parameters:
     productId:
       name: productId
       in: path
       description: local identifier of a product
+      required: true
+      schema:
+        type: string
+    orderId:
+      name: orderId
+      in: path
+      description: local identifier of an order
       required: true
       schema:
         type: string
@@ -347,6 +398,21 @@ components:
           type: string
         links:
           $ref: "#/components/schemas/links"
+    order_statuses:
+      type: object
+      required:
+        - conformsTo
+      properties:
+        current:
+          description: >-
+            The current status object
+          $ref: "#/components/schemas/order_status"
+        history:
+          description: >-
+            History of statuses
+          type: array
+          items:
+            $ref: "#/components/schemas/order_status"
     order_request:
       type: object
       required:
@@ -359,7 +425,7 @@ components:
         product_id:
           type: string
         geometry:
-          $ref: "https://geojson.org/schema/Geometry.json"
+          $ref: "#/components/schemas/geometryGeoJSON"
         filter:
           $ref: "#/components/schemas/cql2"
     license:
@@ -547,6 +613,141 @@ components:
           type: array
           items:
             type: string
+    geometryGeoJSON:
+      oneOf:
+        - $ref: "#/components/schemas/pointGeoJSON"
+        - $ref: "#/components/schemas/multipointGeoJSON"
+        - $ref: "#/components/schemas/linestringGeoJSON"
+        - $ref: "#/components/schemas/multilinestringGeoJSON"
+        - $ref: "#/components/schemas/polygonGeoJSON"
+        - $ref: "#/components/schemas/multipolygonGeoJSON"
+        - $ref: "#/components/schemas/geometrycollectionGeoJSON"
+    geometrycollectionGeoJSON:
+      type: object
+      required:
+        - type
+        - geometries
+      properties:
+        type:
+          type: string
+          enum:
+            - GeometryCollection
+        geometries:
+          type: array
+          items:
+            $ref: "#/components/schemas/geometryGeoJSON"
+    linestringGeoJSON:
+      type: object
+      required:
+        - type
+        - coordinates
+      properties:
+        type:
+          type: string
+          enum:
+            - LineString
+        coordinates:
+          type: array
+          minItems: 2
+          items:
+            type: array
+            minItems: 2
+            items:
+              type: number
+    multilinestringGeoJSON:
+      type: object
+      required:
+        - type
+        - coordinates
+      properties:
+        type:
+          type: string
+          enum:
+            - MultiLineString
+        coordinates:
+          type: array
+          items:
+            type: array
+            minItems: 2
+            items:
+              type: array
+              minItems: 2
+              items:
+                type: number
+    multipointGeoJSON:
+      type: object
+      required:
+        - type
+        - coordinates
+      properties:
+        type:
+          type: string
+          enum:
+            - MultiPoint
+        coordinates:
+          type: array
+          items:
+            type: array
+            minItems: 2
+            items:
+              type: number
+    multipolygonGeoJSON:
+      type: object
+      required:
+        - type
+        - coordinates
+      properties:
+        type:
+          type: string
+          enum:
+            - MultiPolygon
+        coordinates:
+          type: array
+          items:
+            type: array
+            items:
+              type: array
+              minItems: 4
+              items:
+                type: array
+                minItems: 2
+                items:
+                  type: number
+    pointGeoJSON:
+      type: object
+      required:
+        - type
+        - coordinates
+      properties:
+        type:
+          type: string
+          enum:
+            - Point
+        coordinates:
+          type: array
+          minItems: 2
+          items:
+            type: number
+    polygonGeoJSON:
+      type: object
+      required:
+        - type
+        - coordinates
+      properties:
+        type:
+          type: string
+          enum:
+            - Polygon
+        coordinates:
+          type: array
+          items:
+            type: array
+            minItems: 4
+            items:
+              type: array
+              minItems: 2
+              items:
+                type: number
   responses:
     Error:
       description: An error occurred.
