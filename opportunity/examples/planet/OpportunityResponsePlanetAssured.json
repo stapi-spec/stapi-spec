@@ -1,168 +1,168 @@
 {
-  "type": "FeatureCollection",
-  "features": [
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              13.366485917756462,
-              52.45122429945398
-            ],
-            [
-              13.440031194017141,
-              52.45122429945398
-            ],
-            [
-              13.44006863527683,
-              52.49615747668417
-            ],
-            [
-              13.366448476496773,
-              52.49615747668417
-            ],
-            [
-              13.366485917756462,
-              52.45122429945398
-            ]
-          ]
-        ]
-      },
-      "properties": {
-        "product_id": "PL-123546:Flexible Tasking",
-        "datetime": "2024-04-19T12:00:00Z/2024-04-19T12:05:00Z",
-        "satelliteTypes": [
-          "SKYSAT"
-        ],
-        "exclusivity_days": 30,
-        "scheduling_type": "Assured",
-        "eo:cloud_cover": 0.1,
-        "view:off_nadir": "0.0"
-      },
-      "links": [
+    "type": "FeatureCollection",
+    "features": [
         {
-          "rel": "create-order",
-          "method": "POST",
-          "href": "https://example.com/products/PL-123546:Assured Tasking/order",
-          "body": {
-            "datetime": "2024-04-19T12:00:00Z/2024-04-19T12:05:00Z",
+            "type": "Feature",
             "geometry": {
-              "type": "Point",
-              "coordinates": [
-                13.403258555886767,
-                52.473696635108176
-              ]
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            13.366485917756462,
+                            52.45122429945398
+                        ],
+                        [
+                            13.440031194017141,
+                            52.45122429945398
+                        ],
+                        [
+                            13.44006863527683,
+                            52.49615747668417
+                        ],
+                        [
+                            13.366448476496773,
+                            52.49615747668417
+                        ],
+                        [
+                            13.366485917756462,
+                            52.45122429945398
+                        ]
+                    ]
+                ]
             },
-            "filter": {
-              "op": "and",
-              "args": [
+            "properties": {
+                "product_id": "PL-123546:FlexibleTasking",
+                "datetime": "2024-04-19T12:00:00Z/2024-04-19T12:05:00Z",
+                "satelliteTypes": [
+                    "SKYSAT"
+                ],
+                "exclusivity_days": 30,
+                "scheduling_type": "Assured",
+                "eo:cloud_cover": 0.1,
+                "view:off_nadir": "0.0"
+            },
+            "links": [
                 {
-                  "op": "=",
-                  "args": [
-                    {
-                      "property": "imaging_window_id"
-                    },
-                    "imaging-window-id-representing-12:00-window"
-                  ]
-                },
-                {
-                  "op": "=",
-                  "args": [
-                    {
-                      "property": "exclusivity_days"
-                    },
-                    30
-                  ]
+                    "rel": "create-order",
+                    "method": "POST",
+                    "href": "https://example.com/products/PL-123546:AssuredTasking/order",
+                    "body": {
+                        "datetime": "2024-04-19T12:00:00Z/2024-04-19T12:05:00Z",
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [
+                                13.403258555886767,
+                                52.473696635108176
+                            ]
+                        },
+                        "filter": {
+                            "op": "and",
+                            "args": [
+                                {
+                                    "op": "=",
+                                    "args": [
+                                        {
+                                            "property": "imaging_window_id"
+                                        },
+                                        "imaging-window-id-representing-12:00-window"
+                                    ]
+                                },
+                                {
+                                    "op": "=",
+                                    "args": [
+                                        {
+                                            "property": "exclusivity_days"
+                                        },
+                                        30
+                                    ]
+                                }
+                            ]
+                        }
+                    }
                 }
-              ]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              13.366485917756462,
-              52.45122429945398
-            ],
-            [
-              13.440031194017141,
-              52.45122429945398
-            ],
-            [
-              13.44006863527683,
-              52.49615747668417
-            ],
-            [
-              13.366448476496773,
-              52.49615747668417
-            ],
-            [
-              13.366485917756462,
-              52.45122429945398
             ]
-          ]
-        ]
-      },
-      "properties": {
-        "product_id": "PL-123546:Flexible Tasking",
-        "datetime": "2024-04-19T12:14:00Z/2024-04-19T14:05:00Z",
-        "satelliteTypes": [
-          "SKYSAT"
-        ],
-        "exclusivity_days": 30,
-        "scheduling_type": "Assured",
-        "eo:cloud_cover": 0.5,
-        "view:off_nadir": "10.5"
-      },
-      "links": [
+        },
         {
-          "rel": "create-order",
-          "method": "POST",
-          "href": "https://example.com/products/PL-123546:Flexible Tasking/order",
-          "body": {
-            "datetime": "2024-04-19T14:00:00Z/2024-04-19T14:05:00Z",
+            "type": "Feature",
             "geometry": {
-              "type": "Point",
-              "coordinates": [
-                13.403258555886767,
-                52.473696635108176
-              ]
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [
+                            13.366485917756462,
+                            52.45122429945398
+                        ],
+                        [
+                            13.440031194017141,
+                            52.45122429945398
+                        ],
+                        [
+                            13.44006863527683,
+                            52.49615747668417
+                        ],
+                        [
+                            13.366448476496773,
+                            52.49615747668417
+                        ],
+                        [
+                            13.366485917756462,
+                            52.45122429945398
+                        ]
+                    ]
+                ]
             },
-            "filter": {
-              "op": "and",
-              "args": [
+            "properties": {
+                "product_id": "PL-123546:FlexibleTasking",
+                "datetime": "2024-04-19T12:14:00Z/2024-04-19T14:05:00Z",
+                "satelliteTypes": [
+                    "SKYSAT"
+                ],
+                "exclusivity_days": 30,
+                "scheduling_type": "Assured",
+                "eo:cloud_cover": 0.5,
+                "view:off_nadir": "10.5"
+            },
+            "links": [
                 {
-                  "op": "=",
-                  "args": [
-                    {
-                      "property": "imaging_window_id"
-                    },
-                    "imaging-window-id-representing-14:00-window"
-                  ]
-                },
-                {
-                  "op": "=",
-                  "args": [
-                    {
-                      "property": "exclusivity_days"
-                    },
-                    30
-                  ]
+                    "rel": "create-order",
+                    "method": "POST",
+                    "href": "https://example.com/products/PL-123546:FlexibleTasking/order",
+                    "body": {
+                        "datetime": "2024-04-19T14:00:00Z/2024-04-19T14:05:00Z",
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [
+                                13.403258555886767,
+                                52.473696635108176
+                            ]
+                        },
+                        "filter": {
+                            "op": "and",
+                            "args": [
+                                {
+                                    "op": "=",
+                                    "args": [
+                                        {
+                                            "property": "imaging_window_id"
+                                        },
+                                        "imaging-window-id-representing-14:00-window"
+                                    ]
+                                },
+                                {
+                                    "op": "=",
+                                    "args": [
+                                        {
+                                            "property": "exclusivity_days"
+                                        },
+                                        30
+                                    ]
+                                }
+                            ]
+                        }
+                    }
                 }
-              ]
-            }
-          }
+            ]
         }
-      ]
-    }
-  ],
-  "links": []
+    ],
+    "links": []
 }

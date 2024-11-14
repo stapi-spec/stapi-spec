@@ -3,7 +3,7 @@
 
 This document defines a Product and explains its specification and structure.
 
-A STAPI Product is remote sensing data or derived insights with spatio-temporal components that can be delivers value to the user. A non-exhaustive list of examples includes:
+A STAPI Product is remote sensing data or derived insights with spatio-temporal components that can deliver value to the user. A non-exhaustive list of examples includes:
 
 - Electro-optical (EO) images
 - Synthetic Aperture Radar (SAR) images
@@ -63,7 +63,6 @@ May also include information about the final storage provider hosting the data.
 - *host*: The host is the actual provider offering the data on their storage.
   There should be no more than one host, specified as last element of the list.
 
-
 ### Link Object
 
 This object describes a relationship with another entity. Data providers are advised to be liberal with links.
@@ -75,25 +74,51 @@ This object describes a relationship with another entity. Data providers are adv
 | type       | string | Media Type of the referenced entity. |
 | title      | string | A human readable title to be used in rendered displays of the link. |
 
-The relation type `product-parameters` is to be used to link to the `GET /products/{productId}/parameters` endpoint.
+The relation type `constraints` is to be used to link to the `GET /products/{productId}/constraints` endpoint.
 
-## Parameters
+The relation type `order-parameters` is to be used to link to the `GET /products/{productId}/order-parameters` endpoint.
 
-Parameters define the Opportunity and Order properties that can be used in CQL2 JSON filter statements  to reduce the results set.
-For example, a `parameter` might be `eo:cloud_cover` which allows users to filter Opportunities to only results with `eo:cloud_cover` within a certain range. 
+## Constraints
 
-The parameters must be exposed as a separate endpoint that is provided at 
-`GET /products/{productId}/parameters`.
+Constraints define the Opportunity and Order properties that can be used in CQL2 JSON filter statements  to reduce the results set.
+For example, a `constraint` might be `weather:cloud_cover` which allows users to filter Opportunities to only results with `weather:cloud_cover` within a certain range. 
 
-A The response body for parameters is a JSON Schema definition.
+The constraints must be exposed as a separate endpoint that is provided at 
+`GET /products/{productId}/constraints`.
+
+The response body for parameters is a JSON Schema definition.
 Empty schemas are not allowed.
 It is recommended to use [JSON Schema draft-07](https://json-schema.org/specification-links.html#draft-7).
 For an introduction to JSON Schema, see
 [Learn JSON Schema](https://json-schema.org/learn/getting-started-step-by-step).
 
-#### Parameters Best Practices
+#### Constraints Best Practices
 
-There are many Tasking parameters that cannot be represented by JSON Schema. For these parameters, strongly consider documenting the constraint in the `"description"` property of the relevant constraint or use the `"links"` attribute to link the user out to documentation that describes additional parameters.
+There are many Tasking constraints that cannot be represented by JSON Schema. For these constraints, strongly consider documenting the constraint in the `description` property of the relevant constraint or use the `"links"` attribute to link the user out to documentation that describes additional constraints.
+
+TODO: Example
+TODO: Documented link type for client libraries to be able to find and surface to users
+
+## Order Parameters
+
+Order Parameters define the properties that can be used when creating an Order. These are different
+than Constraints, in that they do not constrain the desired results, but rather 
+
+For example, an order parameter might define what file format or what cloud service provider that
+the order will be delivered in.
+
+The parameters must be exposed as a separate endpoint that is provided at 
+`GET /products/{productId}/order-parameters`.
+
+The response body for order parameters is a JSON Schema definition.
+Empty schemas are not allowed.
+It is recommended to use [JSON Schema draft-07](https://json-schema.org/specification-links.html#draft-7).
+For an introduction to JSON Schema, see
+[Learn JSON Schema](https://json-schema.org/learn/getting-started-step-by-step).
+
+#### Order Parameters Best Practices
+
+There are many order parameters that cannot be represented by JSON Schema. For these parameters, strongly consider documenting the constraint in the `"description"` property of the relevant constraint or use the `"links"` attribute to link the user out to documentation that describes additional parameters.
 
 TODO: Example
 TODO: Documented link type for client libraries to be able to find and surface to users
