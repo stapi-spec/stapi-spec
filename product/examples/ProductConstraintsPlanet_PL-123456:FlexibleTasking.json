@@ -1,0 +1,79 @@
+ {
+    "$defs": {
+        "scheduling_type": {
+            "enum": [
+                "Flexible"
+            ],
+            "title": "Scheduling Type",
+            "type": "string"
+        },
+        "satellite_types": {
+            "enum": [
+                "SkySat"
+            ],
+            "title": "Satellite Types",
+            "type": "string"
+        },
+        "exclusivity_days": {
+            "enum": [
+                0,
+                30
+            ],
+            "title": "Exclusivity Days",
+            "type": "number"
+        }
+    },
+    "description": "Planet Flexible constraints docstring",
+    "properties": {
+        "scheduling_type": {
+            "allOf": [
+                {
+                    "$ref": "#/parameters/$defs/scheduling_type"
+                }
+            ],
+            "default": "Flexible",
+            "title": "Scheduling Type"
+        },
+        "satellite_types": {
+            "items": [
+                {
+                    "$ref": "#/parameters/$defs/satellite_types"
+                }
+            ],
+            "default": [
+                "SkySat"
+            ],
+            "type": "array",
+            "title": "Satellite Types"
+        },
+        "exclusivity_days": {
+            "allOf": [
+                {
+                    "$ref": "#/parameters/$defs/exclusivity_days"
+                }
+            ],
+            "default": 0,
+            "title": "Exclusivity Days"
+        },
+        "view:sat_elevation": {
+            "type": "number",
+            "min": 20,
+            "max": 90
+        },
+        "view:azimuth": {
+            "type": "number",
+            "min": -360,
+            "max": 360
+        },
+        "view:sun_zenith": {
+            "type": "number",
+            "min": 0,
+            "max": 85
+        },
+        "view:sun-azimuth": {
+            "type": "number",
+            "min": -360,
+            "max": 360
+        }
+    }
+}
