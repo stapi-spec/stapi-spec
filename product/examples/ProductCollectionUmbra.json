@@ -27,7 +27,7 @@
         "type": "docs",
         "title": "Canopy Documentation"
       }],
-      "parameters": {
+      "constraints": {
         "$defs": {
           "ProductType": {
             "enum": [
@@ -46,7 +46,7 @@
             "type": "string"
           }
         },
-        "description": "Umbra Spotlight Parameters docstring yay!",
+        "description": "Umbra Spotlight constraints docstring",
         "properties": {
           "sceneSize": {
             "allOf": [
@@ -134,8 +134,8 @@
         "type": "docs",
         "title": "Canopy Documentation"
       }],
-      "parameters": {
-        "description": "Umbra Archive Catalog Parameters docstring yay!",
+      "constraints": {
+        "description": "Umbra Archive Catalog constraints docstring",
         "properties": {
           "sar:resolution_range": {
             "type": "number",
@@ -158,7 +158,7 @@
             "regex": "Umbra-\\d{2}"
           }
         },
-        "title": "UmbraArchiveCatalogParameters",
+        "title": "UmbraArchiveCatalogConstraints",
         "type": "object"
       }
     }

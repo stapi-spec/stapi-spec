@@ -12,7 +12,7 @@
       },
       "properties": {
         "product_id": "umbra_spotlight",
-        "datetime": "2024-04-22T06:21:00Z/2024-04-20T06:22:21Z",
+        "datetime": "2024-04-20T06:21:00Z/2024-04-22T06:22:21Z",
         "grazingAngleDegrees": [
           58,
           63
@@ -27,7 +27,7 @@
           "method": "POST",
           "href": "https://example.com/products/umbra_spotlight/order",
           "body": {
-            "datetime": "2024-04-22T06:21:00Z/2024-04-20T06:22:21Z",
+            "datetime": "2024-04-20T06:21:00Z/2024-04-22T06:22:21Z",
             "geometry": {
               "type": "Point",
               "coordinates": [
