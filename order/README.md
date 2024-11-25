@@ -65,10 +65,14 @@ See [Order Object](#order-object).
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
-| id   | string | Unique provider generated order ID |
+| type       | string   | **REQUIRED.** Type of the GeoJSON Object. MUST be set to `Feature`. |
+| stapi_type   | string | **REQUIRED.** Type of the STAPI Object. MUST be set to `Order`.  |
+| stapi_version   | string | **REQUIRED.** The STAPI version the Order implements. |
+| id   | string | Unique provider generated order ID. |
+| conformsTo      | \[string\] | Conformance classes that apply to the order specifically. |
 | user | string | User or organization ID ? |
-| created | datetime | When the order was created |
-| status | [Order Status Object](#order-status) | Current Order Status object |
+| created | datetime | When the order was created. |
+| status | [Order Status Object](#order-status) | Current Order Status object. |
 | links    | \[[Link Object](https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md#link-object)\] |  |
 
 If the `GET /orders/{orderId}/statuses` endpoint is implemented, there must be a link to the endpoint using the relation type `monitor`.
