@@ -1,15 +1,40 @@
 {
-  "datetime": "2024-04-19T00:00:00Z/2024-04-23T00:00:00Z",
-  "geometry": {
-    "type": "Point",
-    "coordinates": [
-      13.403258555886767,
-      52.473696635108176
-    ]
-  },
   "filter": {
     "op": "and",
     "args": [
+      {
+        "op": "s_intersects",
+        "args": [
+          {
+            "property": "geometry"
+          },
+          {
+            "type": "Point",
+            "coordinates": [
+              13.403258555886767,
+              52.473696635108176
+            ]
+          }
+        ]
+      },
+      {
+        "op": ">=",
+        "args": [
+          {
+            "property": "datetime"
+          },
+          "2024-04-19T00:00:00Z"
+        ]
+      },
+      {
+        "op": "<=",
+        "args": [
+          {
+            "property": "datetime"
+          },
+          "2024-04-23T00:00:00Z"
+        ]
+      },
       {
         "op": ">=",
         "args": [

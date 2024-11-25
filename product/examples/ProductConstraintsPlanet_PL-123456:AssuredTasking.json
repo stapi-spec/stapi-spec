@@ -1,63 +1,63 @@
 {
-                "$defs": {
-                    "scheduling_type": {
-                        "enum": [
-                            "Assured"
-                        ],
-                        "title": "Scheduling Type",
-                        "type": "string"
-                    },
-                    "satellite_types": {
-                        "enum": [
-                            "SkySat"
-                        ],
-                        "title": "Satellite Types",
-                        "type": "string"
-                    },
-                    "exclusivity_days": {
-                        "enum": [
-                            0,
-                            30
-                        ],
-                        "title": "Exclusivity Days",
-                        "type": "number"
-                    },
-                    "imaging_window_id": {
-                        "title": "Imaging Window ID (added to filters in the opportunities response)",
-                        "type": "string"
-                    }
-                },
-                "description": "Planet Assured constraints docstring",
-                "properties": {
-                    "scheduling_type": {
-                        "allOf": [
-                            {
-                                "$ref": "#/parameters/$defs/scheduling_type"
-                            }
-                        ],
-                        "default": "Assured",
-                        "title": "Scheduling Type"
-                    },
-                    "satellite_types": {
-                        "items": [
-                            {
-                                "$ref": "#/parameters/$defs/satellite_types"
-                            }
-                        ],
-                        "default": [
-                            "SkySat"
-                        ],
-                        "type": "array",
-                        "title": "Satellite Types"
-                    },
-                    "exclusivity_days": {
-                        "allOf": [
-                            {
-                                "$ref": "#/parameters/$defs/exclusivity_days"
-                            }
-                        ],
-                        "default": 0,
-                        "title": "Exclusivity Days"
-                    }
+    "$defs": {
+        "scheduling_type": {
+            "enum": [
+                "Assured"
+            ],
+            "title": "Scheduling Type",
+            "type": "string"
+        },
+        "satellite_types": {
+            "enum": [
+                "SkySat"
+            ],
+            "title": "Satellite Types",
+            "type": "string"
+        },
+        "exclusivity_days": {
+            "enum": [
+                0,
+                30
+            ],
+            "title": "Exclusivity Days",
+            "type": "number"
+        },
+        "imaging_window_id": {
+            "title": "Imaging Window ID (added to filters in the opportunities response)",
+            "type": "string"
+        }
+    },
+    "description": "Planet Assured queryables docstring",
+    "properties": {
+        "scheduling_type": {
+            "allOf": [
+                {
+                    "$ref": "#/parameters/$defs/scheduling_type"
                 }
-            }
+            ],
+            "default": "Assured",
+            "title": "Scheduling Type"
+        },
+        "satellite_types": {
+            "items": [
+                {
+                    "$ref": "#/parameters/$defs/satellite_types"
+                }
+            ],
+            "default": [
+                "SkySat"
+            ],
+            "type": "array",
+            "title": "Satellite Types"
+        },
+        "exclusivity_days": {
+            "allOf": [
+                {
+                    "$ref": "#/parameters/$defs/exclusivity_days"
+                }
+            ],
+            "default": 0,
+            "title": "Exclusivity Days"
+        }
+    }
+}

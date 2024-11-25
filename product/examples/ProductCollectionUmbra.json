@@ -26,85 +26,7 @@
         "rel": "documentation",
         "type": "docs",
         "title": "Canopy Documentation"
-      }],
-      "constraints": {
-        "$defs": {
-          "ProductType": {
-            "enum": [
-              "GEC",
-              "SIDD"
-            ],
-            "title": "ProductType",
-            "type": "string"
-          },
-          "SceneSize": {
-            "enum": [
-              "5x5_KM",
-              "10x10_KM"
-            ],
-            "title": "SceneSize",
-            "type": "string"
-          }
-        },
-        "description": "Umbra Spotlight constraints docstring",
-        "properties": {
-          "sceneSize": {
-            "allOf": [
-              {
-                "$ref": "#/parameters/$defs/SceneSize"
-              }
-            ],
-            "default": "5x5_KM",
-            "description": "The scene size of the Spotlight collect. The first "
-          },
-          "grazingAngleDegrees": {
-            "type": "number",
-            "minimum": 40,
-            "maximum": 70,
-            "description": "The minimum angle between the local tangent plane at the target location and the line of sight vector between the satellite and the target. First value is the minimum grazing angle the second is the maximum.",
-            "title": "Grazing Angle Degrees"
-          },
-          "satelliteIds": {
-            "description": "The satellites to consider for this Opportunity.",
-            "items": {
-              "type": "string",
-              "regex": "Umbra-\\d{2}"
-            },
-            "title": "Satelliteids",
-            "type": "array"
-          },
-          "deliveryConfigId": {
-            "anyOf": [
-              {
-                "format": "uuid",
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "default": null,
-            "description": "",
-            "title": "Deliveryconfigid"
-          },
-          "productTypes": {
-            "default": [
-              "GEC"
-            ],
-            "description": "",
-            "items": {
-              "$ref": "#/parameters/$defs/ProductType"
-            },
-            "title": "Producttypes",
-            "type": "array"
-          }
-        },
-        "required": [
-          "satelliteIds"
-        ],
-        "title": "UmbraSpotlightParameters",
-        "type": "object"
-      }
+      }]
     },
     {
       "type": "Product",
@@ -133,34 +55,7 @@
         "rel": "documentation",
         "type": "docs",
         "title": "Canopy Documentation"
-      }],
-      "constraints": {
-        "description": "Umbra Archive Catalog constraints docstring",
-        "properties": {
-          "sar:resolution_range": {
-            "type": "number",
-            "minimum": 0.25,
-            "maximum": 1,
-            "description": "The range resolution of the SAR Image. This is equivalent to the resolution of the ground plane projected GEC Cloud-Optimized Geotiff",
-            "title": "Range Resolution (m)"
-          },
-          "sar:looks_azimuth": {
-            "type": "number",
-            "minimum": 1,
-            "maximum": 10,
-            "description": "The azimuth looks in the SAR Image. This value times the sar:resolution_range gives the azimuth resolution of the complex products.",
-            "title": "Range Resolution (m)"
-          },
-          "platform": {
-            "description": "The satellites to consider for this Opportunity.",
-            "title": "Platform (Satellite)",
-            "type": "string",
-            "regex": "Umbra-\\d{2}"
-          }
-        },
-        "title": "UmbraArchiveCatalogConstraints",
-        "type": "object"
-      }
+      }]
     }
   ]
 }

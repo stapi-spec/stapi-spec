@@ -3,7 +3,13 @@
     "features": [
         {
             "type": "Feature",
-            "geometry": {"type": "Point", "coordinates": [0, 0]},
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    0,
+                    0
+                ]
+            },
             "id": "abc",
             "properties": {
                 "product_id": "xyz",
@@ -11,7 +17,7 @@
                 "view:offnadir_angle": 20,
                 "view:sun_azimuth": 150,
                 "view:sun_elevation": 30,
-                "weather:cloud_cover": 20,
+                "eo:cloud_cover": 20,
                 "weather:precipitation": 0
             },
             "links": [
@@ -32,29 +38,81 @@
             "method": "POST",
             "href": "https://example.com/products/xyz/order",
             "body": {
-                "geometry": {
-                    "type": "Polygon",
-                    "coordinates": [
-                        [
-                            [0, 0],
-                            [1, 0],
-                            [1, 1],
-                            [0, 1],
-                            [0, 0]
-                        ]
-                      ]
-                },
-                "datetime": "2020-01-01T00:00:00Z/2020-01-02T00:00:00Z",
                 "filter": {
                     "op": "and",
                     "args": [
                         {
-                            "op": "between",
-                            "args": [{ "property": "weather:cloud_cover" }, 20, 30]
+                            "op": "s_intersects",
+                            "args": [
+                                {
+                                    "property": "geometry"
+                                },
+                                {
+                                    "type": "Polygon",
+                                    "coordinates": [
+                                        [
+                                            [
+                                                0,
+                                                0
+                                            ],
+                                            [
+                                                1,
+                                                0
+                                            ],
+                                            [
+                                                1,
+                                                1
+                                            ],
+                                            [
+                                                0,
+                                                1
+                                            ],
+                                            [
+                                                0,
+                                                0
+                                            ]
+                                        ]
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "op": ">=",
+                            "args": [
+                                {
+                                    "property": "datetime"
+                                },
+                                "2020-01-01T00:00:00Z"
+                            ]
+                        },
+                        {
+                            "op": "<=",
+                            "args": [
+                                {
+                                    "property": "datetime"
+                                },
+                                "2020-01-02T00:00:00Z"
+                            ]
                         },
                         {
                             "op": "between",
-                            "args": [{ "property": "view:offnadir_angle" }, 15, 30]
+                            "args": [
+                                {
+                                    "property": "eo:cloud_cover"
+                                },
+                                20,
+                                30
+                            ]
+                        },
+                        {
+                            "op": "between",
+                            "args": [
+                                {
+                                    "property": "view:offnadir_angle"
+                                },
+                                15,
+                                30
+                            ]
                         }
                     ]
                 }

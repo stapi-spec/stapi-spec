@@ -133,12 +133,12 @@ paths:
           $ref: "#/components/responses/Error"
         "5XX":
           $ref: "#/components/responses/Error"
-  "/products/{productId}/constraints":
+  "/products/{productId}/queryables":
     get:
       tags:
         - Products
       summary: |-
-        describe the constraints for a product
+        describe the queryables for the CQL2 filter applied to product opportunities
       description: |-
         ...
       parameters:
@@ -535,7 +535,7 @@ components:
       description: STAPI Product objects are represented in JSON format and are very flexible. 
                   Any JSON object that contains all the required fields is a valid STAPI Product. 
                   A Product object contains a minimal set of required properties to be valid and 
-                  can be extended through the use of constraints and parameters.
+                  can be extended through the use of queryables and parameters.
       required:
         - type
         - id

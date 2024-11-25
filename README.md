@@ -5,6 +5,7 @@
   - [Table of Contents](#table-of-contents)
   - [About](#about)
   - [Introduction](#introduction)
+  - [Other Documents](#other-documents)
   - [STAPI Description](#stapi-description)
     - [Core](#core)
       - [Landing Page](#landing-page)
@@ -36,6 +37,11 @@ The STAPI is primarily designed around machine-to-machine interactions.
 
 See the [Product README](product/README.md) for more.
 
+## Other Documents
+
+- [CHANGELOG](changelog.md)
+- [ADRs](adrs.md)
+
 ## STAPI Description
 
 ### Core
@@ -65,12 +71,18 @@ Fields that can be included in the response body for `GET /`.
 
 ##### Relation Types
 
+STAPI follows the principles of Hypermedia as the Engine of Application State (HATEOAS) by using link relations
+to provide hypermedia navigation through the API. While STAPI also defines specific API endpoints that must be
+implemented, these should also be discoverable by clients through various link relations. The only API endpoint
+that a client should need to know of is the root endpoint, and the URLs for all other endpoints should come from
+looking at link relations.
+
 | Endpoint                                     | Relation Type      |
 | -------------------------------------------- | ------------------ |
 | `GET /conformance`                           | `conformance`      |
 | `GET /products`                              | `products`         |
 | `GET /products/{productId}`                  | `product`          |
-| `GET /products/{productId}/constraints`      | `constraints`      |
+| `GET /products/{productId}/queryables`       | `queryables`       |
 | `GET /products/{productId}/order-parameters` | `order-parameters` |
 | `POST /products/{productId}/orders`          | `create-order`     |
 | `GET /products/{productId}/orders`           | `orders`           |
@@ -104,9 +116,9 @@ column is more of an example in some cases.
 | -------------------------------------------- | ------------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `GET /`                                      | Core          | -                                                                  | [Landing Page](#landing-page)                                                |                                                                                                                                                                                                                                     |
 | `GET /conformance`                           | Core          | -                                                                  | Conformance Classes                                                          |                                                                                                                                                                                                                                     |
-| `GET /products`                              | Core          | -                                                                  | [Products Collection](./product/README.md)                                   | Figure out which constraints are available for which `productId`                                                                                                                                                                    |
+| `GET /products`                              | Core          | -                                                                  | [Products Collection](./product/README.md)                                   | `productId`                                                                                                                                                                                                                         |
 | `GET /products/{productId}`                  | Core          | -                                                                  | [Product](./product/README.md)                                               |                                                                                                                                                                                                                                     |
-| `GET /products/{productId}/constraints`      | Core          | -                                                                  | JSON Schema                                                                  |                                                                                                                                                                                                                                     |
+| `GET /products/{productId}/queryables`       | Core          | -                                                                  | JSON Schema                                                                  |                                                                                                                                                                                                                                     |
 | `GET /products/{productId}/order-parameters` | Core          | -                                                                  | JSON Schema                                                                  |                                                                                                                                                                                                                                     |
 | `GET /orders`                                | Core          | -                                                                  | [Orders Collection](./order/README.md#order-collection)                      |                                                                                                                                                                                                                                     |
 | `GET /orders/{orderId}`                      | Core          | -                                                                  | [Order Object](./order/README.md#order-pobject)                              |                                                                                                                                                                                                                                     |
@@ -124,18 +136,27 @@ requires they also live at the `/conformance` endpoint. STAPI's conformance stru
 
 ### Conformance Class Table
 
-| **Name**              | **Specified in**                       | **Conformance URI**                             | **Description**                                                                          |
-| --------------------- | -------------------------------------- | ----------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| STAPI - Core          | Core                                   | https://stapi.example.com/v0.1.0/core           | Specifies the STAPI Landing page `/`, communicating conformance and available endpoints. |
-| STAPI - Opportunities | [Opportunities](opportunity/README.md) | https://stapi.example.com/v0.1.0/opportunities  | Enables request of potential tasking opportunities                                       |
-| STAPI - Core          | Core                                   | https://geojson.org/schema/Point.json           | Allows submitting orders with GeoJSON points                                             |
-| STAPI - Core          | Core                                   | https://geojson.org/schema/Linestring.json      | Allows submitting orders with GeoJSON linestrings                                        |
-| STAPI - Core          | Core                                   | https://geojson.org/schema/Polygon.json         | Allows submitting orders with GeoJSON polygons                                           |
-| STAPI - Core          | Core                                   | https://geojson.org/schema/MultiPoint.json      | Allows submitting orders with GeoJSON multi points                                       |
-| STAPI - Core          | Core                                   | https://geojson.org/schema/MultiPolygon.json    | Allows submitting orders with GeoJSON multi polygons                                     |
-| STAPI - Core          | Core                                   | https://geojson.org/schema/MultiLineString.json | Allows submitting orders with GeoJSON multi linestring                                   |
+| **Name**                           | **Specified in**                       | **Conformance URI**                                                     | **Description**                                                                          |
+| ---------------------------------- | -------------------------------------- | ----------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| STAPI - Core                       | Core                                   | https://stapi.example.com/v0.1.0/core                                   | Specifies the STAPI Landing page `/`, communicating conformance and available endpoints. |
+| STAPI - Opportunities              | [Opportunities](opportunity/README.md) | https://stapi.example.com/v0.1.0/opportunities                          | Enables request of potential tasking opportunities                                       |
+| CQL2 JSON                          | CQL2                                   | http://www.opengis.net/spec/cql2/1.0/conf/cql2-json                     | Allows using CQL2 formatted as JSON                                                                   |
+| Basic-CQL2                         | CQL2                                   | http://www.opengis.net/spec/cql2/1.0/conf/basic-cql2                    | Allows using logical operators (AND, OR, NOT) and comparison operators (=, <>, <, <=, >, >=), and IS NULL with string, numeric, boolean, date, and datetime types.                   |
+| CQL2 Basic Spatial Functions       | CQL2                                   | http://www.opengis.net/spec/cql2/1.0/conf/basic-spatial-functions          | Allows using spatial intersects (`s_intersects`) operator                                |
+| CQL2 Advanced Comparison Operators | CQL2                                   | http://www.opengis.net/spec/cql2/1.0/conf/advanced-comparison-operators | Allows using operators `LIKE`, `BETWEEN` and `IN`                                        |
+| GeoJSON Point                      | GeoJSON                                | https://geojson.org/schema/Point.json                                   | Allows submitting orders with GeoJSON points                                             |
+| GeoJSON LineString                 | GeoJSON                                | https://geojson.org/schema/LineString.json                              | Allows submitting orders with GeoJSON linestrings                                        |
+| GeoJSON Polygon                    | GeoJSON                                | https://geojson.org/schema/Polygon.json                                 | Allows submitting orders with GeoJSON polygons                                           |
+| GeoJSON MultiPoint                 | GeoJSON                                | https://geojson.org/schema/MultiPoint.json                              | Allows submitting orders with GeoJSON multi points                                       |
+| GeoJSON MultiPolygon               | GeoJSON                                | https://geojson.org/schema/MultiPolygon.json                            | Allows submitting orders with GeoJSON multi polygons                                     |
+| GeoJSON MultiLineString            | GeoJSON                                | https://geojson.org/schema/MultiLineString.json                         | Allows submitting orders with GeoJSON multilinestring                                    |
 
-See [the STAPI Demo](https://github.com/Element84/stat-api-demo)
+It is required to support the CQL2 JSON, Basic CQL2, and CQL2 Basic Spatial Operators classes.
+Other [CQL2 Conformance classes](https://docs.ogc.org/is/21-065r2/21-065r2.html) may be supported at the
+discretion of the implementer. 
+
+See [the STAPI Demo](https://github.com/Element84/stat-api-demo) for an example of advertising these
+conformance classes.
 
 ## Pagination
 

@@ -1,0 +1,78 @@
+{
+  "$defs": {
+    "ProductType": {
+      "enum": [
+        "GEC",
+        "SIDD"
+      ],
+      "title": "ProductType",
+      "type": "string"
+    },
+    "SceneSize": {
+      "enum": [
+        "5x5_KM",
+        "10x10_KM"
+      ],
+      "title": "SceneSize",
+      "type": "string"
+    }
+  },
+  "description": "Umbra Spotlight queryables docstring",
+  "properties": {
+    "sceneSize": {
+      "allOf": [
+        {
+          "$ref": "#/parameters/$defs/SceneSize"
+        }
+      ],
+      "default": "5x5_KM",
+      "description": "The scene size of the Spotlight collect. The first "
+    },
+    "grazingAngleDegrees": {
+      "type": "number",
+      "minimum": 40,
+      "maximum": 70,
+      "description": "The minimum angle between the local tangent plane at the target location and the line of sight vector between the satellite and the target. First value is the minimum grazing angle the second is the maximum.",
+      "title": "Grazing Angle Degrees"
+    },
+    "satelliteIds": {
+      "description": "The satellites to consider for this Opportunity.",
+      "items": {
+        "type": "string",
+        "regex": "Umbra-\\d{2}"
+      },
+      "title": "Satelliteids",
+      "type": "array"
+    },
+    "deliveryConfigId": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "",
+      "title": "Deliveryconfigid"
+    },
+    "productTypes": {
+      "default": [
+        "GEC"
+      ],
+      "description": "",
+      "items": {
+        "$ref": "#/parameters/$defs/ProductType"
+      },
+      "title": "Producttypes",
+      "type": "array"
+    }
+  },
+  "required": [
+    "satelliteIds"
+  ],
+  "title": "UmbraSpotlightParameters",
+  "type": "object"
+}

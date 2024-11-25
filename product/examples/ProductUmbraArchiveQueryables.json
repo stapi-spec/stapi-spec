@@ -1,0 +1,28 @@
+re-write this as JSON Schema
+{
+    "description": "Umbra Archive Catalog queryables docstring",
+    "properties": {
+      "sar:resolution_range": {
+        "type": "number",
+        "minimum": 0.25,
+        "maximum": 1,
+        "description": "The range resolution of the SAR Image. This is equivalent to the resolution of the ground plane projected GEC Cloud-Optimized Geotiff",
+        "title": "Range Resolution (m)"
+      },
+      "sar:looks_azimuth": {
+        "type": "number",
+        "minimum": 1,
+        "maximum": 10,
+        "description": "The azimuth looks in the SAR Image. This value times the sar:resolution_range gives the azimuth resolution of the complex products.",
+        "title": "Range Resolution (m)"
+      },
+      "platform": {
+        "description": "The satellites to consider for this Opportunity.",
+        "title": "Platform (Satellite)",
+        "type": "string",
+        "regex": "Umbra-\\d{2}"
+      }
+    },
+    "title": "UmbraArchiveCatalogQueryables",
+    "type": "object"
+  }

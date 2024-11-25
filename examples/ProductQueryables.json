@@ -1,0 +1,36 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "schema.json",
+    "type": "object",
+    "properties": {
+        "gsd": {
+            "minimum": 0.5,
+            "maximum": 10.0
+        },
+        "target_elevation": {
+            "minimum": 30.0,
+            "maximum": 90.0
+        },
+        "target_azimuth": {
+            "minimum": -360.0,
+            "maximum": 360.0
+        },
+        "view:sun_elevation": {
+            "minimum": 10.0,
+            "maximum": 90.0
+        },
+        "view:sun_azimuth": {
+            "minimum": -360.0,
+            "maximum": 360.0
+        },
+        "view:off_nadir": {
+            "minimum": 0.0,
+            "maximum": 30.0
+        },
+        "cloud_coverage_prediction_max": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "multipleOf": 0.01
+        }
+    }

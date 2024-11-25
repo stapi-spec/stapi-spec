@@ -7,7 +7,7 @@
             0
         ]
     },
-    "constraints": {
+    "opportunity_properties": {
         "gsd": {
             "minimum": 9.0,
             "maximum": 10.0
