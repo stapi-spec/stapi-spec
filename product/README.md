@@ -25,10 +25,12 @@ STAPI Product objects are represented in JSON format and are very flexible. Any 
 | links | [[Link Object](#link-object)] | **REQUIRED** Links for e.g. pagination. |
 
 
-## Product Object 
+## Product Object
 | Element         | Type                                             | Description                                                  |
 | --------------- | ------------------------------------------------ | ------------------------------------------------------------ |
-| type            | string                                           | **REQUIRED.** Must be set to `Product` to be a valid Product. |
+| type            | string                                           | **REQUIRED.** Must be set to `Collection` to be a valid Product. |
+| stapi_type   | string | **REQUIRED.** Type of the STAPI Object. MUST be set to `Product`.  |
+| stapi_version   | string | **REQUIRED.** The STAPI version the Product implements. |
 | id              | string                                           | **REQUIRED.** Identifier for the Product that is unique across the provider. |
 | conformsTo      | \[string\]                                       | Conformance classes that apply to the product specifically. |
 | title           | string                                           | A short descriptive one-line title for the Product.       |
@@ -38,7 +40,7 @@ STAPI Product objects are represented in JSON format and are very flexible. Any 
 | providers       | \[[Provider Object](#provider-object)]           | A list of providers, which may include all organizations capturing or processing the data or the hosting provider. Providers should be listed in chronological order with the most recent provider being the last element of the list. |                |
 | links           | \[[Link Object](#link-object)]                   | **REQUIRED.** A list of references to other documents.       |
 
-Additional properties are allowed to be placed in the top-level object, comparable to how STAC Collections work. 
+Additional properties are allowed to be placed in the top-level object, comparable to how STAC Collections work.
 STAC Collection fields can be reused, including fields defined in STAC Collection extensions.
 
 ### Provider Object
@@ -81,9 +83,9 @@ The relation type `order-parameters` is to be used to link to the `GET /products
 ## Constraints
 
 Constraints define the Opportunity and Order properties that can be used in CQL2 JSON filter statements  to reduce the results set.
-For example, a `constraint` might be `weather:cloud_cover` which allows users to filter Opportunities to only results with `weather:cloud_cover` within a certain range. 
+For example, a `constraint` might be `weather:cloud_cover` which allows users to filter Opportunities to only results with `weather:cloud_cover` within a certain range.
 
-The constraints must be exposed as a separate endpoint that is provided at 
+The constraints must be exposed as a separate endpoint that is provided at
 `GET /products/{productId}/constraints`.
 
 The response body for parameters is a JSON Schema definition.
@@ -102,12 +104,12 @@ TODO: Documented link type for client libraries to be able to find and surface t
 ## Order Parameters
 
 Order Parameters define the properties that can be used when creating an Order. These are different
-than Constraints, in that they do not constrain the desired results, but rather 
+than Constraints, in that they do not constrain the desired results, but rather
 
 For example, an order parameter might define what file format or what cloud service provider that
 the order will be delivered in.
 
-The parameters must be exposed as a separate endpoint that is provided at 
+The parameters must be exposed as a separate endpoint that is provided at
 `GET /products/{productId}/order-parameters`.
 
 The response body for order parameters is a JSON Schema definition.
