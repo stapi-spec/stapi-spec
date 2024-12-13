@@ -8,16 +8,18 @@ The `GET /orders/{orderId}` endpoint must add a link to this endpoint using the 
 
 Endpoint: `GET /orders/{orderId}/statuses`
 
+TODO: Pagination
+
 ## Order Status Request
 
-Get operation only. 
+GET operation only.
 
 ## Order Status Response
 
 Response has two fields:
-| Field Name | Type | Description |
-| ---------- | ---- | ----------- |
-| current | OrderStatus | The current/official status object |
-| history | [OrderStatus] | History of statuses |
+| Field Name | Type            | Description                                            |
+| ---------- | --------------- | ------------------------------------------------------ |
+| statuses   | \[OrderStatus\]   | **REQUIRED.** History of statuses                      |
+| links      | \[Link\] | **REQUIRED.** A list of references to other endpoints. |
 
-The [Order Status](../order/README.md#order-status) object is described in the order README.
+The [Order Status](../../order/README.md#order-status) object is described in the Order README.
