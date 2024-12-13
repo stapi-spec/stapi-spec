@@ -431,18 +431,17 @@ components:
     order_statuses:
       type: object
       required:
-        - conformsTo
+        - statuses
+        - links
       properties:
-        current:
-          description: >-
-            The current status object
-          $ref: "#/components/schemas/order_status"
-        history:
+        statuses:
           description: >-
             History of statuses
           type: array
           items:
             $ref: "#/components/schemas/order_status"
+      links:
+        $ref: "#/components/schemas/links"
     order_request:
       type: object
       required:
