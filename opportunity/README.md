@@ -17,12 +17,18 @@ for `POST /products/{productId}/opportunities`
 
 #### datetime
 
-The datetime parameter represents a time interval with which the temporal property of the results must intersect. This parameter allows a subset of the allowed values for a [ISO 8601 Time Interval](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals) or a 
-[OAF datetime](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_parameter_datetime) parameter.
-This allows for either
-open or closed intervals, with end definitions separated by a solidus (forward slash, `/`) separator. Closed ends are represented by
-[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) datetimes. Open ends are represented
-by either an empty string or `..`. Only singly-open intervals are allowed.  Examples of valid datetime intervals include `2024-04-18T10:56:00+01:00/2024-04-25T10:56:00+01:00`, `2024-04-18T10:56:00Z/..`, and `/2024-04-25T10:56:00+01:00`
+The datetime parameter represents a time interval with which the temporal
+property of the results must intersect. This parameter allows a subset of the
+allowed values for a [ISO 8601 Time
+Interval](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals) or a [OAF
+datetime](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_parameter_datetime)
+parameter.  This allows for either open or closed intervals, with end
+definitions separated by a solidus (forward slash, `/`) separator. Closed ends
+are represented by [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339)
+datetimes. Open ends are represented by either an empty string or `..`. Only
+singly-open intervals are allowed.  Examples of valid datetime intervals
+include `2024-04-18T10:56:00+01:00/2024-04-25T10:56:00+01:00`,
+`2024-04-18T10:56:00Z/..`, and `/2024-04-25T10:56:00+01:00`
 
 ## Opportunity Collection
 
@@ -38,7 +44,8 @@ This is a GeoJSON FeatureCollection.
 
 ### Opportunity Object
 
-This object describes a STAPI Opportunity. The input fields will be contained `properties` of each Feature in the GeoJSON response.
+This object describes a STAPI Opportunity. The input fields will be contained
+`properties` of each Feature in the GeoJSON response.
 
 | Field Name | Type                                                                       | Description |
 | ---------- | -------------------------------------------------------------------------- | ----------- |
@@ -51,20 +58,25 @@ This object describes a STAPI Opportunity. The input fields will be contained `p
 
 #### bbox
 
-Bounding Box of the asset represented by this Item using either 2D or 3D geometries,
-formatted according to [RFC 7946, section 5](https://tools.ietf.org/html/rfc7946#section-5).
-The length of the array must be 2\*n where n is the number of dimensions.
-The array contains all axes of the southwesterly most extent followed by all axes of the northeasterly most extent specified in
-Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS 84](http://www.opengis.net/def/crs/OGC/1.3/CRS84).
-When using 3D geometries, the elevation of the southwesterly most extent is the minimum depth/height in meters
-and the elevation of the northeasterly most extent is the maximum.
-This field enables more naive clients to easily index and search geospatially.
-STAC compliant APIs are required to compute intersection operations with the Item's geometry field, not its bbox.
+Bounding Box of the asset represented by this Item using either 2D or 3D
+geometries, formatted according to [RFC 7946, section
+5](https://tools.ietf.org/html/rfc7946#section-5).  The length of the array
+must be 2\*n where n is the number of dimensions.  The array contains all axes
+of the southwesterly most extent followed by all axes of the northeasterly most
+extent specified in Longitude/Latitude or Longitude/Latitude/Elevation based on
+[WGS 84](http://www.opengis.net/def/crs/OGC/1.3/CRS84).  When using 3D
+geometries, the elevation of the southwesterly most extent is the minimum
+depth/height in meters and the elevation of the northeasterly most extent is
+the maximum.  This field enables more naive clients to easily index and search
+geospatially.  STAC compliant APIs are required to compute intersection
+operations with the Item's geometry field, not its bbox.
 
 #### Properties Object
 
-Additional metadata fields can be added to the GeoJSON Object Properties that describe the Opportunity in more detail for the user. The only required fields are  `datetime` but it is recommended to add more fields, see [Additional Fields](#additional-fields)
-resources below.
+Additional metadata fields can be added to the GeoJSON Object Properties that
+describe the Opportunity in more detail for the user. The only required fields
+are  `datetime` but it is recommended to add more fields, see [Additional
+Fields](#additional-fields) resources below.
 
 | Field Name | Type         | Description                                                  |
 | ---------- | ------------ | ------------------------------------------------------------ |
@@ -73,11 +85,15 @@ resources below.
 
 #### Link Object
 
-Each link in the links array must be a [Link](https://github.com/radiantearth/stac-spec/blob/master/commons/links.md#link-object) Object.
+Each link in the links array must be a
+[Link](https://github.com/radiantearth/stac-spec/blob/master/commons/links.md#link-object)
+Object.
 
 ##### rel=create-order
 
-This Link object fully describes the necessary HTTP request to submit an Order for this Opportunity via [Create Order](https://github.com/stapi-spec/stapi-spec/tree/main/order#create-order-request).
+This Link object fully describes the necessary HTTP request to submit an Order
+for this Opportunity via
+[Create Order](https://github.com/stapi-spec/stapi-spec/tree/main/order#create-order-request).
 
 To conform to the Create Order spec, use `"method": "POST"`.
 
