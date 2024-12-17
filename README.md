@@ -1,6 +1,7 @@
 # Sensor Tasking API (STAPI)
 
 ## Table of Contents
+
 - [Sensor Tasking API (STAPI)](#sensor-tasking-api-stapi)
   - [Table of Contents](#table-of-contents)
   - [About](#about)
@@ -18,19 +19,35 @@
 
 ## About
 
-The Sensor Tasking API (STAPI) defines a JSON-based web API to query for spatio-temporal analytic and data products derived from remote sensing (satellite or airborne) providers. The specification supports both products derived from new tasking and products from provider archives.
+The Sensor Tasking API (STAPI) defines a JSON-based web API to query for
+spatio-temporal analytic and data products derived from remote sensing
+(satellite or airborne) providers. The specification supports both products
+derived from new tasking and products from provider archives.
 
-STAPI takes much of the work done by the STAC community and applies the lessons learned to this specification. The major departure from STAC is the requirement for uncertainty in many of the STAPI properties. For example, a user requesting a data product can provide a range of dates when they would like to capture. Conversely, a data provider cannot be certain of cloud cover in the future and must return a range of cloud cover probabilities to a user.
+STAPI takes much of the work done by the STAC community and applies the lessons
+learned to this specification. The major departure from STAC is the requirement
+for uncertainty in many of the STAPI properties. For example, a user requesting
+a data product can provide a range of dates when they would like to capture.
+Conversely, a data provider cannot be certain of cloud cover in the future and
+must return a range of cloud cover probabilities to a user.
 
-The STAPI specifications define several new entities: **Products**, **Opportunities**, and **Orders**. These are derived from the [SpatioTemporal Asset Catalog](https://github.com/radiantearth/stac-spec) (STAC) specification.
+The STAPI specifications define several new entities: **Products**,
+**Opportunities**, and **Orders**. These are derived from the [SpatioTemporal
+Asset Catalog](https://github.com/radiantearth/stac-spec) (STAC) specification.
 
-In many cases STAPI requests to providers will be ultimately fulfilled via delivery of a STAC Item, so STAPI aims to align with STAC core and extensions.
+In many cases STAPI requests to providers will be ultimately fulfilled via
+delivery of a STAC Item, so STAPI aims to align with STAC core and extensions.
 
-The core STAPI specification provides a structure and language to describe **Products**, **Opportunities**, and **Orders**. The process of interacting with a Product provider is done through a REST API.
+The core STAPI specification provides a structure and language to describe
+**Products**, **Opportunities**, and **Orders**. The process of interacting
+with a Product provider is done through a REST API.
 
 ## Introduction
 
-Generally speaking, users of STAPI will review available Products from one or more providers, request Opportunities that are possible Orders for those Products, and then submit one or more Orders to receive Products from Providers represented by one or more data artifacts.
+Generally speaking, users of STAPI will review available Products from one or
+more providers, request Opportunities that are possible Orders for those
+Products, and then submit one or more Orders to receive Products from Providers
+represented by one or more data artifacts.
 
 The STAPI is primarily designed around machine-to-machine interactions.
 
@@ -46,8 +63,9 @@ See the [Product README](product/README.md) for more.
 
 The core of STAPI includes the `/products` endpoint and the `/orders` endpoint.
 
-To know which parameters are available for which `productId`, users first explore [/products](./product).
-These parameters can be used to form a POST to the `/products/{productId}/orders` endpoint.
+To know which parameters are available for which `productId`, users first
+explore [/products](./product).  These parameters can be used to form a POST to
+the `/products/{productId}/orders` endpoint.
 
 #### Landing Page
 
@@ -79,26 +97,29 @@ Fields that can be included in the response body for `GET /`.
 | `GET /orders/{orderId}`                      | `order`            |
 | `GET /orders/{orderId}/status`               | `monitor`          |
 
-`create-order`: A link with this relation type should only be provided in the landing page
-if a user can directly go from the products to the order endpoint without
-going through the `POST /products/{productId}/opportunities` endpoint.
+`create-order`: A link with this relation type should only be provided in the
+landing page if a user can directly go from the products to the order endpoint
+without going through the `POST /products/{productId}/opportunities` endpoint.
 
 ### Opportunities
 
-The `POST /products/{productId}/opportunities` endpoint provides additional functionality on top of core and is designed to be used
-after `GET /products` and before `POST /products/{productId}/orders`. It allows users more fine-grained
-control and selection of available tasking opportunities by letting them explore the opportunities which
-are available for a chosen order configuration. The opportunities are
-represented in a FeatureCollection, with order specific attributes and values in the feature properties.
+The `POST /products/{productId}/opportunities` endpoint provides additional
+functionality on top of core and is designed to be used after `GET /products`
+and before `POST /products/{productId}/orders`. It allows users more
+fine-grained control and selection of available tasking opportunities by
+letting them explore the opportunities which are available for a chosen order
+configuration. The opportunities are represented in a FeatureCollection, with
+order specific attributes and values in the feature properties.
 
 ## Endpoints
 
-STAPI follow the modern web API practices of using HTTP Request Methods ("verbs") and
-the `Content-Type` header to drive behavior on resources ("nouns") in the endpoints listed below.
+STAPI follow the modern web API practices of using HTTP Request Methods
+("verbs") and the `Content-Type` header to drive behavior on resources
+("nouns") in the endpoints listed below.
 
-The following table describes the service resources available in a STAPI implementation that
-supports all three of the foundation specifications. Note that the 'Endpoint'
-column is more of an example in some cases.
+The following table describes the service resources available in a STAPI
+implementation that supports all three of the foundation specifications. Note
+that the 'Endpoint' column is more of an example in some cases.
 
 | Endpoint                                     | Specified in  | Accepts                                                            | Returns                                                                      | Description                                                                                                                                                                                                                         |
 | -------------------------------------------- | ------------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -115,12 +136,16 @@ column is more of an example in some cases.
 
 ## Conformance Classes
 
-STAPI utilizes OGC API Features [Conformance](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_declaration_of_conformance_classes)
-JSON structure. For STAPI, we declare new STAPI conformance classes, with the core ones detailed in the table below.
+STAPI utilizes OGC API Features
+[Conformance](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_declaration_of_conformance_classes)
+JSON structure. For STAPI, we declare new STAPI conformance classes, with the
+core ones detailed in the table below.
 
-The core STAPI conformance classes communicate the conformance JSON only in the root (`/`) document, while OGC API
-requires they also live at the `/conformance` endpoint. STAPI's conformance structure is detailed in the
-[core](core/). Note all conformance URIs serve up a rendered HTML version of the corresponding OpenAPI document at the given location.
+The core STAPI conformance classes communicate the conformance JSON only in the
+root (`/`) document, while OGC API requires they also live at the
+`/conformance` endpoint. STAPI's conformance structure is detailed in the
+[core](core/). Note all conformance URIs serve up a rendered HTML version of
+the corresponding OpenAPI document at the given location.
 
 ### Conformance Class Table
 
@@ -135,17 +160,19 @@ requires they also live at the `/conformance` endpoint. STAPI's conformance stru
 | STAPI - Core          | Core                                   | https://geojson.org/schema/MultiPolygon.json    | Allows submitting orders with GeoJSON multi polygons                                     |
 | STAPI - Core          | Core                                   | https://geojson.org/schema/MultiLineString.json | Allows submitting orders with GeoJSON multi linestring                                   |
 
-See [the STAPI Demo](https://github.com/Element84/stat-api-demo)
+See [the STAPI Demo](https://github.com/Element84/stat-api-demo).
 
 ## Pagination
 
 STAPI supports paging through hypermedia links for the following resources:
+
 - `GET /products`
 - `POST /products/{productId}/opportunities`
 - `GET /orders`
 - `GET /orders/{orderId}/statuses`
 
 The following relation types are available for pagination:
+
 - `next` to provide a link to the next page
 - `prev` to provide a link to the previous page (optional)
 - `first` to provide a link to the first page (optional)
@@ -183,6 +210,7 @@ The href may contain any arbitrary URL parameter, which is implementation-specif
 
 In addition to supporting query parameters in the URL value of the `href` field,
 the Link object can contain additional fields to support more complex HTTP requests:
+
 - `method` to specify an HTTP method in uppercase (e.g. `GET` or `POST`),
 - `headers` to add HTTP headers in the request,
 - `body` with the entire body for the request.
@@ -191,7 +219,8 @@ The specification is compatible to pagination mechanisms defined in STAC API.
 
 ## Example workflows
 
-A user with broad requirements browses available products and orders based on available opportunities.
+A user with broad requirements browses available products and orders based on
+available opportunities.
 
 ```mermaid
 sequenceDiagram
@@ -211,7 +240,8 @@ sequenceDiagram
     deactivate PROVIDER
 ```
 
-A user with a specific product in mind views available opportunities and places and order.
+A user with a specific product in mind views available opportunities and places
+and order.
 
 ```mermaid
 sequenceDiagram
@@ -231,7 +261,8 @@ sequenceDiagram
     deactivate PROVIDER
 ```
 
-A user with a specific product and without a specific need in mind views available products and places an order.
+A user with a specific product and without a specific need in mind views
+available products and places an order.
 
 ```mermaid
 sequenceDiagram
