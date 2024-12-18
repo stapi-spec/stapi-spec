@@ -73,13 +73,13 @@ the `/products/{productId}/orders` endpoint.
 
 Fields that can be included in the response body for `GET /`.
 
-| Field Name  | Type            | Description                                                                                                                                                        |
-| ----------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| id          | string          | **REQUIRED.** Identifier for the API.                                                                                                                              |
-| conformsTo  | \[string\]      | **REQUIRED.** Conformance classes that apply to the API globally.                                                                                                  |
-| title       | string          | A short descriptive one-line title for the API.                                                                                                                    |
-| description | string          | **REQUIRED.** Detailed multi-line description to fully explain the API. [CommonMark 0.29](http://commonmark.org/) syntax MAY be used for rich text representation. |
-| links       | \[Link Object\] | **REQUIRED.** A list of references to other documents and endpoints.                                                                                               |
+| Field Name | Type | Description |
+| ---------- | ---- | ----------- |
+| id | string | **REQUIRED.** Identifier for the API. |
+| conformsTo | [string] | **REQUIRED.** Conformance classes that apply to the API globally. |
+| title | string | A short descriptive one-line title for the API. |
+| description | string | **REQUIRED.** Detailed multi-line description to fully explain the API. [CommonMark 0.29](http://commonmark.org/) syntax MAY be used for rich text representation. |
+| links | [Link Object] | **REQUIRED.** A list of references to other documents and endpoints. |
 
 ##### Relation Types
 
@@ -111,9 +111,25 @@ letting them explore the opportunities which are available for a chosen order
 configuration. The opportunities are represented in a FeatureCollection, with
 order specific attributes and values in the feature properties.
 
+Implementations can choose to support synchronous or asynchronous opportunity
+search requests as needed to support the duration of the operations required to
+find opportunities for a given Product. In cases where the opportunity search
+can be completed within the duration of a regular HTTP request, synchronous
+operation is feasible and does not require maintaining any request or
+opportunity state outside the context of the request.
+
+Where an opportunitiy search takes a longer duration, asynchronous operation
+allows the API to return an [Opportunity Search
+Record](./opportunity/README.md#opportunity-search-record) immediately, which
+the client can then use to check the status of the search and retrieve the
+search results once they are available.  Async support does require the
+implementation to maintain the state of the search and any results outside the
+context of the request, so the requestor can retrieve the results at some point
+after they are made available.
+
 ## Endpoints
 
-STAPI follow the modern web API practices of using HTTP Request Methods
+STAPI follows the modern web API practices of using HTTP Request Methods
 ("verbs") and the `Content-Type` header to drive behavior on resources
 ("nouns") in the endpoints listed below.
 
@@ -121,18 +137,23 @@ The following table describes the service resources available in a STAPI
 implementation that supports all three of the foundation specifications. Note
 that the 'Endpoint' column is more of an example in some cases.
 
-| Endpoint                                     | Specified in  | Accepts                                                            | Returns                                                                      | Description                                                                                                                                                                                                                         |
-| -------------------------------------------- | ------------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `GET /`                                      | Core          | -                                                                  | [Landing Page](#landing-page)                                                |                                                                                                                                                                                                                                     |
-| `GET /conformance`                           | Core          | -                                                                  | Conformance Classes                                                          |                                                                                                                                                                                                                                     |
-| `GET /products`                              | Core          | -                                                                  | [Products Collection](./product/README.md)                                   | Figure out which constraints are available for which `productId`                                                                                                                                                                    |
-| `GET /products/{productId}`                  | Core          | -                                                                  | [Product](./product/README.md)                                               |                                                                                                                                                                                                                                     |
-| `GET /products/{productId}/constraints`      | Core          | -                                                                  | JSON Schema                                                                  |                                                                                                                                                                                                                                     |
-| `GET /products/{productId}/order-parameters` | Core          | -                                                                  | JSON Schema                                                                  |                                                                                                                                                                                                                                     |
-| `GET /orders`                                | Core          | -                                                                  | [Orders Collection](./order/README.md#order-collection)                      |                                                                                                                                                                                                                                     |
-| `GET /orders/{orderId}`                      | Core          | -                                                                  | [Order Object](./order/README.md#order-pobject)                              |                                                                                                                                                                                                                                     |
-| `POST /products/{productId}/orders`          | Core          | [Order Request](./order/README.md#order-request) or any object     | -                                                                            | Order a capture with a particular set of [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) as defined in the products or a request that was provided through the opportunities endpoint. |
-| `POST /products/{productId}/opportunities`   | Opportunities | [Opportunity Request](./opportunity/README.md#opportunity-request) | [Opportunities Collection](./opportunity/README.md#opportunities-collection) | Explore the opportunities available for a particular set of [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters)                                                                            |
+| Endpoint | Specified in | Accepts | Returns | Description |
+| -------- | ------------ | ------- | ------- | ----------- |
+| `GET /` | Core | - | [Landing Page](#landing-page) | |
+| `GET /conformance` | Core | - | Conformance Classes | |
+| `GET /products` | Core | - | [Products Collection](./product/README.md) | Figure out which constraints are available for which `productId` |
+| `GET /products/{productId}` | Core | - | [Product](./product/README.md) | |
+| `GET /products/{productId}/constraints` | Core | - | JSON Schema | |
+| `GET /products/{productId}/order-parameters` | Core | - | JSON Schema | |
+| `GET /orders` | Core | - | [Orders Collection](./order/README.md#order-collection) | |
+| `GET /orders/{orderId}` | Core | - | [Order Object](./order/README.md#order-object) | |
+| `POST /products/{productId}/orders` | Core | [Order Request](./order/README.md#order-request) | - | Order a capture with a particular set of [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) as defined in the products or a request that was provided through the opportunities endpoint. |
+| `POST /products/{productId}/opportunities` | Opportunities | [Opportunity Request](./opportunity/README.md#opportunity-request) | Sync search: [Opportunities Collection](./opportunity/README.md#opportunities-collection); Async search: [Opportunity Search Record](./opportunity/README.md#opportunity-search-record) | Explore the opportunities available for a particular set of [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) |
+| `GET /products/{productId}/opportunities/{opportunityCollectionId}` | Opportunities (Async) | - | [Opportunities Collection](./opportunity/README.md#opportunities-collection) | Get the opportunity collection for an async opportunity search |
+| `GET /searches/opportunities` | Opportunities (Async) | - | [[Opportunity Search Record](./opportunity/README.md#opportunity-search-record)] | |
+| `GET /searches/opportunities/{searchRecordId}` | Opportunities (Async) | - | [Opportunity Search Record](./opportunity/README.md#opportunity-search-record) | |
+| `GET /searches/opportunities/{searchRecordId}/statuses` | Opportunities (Async) | - | [[Opportunity Search Status](./opportunity/README.md#opportunity-search-status)] | |
+| `POST /searches/opportunities/{searchRecordId}/statuses` | Opportunities (Async) | [Opportunity Search Status](./opportunity/README.md#opportunity-search-status) | - | POST a search status update. Returns an empty 201 on success. |
 
 ## Conformance Classes
 
@@ -149,16 +170,17 @@ the corresponding OpenAPI document at the given location.
 
 ### Conformance Class Table
 
-| **Name**              | **Specified in**                       | **Conformance URI**                             | **Description**                                                                          |
-| --------------------- | -------------------------------------- | ----------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| STAPI - Core          | Core                                   | https://stapi.example.com/v0.1.0/core           | Specifies the STAPI Landing page `/`, communicating conformance and available endpoints. |
-| STAPI - Opportunities | [Opportunities](opportunity/README.md) | https://stapi.example.com/v0.1.0/opportunities  | Enables request of potential tasking opportunities                                       |
-| STAPI - Core          | Core                                   | https://geojson.org/schema/Point.json           | Allows submitting orders with GeoJSON points                                             |
-| STAPI - Core          | Core                                   | https://geojson.org/schema/Linestring.json      | Allows submitting orders with GeoJSON linestrings                                        |
-| STAPI - Core          | Core                                   | https://geojson.org/schema/Polygon.json         | Allows submitting orders with GeoJSON polygons                                           |
-| STAPI - Core          | Core                                   | https://geojson.org/schema/MultiPoint.json      | Allows submitting orders with GeoJSON multi points                                       |
-| STAPI - Core          | Core                                   | https://geojson.org/schema/MultiPolygon.json    | Allows submitting orders with GeoJSON multi polygons                                     |
-| STAPI - Core          | Core                                   | https://geojson.org/schema/MultiLineString.json | Allows submitting orders with GeoJSON multi linestring                                   |
+| **Name** | **Specified in** | **Conformance URI** | **Description** |
+| -------- | ---------------- | ------------------- | --------------- |
+| STAPI - Core | Core | https://stapi.example.com/v0.1.0/core | Specifies the STAPI Landing page `/`, communicating conformance and available endpoints. |
+| STAPI - Opportunities | [Opportunities](opportunity/README.md) | https://stapi.example.com/v0.1.0/opportunities | Enables sync request of potential tasking opportunities |
+| STAPI - Opportunities (Async) | [Opportunities](opportunity/README.md) | https://stapi.example.com/v0.1.0/opportunities-async | Enables async request of potential tasking opportunities |
+| STAPI - Core | Core | https://geojson.org/schema/Point.json | Allows submitting orders with GeoJSON points |
+| STAPI - Core | Core | https://geojson.org/schema/Linestring.json | Allows submitting orders with GeoJSON linestrings |
+| STAPI - Core | Core | https://geojson.org/schema/Polygon.json | Allows submitting orders with GeoJSON polygons |
+| STAPI - Core | Core | https://geojson.org/schema/MultiPoint.json | Allows submitting orders with GeoJSON multi points |
+| STAPI - Core | Core | https://geojson.org/schema/MultiPolygon.json | Allows submitting orders with GeoJSON multi polygons |
+| STAPI - Core | Core | https://geojson.org/schema/MultiLineString.json | Allows submitting orders with GeoJSON multi linestring |
 
 See [the STAPI Demo](https://github.com/Element84/stat-api-demo).
 
@@ -168,10 +190,12 @@ STAPI supports paging through hypermedia links for the following resources:
 
 - `GET /products`
 - `POST /products/{productId}/opportunities`
+- `GET /products/{productId}/opportunities/{opportunityCollectionId}`
 - `GET /orders`
 - `GET /orders/{orderId}/statuses`
+- `GET /searches/opportunities/`
 
-The following relation types are available for pagination:
+The following relation types may be available for pagination:
 
 - `next` to provide a link to the next page
 - `prev` to provide a link to the previous page (optional)
@@ -204,9 +228,9 @@ a parameter `page` and is currently on page 2:
 
 The href may contain any arbitrary URL parameter, which is implementation-specific:
 
-- `https://stac-api.example.com/collections/my_collection/items?page=2`
-- `https://stac-api.example.com/collections/my_collection/items?next=8a35eba9c`
-- `https://stac-api.example.com/collections/my_collection/items?token=f32890a0bdb09ac3`
+- `https://stapi.example.com/products?page=2`
+- `https://stapi.example.com/products?next=8a35eba9c`
+- `https://stapi.example.com/products?token=f32890a0bdb09ac3`
 
 In addition to supporting query parameters in the URL value of the `href` field,
 the Link object can contain additional fields to support more complex HTTP requests:
@@ -241,7 +265,7 @@ sequenceDiagram
 ```
 
 A user with a specific product in mind views available opportunities and places
-and order.
+an order.
 
 ```mermaid
 sequenceDiagram
@@ -269,6 +293,39 @@ sequenceDiagram
     USER->>PROVIDER: GET /products/{productId}
     activate PROVIDER
     PROVIDER-->>USER: Response: Product Object
+    deactivate PROVIDER
+
+    USER->>PROVIDER: POST /products/{productId}/orders
+    activate PROVIDER
+    PROVIDER-->>USER: Response: Order Object
+    deactivate PROVIDER
+```
+
+A user with a specific product in mind makes an async opportunities search
+request, retrieves the available opportunities, and places an order.
+
+```mermaid
+sequenceDiagram
+    USER->>PROVIDER: GET /products/{productId}
+    activate PROVIDER
+    PROVIDER-->>USER: Response: Product Object
+    deactivate PROVIDER
+
+    USER->>PROVIDER: POST /products/{productId}/opportunities
+    activate PROVIDER
+    PROVIDER-->>USER: Response: Opportunity Search Record
+    deactivate PROVIDER
+
+    loop Until search record is completed and has link to opportunity collection
+        USER->>PROVIDER: GET /searches/opportunities/{searchRecordId}
+        activate PROVIDER
+        PROVIDER-->>USER: Response: Opportunity Search Record
+        deactivate PROVIDER
+    end
+
+    USER->>PROVIDER: GET /products/{productId}/opportunities/{opportunityCollectionId}
+    activate PROVIDER
+    PROVIDER-->>USER: Response: Opportunities Collection
     deactivate PROVIDER
 
     USER->>PROVIDER: POST /products/{productId}/orders
