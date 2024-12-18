@@ -83,11 +83,13 @@ See [Order Object](#order-object).
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
-| id   | string | Unique provider generated order ID |
+| id | string | Unique provider generated order ID |
 | user | string | User or organization ID ? |
 | created | datetime | When the order was created |
+| product_id | string | **REQUIRED.** Product identifier. This should be a reference to the [Product](https://github.com/Element84/stapi-spec/blob/main/product/README.md) being ordered. |
+| request | [Opportunity Request Object](./opportunity/README.md#opportunity-request-object) | Search parameters for Order |
 | status | [Order Status Object](#order-status) | Current Order Status object |
-| links    | \[[Link Object](https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md#link-object)\] |  |
+| links | \[[Link Object](https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md#link-object)\] |  |
 
 If the `GET /orders/{orderId}/statuses` endpoint is implemented, there must be
 a link to the endpoint using the relation type `monitor`.
