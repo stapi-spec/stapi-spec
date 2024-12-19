@@ -8,7 +8,7 @@ The `GET /orders/{orderId}` endpoint must add a link to this endpoint using the 
 
 Endpoint: `GET /orders/{orderId}/statuses`
 
-TODO: Pagination
+Pagination will follow the convention outlined in [here](../../README.md#pagination).
 
 ## Order Status Request
 
