@@ -98,6 +98,7 @@ Links is intended to be the same data structure as links collection in STAC. Lin
 Providers must support these statuses.
 
 State machine intent (currently no mandate to enforce)
+
 * Received -> accepted or rejected.
 * Accepted -> completed or canceled.
 
@@ -115,7 +116,7 @@ Providers may support these statuses.
 Providers may support additional statuses through extensions. For example:
 
 * tasked (indicates tasking commands have been issued to the satellite/constellation)
-* user_cancelled (indicates that the user cancelled the request)
+* user_canceled (indicates that the user canceled the request)
 
 ### Enumerated reason codes
 
