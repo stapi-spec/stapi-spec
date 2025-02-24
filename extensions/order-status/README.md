@@ -10,11 +10,12 @@ Endpoint: `GET /orders/{orderId}/statuses`
 
 ## Order Status Request
 
-Get operation only. 
+Get operation only.
 
 ## Order Status Response
 
 Response has two fields:
+
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
 | current | OrderStatus | The current/official status object |
