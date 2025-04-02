@@ -88,7 +88,7 @@ Fields that can be included in the response body for `GET /`.
 | `GET /conformance`                           | `conformance`      |
 | `GET /products`                              | `products`         |
 | `GET /products/{productId}`                  | `product`          |
-| `GET /products/{productId}/queryables`      | `queryables`      |
+| `GET /products/{productId}/queryables`       | `queryables`       |
 | `GET /products/{productId}/order-parameters` | `order-parameters` |
 | `POST /products/{productId}/orders`          | `create-order`     |
 | `GET /products/{productId}/orders`           | `orders`           |
