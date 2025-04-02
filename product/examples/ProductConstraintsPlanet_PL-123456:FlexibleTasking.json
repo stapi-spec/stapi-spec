@@ -23,7 +23,7 @@
             "type": "number"
         }
     },
-    "description": "Planet Flexible constraints docstring",
+    "description": "Planet Flexible queryables docstring",
     "properties": {
         "scheduling_type": {
             "allOf": [

@@ -27,7 +27,7 @@
         "type": "docs",
         "title": "Canopy Documentation"
       }],
-      "constraints": {
+      "queryables": {
         "$defs": {
           "ProductType": {
             "enum": [
@@ -46,7 +46,7 @@
             "type": "string"
           }
         },
-        "description": "Umbra Spotlight constraints docstring",
+        "description": "Umbra Spotlight queryables docstring",
         "properties": {
           "sceneSize": {
             "allOf": [
@@ -134,8 +134,8 @@
         "type": "docs",
         "title": "Canopy Documentation"
       }],
-      "constraints": {
-        "description": "Umbra Archive Catalog constraints docstring",
+      "queryables": {
+        "description": "Umbra Archive Catalog queryables docstring",
         "properties": {
           "sar:resolution_range": {
             "type": "number",
@@ -158,7 +158,7 @@
             "regex": "Umbra-\\d{2}"
           }
         },
-        "title": "UmbraArchiveCatalogConstraints",
+        "title": "UmbraArchiveCatalogQueryables",
         "type": "object"
       }
     }

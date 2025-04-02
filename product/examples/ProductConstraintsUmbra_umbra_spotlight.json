@@ -17,7 +17,7 @@
                 "type": "string"
             }
         },
-        "description": "Umbra Spotlight constraints docstring",
+        "description": "Umbra Spotlight queryables docstring",
         "properties": {
             "sceneSize": {
                 "allOf": [
