@@ -242,7 +242,7 @@ paths:
           $ref: "#/components/responses/Error"
         "5XX":
           $ref: "#/components/responses/Error"
-  "products/{productId}/opportunities":
+  "/products/{productId}/opportunities":
     post:
       tags:
         - Opportunities
