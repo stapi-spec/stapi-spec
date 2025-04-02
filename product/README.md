@@ -83,7 +83,7 @@ The relation type `order-parameters` is to be used to link to the `GET /products
 ## Constraints
 
 Constraints define the Opportunity and Order properties that can be used in CQL2 JSON filter statements  to reduce the results set.
-For example, a `constraint` might be `weather:cloud_cover` which allows users to filter Opportunities to only results with `weather:cloud_cover` within a certain range.
+For example, a `constraint` might be `eo:cloud_cover` which allows users to filter Opportunities to only results with `eo:cloud_cover` within a certain range.
 
 The constraints must be exposed as a separate endpoint that is provided at
 `GET /products/{productId}/constraints`.
