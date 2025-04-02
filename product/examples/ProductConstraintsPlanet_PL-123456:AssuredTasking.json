@@ -27,7 +27,7 @@
                         "type": "string"
                     }
                 },
-                "description": "Planet Assured constraints docstring",
+                "description": "Planet Assured queryables docstring",
                 "properties": {
                     "scheduling_type": {
                         "allOf": [

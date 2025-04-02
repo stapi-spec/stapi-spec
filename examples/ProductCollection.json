@@ -19,7 +19,7 @@
                 "type": "media type",
                 "title": "title"
             },
-            "constraints": {
+            "queryables": {
                 "gsd": {
                     "minimum": 0.5,
                     "maximum": 10.0
@@ -111,7 +111,7 @@
                 "type": "media type",
                 "title": "title"
             },
-            "constraints": {
+            "queryables": {
                 "sar:resolution_range": {
                     "minimum": 0.5,
                     "maximum": 5.0
