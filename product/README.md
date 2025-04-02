@@ -1,4 +1,3 @@
-
 # STAPI Product Spec
 
 This document defines a Product and explains its specification and structure.
@@ -13,9 +12,11 @@ A STAPI Product is remote sensing data or derived insights with spatio-temporal 
 - Object (movable) detection
 - Change detection
 
-Some Providers may offer only data or analytic Products while some may offer both. The Product specification is flexible enough to offer constraints at the level of the product offering. For example, a ship (object) detection Product may only specify constraints like location, datetime, and min ship length. The specific data products -- SAR, EO, or otherwise can be left as an implementation detail to the analytic Product Provider.
+Some Providers may offer only data or analytic Products while some may offer both. The Product specification is flexible enough to offer queryables at the level of the product offering. For example, a ship (object) detection Product may only specify queryables like location, datetime, and miniminum ship length. The specific data products -- SAR, EO, or otherwise can be left as an implementation detail to the analytic Product Provider.
 
-STAPI Product objects are represented in JSON format and are very flexible. Any JSON object that contains all the required fields is a valid STAPI Product. A Product object contains a minimal set of required properties to be valid and can be extended through the use of constraints and parameters.
+STAPI Product objects are represented in JSON format and are very flexible. Any JSON object that contains all the required fields is a valid STAPI Product. A `Product` object contains a minimal set of required properties to be valid and can be extended through the use of Queryables and Order Parameters.
+
+
 
 ## Product Collection Spec
 
@@ -35,10 +36,10 @@ STAPI Product objects are represented in JSON format and are very flexible. Any 
 | conformsTo      | \[string\]                                       | Conformance classes that apply to the product specifically. |
 | title           | string                                           | A short descriptive one-line title for the Product.       |
 | description     | string                                           | **REQUIRED.** Detailed multi-line description to fully explain the Collection. [CommonMark 0.29](http://commonmark.org/) syntax MAY be used for rich text representation. |
-| keywords        | \[string]                                        | List of keywords describing the Product.                  |
+| keywords        | \[string\]                                        | List of keywords describing the Product.                  |
 | license         | string                                           | **REQUIRED.** Collection's license(s), either a SPDX [License identifier](https://spdx.org/licenses/), `various` if multiple licenses apply or `proprietary` for all other cases. |
-| providers       | \[[Provider Object](#provider-object)]           | A list of providers, which may include all organizations capturing or processing the data or the hosting provider. Providers should be listed in chronological order with the most recent provider being the last element of the list. |                |
-| links           | \[[Link Object](#link-object)]                   | **REQUIRED.** A list of references to other documents.       |
+| providers       | \[[Provider Object](#provider-object)\]           | A list of providers, which may include all organizations capturing or processing the data or the hosting provider. Providers should be listed in chronological order with the most recent provider being the last element of the list. |                |
+| links           | \[[Link Object](#link-object)\]                   | **REQUIRED.** A list of references to other documents.       |
 
 Additional properties are allowed to be placed in the top-level object, comparable to how STAC Collections work.
 STAC Collection fields can be reused, including fields defined in STAC Collection extensions.
@@ -54,7 +55,7 @@ May also include information about the final storage provider hosting the data.
 | ----------- | --------- | ------------------------------------------------------------ |
 | name        | string    | **REQUIRED.** The name of the organization or the individual. |
 | description | string    | Multi-line description to add further provider information such as processing details for processors and producers, hosting details for hosts or basic contact information. [CommonMark 0.29](http://commonmark.org/) syntax MAY be used for rich text representation. |
-| roles       | \[string] | Role of the provider. Set to `producer` or `reseller`|
+| roles       | \[string\] | Role of the provider. Set to `producer` or `reseller`|
 | url         | string    | Homepage on which the provider describes the dataset and publishes contact information. |
 
 **roles**: The provider's role(s) can be one or more of the following elements:
@@ -76,17 +77,19 @@ This object describes a relationship with another entity. Data providers are adv
 | type       | string | Media Type of the referenced entity. |
 | title      | string | A human readable title to be used in rendered displays of the link. |
 
-The relation type `constraints` is to be used to link to the `GET /products/{productId}/constraints` endpoint.
+The relation type `queryables` is to be used to link to the `GET /products/{productId}/queryables` endpoint.
 
 The relation type `order-parameters` is to be used to link to the `GET /products/{productId}/order-parameters` endpoint.
 
-## Constraints
+## Queryables
+Queryables define the `Opportunity` and `Order` properties that can be used in CQL2 JSON filter statements to constrain the intended search results.
 
-Constraints define the Opportunity and Order properties that can be used in CQL2 JSON filter statements  to reduce the results set.
-For example, a `constraint` might be `weather:cloud_cover` which allows users to filter Opportunities to only results with `weather:cloud_cover` within a certain range.
+The concept of `Queryables` is meant to align with the [STAC API Filter Extension Specification](https://github.com/stac-api-extensions/filter?tab=readme-ov-file#queryables), which uses queryables to define searchable properties of STAC Items, as well as the [OGC Features API Part 3](https://developer.ogc.org/api/features/part3.html#operation/getQueryables) equivalent term. 
 
-The constraints must be exposed as a separate endpoint that is provided at
-`GET /products/{productId}/constraints`.
+For example, one `queryable` might be `weather:cloud_cover` which allows users to filter Opportunities to only results with `weather:cloud_cover` within a certain range. 
+
+The queryables must be exposed as a separate endpoint that is provided at 
+`GET /products/{productId}/queryables`.
 
 The response body for parameters is a JSON Schema definition.
 Empty schemas are not allowed.
@@ -94,9 +97,9 @@ It is recommended to use [JSON Schema draft-07](https://json-schema.org/specific
 For an introduction to JSON Schema, see
 [Learn JSON Schema](https://json-schema.org/learn/getting-started-step-by-step).
 
-#### Constraints Best Practices
+#### Queryables Best Practices
 
-There are many Tasking constraints that cannot be represented by JSON Schema. For these constraints, strongly consider documenting the constraint in the `description` property of the relevant constraint or use the `"links"` attribute to link the user out to documentation that describes additional constraints.
+There are many Tasking queryables that cannot be represented by JSON Schema. For these queryables, strongly consider documenting the queryable in the `description` property of the relevant queryable or use the `"links"` attribute to link the user out to documentation that describes additional queryables.
 
 TODO: Example
 TODO: Documented link type for client libraries to be able to find and surface to users
@@ -104,7 +107,7 @@ TODO: Documented link type for client libraries to be able to find and surface t
 ## Order Parameters
 
 Order Parameters define the properties that can be used when creating an Order. These are different
-than Constraints, in that they do not constrain the desired results, but rather
+than Queryables, in that they do not constrain (filter) the desired results, but rather define general properties of an entire order
 
 For example, an order parameter might define what file format or what cloud service provider that
 the order will be delivered in.
