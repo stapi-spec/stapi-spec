@@ -95,7 +95,7 @@ Fields that can be included in the response body for `GET /`.
 | `POST /products/{productId}/opportunities`   | `opportunities`    |
 | `GET /orders`                                | `orders`           |
 | `GET /orders/{orderId}`                      | `order`            |
-| `GET /orders/{orderId}/status`               | `monitor`          |
+| `GET /orders/{orderId}/statuses`             | `monitor`          |
 
 `create-order`: A link with this relation type should only be provided in the
 landing page if a user can directly go from the products to the order endpoint
