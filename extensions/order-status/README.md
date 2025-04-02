@@ -8,6 +8,8 @@ The `GET /orders/{orderId}` endpoint must add a link to this endpoint using the 
 
 Endpoint: `GET /orders/{orderId}/statuses`
 
+Pagination will follow the convention outlined in [here](../../README.md#pagination).
+
 ## Order Status Request
 
 Get operation only.
@@ -17,8 +19,10 @@ Get operation only.
 Response has two fields:
 
 | Field Name | Type | Description |
-| ---------- | ---- | ----------- |
-| current | OrderStatus | The current/official status object |
-| history | [OrderStatus] | History of statuses |
+| ---------- | ---- | ----------- |OrderStatus | The current/official status object |
+| history | [OrderStatus] | History of statuses |                                       |
+| statuses   | \[OrderStatus\]   | **REQUIRED.** History of statuses                      |
+| links      | \[Link\] | **REQUIRED.** A list of references to other endpoints. |
 
-The [Order Status](../order/README.md#order-status) object is described in the order README.
+
+The [Order Status](../../order/README.md#order-status) object is described in the Order README.
