@@ -83,7 +83,6 @@ See [Order Object](#order-object).
 
 ## Order Object
 
-
 | Field Name | Type                                                                                                        | Description                        |
 | ---------- | ----------------------------------------------------------------------------------------------------------- | ---------------------------------- |
 | id         | string                                                                                                      | Unique provider generated order ID |
@@ -93,6 +92,9 @@ See [Order Object](#order-object).
 | links      | \[[Link Object](https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md#link-object)\] |                                    |
 | product_id | string                                                                                                      | **REQUIRED.** Product identifier. This should be a reference to the [Product](https://github.com/Element84/stapi-spec/blob/main/product/README.md) being ordered. |
 | request    | [Opportunity Request Object](./opportunity/README.md#opportunity-request-object)                            | Search parameters for Order        |
+| type       | string                                                                                                      | **REQUIRED.** Type of the GeoJSON Object. **Must** be set to `Feature`. |
+| stapi_type | string                                                                                                      | **REQUIRED.** Type of the STAPI Object. **Must** be set to `Order`. |
+| stapi_version | string                                                                                                   | **REQUIRED.** The STAPI version the Order implements. |
 
 If the `GET /orders/{orderId}/statuses` endpoint is implemented, there must be
 a link to the endpoint using the relation type `monitor`.
