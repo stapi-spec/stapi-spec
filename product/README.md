@@ -121,9 +121,3 @@ It is recommended to use [JSON Schema draft-07](https://json-schema.org/specific
 For an introduction to JSON Schema, see
 [Learn JSON Schema](https://json-schema.org/learn/getting-started-step-by-step).
 
-#### Order Parameters Best Practices
-
-There are many order parameters that cannot be represented by JSON Schema. For these parameters, strongly consider documenting the constraint in the `"description"` property of the relevant constraint or use the `"links"` attribute to link the user out to documentation that describes additional parameters.
-
-TODO: Example
-TODO: Documented link type for client libraries to be able to find and surface to users
