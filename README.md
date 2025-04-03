@@ -153,7 +153,6 @@ that the 'Endpoint' column is more of an example in some cases.
 | `GET /searches/opportunities` | Opportunities (Async) | - | [[Opportunity Search Record](./opportunity/README.md#opportunity-search-record)] | |
 | `GET /searches/opportunities/{searchRecordId}` | Opportunities (Async) | - | [Opportunity Search Record](./opportunity/README.md#opportunity-search-record) | |
 | `GET /searches/opportunities/{searchRecordId}/statuses` | Opportunities (Async) | - | [[Opportunity Search Status](./opportunity/README.md#opportunity-search-status)] | |
-| `POST /searches/opportunities/{searchRecordId}/statuses` | Opportunities (Async) | [Opportunity Search Status](./opportunity/README.md#opportunity-search-status) | - | POST a search status update. Returns an empty 201 on success. |
 
 ## Conformance Classes
 
