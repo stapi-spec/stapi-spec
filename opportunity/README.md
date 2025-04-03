@@ -138,8 +138,8 @@ To conform to the Create Order spec, use `"method": "POST"`.
 If no Body parameters apply to an Opportunity, use `"body": {}`.
 
 It is **strongly recommended** to include include a `rel=create-order` link on
-an Opportunity to allows the user to order the Opportunity. Consider the
-inclusion of this link a **must** where ordering of an individual Opportunity
+an Opportunity to allow the user to order the Opportunity. Consider the
+inclusion of this link **required** where ordering of an individual Opportunity
 is supported by the given Product. Omission of this link is valid when
 Opportunities are considered informational-only and cannot be ordered directly
 (i.e., the precision of the Opportunities exceeds the implementation's limits
