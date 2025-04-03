@@ -29,7 +29,7 @@ Orders are fulfilled by the creation of one or more STAC Items, although what is
 ultimately delivered to the consumer may be something other than STAC metadata.
 
 The major difference between existing data and future data is the uncertainty or
-absence of metadata. The simples example of this is the datetime of the data.
+absence of metadata. The simple example of this is the datetime of the data.
 Existing data has a discrete known datetime, whereas data to be collected
 will have a date and time range during which it will be completed.
 
