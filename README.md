@@ -88,7 +88,7 @@ Fields that can be included in the response body for `GET /`.
 | `GET /conformance`                           | `conformance`      |
 | `GET /products`                              | `products`         |
 | `GET /products/{productId}`                  | `product`          |
-| `GET /products/{productId}/constraints`      | `constraints`      |
+| `GET /products/{productId}/queryables`       | `queryables`       |
 | `GET /products/{productId}/order-parameters` | `order-parameters` |
 | `POST /products/{productId}/orders`          | `create-order`     |
 | `GET /products/{productId}/orders`           | `orders`           |
@@ -141,9 +141,9 @@ that the 'Endpoint' column is more of an example in some cases.
 | -------- | ------------ | ------- | ------- | ----------- |
 | `GET /` | Core | - | [Landing Page](#landing-page) | |
 | `GET /conformance` | Core | - | Conformance Classes | |
-| `GET /products` | Core | - | [Products Collection](./product/README.md) | Figure out which constraints are available for which `productId` |
+| `GET /products` | Core | - | [Products Collection](./product/README.md) | Figure out which queryables are available for which `productId` |
 | `GET /products/{productId}` | Core | - | [Product](./product/README.md) | |
-| `GET /products/{productId}/constraints` | Core | - | JSON Schema | |
+| `GET /products/{productId}/queryables` | Core | - | JSON Schema | |
 | `GET /products/{productId}/order-parameters` | Core | - | JSON Schema | |
 | `GET /orders` | Core | - | [Orders Collection](./order/README.md#order-collection) | |
 | `GET /orders/{orderId}` | Core | - | [Order Object](./order/README.md#order-object) | |
