@@ -75,14 +75,14 @@
                     "title": "User Defined"
                 }
             ],
-            "title": "Reoccuring collection configuration",
+            "title": "Reoccurring collection configuration",
             "type": "string"
         }
     },
     "properties": {
         "eNiirs": {
             "type": "number",
-            "description": "NIIRS Score is a function of the GSD, Signal-to-Noise Ratio (SNR), and Relative Edge Response (RER) of an image. This NIIRS constraint will use a predicted SNR and RER based off an aggregation of previously taken and analyzed images.",
+            "description": "NIIRS Score is a function of the GSD, Signal-to-Noise Ratio (SNR), and Relative Edge Response (RER) of an image. This NIIRS queryable will use a predicted SNR and RER based off an aggregation of previously taken and analyzed images.",
             "minimum": 3,
             "maximum": 5
         },
