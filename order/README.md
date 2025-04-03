@@ -26,7 +26,7 @@ The endpoint `POST /products/{productId}/orders` is parameterized in the followi
 | datetime | string | **REQUIRED.** Time interval with a solidus (forward slash, `/`)  separator, using [RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6) datetime, empty string, or `..` values. |
 | geometry   | GeoJSON Object \| JSON Reference | **REQUIRED.** Provide a Geometry that the tasked data must be within. |
 | filter     | CQL2 JSON                        | A set of additional [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) in [CQL2 JSON](https://docs.ogc.org/DRAFTS/21-065.html) based on the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) exposed in the product. |
-|order_parameters| JSON Reference| Order Parameters properties that can be used when creating an Order, reference [Order Parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#order-parameters)
+| order_parameters | JSON Object | Order Parameters properties that can be used when creating an Order, reference [Order Parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#order-parameters) |
 
 #### datetime
 
