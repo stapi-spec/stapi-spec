@@ -75,6 +75,10 @@ The spec **strongly recommends** the inclusion of a link with relation type
 `create-order` to allow the user to resubmit the Opportunities request as an
 Order if they do not wish to choose a specific Opportunity.
 
+In the case where individual Opportunities do not include a `create-order` link
+then it should be considered **required** to include a `create-order` link at
+the OpportunityCollection level.
+
 #### rel=search-record
 
 This link is to allow Opportunity Collections created as the result of async
@@ -143,8 +147,20 @@ To conform to the Create Order spec, use `"method": "POST"`.
 
 If no Body parameters apply to an Opportunity, use `"body": {}`.
 
-An Opportunity's links **must** include a `rel=create-order` link that allows
-the user to Order this opportunity.
+It is **strongly recommended** to include include a `rel=create-order` link on
+an Opportunity to allow the user to order the Opportunity. Consider the
+inclusion of this link **required** where ordering of an individual Opportunity
+is supported by the given Product. Omission of this link is valid when
+Opportunities are considered informational-only and cannot be ordered directly
+(i.e., the precision of the Opportunities exceeds the implementation's limits
+with regard to valid order parameters, such as when orders have a minimum
+datetime range greater than any individual Opportunity's datetime range).
+
+When Opportunity `create-order` links are not included then it is **required**
+to include the `create-order` link on the OpportunityCollection. Similarly,
+when a `create-order` link is not included at the OpportunityCollection level
+then consider it **required** to have a `create-order` link on each
+Opportunity.
 
 #####
 
