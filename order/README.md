@@ -118,14 +118,14 @@ Links will be very provider specific.
 * accepted (indicates order has been accepted)
 * rejected (indicates order will not be fulfilled)
 * completed (indicates provider was able to successfully collect imagery)
-* canceled (indicates provider was unable to collect imagery)
+* cancelled (indicates provider was unable to collect imagery)
 
 Providers must support these statuses.
 
 State machine intent (currently no mandate to enforce)
 
 * Received -> accepted or rejected.
-* Accepted -> completed or canceled.
+* Accepted -> completed or cancelled.
 
 #### Optional status codes
 

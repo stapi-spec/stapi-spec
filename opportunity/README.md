@@ -230,12 +230,12 @@ Links will be very provider specific.
 - received (indicates search received by provider and it passed format validation.)
 - in_progress (indicates search is running)
 - failed (indicates search will not be fulfilled for some error reason)
-- canceled (indicates search was canceled for any reason)
+- cancelled (indicates search was cancelled for any reason)
 - completed (indicates search has completed successfully and the results can be retrieved)
 
 Providers must support these statuses.
 
 State machine intent (currently no mandate to enforce)
 
-- received -> in_progress or canceled.
-- in_progress -> completed, failed, or canceled.
+- received -> in_progress or cancelled.
+- in_progress -> completed, failed, or cancelled.
