@@ -26,6 +26,7 @@ The endpoint `POST /products/{productId}/orders` is parameterized in the followi
 | datetime | string | **REQUIRED.** Time interval with a solidus (forward slash, `/`)  separator, using [RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6) datetime, empty string, or `..` values. |
 | geometry   | GeoJSON Object \| JSON Reference | **REQUIRED.** Provide a Geometry that the tasked data must be within. |
 | filter     | CQL2 JSON                        | A set of additional [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) in [CQL2 JSON](https://docs.ogc.org/DRAFTS/21-065.html) based on the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) exposed in the product. |
+|order_parameters| reference to the [Order Parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#order-parameters)  | JSON Reference| Order Parameters properties that can be used when creating an Order|
 
 #### datetime
 
@@ -53,6 +54,12 @@ Example for JSON Reference:
     "$ref": "https://ogc.features.api/collections/123/items/321"
 }
 ```
+#### order_parameters 
+
+Order Parameters define the properties that can be used when creating an Order. These are different than Queryables, in that they do not constrain (filter) the desired results, but rather define general properties of an entire order
+For example, an order parameter might define what file format or what cloud service provider that the order will be delivered in.
+
+By default, the absence of any defined order parameters on a product would indicate that only an empty object is valid.
 
 ### Create Order Response
 
