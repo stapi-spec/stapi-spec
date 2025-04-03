@@ -19,7 +19,7 @@ The endpoint `POST /products/{productId}/opportunities` is parameterized in the 
 | Name | Type                                                                       | Description |
 |------------| -------------------------------------------------------------------------- | ----------- |
 | datetime   | string                                                                     | **REQUIRED.** Time interval with a solidus (forward slash, `/`)  separator, using [RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6) datetime, empty string, or `..` values. |
-| geometry   | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) | **REQUIRED.** Defines the full footprint that the tasked data will be within.|
+| geometry   | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) | **REQUIRED.** Defines the full footprint that the tasked data will be within. |
 | filter     | CQL2 Object | A set of additional [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) in [CQL2 JSON](https://docs.ogc.org/DRAFTS/21-065.html) based on the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) exposed in the product. |
 
 #### datetime
@@ -39,7 +39,11 @@ include `2024-04-18T10:56:00+01:00/2024-04-25T10:56:00+01:00`,
 
 #### geometry
 
-Provides a GeoJSON Geometry Object, can be an embedded GeoJSON object or a [JSON Reference](https://json-spec.readthedocs.io/reference.html) that resolves to a GeoJSON. In both cases the GeoJSON must be compliant to [RFC 7946, section 3.1](https://tools.ietf.org/html/rfc7946#section-3.1). Coordinates are specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS 84](http://www.opengis.net/def/crs/OGC/1.3/CRS84).
+Provides a GeoJSON Geometry Object, which **must** be an embedded GeoJSON
+object compliant to [RFC 7946, section
+3.1](https://tools.ietf.org/html/rfc7946#section-3.1). Coordinates are
+specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS
+84](http://www.opengis.net/def/crs/OGC/1.3/CRS84).
 
 ## Opportunity Collection
 
@@ -70,6 +74,10 @@ as supported and applicable, when the response is paginated.
 The spec **strongly recommends** the inclusion of a link with relation type
 `create-order` to allow the user to resubmit the Opportunities request as an
 Order if they do not wish to choose a specific Opportunity.
+
+In the case where individual Opportunities do not include a `create-order` link
+then it should be considered **required** to include a `create-order` link at
+the OpportunityCollection level.
 
 #### rel=search-record
 
@@ -139,8 +147,20 @@ To conform to the Create Order spec, use `"method": "POST"`.
 
 If no Body parameters apply to an Opportunity, use `"body": {}`.
 
-An Opportunity's links **must** include a `rel=create-order` link that allows
-the user to Order this opportunity.
+It is **strongly recommended** to include include a `rel=create-order` link on
+an Opportunity to allow the user to order the Opportunity. Consider the
+inclusion of this link **required** where ordering of an individual Opportunity
+is supported by the given Product. Omission of this link is valid when
+Opportunities are considered informational-only and cannot be ordered directly
+(i.e., the precision of the Opportunities exceeds the implementation's limits
+with regard to valid order parameters, such as when orders have a minimum
+datetime range greater than any individual Opportunity's datetime range).
+
+When Opportunity `create-order` links are not included then it is **required**
+to include the `create-order` link on the OpportunityCollection. Similarly,
+when a `create-order` link is not included at the OpportunityCollection level
+then consider it **required** to have a `create-order` link on each
+Opportunity.
 
 #####
 
