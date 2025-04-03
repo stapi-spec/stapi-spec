@@ -2,7 +2,22 @@
 
 - **Conformance URI:** <https://stapi.example.com/v0.1.0/opportunities>
 
-The STAPI Opportunity describes a single business unit available for ordering.
+An Opportunity in STAPI is an abstract, and often terse, representation
+of data that will be delivered in the future. Because of the uncertainty
+involved an Opportunity may contain a range of values rather than 
+discrete known values. The amount of metadata fields contained within an 
+Opportunity will vary depending on the user requirements and what is known
+by the provider at the time.
+
+**An Opportunity is the minimum amount of metadata known about the data
+that will be delivered**.
+
+The optional `POST /products/{productId}/opportunities` endpoint provides
+additional functionality on top of the core STAPI spec. It allows
+a user to search and browse additional information about what will be 
+delivered after an order is made. The `opportunities` endpoint is specific
+for a product and would be used before a user places an order with a call to
+`POST /products/{productId}/orders`.
 
 ## Opportunity Request
 
@@ -64,29 +79,13 @@ Each link in the links array must be a
 [Link](https://github.com/radiantearth/stac-spec/blob/master/commons/links.md#link-object)
 Object.
 
-#### Pagination links
+In addition to standard links, the following are applicable to Opportunity Collections.
 
-Appropriate links for pagination (`next`, `prev`, `first`, `last) are required,
-as supported and applicable, when the response is paginated.
-
-#### rel=create-order
-
-The spec **strongly recommends** the inclusion of a link with relation type
-`create-order` to allow the user to resubmit the Opportunities request as an
-Order if they do not wish to choose a specific Opportunity.
-
-In the case where individual Opportunities do not include a `create-order` link
-then it should be considered **required** to include a `create-order` link at
-the OpportunityCollection level.
-
-#### rel=search-record
-
-This link is to allow Opportunity Collections created as the result of async
-opportunity searches to point back to the record of the search for which the
-Opportunity Collection is the result. In other words, when an Opportunity
-Collection is the result of an async search it **should** include a link with
-`rel-search-record` pointing to `GET /searches/opportunities/{searchRecordId}`
-with the `searchRecordId` of the parent search.
+| rel type | Description |
+| ---------- | ----------- |
+| `next`, `prev`, `first`, `last` |  **REQUIRED** when the response is paginated |
+| `create-order` | **REQUIRED** if individual Opportunities do not include a `create-order` link, otherwise it is **strongly recommended**. This allows the user to resubmit the Opportunities request as an Order.|
+| `search-record` | The search used to generate the Opportunities result. **strongly recommended** to point to `GET /searches/opportunities/{searchRecordId}` when the result of an async search |
 
 ### Opportunity Object
 
@@ -137,6 +136,10 @@ Each link in the links array must be a
 [Link](https://github.com/radiantearth/stac-spec/blob/master/commons/links.md#link-object)
 Object.
 
+| rel type | Description |
+| ---------- | ----------- |
+| `create-order` | **REQUIRED** if individual Opportunities do not include a `create-order` link, otherwise it is **strongly recommended**. This allows the user to resubmit the Opportunities request as an Order.|
+
 ##### rel=create-order
 
 This Link object fully describes the necessary HTTP request to submit an Order
@@ -161,8 +164,6 @@ to include the `create-order` link on the OpportunityCollection. Similarly,
 when a `create-order` link is not included at the OpportunityCollection level
 then consider it **required** to have a `create-order` link on each
 Opportunity.
-
-#####
 
 ## Async Opportunity Search
 
