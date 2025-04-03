@@ -17,7 +17,7 @@ The endpoint `POST /products/{productId}/orders` is parameterized in the followi
 
 | Name      | Type   | Description                                                                                                                                                                                                                                                                                                   |
 | --------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| productId | string | Product identifier. The ID should be unique and is a reference to the [parameters](..product/README.md#parameters) which can be used in the [parameters](..product/README.md#parameters) field. |
+| productId | string | Product identifier. The ID should be unique and is a reference to the [parameters](../product/README.md#parameters) which can be used in the [parameters](../product/README.md#parameters) field. |
 
 ### Body Fields
 
