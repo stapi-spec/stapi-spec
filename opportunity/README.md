@@ -19,7 +19,7 @@ The endpoint `POST /products/{productId}/opportunities` is parameterized in the 
 | Name | Type                                                                       | Description |
 |------------| -------------------------------------------------------------------------- | ----------- |
 | datetime   | string                                                                     | **REQUIRED.** Time interval with a solidus (forward slash, `/`)  separator, using [RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6) datetime, empty string, or `..` values. |
-| geometry   | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) | **REQUIRED.** Defines the full footprint that the tasked data will be within.|
+| geometry   | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) | **REQUIRED.** Defines the full footprint that the tasked data will be within. |
 | filter     | CQL2 Object | A set of additional [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) in [CQL2 JSON](https://docs.ogc.org/DRAFTS/21-065.html) based on the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) exposed in the product. |
 
 #### datetime
@@ -39,7 +39,11 @@ include `2024-04-18T10:56:00+01:00/2024-04-25T10:56:00+01:00`,
 
 #### geometry
 
-Provides a GeoJSON Geometry Object, can be an embedded GeoJSON object or a [JSON Reference](https://json-spec.readthedocs.io/reference.html) that resolves to a GeoJSON. In both cases the GeoJSON must be compliant to [RFC 7946, section 3.1](https://tools.ietf.org/html/rfc7946#section-3.1). Coordinates are specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS 84](http://www.opengis.net/def/crs/OGC/1.3/CRS84).
+Provides a GeoJSON Geometry Object, which **must** be an embedded GeoJSON
+object compliant to [RFC 7946, section
+3.1](https://tools.ietf.org/html/rfc7946#section-3.1). Coordinates are
+specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS
+84](http://www.opengis.net/def/crs/OGC/1.3/CRS84).
 
 ## Opportunity Collection
 
