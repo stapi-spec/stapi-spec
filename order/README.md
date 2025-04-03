@@ -70,7 +70,7 @@ Location: https://example.com/orders/123
 
 | Field Name | Type                      | Description |
 | ---------- | ------------------------- | ----------- |
-| orders     | \[[Order Object](#order-object)\]          | **REQUIRED.** A list of orders. |
+| features   | \[[Order Object](#order-object)\]          | **REQUIRED.** A list of orders. |
 | links      | Map\<object, Link Object> | **REQUIRED.** Links for e.g. pagination. |
 
 ## GET /orders/\{id\}
