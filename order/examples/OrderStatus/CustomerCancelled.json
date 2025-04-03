@@ -1,8 +1,8 @@
 {
     "timestamp": "2007-03-01T13:00:00Z",
-    "status_code": "canceled",
-    "reason_code": "customer_canceled",
-    "reason_text": "Customer cancelation via API",
+    "status_code": "cancelled",
+    "reason_code": "customer_cancelled",
+    "reason_text": "Customer cancellation via API",
     "links": [
         {
             "rel": "audit_log",

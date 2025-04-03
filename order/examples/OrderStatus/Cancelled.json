@@ -1,6 +1,6 @@
 {
     "timestamp": "2007-03-01T13:00:00Z",
-    "status_code": "canceled",
+    "status_code": "cancelled",
     "reason_code": "cloud_cover",
     "reason_text": "Cloud coverage of 79% exceeded the order limit of 50%",
     "links": [
