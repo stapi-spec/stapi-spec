@@ -14,7 +14,7 @@ that will be delivered**.
 
 The optional `POST /products/{productId}/opportunities` endpoint provides
 additional functionality on top of the core STAPI spec. It allows
-a user to search and browse additional information about what will be 
+a user to search and browse additional information about what could be 
 delivered after an order is made. The `opportunities` endpoint is specific
 for a product and would be used before a user places an order with a call to
 `POST /products/{productId}/orders`.
