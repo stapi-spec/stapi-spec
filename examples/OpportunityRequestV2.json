@@ -17,7 +17,7 @@
     "args": [
       {
         "op": "between",
-        "args": [{ "property": "weather:cloud_cover" }, 20, 30]
+        "args": [{ "property": "eo:cloud_cover" }, 20, 30]
       },
       {
         "op": "between",

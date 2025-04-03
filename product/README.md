@@ -86,7 +86,7 @@ Queryables define the `Opportunity` and `Order` properties that can be used in C
 
 The concept of `Queryables` is meant to align with the [STAC API Filter Extension Specification](https://github.com/stac-api-extensions/filter?tab=readme-ov-file#queryables), which uses queryables to define searchable properties of STAC Items, as well as the [OGC Features API Part 3](https://developer.ogc.org/api/features/part3.html#operation/getQueryables) equivalent term. 
 
-For example, one `queryable` might be `weather:cloud_cover` which allows users to filter Opportunities to only results with `weather:cloud_cover` within a certain range. 
+For example, one `queryable` might be `eo:cloud_cover` which allows users to filter Opportunities to only results with `eo:cloud_cover` within a certain range. 
 
 The queryables must be exposed as a separate endpoint that is provided at 
 `GET /products/{productId}/queryables`.
