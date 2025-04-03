@@ -122,7 +122,7 @@ Links will be very provider specific.
 * completed (indicates provider was able to successfully collect imagery)
 * cancelled (indicates provider was unable to collect imagery)
 * failed (indicates when an order could not be completed/proccesed successfully)
-* expired (indicates the order request window has expiried and no collection was made)
+* expired (indicates the order request window has expired and no collection was made)
 
 Providers must support these statuses.
 
