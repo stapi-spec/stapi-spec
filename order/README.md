@@ -17,7 +17,7 @@ The endpoint `POST /products/{productId}/orders` is parameterized in the followi
 
 | Name      | Type   | Description                                                                                                                                                                                                                                                                                                   |
 | --------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| productId | string | Product identifier. The ID should be unique and is a reference to the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) which can be used in the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) field. |
+| productId | string | Product identifier. The ID should be unique and is a reference to the [parameters](..product/README.md#parameters) which can be used in the [parameters](..product/README.md#parameters) field. |
 
 ### Body Fields
 
@@ -25,8 +25,8 @@ The endpoint `POST /products/{productId}/orders` is parameterized in the followi
 | -------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | datetime | string | **REQUIRED.** Time interval with a solidus (forward slash, `/`)  separator, using [RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6) datetime, empty string, or `..` values. |
 | geometry   | GeoJSON Object \| JSON Reference | **REQUIRED.** Provide a Geometry that the tasked data must be within. |
-| filter     | CQL2 JSON                        | A set of additional [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) in [CQL2 JSON](https://docs.ogc.org/DRAFTS/21-065.html) based on the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) exposed in the product. |
-|order_parameters| JSON Reference| Order Parameters properties that can be used when creating an Order, reference [Order Parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#order-parameters)
+| filter     | CQL2 JSON                        | A set of additional [parameters](../product/README.md#parameters) in [CQL2 JSON](https://docs.ogc.org/DRAFTS/21-065.html) based on the [parameters](../product/README.md#parameters) exposed in the product. |
+|order_parameters| JSON Reference| Order Parameters properties that can be used when creating an Order, reference [Order Parameters](../product/README#order-parameters)
 
 #### datetime
 
@@ -47,13 +47,6 @@ to a GeoJSON. In both cases the GeoJSON must be compliant to [RFC 7946, section
 specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS
 84](http://www.opengis.net/def/crs/OGC/1.3/CRS84).
 
-Example for JSON Reference:
-
-```json
-{
-    "$ref": "https://ogc.features.api/collections/123/items/321"
-}
-```
 #### order_parameters 
 
 Order Parameters define the properties that can be used when creating an Order. These are different than Queryables, in that they do not constrain (filter) the desired results, but rather define general properties of an entire order
@@ -97,7 +90,7 @@ See [Order Object](#order-object).
 | created    | datetime                                                                                                    | When the order was created         |
 | status     | [Order Status Object](#order-status)                                                                        | Current Order Status object        |
 | links      | \[[Link Object](https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md#link-object)\] |                                    |
-| product_id | string                                                                                                      | **REQUIRED.** Product identifier. This should be a reference to the [Product](https://github.com/Element84/stapi-spec/blob/main/product/README.md) being ordered. |
+| product_id | string                                                                                                      | **REQUIRED.** Product identifier. This should be a reference to the [Product](../product/README.md) being ordered. |
 | request    | [Opportunity Request Object](./opportunity/README.md#opportunity-request-object)                            | Search parameters for Order        |
 | type       | string                                                                                                      | **REQUIRED.** Type of the GeoJSON Object. **Must** be set to `Feature`. |
 | stapi_type | string                                                                                                      | **REQUIRED.** Type of the STAPI Object. **Must** be set to `Order`. |
