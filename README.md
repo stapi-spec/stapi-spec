@@ -38,7 +38,7 @@ will have a date and time range during which it will be completed.
 The OGC API standards are used as API building blocks for STAPI. API Capabilities
 are advertised through the use of [Conformance Classes](https://ogcapi.ogc.org/common/overview.html).
 STAPI relies on conformance classes defined in OGC API - Common, as well as defining
-it's own Conformance Class for core functionality. STAPI extensions define their
+its own Conformance Class for core functionality. STAPI extensions define their
 own Conformance Classes.
 
 For more information on Conformance Classes used in STAPI see the [API Spec](API-SPEC.md).
