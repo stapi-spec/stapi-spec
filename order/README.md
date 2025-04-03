@@ -11,29 +11,31 @@ capture moment.
 
 ### Create Order Request
 
-The following fields can be sent to `POST /products/{productId}/orders`:
+The endpoint `POST /products/{productId}/orders` is parameterized in the following way:
 
-| Field Name | Type                             | Description                                                  |
-|------------| -------------------------------- | ------------------------------------------------------------ |
-| datetime   | string                                                                     | **REQUIRED.** Time interval with a solidus (forward slash, `/`)  separator, using [RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6) datetime, empty string, or `..` values. |
-| productId  | string                           | **REQUIRED.** Product identifier. The ID should be unique and is a reference to the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) which can be used in the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) field. |
+### Path Parameters
+
+| Name      | Type   | Description                                                                                                                                                                                                                                                                                                   |
+| --------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| productId | string | Product identifier. The ID should be unique and is a reference to the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) which can be used in the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) field. |
+
+### Body Fields
+
+| Name     | Type   | Description                                                                                                                                                                           |
+| -------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| datetime | string | **REQUIRED.** Time interval with a solidus (forward slash, `/`)  separator, using [RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6) datetime, empty string, or `..` values. |
 | geometry   | GeoJSON Object \| JSON Reference | **REQUIRED.** Provide a Geometry that the tasked data must be within. |
 | filter     | CQL2 JSON                        | A set of additional [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) in [CQL2 JSON](https://docs.ogc.org/DRAFTS/21-065.html) based on the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) exposed in the product. |
 
 #### datetime
 
-The datetime parameter represents a time interval with which the temporal
-property of the results must intersect. This parameter allows a subset of the
-allowed values for a [ISO 8601 Time
-Interval](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals) or a [OAF
-datetime](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_parameter_datetime)
-parameter.  This allows for either open or closed intervals, with end
-definitions separated by a solidus (forward slash, `/`) separator. Closed ends
-are represented by [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339)
-datetimes. Open ends are represented by either an empty string or `..`. Only
-singly-open intervals are allowed.  Examples of valid datetime intervals
-include `2024-04-18T10:56:00+01:00/2024-04-25T10:56:00+01:00`,
-`2024-04-18T10:56:00Z/..`, and `/2024-04-25T10:56:00+01:00`
+The datetime parameter represents a time interval with which the temporal property of the results must intersect. This parameter allows a subset of the allowed values for a [ISO 8601 Time Interval](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals) or a 
+[OAF datetime](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_parameter_datetime) parameter.
+This allows for either
+open or closed intervals, with end definitions separated by a solidus (forward slash, `/`) separator. Closed ends are represented by
+[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) datetimes. Open ends are represented
+by either an empty string or `..`. Only singly-open intervals are allowed.  Examples of valid datetime intervals include `2024-04-18T10:56:00+01:00/2024-04-25T10:56:00+01:00`, `2024-04-18T10:56:00Z/..`, and `/2024-04-25T10:56:00+01:00`
+
 
 #### geometry
 
@@ -68,10 +70,10 @@ Location: https://example.com/orders/123
 
 ### Get Orders Response
 
-| Field Name | Type                      | Description |
-| ---------- | ------------------------- | ----------- |
-| features   | \[[Order Object](#order-object)\]          | **REQUIRED.** A list of orders. |
-| links      | Map\<object, Link Object> | **REQUIRED.** Links for e.g. pagination. |
+| Field Name | Type                              | Description                              |
+| ---------- | --------------------------------- | ---------------------------------------- |
+| orders     | \[[Order Object](#order-object)\] | **REQUIRED.** A list of orders.          |
+| links      | Map\<object, Link Object>         | **REQUIRED.** Links for e.g. pagination. |
 
 ## GET /orders/\{id\}
 
@@ -81,31 +83,31 @@ See [Order Object](#order-object).
 
 ## Order Object
 
-| Field Name | Type | Description |
-| ---------- | ---- | ----------- |
-| type | string | **REQUIRED.** Type of the GeoJSON Object. **Must** be set to `Feature`. |
-| stapi_type | string | **REQUIRED.** Type of the STAPI Object. **Must** be set to `Order`. |
-| stapi_version | string | **REQUIRED.** The STAPI version the Order implements. |
-| id | string | Unique provider generated order ID. |
-| user | string | User or organization ID ? |
-| created | datetime | When the order was created. |
-| product_id | string | **REQUIRED.** Product identifier. This should be a reference to the [Product](https://github.com/Element84/stapi-spec/blob/main/product/README.md) being ordered. |
-| request | [Opportunity Request Object](./opportunity/README.md#opportunity-request-object) | Search parameters for Order. |
-| status | [Order Status Object](#order-status) | Current Order Status object. |
-| links | \[[Link Object](https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md#link-object)\] |  |
+| Field Name | Type                                                                                                        | Description                        |
+| ---------- | ----------------------------------------------------------------------------------------------------------- | ---------------------------------- |
+| id         | string                                                                                                      | Unique provider generated order ID |
+| user       | string                                                                                                      | User or organization ID ?          |
+| created    | datetime                                                                                                    | When the order was created         |
+| status     | [Order Status Object](#order-status)                                                                        | Current Order Status object        |
+| links      | \[[Link Object](https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md#link-object)\] |                                    |
+| product_id | string                                                                                                      | **REQUIRED.** Product identifier. This should be a reference to the [Product](https://github.com/Element84/stapi-spec/blob/main/product/README.md) being ordered. |
+| request    | [Opportunity Request Object](./opportunity/README.md#opportunity-request-object)                            | Search parameters for Order        |
+| type       | string                                                                                                      | **REQUIRED.** Type of the GeoJSON Object. **Must** be set to `Feature`. |
+| stapi_type | string                                                                                                      | **REQUIRED.** Type of the STAPI Object. **Must** be set to `Order`. |
+| stapi_version | string                                                                                                   | **REQUIRED.** The STAPI version the Order implements. |
 
 If the `GET /orders/{orderId}/statuses` endpoint is implemented, there must be
 a link to the endpoint using the relation type `monitor`.
 
 ## Order Status
 
-| Field Name | Type | Description |
-| ---------- | ---- | ----------- |
-| timestamp  | datetime | **REQUIRED.** ISO 8601 timestamp for the order status |
-| status_code | string | **REQUIRED.** Enumerated status code |
-| reason_code | string | Enumerated reason code for why the status was set |
-| reason_text | string | Textual description for why the status was set |
-| links | \[Link Object\] | **REQUIRED.** list of references to documents, such as delivered asset, processing log, delivery manifest, etc. |
+| Field Name  | Type            | Description                                                                                                     |
+| ----------- | --------------- | --------------------------------------------------------------------------------------------------------------- |
+| timestamp   | datetime        | **REQUIRED.** ISO 8601 timestamp for the order status                                                           |
+| status_code | string          | **REQUIRED.** Enumerated status code                                                                            |
+| reason_code | string          | Enumerated reason code for why the status was set                                                               |
+| reason_text | string          | Textual description for why the status was set                                                                  |
+| links       | \[Link Object\] | **REQUIRED.** list of references to documents, such as delivered asset, processing log, delivery manifest, etc. |
 
 Links is intended to be the same data structure as links collection in STAC.
 Links will be very provider specific.

@@ -12,14 +12,17 @@ Pagination will follow the convention outlined in [here](../../README.md#paginat
 
 ## Order Status Request
 
-GET operation only.
+Get operation only.
 
 ## Order Status Response
 
 Response has two fields:
-| Field Name | Type            | Description                                            |
-| ---------- | --------------- | ------------------------------------------------------ |
+
+| Field Name | Type | Description |
+| ---------- | ---- | ----------- |OrderStatus | The current/official status object |
+| history | [OrderStatus] | History of statuses |                                       |
 | statuses   | \[OrderStatus\]   | **REQUIRED.** History of statuses                      |
 | links      | \[Link\] | **REQUIRED.** A list of references to other endpoints. |
+
 
 The [Order Status](../../order/README.md#order-status) object is described in the Order README.
