@@ -4,7 +4,7 @@
 
 An Opportunity in STAPI is an abstract, and often terse, representation
 of data that will be delivered in the future. Because of the uncertainty
-involved an Opportunity may contain a range of values rather than 
+involved, an Opportunity may contain a range of values rather than 
 discrete known values. The amount of metadata fields contained within an 
 Opportunity will vary depending on the user requirements and what is known
 by the provider at the time.
