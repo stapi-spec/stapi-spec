@@ -1,3 +1,5 @@
+[![docs](https://github.com/stapi-spec/stapi-spec/actions/workflows/deploy.yml/badge.svg)](https://github.com/stapi-spec/stapi-spec/actions/workflows/deploy.yml)
+
 # Sensor Tasking API (STAPI)
 
 The Sensor Tasking API (STAPI) defines a JSON-based web API to discover and order
@@ -7,13 +9,20 @@ derived from new tasking and products from provider archives.
 
 The STAPI specification provides a structure and language to describe
 [**Products**](product/README.md), [**Opportunities**](opportunity/README.md),
-and [**Orders**](order/README.md), along with a REST API for interacting with 
+and [**Orders**](order/README.md), along with a REST API for interacting with
 data providers.
 
 Generally speaking, users of STAPI will review available Products from one or
 more providers, request Opportunities that are possible Orders for those
 Products, and then submit one or more Orders to receive Products from Providers
 represented by one or more data artifacts.
+
+## Ecosystem
+
+[The PySTAPI git monorepo](https://github.com/stapi-spec/pystapi) contains the
+source code for the STAPI entity model definitions, the stapi-fastapi reference
+server implementation, and the pystapi-client reference client implementation,
+among other various ecosystem tools.
 
 ## Relationship to STAC
 
