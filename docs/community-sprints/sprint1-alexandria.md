@@ -1,52 +1,51 @@
 # Satellite Tasking Sprint 2022 Notes
 
-- [Satellite Tasking Sprint 2022 Notes](#satellite-tasking-sprint-2022-notes)
-  - [When and Where](#when-and-where)
-  - [Sprint Goals](#sprint-goals)
-  - [Guiding Principles](#guiding-principles)
-  - [Agenda](#agenda)
-  - [Lighting Talks](#lighting-talks)
-  - [Topic: Spatial Parameters](#topic-spatial-parameters)
-    - [Reference Questions](#reference-questions)
-    - [Notes](#notes)
-    - [Key Takeaways/Conclusion, Single Slide Summary](#key-takeawaysconclusion-single-slide-summary)
-    - [Recap Notes](#recap-notes)
-    - [Actions Items](#actions-items)
-  - [Topic: Temporal Parameters](#topic-temporal-parameters)
-    - [Reference Questions](#reference-questions-1)
-    - [Notes](#notes-1)
-    - [Key Takeaways/Conclusion, Single Slide Summary](#key-takeawaysconclusion-single-slide-summary-1)
-    - [Recap Notes](#recap-notes-1)
-    - [Actions Items](#actions-items-1)
-  - [Topic: Additional Parameters](#topic-additional-parameters)
-    - [Reference Questions](#reference-questions-2)
-    - [Notes](#notes-2)
-    - [Product / Asset Definition](#product--asset-definition)
-    - [Request Info](#request-info)
-    - [Request Example](#request-example)
-    - [Response Info](#response-info)
-    - [Key Takeaways/Conclusion, Single Slide Summary](#key-takeawaysconclusion-single-slide-summary-2)
-    - [Actions Items](#actions-items-2)
-  - [Topic: Feasibility & Fulfillment](#topic-feasibility--fulfillment)
-    - [Reference Questions](#reference-questions-3)
-    - [Key Takeaways/Conclusion, Single Slide Summary](#key-takeawaysconclusion-single-slide-summary-3)
-    - [Actions Items](#actions-items-3)
-    - [Notes](#notes-3)
-  - [Session 2 Potential Breakout Topics](#session-2-potential-breakout-topics)
-  - [Topic: OpenAPI Doc](#topic-openapi-doc)
-    - [Key Takeaways/Conclusion, Single Slide Summary](#key-takeawaysconclusion-single-slide-summary-4)
-    - [Actions Items](#actions-items-4)
-  - [Topic: Contracts and Exclusivity, Multi Agency Uplifts, Holdbacks](#topic-contracts-and-exclusivity-multi-agency-uplifts-holdbacks)
-    - [Key Takeaways/Conclusion, Single Slide Summary](#key-takeawaysconclusion-single-slide-summary-5)
-    - [Actions Items:](#actions-items-5)
-    - [Notes:](#notes-4)
-  - [Topic: Products/Platforms/Sensors - Coherent Image Pairs](#topic-productsplatformssensors---coherent-image-pairs)
-    - [Reference Questions](#reference-questions-4)
-    - [Key Takeaways/Conclusion, Single Slide Summary](#key-takeawaysconclusion-single-slide-summary-6)
-    - [Actions Items](#actions-items-6)
-    - [Notes](#notes-5)
-  - [Topic: Status](#topic-status)
-    - [Notes](#notes-6)
+- [When and Where](#when-and-where)
+- [Sprint Goals](#sprint-goals)
+- [Guiding Principles](#guiding-principles)
+- [Agenda](#agenda)
+- [Lighting Talks](#lighting-talks)
+- [Topic: Spatial Parameters](#topic-spatial-parameters)
+  - [Reference Questions](#reference-questions)
+  - [Notes](#notes)
+  - [Key Takeaways/Conclusion, Single Slide Summary](#key-takeawaysconclusion-single-slide-summary)
+  - [Recap Notes](#recap-notes)
+  - [Actions Items](#actions-items)
+- [Topic: Temporal Parameters](#topic-temporal-parameters)
+  - [Reference Questions](#reference-questions-1)
+  - [Notes](#notes-1)
+  - [Key Takeaways/Conclusion, Single Slide Summary](#key-takeawaysconclusion-single-slide-summary-1)
+  - [Recap Notes](#recap-notes-1)
+  - [Actions Items](#actions-items-1)
+- [Topic: Additional Parameters](#topic-additional-parameters)
+  - [Reference Questions](#reference-questions-2)
+  - [Notes](#notes-2)
+  - [Product / Asset Definition](#product--asset-definition)
+  - [Request Info](#request-info)
+  - [Request Example](#request-example)
+  - [Response Info](#response-info)
+  - [Key Takeaways/Conclusion, Single Slide Summary](#key-takeawaysconclusion-single-slide-summary-2)
+  - [Actions Items](#actions-items-2)
+- [Topic: Feasibility & Fulfillment](#topic-feasibility--fulfillment)
+  - [Reference Questions](#reference-questions-3)
+  - [Key Takeaways/Conclusion, Single Slide Summary](#key-takeawaysconclusion-single-slide-summary-3)
+  - [Actions Items](#actions-items-3)
+  - [Notes](#notes-3)
+- [Session 2 Potential Breakout Topics](#session-2-potential-breakout-topics)
+- [Topic: OpenAPI Doc](#topic-openapi-doc)
+  - [Key Takeaways/Conclusion, Single Slide Summary](#key-takeawaysconclusion-single-slide-summary-4)
+  - [Actions Items](#actions-items-4)
+- [Topic: Contracts and Exclusivity, Multi Agency Uplifts, Holdbacks](#topic-contracts-and-exclusivity-multi-agency-uplifts-holdbacks)
+  - [Key Takeaways/Conclusion, Single Slide Summary](#key-takeawaysconclusion-single-slide-summary-5)
+  - [Actions Items:](#actions-items-5)
+  - [Notes:](#notes-4)
+- [Topic: Products/Platforms/Sensors - Coherent Image Pairs](#topic-productsplatformssensors---coherent-image-pairs)
+  - [Reference Questions](#reference-questions-4)
+  - [Key Takeaways/Conclusion, Single Slide Summary](#key-takeawaysconclusion-single-slide-summary-6)
+  - [Actions Items](#actions-items-6)
+  - [Notes](#notes-5)
+- [Topic: Status](#topic-status)
+  - [Notes](#notes-6)
 
 ## When and Where
 
@@ -118,7 +117,7 @@
 ### Reference Questions
 
 1. How do we specify AOIs?
-   1. a. Geojson Feature  
+   1. a. Geojson Feature
 2. How do you handle a requested AOI vs actual AOI?
    1. Keep it simple, Geojson. If AOI does not meet feasibility, return nothing
    2. Actual AOI is final product
@@ -225,8 +224,7 @@ mean?
   - Minimum time between collects
   - Time of day options
 
-- See [OGC SPS EO Extension 7.1.2.8 TimeSeries Class:
-<https://drive.google.com/file/d/1Utkw6_e4WhA0mXXlD02X9LcaiPavBQDW/view?usp=sharing>
+- See [OGC SPS EO Extension 7.1.2.8 TimeSeries Class](https://drive.google.com/file/d/1Utkw6_e4WhA0mXXlD02X9LcaiPavBQDW/view?usp=sharing)
 
 How does feasibility matter for time of day? This likely changes over
 time -- the farther into the future usually has fewer conflicting
@@ -356,17 +354,21 @@ optimize_for: PRICE, LATENCY, SUCCESSFUL_COLLECT, EARLIEST_COLLECT, etc.
 
 **customer_info:**
 
- customer_reference_id: asdf1234
+```
+customer_reference_id: asdf1234
 
-provenance_type: NONE \| BLOCKCHAIN_LEDGER \| HASH
+provenance_type: NONE | BLOCKCHAIN_LEDGER | HASH
 
-end_user_information(?) { self \| "end_user_name, address, etc." }
+end_user_information(?) { self | "end_user_name, address, etc." }
+```
 
 **delivery_info:**
 
- destination_info { s3_bucket_id, credentials, etc. }
+```
+destination_info { s3_bucket_id, credentials, etc. }
 
- Status_update_info { webhook info }
+Status_update_info { webhook info }
+```
 
 **products:**
 
@@ -561,20 +563,20 @@ you to lock off'.
   - Already have option - have it anytime in the
     next two weeks.
   - Cases where it's only valuable if it meets
-    constraints, but I'm fine to be bumped. 
+    constraints, but I'm fine to be bumped.
   - Another option - I don't care when you collect it for me and deliver to me.
     What if they say 'over next two weeks and collect for someone else'.
   - Feasibility could include archive - image in location from the past.
-  - Provider side needs to query archive. 
+  - Provider side needs to query archive.
 
 - Auction model
   - Investors want you to sign contracts for revenue stability.
   - Long term it's great, but beginning.
-  - Supporting one off contracts is a nightmare on the backend. 
+  - Supporting one off contracts is a nightmare on the backend.
 
 - Disaster response work
   - Always looking for high resolution thermal data.
-  - Need it right now, but have no money to get you. 
+  - Need it right now, but have no money to get you.
   - Hopefully get a fund for $1000 over the year.
   - Submit google form to a guy and he'll hook it up.
   - Marketplace will never be there without
@@ -583,84 +585,84 @@ you to lock off'.
     images then I can outprice and you won't have possibility.
   - If I see a competitor mapping a place, just
     make it so they can't place it.
-  - Think state of california should be spending $1m a year on this. 
+  - Think state of california should be spending $1m a year on this.
   - AIS tech has 2 satellites.
   - Have organizational id present, plus
     non-profit flag. Let companies set aside stuff for non-profits.
     Haven't given this group enough access, let's let this group.
 
 - Priority on the back-end.
-  - Plus discount mechanism. 
+  - Plus discount mechanism.
 
 - I still submit same request. Each provider decides
-how they want to handle the request. 
+how they want to handle the request.
   - Provider should know what you're requesting
     and why, that you have a burning field and people in it. A 'context'
-    field? 
+    field?
   - Hard to trust that, could introduce bad
-    actor. 
+    actor.
   - Should have an organization ID, to set context
     for the 'context' field.
   - Include all this in feasibility. No individual
     is going to look at this data. Needs to be an algorithm
-    incorporating the data into the response. 
+    incorporating the data into the response.
 - If we're taking 2000 requests per day we can't
 have an individual look at it.
   - Don't assume no one does, people do bespoke
     tasking filtering.
   - Long term we want to get there, but don't want
-    to rule out that particular need. 
+    to rule out that particular need.
 - Another break out on what to capture about an
 organization. How much an org is paying, if they're a non-profit. Just
 because it's cheap it's not useful to get in 2 weeks.
   - Still here the key is to get the information
-    about what's available. 
+    about what's available.
   - High resolution thermal is only useful for a
     couple days. But imagery is useful for week after, to do the
-    disaster recovery. 
+    disaster recovery.
   - Provider to tell you 'you definitely can't get
     it' vs 'do x,y,z (pay money, verify you are a nonprofit)' then you
-    can get it. 
-- Back to 'true collection availability' 
+    can get it.
+- Back to 'true collection availability'
   - For highest resolution the footprint size matters.
-    Big image could take months to map all of LA. 
+    Big image could take months to map all of LA.
   - Feasibility has to be more than points. Has to do
     full areas. Can be multiple images. Tell me everything you want.
     Complicated ones we may need to get back to you in 5 minutes (or days to
-    do analysis). 
-  - Isn't that ok? 
+    do analysis).
+  - Isn't that ok?
 
 - Canceling tasking, if you get feasibility from one provider you want to cancel the other.
   - Need to understand cancellation policies.
 
-- Is there cost related to feasibility? 
-  - Can I just squat it? 
+- Is there cost related to feasibility?
+  - Can I just squat it?
   - To hit the API you need to be an authenticated
     customer, and if they are jamming you then you can remove.
   - Build this with presumption that this will be
-    trusted. 
+    trusted.
 
 - Always will be issues where part of things broke.
 (order couldn't be fulfilled due to rare outage of some kind)
-- Status / webhooks - let 
-- For people who want priority need to optionally submit priority. 
+- Status / webhooks - let
+- For people who want priority need to optionally submit priority.
 - Lock-in should also be optional. Or is business
-logic on the backend. 
+logic on the backend.
 - Push business logic to where it should.
-Feasibility should same in and same out. 
+Feasibility should same in and same out.
   - Could as a business decide first person to
     take it gets it.
   - With push thing you can remember what they
     asked for, your order wasn't available yesterday, but it's available
     today.
 - Feasibility request has a stable ID, and perhaps if it updates you can tell someone something changed.
-- Difference between STAC and tasking API - when you place order you know you're going to get. 
-- Two paradigms 
+- Difference between STAC and tasking API - when you place order you know you're going to get.
+- Two paradigms
   - I submit price / priority, what meets that
-  - I submit what I need, I'll give you price / priority. 
+  - I submit what I need, I'll give you price / priority.
 - Ability to respond back with "if you loosened
   these constraints/parameters, I'll be able to better meet your
-  needs" 
+  needs"
 - A thing we didn't discuss is, if processing spec
   is part of the tasking request (ARD, etc.) how that plays into the
   price/feasibility response (maybe that's super straightforward, but we
@@ -686,7 +688,7 @@ Feasibility should same in and same out.
 
 ## Topic: OpenAPI Doc
 
-- **Attendees**: Phil Varner, Mark Perillo, 
+- **Attendees**: Phil Varner, Mark Perillo,
     Winston Tri, Chris Brown, Warren Strong
 - **Location**: Main Area
 - **Reference Questions:**

@@ -1,6 +1,6 @@
 # STAPI Opportunity Spec
 
-- **Conformance URI:** <https://stapi.example.com/v0.1.0/opportunities>
+- **Conformance URI:** `https://stapi.example.com/v0.1.0/opportunities`
 
 An Opportunity in STAPI is an abstract, and often terse, representation
 of data that will be delivered in the future. Because of the uncertainty
@@ -167,7 +167,7 @@ Opportunity.
 
 ## Async Opportunity Search
 
-- **Conformance URI:** <https://stapi.example.com/v0.1.0/async-opportunities>
+- **Conformance URI:** `https://stapi.example.com/v0.1.0/async-opportunities`
 
 STAPI has an optional conformance class providing support for async opportunity
 searches, to accommodate searches for products that require more time to

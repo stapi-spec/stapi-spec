@@ -17,7 +17,7 @@ The endpoint `POST /products/{productId}/orders` is parameterized in the followi
 
 | Name      | Type   | Description                                                                                                                                                                                                                                                                                                   |
 | --------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| productId | string | Product identifier. The ID should be unique and is a reference to the [parameters](../product/README.md#parameters) which can be used in the [parameters](../product/README.md#parameters) field. |
+| productId | string | Product identifier. The ID should be unique and is a reference to the [queryables](../product/README.md#queryables) which can be used in the filter field. |
 
 ### Body Fields
 
@@ -25,8 +25,8 @@ The endpoint `POST /products/{productId}/orders` is parameterized in the followi
 | -------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | datetime | string | **REQUIRED.** Time interval with a solidus (forward slash, `/`)  separator, using [RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6) datetime, empty string, or `..` values. |
 | geometry   | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) | **REQUIRED.** Defines the full footprint that the tasked data will be within. |
-| filter     | CQL2 JSON                        | A set of additional [parameters](../product/README.md#parameters) in [CQL2 JSON](https://docs.ogc.org/DRAFTS/21-065.html) based on the [parameters](../product/README.md#parameters) exposed in the product. |
-| order_parameters | JSON Object | Order Parameters properties that can be used when creating an Order, reference [Order Parameters](../product/README#order-parameters) |
+| filter     | CQL2 JSON                        | A set of additional parameters in [CQL2 JSON](https://docs.ogc.org/DRAFTS/21-065.html) based on the [queryables](../product/README.md#queryables) exposed in the product. |
+| order_parameters | JSON Object | Order Parameters properties that can be used when creating an Order, reference [Order Parameters](../product/README.md#order-parameters) |
 
 #### datetime
 
@@ -89,7 +89,7 @@ See [Order Object](#order-object).
 | status     | [Order Status Object](#order-status)                                                                        | Current Order Status object        |
 | links      | \[[Link Object](https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md#link-object)\] |                                    |
 | product_id | string                                                                                                      | **REQUIRED.** Product identifier. This should be a reference to the [Product](../product/README.md) being ordered. |
-| request    | [Opportunity Request Object](./opportunity/README.md#opportunity-request-object)                            | Search parameters for Order        |
+| request    | [Opportunity Request](../opportunity/README.md#opportunity-request)                            | Search parameters for Order        |
 | type       | string                                                                                                      | **REQUIRED.** Type of the GeoJSON Object. **Must** be set to `Feature`. |
 | stapi_type | string                                                                                                      | **REQUIRED.** Type of the STAPI Object. **Must** be set to `Order`. |
 | stapi_version | string                                                                                                   | **REQUIRED.** The STAPI version the Order implements. |

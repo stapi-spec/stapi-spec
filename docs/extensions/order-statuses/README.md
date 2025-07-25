@@ -1,6 +1,6 @@
 # Overview
 
-- **Conformance URI:** <https://stapi.example.com/v0.1.0/order-statuses>
+- **Conformance URI:** `https://stapi.example.com/v0.1.0/order-statuses`
 
 This document explains the structure of a STAPI **Order Statuses** request.
 Operation returns a list/array of statuses that have affected an order.  The
