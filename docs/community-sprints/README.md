@@ -5,7 +5,7 @@ satellite tasking API.
 
 Stop by the [Gitter Channel](https://gitter.im/satellite-tasking/community?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
 
-See [the STAPI spec](spec/)
+See [the STAPI spec](https://github.com/stapi-spec/stapi-spec/blob/main/openapi/openapi.yaml)
 
 
 ## Community Sprints

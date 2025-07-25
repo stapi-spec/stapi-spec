@@ -1,3 +1,5 @@
+.docusaurus
+build/
 .coverage
 htmlcov
 dist
