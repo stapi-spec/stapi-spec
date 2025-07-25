@@ -50,7 +50,7 @@ STAPI relies on conformance classes defined in OGC API - Common, as well as defi
 its own Conformance Class for core functionality. STAPI extensions define their
 own Conformance Classes.
 
-For more information on Conformance Classes used in STAPI see the [API Spec](api-spec.md).
+For more information on Conformance Classes used in STAPI see the [Conformance Classes documentation](01-api-spec/01-conformance-classes.md).
 
 ## Example workflows
 

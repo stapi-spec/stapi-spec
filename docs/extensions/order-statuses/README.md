@@ -12,7 +12,7 @@ relation type `monitor`.
 Endpoint: `GET /orders/{orderId}/statuses`
 
 Pagination will follow the convention outlined in [the api
-spec](../../api-spec.md#pagination).
+spec](../../01-api-spec/02-pagination.md).
 
 ## Order Statuses Request
 

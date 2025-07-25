@@ -1,0 +1,9 @@
+{
+  "label": "API Specification",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "title": "API Specification",
+    "description": "Detailed specification of the STAPI REST API including endpoints, conformance classes, and pagination."
+  }
+}
