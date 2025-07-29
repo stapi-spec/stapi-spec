@@ -1,0 +1,45 @@
+
+{
+    "products": [
+        {
+            "type": "Product",
+            "id": "maxar_opt",
+            "conformsTo": [
+                "https://geojson.org/schema/Polygon.json"
+            ],
+            "title": "Maxar tasking",
+            "description": "Description goes here",
+            "keywords": [
+                "EO",
+                "OPTICAL",
+                "WV01",
+                "WV02",
+                "WV03",
+                "GE01",
+                "VHR"
+            ],
+            "license": "proprietary",
+            "providers": [
+                {
+                    "name": "EUSI",
+                    "description": null,
+                    "roles": [
+                        "licensor",
+                        "processor",
+                        "producer",
+                        "host"
+                    ],
+                    "url": "https://www.euspaceimaging.com"
+                }
+            ],
+            "links": [
+                {
+                    "href": "https://tinyurl.com/eusi-tara-docs",
+                    "rel": "documentation",
+                    "type": "docs",
+                    "title": "TARA Documentation"
+                }
+            ]
+        }
+    ]
+}
