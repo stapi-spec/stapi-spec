@@ -1,0 +1,89 @@
+site_name: STAPI - Sensor Tasking API
+site_url: https://stapi-spec.github.io/stapi-spec/
+site_description: The Sensor Tasking API (STAPI) defines a JSON-based web API to discover and order spatio-temporal analytic and data products derived from remote sensing providers.
+
+repo_name: stapi-spec/stapi-spec
+repo_url: https://github.com/stapi-spec/stapi-spec
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue grey
+      accent: teal
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue grey
+      accent: teal
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+
+plugins:
+  - search
+  - redoc-tag
+
+hooks:
+  - hooks/copyright_year.py
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      permalink: true
+
+nav:
+  - Home: README.md
+  - Documentation:
+    - Introduction: intro.md
+    - API Spec:
+      - Overview: spec/README.md
+      - Entities:
+        - Product: spec/product/README.md
+        - Opportunities: spec/opportunity/README.md
+        - Order: spec/order/README.md
+      - Pagination: spec/pagination/README.md
+    - Conformance Classes:
+      - Overview: conformances/README.md
+      - Core: conformances/core/README.md
+      - Extensions:
+        - Order Statuses: conformances/extensions/order-statuses/README.md
+        - Searches:
+          - Opportunity: conformances/extensions/searches/opportunity/README.md
+          - Opportunity Statuses: conformances/extensions/searches/opportunity-statuses/README.md
+  - API Reference: api.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/stapi-spec/stapi-spec
+
+copyright: Copyright &copy; {year} STAPI Spec Contributors
