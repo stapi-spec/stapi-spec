@@ -53,12 +53,33 @@ The documentation site is built with [MkDocs](https://www.mkdocs.org/) and
 
 All commands should be run from the root of the repository.
 
+#### Basic Commands
+
 - `uv run mkdocs serve`: Starts the development server with live reload. The
   site will be available at `http://localhost:8000`. Use this command for most
   development work.
 - `uv run mkdocs build`: Creates a production-ready build of the entire site in
   the `site/` directory.
 - `uv run mkdocs --help`: Shows all available MkDocs commands.
+
+#### Versioning with Mike
+
+The documentation uses [mike](https://github.com/jimporter/mike) for
+versioning. Version deployments are handled automatically by GitHub Actions:
+
+- **Development versions**: Every push to `main` deploys to the `dev` version
+- **Stable releases**: Publishing a GitHub release deploys that version and
+  updates the `stable` alias
+
+For local testing of versioned documentation:
+
+- `uv run mike serve`: Serve the versioned documentation locally
+- `uv run mike list`: List all deployed versions
+- `uv run mike deploy VERSION`: Deploy a version locally (without `--push`)
+- `uv run mike set-default VERSION`: Set the default version
+
+**Note**: Direct version deployment should only be done through GitHub
+releases. The `dev` version is automatically updated on each merge to main.
 
 ### Making Changes
 

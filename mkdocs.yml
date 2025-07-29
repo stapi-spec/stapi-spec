@@ -82,6 +82,8 @@ nav:
   - API Reference: api.md
 
 extra:
+  version:
+    provider: mike
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/stapi-spec/stapi-spec
