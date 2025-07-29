@@ -1,5 +1,7 @@
 # STAPI: Sensor Tasking API
 
+![STAPI logo](img/logo.svg){ width="300" }
+
 Welcome to the Sensor Tasking API (STAPI) specification documentation.
 
 ## What is STAPI?

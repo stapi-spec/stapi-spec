@@ -7,6 +7,8 @@ repo_url: https://github.com/stapi-spec/stapi-spec
 edit_uri: edit/main/docs/
 
 theme:
+  favicon: img/favicon.png
+  logo: img/logo.svg
   name: material
   palette:
     # Palette toggle for automatic mode
@@ -48,6 +50,7 @@ hooks:
   - hooks/copyright_year.py
 
 markdown_extensions:
+  - attr_list
   - admonition
   - codehilite
   - pymdownx.superfences:
@@ -61,9 +64,9 @@ markdown_extensions:
       permalink: true
 
 nav:
-  - Home: README.md
   - Documentation:
-    - Introduction: intro.md
+    - Introduction: README.md
+    - What is STAPI?: intro.md
     - API Spec:
       - Overview: spec/README.md
       - Entities:

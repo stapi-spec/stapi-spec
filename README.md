@@ -2,6 +2,8 @@
 
 # STAPI Specification Repository
 
+![STAPI logo](./docs/img/logo.svg)
+
 This repository contains the official specification for the **Sensor Tasking
 API (STAPI)**, a JSON-based web API for discovering and ordering
 spatio-temporal data products from remote sensing providers.
@@ -9,6 +11,7 @@ spatio-temporal data products from remote sensing providers.
 ## What is STAPI?
 
 STAPI enables users to:
+
 - Discover available **Products** from satellite and airborne data providers
 - Request **Opportunities** to understand what data can be collected
 - Submit **Orders** for new tasking or archived data processing
@@ -44,7 +47,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed development instructions.
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details on:
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md)
+for details on:
+
 - Development setup
 - Making changes to the specification
 - Submitting pull requests
