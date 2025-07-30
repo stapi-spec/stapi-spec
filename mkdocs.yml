@@ -44,7 +44,8 @@ theme:
 
 plugins:
   - search
-  - redoc-tag
+  - neoteroi.mkdocsoad:
+      use_pymdownx: true
 
 hooks:
   - hooks/copyright_year.py
@@ -53,6 +54,7 @@ markdown_extensions:
   - attr_list
   - admonition
   - codehilite
+  - pymdownx.details
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
@@ -65,8 +67,8 @@ markdown_extensions:
 
 nav:
   - Documentation:
-    - Introduction: README.md
-    - What is STAPI?: intro.md
+    - Home: README.md
+    - Introduction: intro.md
     - API Spec:
       - Overview: spec/README.md
       - Entities:
@@ -90,5 +92,8 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/stapi-spec/stapi-spec
+
+extra_css:
+  - css/neoteroi-mkdocs-plugins-v1.1.2.css
 
 copyright: Copyright &copy; {year} STAPI Spec Contributors
