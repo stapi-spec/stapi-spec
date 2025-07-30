@@ -1,3 +1,1 @@
-# API Reference
-
-<redoc src="openapi/openapi.yaml"/>
+[OAD(openapi/openapi.yaml)]

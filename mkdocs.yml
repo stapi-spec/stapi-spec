@@ -93,7 +93,4 @@ extra:
     - icon: fontawesome/brands/github
       link: https://github.com/stapi-spec/stapi-spec
 
-extra_css:
-  - css/neoteroi-mkdocs-plugins-v1.1.2.css
-
 copyright: Copyright &copy; {year} STAPI Spec Contributors
