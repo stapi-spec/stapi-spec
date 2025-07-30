@@ -10,6 +10,7 @@ dependencies = [
     "mkdocs>=1.6.1",
     "mkdocs-material>=9.6.16",
     "neoteroi-mkdocs>=1.1.2",
+    "pyyaml>=6.0.2",
 ]
 
 [dependency-groups]
@@ -18,6 +19,7 @@ dev = [
     "pre-commit>=4.2.0",
     "pre-commit-hooks>=5.0.0",
     "ruff>=0.12.5",
+    "types-pyyaml>=6.0.12.20250516",
 ]
 
 [tool.uv]

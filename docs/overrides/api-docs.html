@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+  /* Hide navigation sidebar */
+  .md-sidebar--primary {
+    display: none !important;
+  }
+
+  /* Hide table of contents sidebar */
+  .md-sidebar--secondary {
+    display: none !important;
+  }
+
+  /* Hide edit button */
+  .md-content__button {
+    display: none !important;
+  }
+
+  /* Override the grid layout to full width */
+  @media screen and (min-width: 76.25em) {
+    .md-sidebar--primary {
+      display: none !important;
+    }
+    .md-content {
+      margin-left: 0 !important;
+    }
+  }
+
+  /* Make content full width */
+  .md-content {
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .md-content__inner {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Remove all margins from article */
+  .md-content article {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Remove grid constraints */
+  .md-grid {
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+
+  /* Make main content area full width */
+  .md-main__inner {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+
+  /* Adjust main layout */
+  .md-main {
+    flex-grow: 1;
+  }
+
+  /* Fix the layout for the main container */
+  .md-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* Hide the page title */
+  h1:first-child,
+  .md-content h1:first-of-type,
+  .md-content__inner > h1:first-child {
+    display: none !important;
+  }
+
+  /* Remove the article::before pseudo-element */
+  .md-content article::before {
+    display: none;
+  }
+
+  /* Hide the footer - useful for embedded content like API docs */
+  .md-footer {
+    display: none;
+  }
+</style>
+
+{{ super() }}
+{% endblock %}
