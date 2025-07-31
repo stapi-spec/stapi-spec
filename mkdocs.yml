@@ -75,6 +75,7 @@ nav:
         - Product: spec/product/README.md
         - Opportunities: spec/opportunity/README.md
         - Order: spec/order/README.md
+        - Search Parameters: spec/search-parameters/README.md
       - Pagination: spec/pagination/README.md
     - Conformance Classes:
       - Overview: conformances/README.md
