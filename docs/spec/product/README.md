@@ -80,15 +80,10 @@ information about the final storage provider hosting the data.
 
 ### Link Object
 
+The STAPI Link Object is borrowed from STAC, and is the same as the [STAC Link
+Object](https://github.com/radiantearth/stac-spec/blob/master/commons/links.md#link-object).
 This object describes a relationship with another entity. Data providers are
 advised to be liberal with links.
-
-| Field Name | Type | Description |
-| ---------- | ---- | ----------- |
-| href | string | **REQUIRED.** The actual link in the format of an URL. Relative and absolute links are both allowed. |
-| rel | string | **REQUIRED.** Relationship between the current document and the linked document. |
-| type | string | Media Type of the referenced entity. |
-| title | string | A human readable title to be used in rendered displays of the link. |
 
 The relation type `queryables` is to be used to link to the `GET
 /products/{productId}/queryables` endpoint.
