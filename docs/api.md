@@ -1,1 +1,1 @@
-[OAD(openapi/openapi.yaml)]
+[OAD(spec/openapi.yaml)]
