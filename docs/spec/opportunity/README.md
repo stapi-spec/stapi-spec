@@ -28,7 +28,7 @@ following way:
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| productId | string | **REQUIRED.** Product identifier. The ID should be unique and is a reference to the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) which can be used in the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) field. |
+| productId | string | **REQUIRED.** Product identifier ([see Product Object](../product/README.md#product-object)) |
 
 ### Body Parameters
 
@@ -36,7 +36,7 @@ following way:
 | ---- | ---- | ----------- |
 | datetime | string | **REQUIRED.** Time interval with a solidus (forward slash, `/`)  separator, using [RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6) datetime, empty string, or `..` values. |
 | geometry | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) | **REQUIRED.** Defines the full footprint that the tasked data will be within. |
-| filter | CQL2 Object | A set of additional [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) in [CQL2 JSON](https://docs.ogc.org/DRAFTS/21-065.html) based on the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) exposed in the product. |
+| filter | CQL2 Object | A set of additional filter terms in [CQL2 JSON](https://docs.ogc.org/DRAFTS/21-065.html) format based on the [queryables](../product/README.md#queryables) exposed in the product. |
 
 #### datetime
 
@@ -129,7 +129,7 @@ required to describe the opportunity in meaningful terms to the requestor.
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
 | datetime       | string                                                                     | **REQUIRED.** Datetime field is a [ISO8601 Time Interval](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals) |
-| product_id | string | **REQUIRED.**  Product identifier. The ID should be unique and is a reference to the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) which can be used in the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) field. |
+| product_id | string | **REQUIRED.** Product identifier ([see Product Object](../product/README.md#product-object)) |
 
 #### Opportunity Links
 
@@ -139,7 +139,7 @@ Object.
 
 | rel type | Description |
 | ---------- | ----------- |
-| `create-order` | **REQUIRED** if individual Opportunities do not include a `create-order` link, otherwise it is **strongly recommended**. This allows the user to resubmit the Opportunities request as an Order.|
+| `create-order` | **REQUIRED** if individual Opportunities do not include a `create-order` link, otherwise it is **strongly recommended**. This allows the user to resubmit the Opportunities request as an Order. |
 
 ##### rel=create-order
 
@@ -187,7 +187,7 @@ Returned by an async opportunity search. Can also be retrieved directly.
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
 | id | string | **REQUIRED.** Opportunity search record ID. |
-| product_id | string | **REQUIRED.** Product identifier. This should be a reference to the [Product](https://github.com/Element84/stapi-spec/blob/main/product/README.md) being searched. |
+| product_id | string | **REQUIRED.** Product identifier. This should be a reference to the [Product](../product/README.md) being searched. |
 | request | [Opportunity Request Object] | **REQUIRED.** The search parameters for the opportunity request. |
 | status | [Opportunity Search Status](#opportunity-search-status) | **REQUIRED.** The current search status. |
 | links | [[Link Object](#opportunity-search-links)] | List of link objects to resources and related URLs. |
