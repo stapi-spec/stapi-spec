@@ -161,7 +161,7 @@ Returned by an async opportunity search. Can also be retrieved directly.
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
 | id | string | **REQUIRED.** Opportunity search record ID. |
-| product_id | string | **REQUIRED.** Product identifier. This should be a reference to the [Product](../product/README.md) being searched. |
+| product_id | string | **REQUIRED.** Product identifier. This should be a reference to the [Product](../product/README.md#product-object) being searched. |
 | request | [Opportunity Request Object] | **REQUIRED.** The search parameters for the opportunity request. |
 | status | [Opportunity Search Status](#opportunity-search-status) | **REQUIRED.** The current search status. |
 | links | [[Link Object](#opportunity-search-links)] | List of link objects to resources and related URLs. |
