@@ -10,22 +10,29 @@ more providers, request Opportunities that are possible Orders for those
 Products, and then submit one or more Orders to receive Products from Providers
 represented by one or more data artifacts.
 
-The STAPI is primarily designed around machine-to-machine interactions.
+The STAPI is primarily designed around machine-to-machine interactions and
+expects most users to interact with an implementation via a client library
+rather than with direct requests.
 
 ## STAPI Description
 
-### Endpoints
+STAPI follows the RESTful web API practices by using:
 
-STAPI follows the modern web API practices of using HTTP Request Methods
-("verbs") and the `Content-Type` header to drive behavior on resources
-("nouns") in the endpoints listed below.
+* HTTP Request Methods ("verbs") to drive behavior on resources ("nouns")
+* Hypermedia as the Engine of Application State (HATEOAS) links in responses
+  with well-defined relation types and verb specification
+
+### Example API structure
 
 The following table describes the service resources available in a STAPI
-implementation that supports all three of the foundation specifications. Note
-that the 'Endpoint' column is more of an example in some cases.
+implementation and the link relations used on links to these resources. The
+endpoints listed here are for illustrative purposes only; using HATEOAS means
+that clients should not build URLs themselves, but rely on the server to
+provide links in each response, for which the URLs could be arbirarily
+constructed.
 
-| Endpoint | Specified in | Link Relationship | Returns | Description |
-| -------- | ------------ | ----------------- | ------- | ----------- |
+| Endpoint | Specified in | Link Relation | Returns | Description |
+| -------- | ------------ | ------------- | ------- | ----------- |
 | `GET /` | Core | root | Landing Page | Returns API metadata and links |
 | `GET /conformance` | Core | `conformance` | JSON | API-level conformance classes |
 | `GET /products` | Core | `products` | [Products Collection](./product/README.md#product-collection) | Figure out which queryables are available for which `productId` |
