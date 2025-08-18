@@ -60,6 +60,8 @@ where each Feature in the collection is an [Order Object](#order-object).
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
 | type | string | **REQUIRED.** Type of the GeoJSON Object. **Must** be set to `FeatureCollection`. |
+| stapi_type | string | **REQUIRED.** Type of the STAPI Object. **Must** be set to `OrderCollection`. |
+| stapi_version | string | **REQUIRED.** The STAPI version the Order Collection implements. |
 | features | \[[Order Object](#order-object)\] | **REQUIRED.** A list of orders. |
 | links | \[[Link Object](https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md#link-object)\] | **REQUIRED.** Links, e.g., for pagination. |
 
