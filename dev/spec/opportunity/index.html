@@ -1,0 +1,2030 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="The Sensor Tasking API (STAPI) defines a JSON-based web API to discover and order spatio-temporal analytic and data products derived from remote sensing providers.">
+      
+      
+      
+        <link rel="canonical" href="https://stapi-spec.github.io/stapi-spec/dev/spec/opportunity/">
+      
+      
+        <link rel="prev" href="../product/">
+      
+      
+        <link rel="next" href="../order/">
+      
+      
+      <link rel="icon" href="../../img/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
+    
+    
+      
+        <title>Opportunities - STAPI - Sensor Tasking API</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#stapi-opportunity-spec" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="STAPI - Sensor Tasking API" class="md-header__button md-logo" aria-label="STAPI - Sensor Tasking API" data-md-component="logo">
+      
+  <img src="../../img/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            STAPI - Sensor Tasking API
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Opportunities
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="teal"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/stapi-spec/stapi-spec" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    stapi-spec/stapi-spec
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  
+  Documentation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../api/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  API Reference
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="STAPI - Sensor Tasking API" class="md-nav__button md-logo" aria-label="STAPI - Sensor Tasking API" data-md-component="logo">
+      
+  <img src="../../img/logo.svg" alt="logo">
+
+    </a>
+    STAPI - Sensor Tasking API
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/stapi-spec/stapi-spec" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    stapi-spec/stapi-spec
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Documentation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1_3" id="__nav_1_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    API Spec
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            API Spec
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_3_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1_3_2" id="__nav_1_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Entities
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Entities
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../product/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Product
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Opportunities
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Opportunities
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#opportunity-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opportunity Request
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Opportunity Request">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#path-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Path Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#body-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Body Parameters
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Body Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#datetime" class="md-nav__link">
+    <span class="md-ellipsis">
+      datetime
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geometry" class="md-nav__link">
+    <span class="md-ellipsis">
+      geometry
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opportunity-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opportunity Collection
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Opportunity Collection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#opportunity-collection-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opportunity Collection Links
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opportunity-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opportunity Object
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Opportunity Object">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      bbox
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#properties-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      Properties Object
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opportunity-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opportunity Links
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Opportunity Links">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#relcreate-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      rel=create-order
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#async-opportunity-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      Async Opportunity Search
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Async Opportunity Search">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#opportunity-search-record" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opportunity Search Record
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Opportunity Search Record">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#opportunity-search-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opportunity Search Links
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Opportunity Search Links">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#relself" class="md-nav__link">
+    <span class="md-ellipsis">
+      rel=self
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relmonitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      rel=monitor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relopportunities" class="md-nav__link">
+    <span class="md-ellipsis">
+      rel=opportunities
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#async-search-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      Async search response
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advertising-support-for-opportunity-searching" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advertising Support for Opportunity Searching
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opportunity-search-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opportunity Search Status
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Opportunity Search Status">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enumerated-status-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enumerated status codes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../order/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Order
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pagination/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pagination
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_4" id="__nav_1_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Conformance Classes
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4">
+            <span class="md-nav__icon md-icon"></span>
+            Conformance Classes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../conformances/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../conformances/core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Core
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_4_3" id="__nav_1_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Extensions
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Extensions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../conformances/extensions/order-statuses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Order Statuses
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1_4_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_4_3_2" id="__nav_1_4_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Searches
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_1_4_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_4_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Searches
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../conformances/extensions/searches/opportunity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Opportunity
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../conformances/extensions/searches/opportunity-statuses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Opportunity Statuses
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#opportunity-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opportunity Request
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Opportunity Request">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#path-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Path Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#body-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Body Parameters
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Body Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#datetime" class="md-nav__link">
+    <span class="md-ellipsis">
+      datetime
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geometry" class="md-nav__link">
+    <span class="md-ellipsis">
+      geometry
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opportunity-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opportunity Collection
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Opportunity Collection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#opportunity-collection-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opportunity Collection Links
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opportunity-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opportunity Object
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Opportunity Object">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      bbox
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#properties-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      Properties Object
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opportunity-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opportunity Links
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Opportunity Links">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#relcreate-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      rel=create-order
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#async-opportunity-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      Async Opportunity Search
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Async Opportunity Search">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#opportunity-search-record" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opportunity Search Record
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Opportunity Search Record">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#opportunity-search-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opportunity Search Links
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Opportunity Search Links">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#relself" class="md-nav__link">
+    <span class="md-ellipsis">
+      rel=self
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relmonitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      rel=monitor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relopportunities" class="md-nav__link">
+    <span class="md-ellipsis">
+      rel=opportunities
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#async-search-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      Async search response
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advertising-support-for-opportunity-searching" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advertising Support for Opportunity Searching
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opportunity-search-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opportunity Search Status
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Opportunity Search Status">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enumerated-status-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enumerated status codes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/stapi-spec/stapi-spec/edit/main/docs/spec/opportunity/README.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="stapi-opportunity-spec">STAPI Opportunity Spec<a class="headerlink" href="#stapi-opportunity-spec" title="Permanent link">&para;</a></h1>
+<ul>
+<li><strong>Conformance URI:</strong> <code>https://stapi.example.com/v0.1.0/opportunities</code></li>
+</ul>
+<p>An Opportunity in STAPI is an abstract, and often terse, representation
+of data that will be delivered in the future. Because of the uncertainty
+involved, an Opportunity may contain a range of values rather than
+discrete known values. The amount of metadata fields contained within an
+Opportunity will vary depending on the user requirements and what is known
+by the provider at the time of request.</p>
+<p><strong>An Opportunity is the minimum amount of metadata known about the data
+that will be delivered</strong>.</p>
+<p>The optional <code>POST /products/{productId}/opportunities</code> endpoint provides
+additional functionality on top of the core STAPI spec. It allows
+a user to search and browse additional information about what could be
+delivered after an order is made. The <code>opportunities</code> endpoint is specific
+for a product and could be used before a user places an order with a call to
+<code>POST /products/{productId}/orders</code>.</p>
+<h2 id="opportunity-request">Opportunity Request<a class="headerlink" href="#opportunity-request" title="Permanent link">&para;</a></h2>
+<p>The endpoint <code>POST /products/{productId}/opportunities</code> is parameterized in the following way:</p>
+<h3 id="path-parameters">Path Parameters<a class="headerlink" href="#path-parameters" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>productId</td>
+<td>string</td>
+<td><strong>REQUIRED.</strong> Product identifier. The ID should be unique and is a reference to the <a href="https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters">parameters</a> which can be used in the <a href="https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters">parameters</a> field.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="body-parameters">Body Parameters<a class="headerlink" href="#body-parameters" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>datetime</td>
+<td>string</td>
+<td><strong>REQUIRED.</strong> Time interval with a solidus (forward slash, <code>/</code>)  separator, using <a href="https://tools.ietf.org/html/rfc3339#section-5.6">RFC 3339</a> datetime, empty string, or <code>..</code> values.</td>
+</tr>
+<tr>
+<td>geometry</td>
+<td><a href="https://tools.ietf.org/html/rfc7946#section-3.1">GeoJSON Geometry Object</a></td>
+<td><strong>REQUIRED.</strong> Defines the full footprint that the tasked data will be within.</td>
+</tr>
+<tr>
+<td>filter</td>
+<td>CQL2 Object</td>
+<td>A set of additional <a href="https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters">parameters</a> in <a href="https://docs.ogc.org/DRAFTS/21-065.html">CQL2 JSON</a> based on the <a href="https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters">parameters</a> exposed in the product.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="datetime">datetime<a class="headerlink" href="#datetime" title="Permanent link">&para;</a></h4>
+<p>The datetime parameter represents a time interval with which the temporal
+property of the results must intersect. This parameter allows a subset of the
+allowed values for a <a href="https://en.wikipedia.org/wiki/ISO_8601#Time_intervals">ISO 8601 Time
+Interval</a> or a <a href="http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_parameter_datetime">OAF
+datetime</a>
+parameter.  This allows for either open or closed intervals, with end
+definitions separated by a solidus (forward slash, <code>/</code>) separator. Closed ends
+are represented by <a href="https://datatracker.ietf.org/doc/html/rfc3339">RFC 3339</a>
+datetimes. Open ends are represented by either an empty string or <code>..</code>. Only
+singly-open intervals are allowed.  Examples of valid datetime intervals
+include <code>2024-04-18T10:56:00+01:00/2024-04-25T10:56:00+01:00</code>,
+<code>2024-04-18T10:56:00Z/..</code>, and <code>/2024-04-25T10:56:00+01:00</code></p>
+<h4 id="geometry">geometry<a class="headerlink" href="#geometry" title="Permanent link">&para;</a></h4>
+<p>Provides a GeoJSON Geometry Object, which <strong>must</strong> be an embedded GeoJSON
+object compliant to <a href="https://tools.ietf.org/html/rfc7946#section-3.1">RFC 7946, section
+3.1</a>. Coordinates are
+specified in Longitude/Latitude or Longitude/Latitude/Elevation based on <a href="http://www.opengis.net/def/crs/OGC/1.3/CRS84">WGS
+84</a>.</p>
+<h2 id="opportunity-collection">Opportunity Collection<a class="headerlink" href="#opportunity-collection" title="Permanent link">&para;</a></h2>
+<p>for <code>POST /products/{productId}/opportunities</code></p>
+<p>This is a GeoJSON FeatureCollection.</p>
+<table>
+<thead>
+<tr>
+<th>Field Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>string</td>
+<td><strong>REQUIRED.</strong> Always <code>FeatureCollection</code>.</td>
+</tr>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Identifier for the collection, if persisted (<strong>required</strong> for async search opportunity collections).</td>
+</tr>
+<tr>
+<td>features</td>
+<td>[Opportunity Object]</td>
+<td><strong>REQUIRED.</strong> A list of opportunities.</td>
+</tr>
+<tr>
+<td>links</td>
+<td>[<a href="#opportunity-collection-links">Link Object</a>]</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="opportunity-collection-links">Opportunity Collection Links<a class="headerlink" href="#opportunity-collection-links" title="Permanent link">&para;</a></h3>
+<p>Each link in the links array must be a
+<a href="https://github.com/radiantearth/stac-spec/blob/master/commons/links.md#link-object">Link</a>
+Object.</p>
+<p>In addition to standard links, the following are applicable to Opportunity Collections.</p>
+<table>
+<thead>
+<tr>
+<th>rel type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>next</code>, <code>prev</code>, <code>first</code>, <code>last</code></td>
+<td><strong>REQUIRED</strong> when the response is paginated</td>
+</tr>
+<tr>
+<td><code>create-order</code></td>
+<td><strong>REQUIRED</strong> if individual Opportunities do not include a <code>create-order</code> link, otherwise it is <strong>strongly recommended</strong>. This allows the user to resubmit the Opportunities request as an Order.</td>
+</tr>
+<tr>
+<td><code>search-record</code></td>
+<td>The search used to generate the Opportunities result. <strong>strongly recommended</strong> to point to <code>GET /searches/opportunities/{searchRecordId}</code> when the result of an async search</td>
+</tr>
+</tbody>
+</table>
+<h3 id="opportunity-object">Opportunity Object<a class="headerlink" href="#opportunity-object" title="Permanent link">&para;</a></h3>
+<p>This object describes a STAPI Opportunity. The input fields will be contained
+<code>properties</code> of each Feature in the GeoJSON response.</p>
+<table>
+<thead>
+<tr>
+<th>Field Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>string</td>
+<td><strong>REQUIRED.</strong> Type of the GeoJSON Object. <strong>Must</strong> be <code>Feature</code>.</td>
+</tr>
+<tr>
+<td>stapi_type</td>
+<td>string</td>
+<td><strong>REQUIRED.</strong> Type of the STAPI Object. <strong>Must</strong> be set to <code>Opportunity</code>.</td>
+</tr>
+<tr>
+<td>stapi_version</td>
+<td>string</td>
+<td><strong>REQUIRED.</strong> The STAPI version the Opportunity implements.</td>
+</tr>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>Provider identifier. This is not required, unless the provider tracks user requests and state for opportunities (as when supporting async searches).</td>
+</tr>
+<tr>
+<td>geometry</td>
+<td><a href="https://tools.ietf.org/html/rfc7946#section-3.1">GeoJSON Geometry Object</a> | <a href="https://tools.ietf.org/html/rfc7946#section-3.2">null</a></td>
+<td><strong>REQUIRED.</strong> Defines the full footprint of the asset represented by this item, formatted according to <a href="https://tools.ietf.org/html/rfc7946#section-3.1">RFC 7946, section 3.1</a>. The footprint should be the default GeoJSON geometry, though additional geometries can be included. Coordinates are specified in Longitude/Latitude or Longitude/Latitude/Elevation based on <a href="http://www.opengis.net/def/crs/OGC/1.3/CRS84">WGS 84</a>.</td>
+</tr>
+<tr>
+<td>bbox</td>
+<td>[number]</td>
+<td><strong>REQUIRED if <code>geometry</code> is not <code>null</code>.</strong> Bounding Box of the asset represented by this Item, formatted according to <a href="https://tools.ietf.org/html/rfc7946#section-5">RFC 7946, section 5</a>.</td>
+</tr>
+<tr>
+<td>properties</td>
+<td><a href="#properties-object">Properties Object</a></td>
+<td><strong>REQUIRED.</strong> A dictionary of additional metadata for the Item.</td>
+</tr>
+<tr>
+<td>links</td>
+<td>[<a href="#opportunity-links">Link Object</a>]</td>
+<td>List of link objects to resources and related URLs.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="bbox">bbox<a class="headerlink" href="#bbox" title="Permanent link">&para;</a></h4>
+<p>Bounding Box of the asset represented by this Item using either 2D or 3D
+geometries, formatted according to <a href="https://tools.ietf.org/html/rfc7946#section-5">RFC 7946, section
+5</a>.  The length of the array
+must be 2*n where n is the number of dimensions.  The array contains all axes
+of the southwesterly most extent followed by all axes of the northeasterly most
+extent specified in Longitude/Latitude or Longitude/Latitude/Elevation based on
+<a href="http://www.opengis.net/def/crs/OGC/1.3/CRS84">WGS 84</a>.  When using 3D
+geometries, the elevation of the southwesterly most extent is the minimum
+depth/height in meters and the elevation of the northeasterly most extent is
+the maximum.  This field enables more naive clients to easily index and search
+geospatially.  STAC compliant APIs are required to compute intersection
+operations with the Item's geometry field, not its bbox.</p>
+<h4 id="properties-object">Properties Object<a class="headerlink" href="#properties-object" title="Permanent link">&para;</a></h4>
+<p>Additional metadata fields can be added to the GeoJSON Object Properties that
+describe the Opportunity in more detail for the user. The only required fields
+are <code>datetime</code> and <code>product_id</code> but it is recommended to add more fields as
+required to describe the opportunity in meaningful terms to the requestor.</p>
+<table>
+<thead>
+<tr>
+<th>Field Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>datetime</td>
+<td>string</td>
+<td><strong>REQUIRED.</strong> Datetime field is a <a href="https://en.wikipedia.org/wiki/ISO_8601#Time_intervals">ISO8601 Time Interval</a></td>
+</tr>
+<tr>
+<td>product_id</td>
+<td>string</td>
+<td><strong>REQUIRED.</strong>  Product identifier. The ID should be unique and is a reference to the <a href="https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters">parameters</a> which can be used in the <a href="https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters">parameters</a> field.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="opportunity-links">Opportunity Links<a class="headerlink" href="#opportunity-links" title="Permanent link">&para;</a></h4>
+<p>Each link in the links array must be a
+<a href="https://github.com/radiantearth/stac-spec/blob/master/commons/links.md#link-object">Link</a>
+Object.</p>
+<table>
+<thead>
+<tr>
+<th>rel type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>create-order</code></td>
+<td><strong>REQUIRED</strong> if individual Opportunities do not include a <code>create-order</code> link, otherwise it is <strong>strongly recommended</strong>. This allows the user to resubmit the Opportunities request as an Order.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="relcreate-order">rel=create-order<a class="headerlink" href="#relcreate-order" title="Permanent link">&para;</a></h5>
+<p>This Link object fully describes the necessary HTTP request to submit an Order
+for this Opportunity via
+<a href="https://github.com/stapi-spec/stapi-spec/tree/main/order#create-order-request">Create Order</a>.</p>
+<p>To conform to the Create Order spec, use <code>"method": "POST"</code>.</p>
+<p>If no Body parameters apply to an Opportunity, use <code>"body": {}</code>.</p>
+<p>It is <strong>strongly recommended</strong> to include include a <code>rel=create-order</code> link on
+an Opportunity to allow the user to order the Opportunity. Consider the
+inclusion of this link <strong>required</strong> where ordering of an individual Opportunity
+is supported by the given Product. Omission of this link is valid when
+Opportunities are considered informational-only and cannot be ordered directly
+(i.e., the precision of the Opportunities exceeds the implementation's limits
+with regard to valid order parameters, such as when orders have a minimum
+datetime range greater than any individual Opportunity's datetime range).</p>
+<p>When Opportunity <code>create-order</code> links are not included then it is <strong>required</strong>
+to include the <code>create-order</code> link on the OpportunityCollection. Similarly,
+when a <code>create-order</code> link is not included at the OpportunityCollection level
+then consider it <strong>required</strong> to have a <code>create-order</code> link on each
+Opportunity.</p>
+<h2 id="async-opportunity-search">Async Opportunity Search<a class="headerlink" href="#async-opportunity-search" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Conformance URI:</strong> <code>https://stapi.example.com/v0.1.0/async-opportunities</code></li>
+</ul>
+<p>STAPI has an optional conformance class providing support for async opportunity
+searches, to accommodate searches for products that require more time to
+complete than is a typical or desirable HTTP request duration. Products that
+support async opportunity searches should advertise this conformance class.</p>
+<p>Async support requires persisting the search state and matching opportunities
+outside the context of the initial request, so they are available for retrieval
+at a later time by the requestor. The Opportunity Search Record is an
+additional entity defined to model the required search state.</p>
+<h3 id="opportunity-search-record">Opportunity Search Record<a class="headerlink" href="#opportunity-search-record" title="Permanent link">&para;</a></h3>
+<p>Returned by an async opportunity search. Can also be retrieved directly.</p>
+<table>
+<thead>
+<tr>
+<th>Field Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td><strong>REQUIRED.</strong> Opportunity search record ID.</td>
+</tr>
+<tr>
+<td>product_id</td>
+<td>string</td>
+<td><strong>REQUIRED.</strong> Product identifier. This should be a reference to the <a href="https://github.com/Element84/stapi-spec/blob/main/product/README.md">Product</a> being searched.</td>
+</tr>
+<tr>
+<td>request</td>
+<td>[Opportunity Request Object]</td>
+<td><strong>REQUIRED.</strong> The search parameters for the opportunity request.</td>
+</tr>
+<tr>
+<td>status</td>
+<td><a href="#opportunity-search-status">Opportunity Search Status</a></td>
+<td><strong>REQUIRED.</strong> The current search status.</td>
+</tr>
+<tr>
+<td>links</td>
+<td>[<a href="#opportunity-search-links">Link Object</a>]</td>
+<td>List of link objects to resources and related URLs.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="opportunity-search-links">Opportunity Search Links<a class="headerlink" href="#opportunity-search-links" title="Permanent link">&para;</a></h4>
+<h5 id="relself">rel=self<a class="headerlink" href="#relself" title="Permanent link">&para;</a></h5>
+<p>The <code>links</code> <strong>must</strong> include a Link Object with the href to retrieve the
+Opportunity Search Record directly.</p>
+<h5 id="relmonitor">rel=monitor<a class="headerlink" href="#relmonitor" title="Permanent link">&para;</a></h5>
+<p>If the <code>GET /searches/opportunities/{searchRecordId}/statuses</code> endpoint is
+implemented, there <strong>must</strong> be a link to that endpoint using the relation type
+<code>monitor</code>.</p>
+<h5 id="relopportunities">rel=opportunities<a class="headerlink" href="#relopportunities" title="Permanent link">&para;</a></h5>
+<p>This Link object provides the means of retrieving the search results when the
+search is completed. That is, it should include the equivalent of <code>GET
+/products/{productId}/opportunities/{opportunityCollectionId}</code> where
+<code>productId</code> is the product being searched and <code>opportunityCollectionId</code> is the
+ID of the opportunity collection containing the results of the search.</p>
+<p>This link is <strong>must</strong> be included when the search is completed.</p>
+<h4 id="async-search-response">Async search response<a class="headerlink" href="#async-search-response" title="Permanent link">&para;</a></h4>
+<p>In the event of an async opportunity search, <code>POST
+/products/{productId}/opportunities</code> must return a 201 status. The body of the
+response must be the created Opportunity Search Record. The <code>Location</code> HTTP
+header of the response should point to the direct link of the Opportunity
+Search Record (<code>/searches/opportunities/{searchRecordId}</code>).</p>
+<h3 id="advertising-support-for-opportunity-searching">Advertising Support for Opportunity Searching<a class="headerlink" href="#advertising-support-for-opportunity-searching" title="Permanent link">&para;</a></h3>
+<p>Products <strong>must</strong> advertise support for sync and/or async searching via the two
+opportunity conformance classes, or lack of any opportunity search support by
+omitting both of these conformance classes. In the case where a product
+advertises support for both sync and async behavior, implementations must
+choose a default behavior to allow clients to succesfully request opportunities
+without specifiying a preference.</p>
+<p>Clients can request sync vs async operation via the HTTP <code>Prefer</code> header.
+Possible values for the <code>Prefer</code> header are <code>respond-async</code> or <code>wait</code>, where
+the former requests as async response and the latter requests a sync response.
+The server must always respond with the HTTP <code>Preference-Applied</code> header
+indicating whether the preference specified by the client was honored. If async
+was requested then that request should be honored. If sync was requested but
+the product does not support it then that request cannot be honored.</p>
+<h3 id="opportunity-search-status">Opportunity Search Status<a class="headerlink" href="#opportunity-search-status" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>timestamp</td>
+<td>datetime</td>
+<td><strong>REQUIRED.</strong> ISO 8601 timestamp for the order status</td>
+</tr>
+<tr>
+<td>status_code</td>
+<td>string</td>
+<td><strong>REQUIRED.</strong> Enumerated status code</td>
+</tr>
+<tr>
+<td>reason_code</td>
+<td>string</td>
+<td>Enumerated reason code for why the status was set</td>
+</tr>
+<tr>
+<td>reason_text</td>
+<td>string</td>
+<td>Textual description for why the status was set</td>
+</tr>
+<tr>
+<td>links</td>
+<td>[Link Object]</td>
+<td><strong>REQUIRED.</strong> list of references to any relevant documents or resources.</td>
+</tr>
+</tbody>
+</table>
+<p>Links is intended to be the same data structure as links collection in STAC.
+Links will be very provider specific.</p>
+<h4 id="enumerated-status-codes">Enumerated status codes<a class="headerlink" href="#enumerated-status-codes" title="Permanent link">&para;</a></h4>
+<ul>
+<li>received (indicates search received by provider and it passed format validation.)</li>
+<li>in_progress (indicates search is running)</li>
+<li>failed (indicates search will not be fulfilled for some error reason)</li>
+<li>cancelled (indicates search was cancelled for any reason)</li>
+<li>completed (indicates search has completed successfully and the results can be retrieved)</li>
+</ul>
+<p>Providers must support these statuses.</p>
+<p>State machine intent (currently no mandate to enforce)</p>
+<ul>
+<li>received -&gt; in_progress or cancelled.</li>
+<li>in_progress -&gt; completed, failed, or cancelled.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 STAPI Spec Contributors
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/stapi-spec/stapi-spec" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.50899def.min.js"></script>
+      
+    
+  </body>
+</html>

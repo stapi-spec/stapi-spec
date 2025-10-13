@@ -1,0 +1,22 @@
+{
+                "type": "object",
+                "properties": {
+                    "datetime": {
+                        "description": "The closed date-time interval of the tasking order request.",
+                        "type": "string"
+                    },
+                    "product": {
+                        "description": "The data product.",
+                        "type": "string",
+                        "enum": [
+                            "standard",
+                            "assured"
+                        ],
+                        "default": "standard"
+                    }
+                },
+                "required": [
+                    "datetime",
+                    "product"
+                ]
+            }
