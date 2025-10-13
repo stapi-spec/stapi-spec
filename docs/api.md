@@ -1,0 +1,1 @@
+[OAD(spec/openapi.yaml)]

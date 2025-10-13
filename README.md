@@ -1,146 +1,59 @@
 [![docs](https://github.com/stapi-spec/stapi-spec/actions/workflows/deploy.yml/badge.svg)](https://github.com/stapi-spec/stapi-spec/actions/workflows/deploy.yml)
 
-# Sensor Tasking API (STAPI)
+# STAPI Specification Repository
 
-The Sensor Tasking API (STAPI) defines a JSON-based web API to discover and order
-spatio-temporal analytic and data products derived from remote sensing
-(satellite or airborne) providers. The specification supports both products
-derived from new tasking and products from provider archives.
+![STAPI logo](./docs/img/logo.svg)
 
-The STAPI specification provides a structure and language to describe
-[**Products**](product/README.md), [**Opportunities**](opportunity/README.md),
-and [**Orders**](order/README.md), along with a REST API for interacting with
-data providers.
+This repository contains the official specification for the **Sensor Tasking
+API (STAPI)**, a JSON-based web API for discovering and ordering
+spatio-temporal data products from remote sensing providers.
 
-Generally speaking, users of STAPI will review available Products from one or
-more providers, request Opportunities that are possible Orders for those
-Products, and then submit one or more Orders to receive Products from Providers
-represented by one or more data artifacts.
+## What is STAPI?
 
-## Ecosystem
+STAPI enables users to:
 
-[The PySTAPI git monorepo](https://github.com/stapi-spec/pystapi) contains the
-source code for the STAPI entity model definitions, the stapi-fastapi reference
-server implementation, and the pystapi-client reference client implementation,
-among other various ecosystem tools.
+- Discover available **Products** from satellite and airborne data providers
+- Request **Opportunities** to understand what data can be collected
+- Submit **Orders** for new tasking or archived data processing
 
-## Relationship to STAC
+The specification is designed to work alongside [STAC](https://stacspec.org/) -
+while STAC handles existing data, STAPI handles ordering future data or
+processing tasks.
 
-STAPI is seen as complementary to the SpatioTemporal Asset Catalog (STAC) specification.
-While STAC is an API for searching and accessing data that exists in an archive,
-STAPI is for ordering data that does not yet exist. This could be data to be collected
-at a future time, but could also be data that needs to be processed and will be
-delivered at a later time.
+## 🚀 Quick Start
 
-![STAPI diagram](images/stapi-1.png)
+### View the Documentation
 
-Orders are fulfilled by the creation of one or more STAC Items, although what is
-ultimately delivered to the consumer may be something other than STAC metadata.
+Visit the [STAPI documentation site](https://stapi-spec.github.io/stapi-spec/)
+to read the full specification.
 
-The major difference between existing data and future data is the uncertainty or
-absence of metadata. The simple example of this is the datetime of the data.
-Existing data has a discrete known datetime, whereas data to be collected
-will have a date and time range during which it will be completed.
+### Local Development
 
-## Relationship to OGC API
+To run the documentation site locally:
 
-The OGC API standards are used as API building blocks for STAPI. API Capabilities
-are advertised through the use of [Conformance Classes](https://ogcapi.ogc.org/common/overview.html).
-STAPI relies on conformance classes defined in OGC API - Common, as well as defining
-its own Conformance Class for core functionality. STAPI extensions define their
-own Conformance Classes.
-
-For more information on Conformance Classes used in STAPI see the [API Spec](api-spec.md).
-
-## Example workflows
-
-A user with broad requirements browses available products and orders based on
-available opportunities.
-
-```mermaid
-sequenceDiagram
-    USER->>PROVIDER: GET /products
-    activate PROVIDER
-    PROVIDER-->>USER: Response: Products Collection
-    deactivate PROVIDER
-
-    USER->>PROVIDER: POST /products/{productId}/opportunities
-    activate PROVIDER
-    PROVIDER-->>USER: Response: Opportunities Collection
-    deactivate PROVIDER
-
-    USER->>PROVIDER: POST /products/{productId}/orders
-    activate PROVIDER
-    PROVIDER-->>USER: Response: Order Object
-    deactivate PROVIDER
+```bash
+uv run mkdocs serve
 ```
 
-A user with a specific product in mind views available opportunities and places
-an order.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed development instructions.
 
-```mermaid
-sequenceDiagram
-    USER->>PROVIDER: GET /products/{productId}
-    activate PROVIDER
-    PROVIDER-->>USER: Response: Product Object
-    deactivate PROVIDER
+## 🔗 Related Projects
 
-    USER->>PROVIDER: POST /products/{productId}/opportunities
-    activate PROVIDER
-    PROVIDER-->>USER: Response: Opportunities Collection
-    deactivate PROVIDER
+- [PySTAPI](https://github.com/stapi-spec/pystapi) - Python implementations
+  including:
+  - STAPI entity model definitions
+  - Reference server implementation (stapi-fastapi)
+  - Reference client implementation (pystapi-client)
 
-    USER->>PROVIDER: POST /products/{productId}/orders
-    activate PROVIDER
-    PROVIDER-->>USER: Response: Order Object
-    deactivate PROVIDER
-```
+## 🤝 Contributing
 
-A user with a specific product and without a specific need in mind views
-available products and places an order.
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md)
+for details on:
 
-```mermaid
-sequenceDiagram
-    USER->>PROVIDER: GET /products/{productId}
-    activate PROVIDER
-    PROVIDER-->>USER: Response: Product Object
-    deactivate PROVIDER
+- Development setup
+- Making changes to the specification
+- Submitting pull requests
 
-    USER->>PROVIDER: POST /products/{productId}/orders
-    activate PROVIDER
-    PROVIDER-->>USER: Response: Order Object
-    deactivate PROVIDER
-```
+## 📄 License
 
-A user with a specific product in mind makes an async opportunities search
-request, retrieves the available opportunities, and places an order.
-
-```mermaid
-sequenceDiagram
-    USER->>PROVIDER: GET /products/{productId}
-    activate PROVIDER
-    PROVIDER-->>USER: Response: Product Object
-    deactivate PROVIDER
-
-    USER->>PROVIDER: POST /products/{productId}/opportunities
-    activate PROVIDER
-    PROVIDER-->>USER: Response: Opportunity Search Record
-    deactivate PROVIDER
-
-    loop Until search record is completed and has link to opportunity collection
-        USER->>PROVIDER: GET /searches/opportunities/{searchRecordId}
-        activate PROVIDER
-        PROVIDER-->>USER: Response: Opportunity Search Record
-        deactivate PROVIDER
-    end
-
-    USER->>PROVIDER: GET /products/{productId}/opportunities/{opportunityCollectionId}
-    activate PROVIDER
-    PROVIDER-->>USER: Response: Opportunities Collection
-    deactivate PROVIDER
-
-    USER->>PROVIDER: POST /products/{productId}/orders
-    activate PROVIDER
-    PROVIDER-->>USER: Response: Order Object
-    deactivate PROVIDER
-```
+This project is licensed under the [Apache License 2.0](LICENSE).

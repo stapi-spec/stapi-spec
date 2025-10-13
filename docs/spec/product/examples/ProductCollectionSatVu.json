@@ -1,0 +1,68 @@
+{
+    "products": [
+        {
+            "type": "Product",
+            "conformsTo": [
+                "https://geojson.org/schema/Point.json"
+            ],
+            "id": "satvu:assured_priority_tasking",
+            "title": "Assured Priority Tasking",
+            "description": "Assured priority tasking enables you to select a specific pass of the satellite over your target area of interest. In addition, this product has a higher priority level in the satellite management system, increasing the chance of successful data acquisition.",
+            "keywords": [
+                "Thermal",
+                "MWIR"
+            ],
+            "license": "license",
+            "providers": [
+                {
+                    "name": "SatVu",
+                    "description": "High-resolution thermal data provider.",
+                    "roles": [
+                        "producer"
+                    ],
+                    "url": "https://www.satellitevu.com/"
+                }
+            ],
+            "links": [
+                {
+                    "href": "https://example.com/",
+                    "rel": "latest-version",
+                    "type": "media type",
+                    "title": "title"
+                }
+            ]
+        },
+        {
+            "type": "Product",
+            "conformsTo": [
+                "https://geojson.org/schema/Point.json"
+            ],
+            "id": "satvu:standard_priority_tasking",
+            "title": "Standard Priority Tasking",
+            "description": "Assured priority tasking enables you to select a specific pass of the satellite over your target area of interest. In addition, this product has a higher priority level in the satellite management system, increasing the chance of successful data acquisition.",
+            "keywords": [
+                "Thermal",
+                "MWIR"
+            ],
+            "license": "license",
+            "providers": [
+                {
+                    "name": "SatVu",
+                    "description": "",
+                    "roles": [
+                        "producer"
+                    ],
+                    "url": "https://www.satellitevu.com/"
+                }
+            ],
+            "links": [
+                {
+                    "href": "https://example.com/",
+                    "rel": "latest-version",
+                    "type": "media type",
+                    "title": "title"
+                }
+            ]
+        }
+    ]
+}

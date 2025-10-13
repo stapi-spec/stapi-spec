@@ -1,24 +1,56 @@
-name: Publish API docs
+name: Deploy Documentation
 on:
   push:
     branches:
       - main
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
-  test_job:
+  deploy:
     runs-on: ubuntu-latest
-    name: Publish
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-      - name: create docs
-        run: |
-          npm install
-          npm run api-docs
-      - name: deploy to latest
-        uses: peaceiris/actions-gh-pages@v3
+        uses: actions/checkout@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: tmp
-          destination_dir: dev
-          user_name: 'STAPI CI'
-          user_email: ci@stapi.example
+          fetch-depth: 0  # Fetch all history for mike
+
+      - name: Configure Git
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email github-actions[bot]@users.noreply.github.com
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+
+      - name: Set up Python
+        run: uv python install 3.13
+
+      - name: Install dependencies
+        run: uv sync --frozen
+
+      - name: Deploy dev version
+        if: github.ref == 'refs/heads/main'
+        run: |
+          uv run mike deploy --push --update-aliases dev latest
+
+      - name: Deploy release version
+        if: github.event_name == 'release' && !github.event.release.prerelease
+        run: |
+          VERSION=${{ github.event.release.tag_name }}
+          uv run mike deploy --push --update-aliases $VERSION stable
+
+      - name: Deploy pre-release version
+        if: github.event_name == 'release' && github.event.release.prerelease
+        run: |
+          VERSION=${{ github.event.release.tag_name }}
+          uv run mike deploy --push $VERSION

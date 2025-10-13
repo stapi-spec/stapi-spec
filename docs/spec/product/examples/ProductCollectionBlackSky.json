@@ -1,0 +1,95 @@
+{
+    "products": [
+        {
+            "type": "Product",
+            "id": "BSKY_STEREO",
+            "title": "BlackSky EO STEREO",
+            "description": "A pair of images collected from different viewing angles for 3D visualization and analysis",
+            "keywords": [
+                "EO",
+                "Stereo"
+            ],
+            "license": "?",
+            "providers": [
+                {
+                    "name": "BlackSky",
+                    "description": "First To Know",
+                    "roles": [
+                        "producer"
+                    ],
+                    "url": "https://www.blacksky.com"
+                }
+            ],
+            "conformsTo": [
+                "https://geojson.org/schema/Point.json"
+            ],
+            "allOf": [
+                {
+                    "if": {
+                        "parameters": {
+                            "offering": {
+                                "enum": [
+                                    "ELITE"
+                                ]
+                            }
+                        }
+                    },
+                    "then": {
+                        "eo:cloud_cover": 100
+                    }
+                }
+            ],
+            "links": []
+        },
+        {
+            "type": "Product",
+            "id": "BSKY_DAYLIGHT",
+            "title": "BlackSky EO Daylight",
+            "description": "Single image scene collected in daylight with standard product specifications",
+            "keywords": [
+                "EO",
+                "Single frame",
+                "Daytime"
+            ],
+            "license": "?",
+            "providers": [
+                {
+                    "name": "BlackSky",
+                    "description": "First To Know",
+                    "roles": [
+                        "producer"
+                    ],
+                    "url": "https://www.blacksky.com"
+                }
+            ],
+            "conformsTo": [
+                "https://geojson.org/schema/Point.json"
+            ],
+            "allOf": [
+                {
+                    "if": {
+                        "parameters": {
+                            "offering": {
+                                "enum": [
+                                    "ELITE"
+                                ]
+                            }
+                        }
+                    },
+                    "then": {
+                        "eo:cloud_cover": 100
+                    }
+                }
+            ],
+            "links": []
+        }
+    ],
+    "links": [
+        {
+            "rel": "next",
+            "title": "Next page of Products",
+            "type": "application/geo+json",
+            "href": "https://stapi.example.com?page=2"
+        }
+    ]
+}

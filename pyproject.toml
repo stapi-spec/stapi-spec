@@ -1,0 +1,24 @@
+[project]
+name = "stapi-spec"
+version = "0.1.0"
+description = "Sensor Tasking API (STAPI) Specification"
+license = { text = "Apache-2.0" }
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "mike>=2.1.3",
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.6.16",
+    "neoteroi-mkdocs>=1.1.2",
+]
+
+[dependency-groups]
+dev = [
+    "mypy>=1.17.0",
+    "pre-commit>=4.2.0",
+    "pre-commit-hooks>=5.0.0",
+    "ruff>=0.12.5",
+]
+
+[tool.uv]
+package = false
