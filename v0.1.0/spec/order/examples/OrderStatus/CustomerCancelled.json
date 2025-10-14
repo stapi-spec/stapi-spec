@@ -1,0 +1,13 @@
+{
+    "timestamp": "2007-03-01T13:00:00Z",
+    "status_code": "cancelled",
+    "reason_code": "customer_cancelled",
+    "reason_text": "Customer cancellation via API",
+    "links": [
+        {
+            "rel": "audit_log",
+            "type": "text/plain",
+            "href": "https://provider.com/orders/1234/audit-log"
+        }
+    ]
+}

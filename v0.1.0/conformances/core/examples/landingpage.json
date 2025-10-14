@@ -1,0 +1,45 @@
+
+{
+    "id": "example-stapi",
+    "title": "A simple STAPI Example",
+    "description": "This API demonstrated the landing page for a SpatioTemporal Asset Tasking API",
+    "conformsTo" : [
+        "https://stapi.example.com/v0.1.0/core",
+        "https://geojson.org/schema/Point.json",
+        "https://geojson.org/schema/Polygon.json"
+    ],
+    "links": [
+        {
+            "rel": "conformance",
+            "type": "application/json",
+            "href": "https://stapi.example.com/conformance",
+            "title": "Conformance classes implemented by this API"
+        },
+        {
+            "rel": "orders",
+            "type": "application/json",
+            "href": "https://stapi.example.com/orders",
+            "title": "List of existing orders"
+        },
+        {
+            "rel": "products",
+            "type": "application/json",
+            "href": "https://stapi.example.com/products",
+            "title": "List of available products"
+        },
+        {
+            "rel": "service-desc",
+            "type": "application/vnd.oai.openapi+json;version=3.0",
+            "href": "https://stapi.example.com/api",
+            "title": "The machine-readable API definition"
+
+        },
+        {
+            "rel": "service-doc",
+            "type": "text/html",
+            "href": "https://stapi.example.com/api.html",
+            "title": "The human-readable API documentation"
+
+        }
+    ]
+}
