@@ -25,7 +25,7 @@ following way:
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | search_parameters | [Search Parameter Object](../search-parameters/README.md) | **REQUIRED.** Parameters for scenes that would meet the Order's requirements |
-| order_parameters | JSON Object | **REQUIRED.** Order Parameters properties that can be used when creating an Order, reference [Order Parameters](../product/README.md#order-parameters) |
+| order_parameters | JSON Object | **Optional**, unless a Product has a parameter marked as required. Order Parameters properties that can be used when creating an Order, reference [Order Parameters](../product/README.md#order-parameters) |
 
 #### order_parameters
 
