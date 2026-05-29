@@ -49,3 +49,9 @@ repos:
         'types_or': [python, pyi]
         args: []
         require_serial: true
+      - id: docs-build
+        name: docs-build
+        entry: uv run mkdocs build --strict
+        language: python
+        pass_filenames: false
+        require_serial: true

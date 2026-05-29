@@ -21,44 +21,19 @@ for a product and could be used before a user places an order with a call to
 
 ## Opportunity Request
 
-The endpoint `POST /products/{productId}/opportunities` is parameterized in the following way:
+The endpoint `POST /products/{productId}/opportunities` is parameterized in the
+following way:
 
 ### Path Parameters
 
-| Name | Type                                                                       | Description |
-|------------| -------------------------------------------------------------------------- | ----------- |
-| productId  | string                                                                     | **REQUIRED.** Product identifier. The ID should be unique and is a reference to the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) which can be used in the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) field. |
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| productId | string | **REQUIRED.** Product identifier ([see Product Object](../product/README.md#product-object)) |
 
 ### Body Parameters
 
-| Name | Type                                                                       | Description |
-|------------| -------------------------------------------------------------------------- | ----------- |
-| datetime   | string                                                                     | **REQUIRED.** Time interval with a solidus (forward slash, `/`)  separator, using [RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6) datetime, empty string, or `..` values. |
-| geometry   | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) | **REQUIRED.** Defines the full footprint that the tasked data will be within. |
-| filter     | CQL2 Object | A set of additional [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) in [CQL2 JSON](https://docs.ogc.org/DRAFTS/21-065.html) based on the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) exposed in the product. |
-
-#### datetime
-
-The datetime parameter represents a time interval with which the temporal
-property of the results must intersect. This parameter allows a subset of the
-allowed values for a [ISO 8601 Time
-Interval](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals) or a [OAF
-datetime](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_parameter_datetime)
-parameter.  This allows for either open or closed intervals, with end
-definitions separated by a solidus (forward slash, `/`) separator. Closed ends
-are represented by [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339)
-datetimes. Open ends are represented by either an empty string or `..`. Only
-singly-open intervals are allowed.  Examples of valid datetime intervals
-include `2024-04-18T10:56:00+01:00/2024-04-25T10:56:00+01:00`,
-`2024-04-18T10:56:00Z/..`, and `/2024-04-25T10:56:00+01:00`
-
-#### geometry
-
-Provides a GeoJSON Geometry Object, which **must** be an embedded GeoJSON
-object compliant to [RFC 7946, section
-3.1](https://tools.ietf.org/html/rfc7946#section-3.1). Coordinates are
-specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS
-84](http://www.opengis.net/def/crs/OGC/1.3/CRS84).
+The Opportunity Request Body must be an instance of a [Search Parameters
+Object](../search-parameters/README.md).
 
 ## Opportunity Collection
 
@@ -98,9 +73,9 @@ This object describes a STAPI Opportunity. The input fields will be contained
 | stapi_type | string | **REQUIRED.** Type of the STAPI Object. **Must** be set to `Opportunity`. |
 | stapi_version | string | **REQUIRED.** The STAPI version the Opportunity implements. |
 | id | string | Provider identifier. This is not required, unless the provider tracks user requests and state for opportunities (as when supporting async searches). |
-| geometry | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) \| [null](https://tools.ietf.org/html/rfc7946#section-3.2) | **REQUIRED.** Defines the full footprint of the asset represented by this item, formatted according to [RFC 7946, section 3.1](https://tools.ietf.org/html/rfc7946#section-3.1). The footprint should be the default GeoJSON geometry, though additional geometries can be included. Coordinates are specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS 84](http://www.opengis.net/def/crs/OGC/1.3/CRS84). |
-| bbox | [number] | **REQUIRED if `geometry` is not `null`.** Bounding Box of the asset represented by this Item, formatted according to [RFC 7946, section 5](https://tools.ietf.org/html/rfc7946#section-5). |
-| properties | [Properties Object](#properties-object) | **REQUIRED.** A dictionary of additional metadata for the Item. |
+| geometry | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) \| [null](https://tools.ietf.org/html/rfc7946#section-3.2) | **REQUIRED.** Defines the estimated footprint or centroid of the Opportunity, formatted according to [RFC 7946, section 3.1](https://tools.ietf.org/html/rfc7946#section-3.1). The footprint should be the default GeoJSON geometry, though additional geometries can be included. Coordinates are specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS 84](http://www.opengis.net/def/crs/OGC/1.3/CRS84). |
+| bbox | [number] | **REQUIRED.** Bounding Box of the estimated extent of this Opportunity, formatted according to [RFC 7946, section 5](https://tools.ietf.org/html/rfc7946#section-5). |
+| properties | [Properties Object](#properties-object) | **REQUIRED.** A dictionary of additional metadata for the Opportunity. |
 | links | [[Link Object](#opportunity-links)] | List of link objects to resources and related URLs. |
 
 #### bbox
@@ -128,7 +103,7 @@ required to describe the opportunity in meaningful terms to the requestor.
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
 | datetime       | string                                                                     | **REQUIRED.** Datetime field is a [ISO8601 Time Interval](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals) |
-| product_id | string | **REQUIRED.**  Product identifier. The ID should be unique and is a reference to the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) which can be used in the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) field. |
+| product_id | string | **REQUIRED.** Product identifier ([see Product Object](../product/README.md#product-object)) |
 
 #### Opportunity Links
 
@@ -138,7 +113,7 @@ Object.
 
 | rel type | Description |
 | ---------- | ----------- |
-| `create-order` | **REQUIRED** if individual Opportunities do not include a `create-order` link, otherwise it is **strongly recommended**. This allows the user to resubmit the Opportunities request as an Order.|
+| `create-order` | **REQUIRED** if individual Opportunities do not include a `create-order` link, otherwise it is **strongly recommended**. This allows the user to resubmit the Opportunities request as an Order. |
 
 ##### rel=create-order
 
@@ -185,11 +160,11 @@ Returned by an async opportunity search. Can also be retrieved directly.
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
-| id         | string | **REQUIRED.** Opportunity search record ID. |
-| product_id | string | **REQUIRED.** Product identifier. This should be a reference to the [Product](https://github.com/Element84/stapi-spec/blob/main/product/README.md) being searched. |
-| request    | [Opportunity Request Object] | **REQUIRED.** The search parameters for the opportunity request. |
-| status     | [Opportunity Search Status](#opportunity-search-status) | **REQUIRED.** The current search status. |
-| links      | [[Link Object](#opportunity-search-links)] | List of link objects to resources and related URLs. |
+| id | string | **REQUIRED.** Opportunity search record ID. |
+| product_id | string | **REQUIRED.** Product identifier. This should be a reference to the [Product](../product/README.md#product-object) being searched. |
+| request | [Opportunity Request Object] | **REQUIRED.** The search parameters for the opportunity request. |
+| status | [Opportunity Search Status](#opportunity-search-status) | **REQUIRED.** The current search status. |
+| links | [[Link Object](#opportunity-search-links)] | List of link objects to resources and related URLs. |
 
 #### Opportunity Search Links
 
