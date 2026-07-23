@@ -24,5 +24,5 @@ paginated](../../../../spec/pagination/README.md).
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
-| records | \[[Opportunity Search Record]()../../../../spec/opportunity/README.md#opportunity-search-record\] | **REQUIRED.** A list of orders. |
+| records | \[[Opportunity Search Record](../../../../spec/opportunity/README.md#opportunity-search-record)\] | **REQUIRED.** A list of Opportunity Search Records. |
 | links | \[[Link Object](https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md#link-object)\] | **REQUIRED.** Links for e.g. pagination. |

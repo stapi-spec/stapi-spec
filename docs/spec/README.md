@@ -28,7 +28,7 @@ The following table describes the service resources available in a STAPI
 implementation and the link relations used on links to these resources. The
 endpoints listed here are for illustrative purposes only; using HATEOAS means
 that clients should not build URLs themselves, but rely on the server to
-provide links in each response, for which the URLs could be arbirarily
+provide links in each response, for which the URLs could be arbitrarily
 constructed.
 
 | Endpoint | Specified in | Link Relation | Returns | Description |
@@ -46,6 +46,6 @@ constructed.
 | `POST /products/{productId}/orders` | Core | `create-order` | - | Place an Order. Accepts an [Order Request](./order/README.md#create-order-request). |
 | `POST /products/{productId}/opportunities` | Opportunities | `opportunities` | Sync search: [Opportunities Collection](./opportunity/README.md#opportunity-collection); Async search: [Opportunity Search Record](./opportunity/README.md#opportunity-search-record) | Explore available Opportunities. Accepts an [Opportunity Request](./opportunity/README.md#opportunity-request). |
 | `GET /products/{productId}/opportunities/{opportunityCollectionId}` | Opportunities (Async) | `opportunities` | [Opportunities Collection](./opportunity/README.md#opportunity-collection) | Get the opportunity collection for an async opportunity search |
-| `GET /searches/opportunities` | [Searches - Opportunity](../conformances/extensions/searches/opportunity/README.md) | `search-records` | [Opportunity Search Record Collection](../conformances/extensions/searches/opportunity/README.md#opportunity-search-record-collection)] | List all Opportunity Search Records |
+| `GET /searches/opportunities` | [Searches - Opportunity](../conformances/extensions/searches/opportunity/README.md) | `search-records` | [Opportunity Search Record Collection](../conformances/extensions/searches/opportunity/README.md#opportunity-search-record-collection) | List all Opportunity Search Records |
 | `GET /searches/opportunities/{searchRecordId}` | [Searches - Opportunity](../conformances/extensions/searches/opportunity/README.md) | `search-record` | [Opportunity Search Record](./opportunity/README.md#opportunity-search-record) | Fetch a specific Opportunity Search Record |
-| `GET /searches/opportunities/{searchRecordId}/statuses` | [Searches - Opportunity - Statuses](../conformances/extensions/searches/opportunity-statuses/README.md) | `monitor` | [Opportunity Search Status Collection](../conformances/extensions/searches/opportunity-statuses/README.md#opportunity-search-status-collection)] | Get status history for an Opportunity Search Record |
+| `GET /searches/opportunities/{searchRecordId}/statuses` | [Searches - Opportunity - Statuses](../conformances/extensions/searches/opportunity-statuses/README.md) | `monitor` | [Opportunity Search Status Collection](../conformances/extensions/searches/opportunity-statuses/README.md#opportunity-search-status-collection) | Get status history for an Opportunity Search Record |

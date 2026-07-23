@@ -33,7 +33,7 @@ Order Parameters define Product options that can be used when creating an
 Order.  These are different than Product Queryables, in that they do not
 constrain (filter) the desired results, but rather define general properties of
 an entire order. For example, an order parameter might define what file format
-to use delivery or what location to deliver to.
+to use for delivery or what location to deliver to.
 
 By default, the absence of any defined order parameters on a product would
 indicate that only an empty object is valid.
@@ -125,7 +125,7 @@ Links will be very provider specific.
 * rejected (indicates order will not be fulfilled)
 * completed (indicates provider was able to successfully collect imagery)
 * cancelled (indicates provider was unable to collect imagery)
-* failed (indicates when an order could not be completed/proccesed
+* failed (indicates when an order could not be completed/processed
   successfully)
 * expired (indicates the order request window has expired and no collection was
   made)
