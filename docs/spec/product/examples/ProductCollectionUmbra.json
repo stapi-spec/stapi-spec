@@ -25,90 +25,26 @@
         ],
         "url": "https://umbra.space"
       }],
-      "links": [{
-        "href": "https://docs.canopy.umbra.space",
-        "rel": "documentation",
-        "type": "docs",
-        "title": "Canopy Documentation"
-      }],
-      "queryables": {
-        "$defs": {
-          "ProductType": {
-            "enum": [
-              "GEC",
-              "SIDD"
-            ],
-            "title": "ProductType",
-            "type": "string"
-          },
-          "SceneSize": {
-            "enum": [
-              "5x5_KM",
-              "10x10_KM"
-            ],
-            "title": "SceneSize",
-            "type": "string"
-          }
+      "links": [
+        {
+          "href": "https://docs.canopy.umbra.space",
+          "rel": "documentation",
+          "type": "text/html",
+          "title": "Canopy Documentation"
         },
-        "description": "Umbra Spotlight queryables docstring",
-        "properties": {
-          "sceneSize": {
-            "allOf": [
-              {
-                "$ref": "#/$defs/SceneSize"
-              }
-            ],
-            "default": "5x5_KM",
-            "description": "The scene size of the Spotlight collect. The first "
-          },
-          "grazingAngleDegrees": {
-            "type": "number",
-            "minimum": 40,
-            "maximum": 70,
-            "description": "The minimum angle between the local tangent plane at the target location and the line of sight vector between the satellite and the target. First value is the minimum grazing angle the second is the maximum.",
-            "title": "Grazing Angle Degrees"
-          },
-          "satelliteIds": {
-            "description": "The satellites to consider for this Opportunity.",
-            "items": {
-              "type": "string",
-              "regex": "Umbra-\\d{2}"
-            },
-            "title": "Satelliteids",
-            "type": "array"
-          },
-          "deliveryConfigId": {
-            "anyOf": [
-              {
-                "format": "uuid",
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "default": null,
-            "description": "",
-            "title": "Deliveryconfigid"
-          },
-          "productTypes": {
-            "default": [
-              "GEC"
-            ],
-            "description": "",
-            "items": {
-              "$ref": "#/$defs/ProductType"
-            },
-            "title": "Producttypes",
-            "type": "array"
-          }
+        {
+          "href": "https://api.canopy.umbra.space/stapi/products/umbra_spotlight/queryables",
+          "rel": "queryables",
+          "type": "application/schema+json",
+          "title": "Queryables for the umbra_spotlight product"
         },
-        "required": [
-          "satelliteIds"
-        ],
-        "title": "UmbraSpotlightParameters",
-        "type": "object"
-      }
+        {
+          "href": "https://api.canopy.umbra.space/stapi/products/umbra_spotlight/order-parameters",
+          "rel": "order-parameters",
+          "type": "application/schema+json",
+          "title": "Order parameters for the umbra_spotlight product"
+        }
+      ]
     },
     {
       "type": "Collection",
@@ -134,39 +70,26 @@
         ],
         "url": "https://umbra.space"
       }],
-      "links": [{
-        "href": "https://docs.canopy.umbra.space/",
-        "rel": "documentation",
-        "type": "docs",
-        "title": "Canopy Documentation"
-      }],
-      "queryables": {
-        "description": "Umbra Archive Catalog queryables docstring",
-        "properties": {
-          "sar:resolution_range": {
-            "type": "number",
-            "minimum": 0.25,
-            "maximum": 1,
-            "description": "The range resolution of the SAR Image. This is equivalent to the resolution of the ground plane projected GEC Cloud-Optimized Geotiff",
-            "title": "Range Resolution (m)"
-          },
-          "sar:looks_azimuth": {
-            "type": "number",
-            "minimum": 1,
-            "maximum": 10,
-            "description": "The azimuth looks in the SAR Image. This value times the sar:resolution_range gives the azimuth resolution of the complex products.",
-            "title": "Range Resolution (m)"
-          },
-          "platform": {
-            "description": "The satellites to consider for this Opportunity.",
-            "title": "Platform (Satellite)",
-            "type": "string",
-            "regex": "Umbra-\\d{2}"
-          }
+      "links": [
+        {
+          "href": "https://docs.canopy.umbra.space/",
+          "rel": "documentation",
+          "type": "text/html",
+          "title": "Canopy Documentation"
         },
-        "title": "UmbraArchiveCatalogQueryables",
-        "type": "object"
-      }
+        {
+          "href": "https://api.canopy.umbra.space/stapi/products/umbra_archive_catalog/queryables",
+          "rel": "queryables",
+          "type": "application/schema+json",
+          "title": "Queryables for the umbra_archive_catalog product"
+        },
+        {
+          "href": "https://api.canopy.umbra.space/stapi/products/umbra_archive_catalog/order-parameters",
+          "rel": "order-parameters",
+          "type": "application/schema+json",
+          "title": "Order parameters for the umbra_archive_catalog product"
+        }
+      ]
     }
   ],
   "links": [
