@@ -127,6 +127,12 @@ draft-07](https://json-schema.org/specification-links.html#draft-7).  For an
 introduction to JSON Schema, see [Learn JSON
 Schema](https://json-schema.org/learn/getting-started-step-by-step).
 
+A queryable listed in the schema's `required` array indicates that a filter
+predicate constraining that queryable must be supplied in any Opportunity or
+Order request for the Product. Marking one or more queryables as required
+thereby makes the otherwise-optional `filter` field of the [Search Parameters
+Object](../search-parameters/README.md) effectively required for that Product.
+
 ### Queryables Best Practices
 
 There are many Tasking queryables that cannot be represented by JSON Schema.

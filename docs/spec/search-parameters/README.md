@@ -37,3 +37,10 @@ object compliant to [RFC 7946, section
 3.1](https://tools.ietf.org/html/rfc7946#section-3.1). Coordinates are
 specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS
 84](http://www.opengis.net/def/crs/OGC/1.3/CRS84).
+
+### filter
+
+The filter is optional, unless the Product's
+[queryables](../product/README.md#queryables) schema marks one or more
+queryables as required, in which case a filter including a predicate for each
+required queryable must be supplied.
