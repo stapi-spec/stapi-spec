@@ -1,8 +1,11 @@
-
 {
+    "stapi_type": "ProductCollection",
+    "stapi_version": "0.2.0",
     "products": [
         {
-            "type": "Product",
+            "type": "Collection",
+            "stapi_type": "Product",
+            "stapi_version": "0.2.0",
             "id": "maxar_opt",
             "conformsTo": [
                 "https://geojson.org/schema/Polygon.json"
@@ -36,10 +39,29 @@
                 {
                     "href": "https://tinyurl.com/eusi-tara-docs",
                     "rel": "documentation",
-                    "type": "docs",
+                    "type": "text/html",
                     "title": "TARA Documentation"
+                },
+                {
+                    "href": "https://apps.euspaceimaging.com/tara/stapi/products/maxar_opt/queryables",
+                    "rel": "queryables",
+                    "type": "application/schema+json",
+                    "title": "Queryables for the maxar_opt product"
+                },
+                {
+                    "href": "https://apps.euspaceimaging.com/tara/stapi/products/maxar_opt/order-parameters",
+                    "rel": "order-parameters",
+                    "type": "application/schema+json",
+                    "title": "Order parameters for the maxar_opt product"
                 }
             ]
+        }
+    ],
+    "links": [
+        {
+            "rel": "self",
+            "type": "application/json",
+            "href": "https://apps.euspaceimaging.com/tara/stapi/products"
         }
     ]
 }

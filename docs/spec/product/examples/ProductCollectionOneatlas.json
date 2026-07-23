@@ -1,7 +1,11 @@
 {
+  "stapi_type": "ProductCollection",
+  "stapi_version": "0.2.0",
   "products": [
     {
-      "type": "Product",
+      "type": "Collection",
+      "stapi_type": "Product",
+      "stapi_version": "0.2.0",
       "conformsTo": [
         "https://geojson.org/schema/MultiPolygon.json",
         "https://geojson.org/schema/Polygon.json"
@@ -28,7 +32,7 @@
       "links": [
         {
           "href": "https://docs.up42.com/tasking-products/4f866cd3-d816-4c98-ace3-e6105623cf13/orders",
-          "rel": "orders",
+          "rel": "create-order",
           "method": "POST",
           "title": "Endpoint to place an order for this product. Payload should conform to the parameters schema definition"
         },

@@ -32,7 +32,7 @@
                     "scheduling_type": {
                         "allOf": [
                             {
-                                "$ref": "#/parameters/$defs/scheduling_type"
+                                "$ref": "#/$defs/scheduling_type"
                             }
                         ],
                         "default": "Assured",
@@ -41,7 +41,7 @@
                     "satellite_types": {
                         "items": [
                             {
-                                "$ref": "#/parameters/$defs/satellite_types"
+                                "$ref": "#/$defs/satellite_types"
                             }
                         ],
                         "default": [
@@ -53,7 +53,7 @@
                     "exclusivity_days": {
                         "allOf": [
                             {
-                                "$ref": "#/parameters/$defs/exclusivity_days"
+                                "$ref": "#/$defs/exclusivity_days"
                             }
                         ],
                         "default": 0,

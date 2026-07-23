@@ -1,7 +1,11 @@
 {
+    "stapi_type": "ProductCollection",
+    "stapi_version": "0.2.0",
     "products": [
         {
-            "type": "Product",
+            "type": "Collection",
+            "stapi_type": "Product",
+            "stapi_version": "0.2.0",
             "id": "BSKY_STEREO",
             "title": "BlackSky EO STEREO",
             "description": "A pair of images collected from different viewing angles for 3D visualization and analysis",
@@ -9,7 +13,7 @@
                 "EO",
                 "Stereo"
             ],
-            "license": "?",
+            "license": "proprietary",
             "providers": [
                 {
                     "name": "BlackSky",
@@ -23,26 +27,25 @@
             "conformsTo": [
                 "https://geojson.org/schema/Point.json"
             ],
-            "allOf": [
+            "links": [
                 {
-                    "if": {
-                        "parameters": {
-                            "offering": {
-                                "enum": [
-                                    "ELITE"
-                                ]
-                            }
-                        }
-                    },
-                    "then": {
-                        "eo:cloud_cover": 100
-                    }
+                    "href": "https://stapi.example.com/products/BSKY_STEREO/queryables",
+                    "rel": "queryables",
+                    "type": "application/schema+json",
+                    "title": "Queryables for the BSKY_STEREO product"
+                },
+                {
+                    "href": "https://stapi.example.com/products/BSKY_STEREO/order-parameters",
+                    "rel": "order-parameters",
+                    "type": "application/schema+json",
+                    "title": "Order parameters for the BSKY_STEREO product"
                 }
-            ],
-            "links": []
+            ]
         },
         {
-            "type": "Product",
+            "type": "Collection",
+            "stapi_type": "Product",
+            "stapi_version": "0.2.0",
             "id": "BSKY_DAYLIGHT",
             "title": "BlackSky EO Daylight",
             "description": "Single image scene collected in daylight with standard product specifications",
@@ -51,7 +54,7 @@
                 "Single frame",
                 "Daytime"
             ],
-            "license": "?",
+            "license": "proprietary",
             "providers": [
                 {
                     "name": "BlackSky",
@@ -65,23 +68,20 @@
             "conformsTo": [
                 "https://geojson.org/schema/Point.json"
             ],
-            "allOf": [
+            "links": [
                 {
-                    "if": {
-                        "parameters": {
-                            "offering": {
-                                "enum": [
-                                    "ELITE"
-                                ]
-                            }
-                        }
-                    },
-                    "then": {
-                        "eo:cloud_cover": 100
-                    }
+                    "href": "https://stapi.example.com/products/BSKY_DAYLIGHT/queryables",
+                    "rel": "queryables",
+                    "type": "application/schema+json",
+                    "title": "Queryables for the BSKY_DAYLIGHT product"
+                },
+                {
+                    "href": "https://stapi.example.com/products/BSKY_DAYLIGHT/order-parameters",
+                    "rel": "order-parameters",
+                    "type": "application/schema+json",
+                    "title": "Order parameters for the BSKY_DAYLIGHT product"
                 }
-            ],
-            "links": []
+            ]
         }
     ],
     "links": [

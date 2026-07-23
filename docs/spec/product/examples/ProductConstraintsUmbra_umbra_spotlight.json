@@ -22,7 +22,7 @@
             "sceneSize": {
                 "allOf": [
                     {
-                        "$ref": "#/parameters/$defs/SceneSize"
+                        "$ref": "#/$defs/SceneSize"
                     }
                 ],
                 "default": "5x5_KM",
@@ -64,7 +64,7 @@
                 ],
                 "description": "",
                 "items": {
-                    "$ref": "#/parameters/$defs/ProductType"
+                    "$ref": "#/$defs/ProductType"
                 },
                 "title": "Producttypes",
                 "type": "array"

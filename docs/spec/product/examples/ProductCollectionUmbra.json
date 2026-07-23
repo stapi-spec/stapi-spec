@@ -1,7 +1,11 @@
 {
+  "stapi_type": "ProductCollection",
+  "stapi_version": "0.2.0",
   "products": [
     {
-      "type": "Product",
+      "type": "Collection",
+      "stapi_type": "Product",
+      "stapi_version": "0.2.0",
       "conformsTo": [
         "https://geojson.org/schema/Point.json"
       ],
@@ -51,7 +55,7 @@
           "sceneSize": {
             "allOf": [
               {
-                "$ref": "#/parameters/$defs/SceneSize"
+                "$ref": "#/$defs/SceneSize"
               }
             ],
             "default": "5x5_KM",
@@ -93,7 +97,7 @@
             ],
             "description": "",
             "items": {
-              "$ref": "#/parameters/$defs/ProductType"
+              "$ref": "#/$defs/ProductType"
             },
             "title": "Producttypes",
             "type": "array"
@@ -107,7 +111,9 @@
       }
     },
     {
-      "type": "Product",
+      "type": "Collection",
+      "stapi_type": "Product",
+      "stapi_version": "0.2.0",
       "conformsTo": [
         "https://geojson.org/schema/Polygon.json",
         "https://geojson.org/schema/MultiPolygon.json"
@@ -161,6 +167,13 @@
         "title": "UmbraArchiveCatalogQueryables",
         "type": "object"
       }
+    }
+  ],
+  "links": [
+    {
+      "rel": "self",
+      "type": "application/json",
+      "href": "https://api.canopy.umbra.space/stapi/products"
     }
   ]
 }

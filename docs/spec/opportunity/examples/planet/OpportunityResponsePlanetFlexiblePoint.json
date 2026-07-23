@@ -1,8 +1,12 @@
 {
   "type": "FeatureCollection",
+  "stapi_type": "OpportunityCollection",
+  "stapi_version": "0.2.0",
   "features": [
     {
       "type": "Feature",
+      "stapi_type": "Opportunity",
+      "stapi_version": "0.2.0",
       "geometry": {
         "type": "Polygon",
         "coordinates": [
@@ -30,8 +34,14 @@
           ]
         ]
       },
+      "bbox": [
+        13.366448476496773,
+        52.45122429945398,
+        13.44006863527683,
+        52.49615747668417
+      ],
       "properties": {
-        "product_id": "PL-123546:Flexible Tasking",
+        "product_id": "PL-123546:FlexibleTasking",
         "datetime": "2024-04-19T00:00:00Z/2024-04-23T00:00:00Z",
         "satelliteTypes": [
           "SKYSAT"
@@ -43,17 +53,18 @@
         {
           "rel": "create-order",
           "method": "POST",
-          "href": "https://example.com/products/PL-123546:Flexible Tasking/order",
+          "href": "https://example.com/products/PL-123546:FlexibleTasking/orders",
           "body": {
-            "datetime": "2024-04-19T00:00:00Z/2024-04-23T00:00:00Z",
-            "geometry": {
-              "type": "Point",
-              "coordinates": [
-                13.403258555886767,
-                52.473696635108176
-              ]
-            },
-            "filter": {}
+            "search_parameters": {
+              "datetime": "2024-04-19T00:00:00Z/2024-04-23T00:00:00Z",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  13.403258555886767,
+                  52.473696635108176
+                ]
+              }
+            }
           }
         }
       ]

@@ -1,7 +1,11 @@
 {
+    "stapi_type": "ProductCollection",
+    "stapi_version": "0.2.0",
     "products": [
         {
-            "type": "Product",
+            "type": "Collection",
+            "stapi_type": "Product",
+            "stapi_version": "0.2.0",
             "conformsTo": [
                 "https://geojson.org/schema/Point.json",
                 "https://geojson.org/schema/LineString.json"
@@ -39,7 +43,9 @@
             ]
         },
         {
-            "type": "Product",
+            "type": "Collection",
+            "stapi_type": "Product",
+            "stapi_version": "0.2.0",
             "conformsTo": [
                 "https://geojson.org/schema/Point.json",
                 "https://geojson.org/schema/LineString.json",
@@ -77,11 +83,13 @@
             ]
         }
     ],
-    "links": {
-        "rel": "next",
-        "title": "Next page of Products",
-        "method": "GET",
-        "type": "application/geo+json",
-        "href": "https://stapi.example.com?page=2"
-    }
+    "links": [
+        {
+            "rel": "next",
+            "title": "Next page of Products",
+            "method": "GET",
+            "type": "application/json",
+            "href": "https://stapi.example.com/products?page=2"
+        }
+    ]
 }

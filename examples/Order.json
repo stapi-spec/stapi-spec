@@ -1,5 +1,8 @@
 {
-    "datetime": "2007-03-01T13:00:00Z/2008-05-11T15:30:00Z",
+    "type": "Feature",
+    "stapi_type": "Order",
+    "stapi_version": "0.2.0",
+    "id": "1234",
     "geometry": {
         "type": "Point",
         "coordinates": [
@@ -7,18 +10,55 @@
             0
         ]
     },
-    "queryables": {
-        "gsd": {
-            "minimum": 9.0,
-            "maximum": 10.0
+    "bbox": [
+        0,
+        0,
+        0,
+        0
+    ],
+    "properties": {
+        "product_id": "multispectral",
+        "created": "2007-03-01T13:00:00Z",
+        "status": {
+            "timestamp": "2007-03-01T13:00:00Z",
+            "status_code": "received",
+            "links": []
         },
-        "view:sun_elevation": {
-            "minimum": 10.0,
-            "maximum": 20.0
-        },
-        "view:off_nadir": {
-            "minimum": 0.0,
-            "maximum": 10.0
+        "order_request": {
+            "search_parameters": {
+                "datetime": "2007-03-01T13:00:00Z/2008-05-11T15:30:00Z",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        0,
+                        0
+                    ]
+                },
+                "filter": {
+                    "op": "and",
+                    "args": [
+                        {
+                            "op": "between",
+                            "args": [{ "property": "gsd" }, 9.0, 10.0]
+                        },
+                        {
+                            "op": "between",
+                            "args": [{ "property": "view:sun_elevation" }, 10.0, 20.0]
+                        },
+                        {
+                            "op": "between",
+                            "args": [{ "property": "view:off_nadir" }, 0.0, 10.0]
+                        }
+                    ]
+                }
+            }
         }
-    }
+    },
+    "links": [
+        {
+            "rel": "self",
+            "type": "application/geo+json",
+            "href": "https://stapi.example.com/orders/1234"
+        }
+    ]
 }

@@ -1,14 +1,19 @@
 {
     "type": "FeatureCollection",
+    "stapi_type": "OpportunityCollection",
+    "stapi_version": "0.2.0",
     "features": [
         {
             "type": "Feature",
-            "geometry": {"type": "Point", "coordinates": [0, 0]},
+            "stapi_type": "Opportunity",
+            "stapi_version": "0.2.0",
             "id": "abc",
+            "geometry": {"type": "Point", "coordinates": [0, 0]},
+            "bbox": [0, 0, 0, 0],
             "properties": {
                 "product_id": "xyz",
                 "datetime": "2020-01-01T00:00:00Z/2020-01-02T00:00:00Z",
-                "view:offnadir_angle": 20,
+                "view:off_nadir": 20,
                 "view:sun_azimuth": 150,
                 "view:sun_elevation": 30,
                 "eo:cloud_cover": 20
@@ -17,9 +22,12 @@
                 {
                     "rel": "create-order",
                     "method": "POST",
-                    "href": "https://example.com/products/xyz/order",
+                    "href": "https://example.com/products/xyz/orders",
                     "body": {
-                        "opportunity_id": "abc"
+                        "search_parameters": {
+                            "datetime": "2020-01-01T00:00:00Z/2020-01-02T00:00:00Z",
+                            "geometry": {"type": "Point", "coordinates": [0, 0]}
+                        }
                     }
                 }
             ]
@@ -29,33 +37,35 @@
         {
             "rel": "create-order",
             "method": "POST",
-            "href": "https://example.com/products/xyz/order",
+            "href": "https://example.com/products/xyz/orders",
             "body": {
-                "geometry": {
-                    "type": "Polygon",
-                    "coordinates": [
-                        [
-                            [0, 0],
-                            [1, 0],
-                            [1, 1],
-                            [0, 1],
-                            [0, 0]
+                "search_parameters": {
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [
+                            [
+                                [0, 0],
+                                [1, 0],
+                                [1, 1],
+                                [0, 1],
+                                [0, 0]
+                            ]
                         ]
-                      ]
-                },
-                "datetime": "2020-01-01T00:00:00Z/2020-01-02T00:00:00Z",
-                "filter": {
-                    "op": "and",
-                    "args": [
-                        {
-                            "op": "between",
-                            "args": [{ "property": "eo:cloud_cover" }, 20, 30]
-                        },
-                        {
-                            "op": "between",
-                            "args": [{ "property": "view:offnadir_angle" }, 15, 30]
-                        }
-                    ]
+                    },
+                    "datetime": "2020-01-01T00:00:00Z/2020-01-02T00:00:00Z",
+                    "filter": {
+                        "op": "and",
+                        "args": [
+                            {
+                                "op": "between",
+                                "args": [{ "property": "eo:cloud_cover" }, 20, 30]
+                            },
+                            {
+                                "op": "between",
+                                "args": [{ "property": "view:off_nadir" }, 15, 30]
+                            }
+                        ]
+                    }
                 }
             }
         }
