@@ -60,8 +60,12 @@ Location: https://example.com/orders/123
 
 ### Get Orders Response
 
-When fetching a list of Orders the response is a GeoJSON Feature Collection,
-where each Feature in the collection is an [Order Object](#order-object).
+See [Order Collection](#order-collection).
+
+## Order Collection
+
+When fetching a list of Orders the response is an Order Collection, a GeoJSON
+FeatureCollection where each Feature is an [Order Object](#order-object).
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |

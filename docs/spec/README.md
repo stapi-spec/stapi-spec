@@ -40,7 +40,7 @@ constructed.
 | `GET /products/{productId}/conformance` | Core | `conformance` | JSON | Product-specific conformance classes |
 | `GET /products/{productId}/queryables` | Core | `queryables` | JSON Schema | |
 | `GET /products/{productId}/order-parameters` | Core | `order-parameters` | JSON Schema | |
-| `GET /orders` | Core | `orders` | [Order Collection](./order/README.md#get-orders-response) | |
+| `GET /orders` | Core | `orders` | [Order Collection](./order/README.md#order-collection) | |
 | `GET /orders/{orderId}` | Core | `order` | [Order Object](./order/README.md#order-object) | |
 | `GET /orders/{orderId}/statuses` | Order Statuses | `monitor` | [Order Status Collection](../conformances/extensions/order-statuses/README.md#order-status-collection) | |
 | `POST /products/{productId}/orders` | Core | `create-order` | [Order Object](./order/README.md#order-object) | Place an Order. Accepts an [Order Request](./order/README.md#order-request-object). |
