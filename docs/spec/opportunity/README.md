@@ -50,12 +50,12 @@ opportunity search. It is a GeoJSON FeatureCollection.
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
-| type | string | **REQUIRED.** Always `FeatureCollection`. |
+| type | string | **REQUIRED.** Type of the GeoJSON Object. **Must** be set to `FeatureCollection`. |
 | stapi_type | string | **REQUIRED.** Type of the STAPI Object. **Must** be set to `OpportunityCollection`. |
 | stapi_version | string | **REQUIRED.** The STAPI version the Opportunity Collection implements. |
 | id | string | Identifier for the collection, if persisted (**required** for async search opportunity collections). |
-| features | \[Opportunity Object\] | **REQUIRED.** A list of opportunities. |
-| links | [[Link Object](#opportunity-collection-links)] | |
+| features | \[[Opportunity Object](#opportunity-object)\] | **REQUIRED.** A list of opportunities. |
+| links | [[Link Object](#opportunity-collection-links)] | List of link objects to resources and related URLs. |
 
 ### Opportunity Collection Links
 
@@ -67,8 +67,8 @@ In addition to standard links, the following are applicable to Opportunity Colle
 
 | rel type | Description |
 | ---------- | ----------- |
-| `next`, `prev`, `first`, `last` |  **REQUIRED** when the response is paginated |
-| `create-order` | **REQUIRED** if individual Opportunities do not include a `create-order` link, otherwise it is **strongly recommended**. This allows the user to resubmit the Opportunities request as an Order.|
+| `next`, `prev`, `first`, `last` | **REQUIRED** when the response is paginated |
+| `create-order` | **REQUIRED** if individual Opportunities do not include a `create-order` link, otherwise it is **strongly recommended**. This allows the user to resubmit the Opportunities request as an Order. |
 | `search-record` | The search used to generate the Opportunities result. **strongly recommended** to point to `GET /searches/opportunities/{searchRecordId}` when the result of an async search |
 
 ### Opportunity Object
@@ -132,7 +132,9 @@ for this Opportunity via
 
 To conform to the Create Order spec, use `"method": "POST"`.
 
-If no Body parameters apply to an Opportunity, use `"body": {}`.
+The `body` of the link must be a valid [Order Request
+Object](../order/README.md#order-request-object) for ordering this
+Opportunity.
 
 It is **strongly recommended** to include a `rel=create-order` link on
 an Opportunity to allow the user to order the Opportunity. Consider the
@@ -229,7 +231,7 @@ the product does not support it then that request cannot be honored.
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
-| timestamp | datetime | **REQUIRED.** ISO 8601 timestamp for the order status |
+| timestamp | datetime | **REQUIRED.** ISO 8601 timestamp for the search status |
 | status_code | string | **REQUIRED.** Enumerated status code |
 | reason_code | string | Enumerated reason code for why the status was set |
 | reason_text | string | Textual description for why the status was set |

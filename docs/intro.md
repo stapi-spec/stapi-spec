@@ -63,12 +63,12 @@ available opportunities.
 sequenceDiagram
     USER->>PROVIDER: GET /products
     activate PROVIDER
-    PROVIDER-->>USER: Response: Products Collection
+    PROVIDER-->>USER: Response: Product Collection
     deactivate PROVIDER
 
     USER->>PROVIDER: POST /products/{productId}/opportunities
     activate PROVIDER
-    PROVIDER-->>USER: Response: Opportunities Collection
+    PROVIDER-->>USER: Response: Opportunity Collection
     deactivate PROVIDER
 
     USER->>PROVIDER: POST /products/{productId}/orders
@@ -89,7 +89,7 @@ sequenceDiagram
 
     USER->>PROVIDER: POST /products/{productId}/opportunities
     activate PROVIDER
-    PROVIDER-->>USER: Response: Opportunities Collection
+    PROVIDER-->>USER: Response: Opportunity Collection
     deactivate PROVIDER
 
     USER->>PROVIDER: POST /products/{productId}/orders
@@ -138,7 +138,7 @@ sequenceDiagram
 
     USER->>PROVIDER: GET /products/{productId}/opportunities/{opportunityCollectionId}
     activate PROVIDER
-    PROVIDER-->>USER: Response: Opportunities Collection
+    PROVIDER-->>USER: Response: Opportunity Collection
     deactivate PROVIDER
 
     USER->>PROVIDER: POST /products/{productId}/orders

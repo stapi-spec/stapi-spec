@@ -20,7 +20,7 @@ Get operation only.
 
 ## Order Status Collection
 
-Response has two fields:
+The response is an Order Status Collection with the following structure:
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |

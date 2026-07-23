@@ -2,8 +2,8 @@
 
 - **Conformance URI:** `https://stapi.example.com/v0.2.0/searches-opportunity`
 
-See
-[Opportunity](../../../../spec/opportunity/README.md#opportunity-search-record)
+See [Opportunity Search
+Record](../../../../spec/opportunity/README.md#opportunity-search-record)
 for details on search records.
 
 This extension is required for Async Opportunity Searches, and optional for
