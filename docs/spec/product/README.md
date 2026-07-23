@@ -17,7 +17,7 @@ examples includes:
 Some Providers may offer only data or analytic Products while some may offer
 both. The Product specification is flexible enough to offer queryables at the
 level of the product offering. For example, a ship (object) detection Product
-may only specify queryables like location, datetime, and miniminum ship length.
+may only specify queryables like location, datetime, and minimum ship length.
 The specific data products -- SAR, EO, or otherwise can be left as an
 implementation detail to the analytic Product Provider.
 
@@ -64,7 +64,7 @@ information about the final storage provider hosting the data.
 | ---------- | ---- | ----------- |
 | name | string | **REQUIRED.** The name of the organization or the individual. |
 | description | string | Multi-line description to add further provider information such as processing details for processors and producers, hosting details for hosts or basic contact information. [CommonMark 0.29](http://commonmark.org/) syntax MAY be used for rich text representation. |
-| roles | \[string\] | Role of the provider. Set to `producer` or `reseller` |
+| roles | \[string\] | Roles of the provider. Any of `licensor`, `producer`, `processor`, or `host` |
 | url | string | Homepage on which the provider describes the dataset and publishes contact information. |
 
 **roles**: The provider's role(s) can be one or more of the following elements:

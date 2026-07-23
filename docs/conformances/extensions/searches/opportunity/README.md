@@ -11,7 +11,7 @@ Sync Opportunity Search.
 
 ## Endpoints Provided
 
-| Endpoint | Link Relationship | Returns | Description |
+| Endpoint | Link Relation | Returns | Description |
 | -------- | ----------------- | ------- | ----------- |
 | `GET /searches/opportunities` | `search-records` | [Opportunity Search Record Collection](#opportunity-search-record-collection) | List all Opportunity Search Records |
 | `GET /searches/opportunities/{searchRecordId}` | `search-record` | [Opportunity Search Record](../../../../spec/opportunity/README.md#opportunity-search-record) | Fetch a specific Opportunity Search Record |

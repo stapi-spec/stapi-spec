@@ -37,9 +37,8 @@ Object](../search-parameters/README.md).
 
 ## Opportunity Collection
 
-for `POST /products/{productId}/opportunities`
-
-This is a GeoJSON FeatureCollection.
+An Opportunity Collection is returned when retrieving the results of an
+opportunity search. It is a GeoJSON FeatureCollection.
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
@@ -65,7 +64,7 @@ In addition to standard links, the following are applicable to Opportunity Colle
 ### Opportunity Object
 
 This object describes a STAPI Opportunity. The input fields will be contained
-`properties` of each Feature in the GeoJSON response.
+in the `properties` of each Feature in the GeoJSON response.
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
@@ -80,7 +79,7 @@ This object describes a STAPI Opportunity. The input fields will be contained
 
 #### bbox
 
-Bounding Box of the asset represented by this Item using either 2D or 3D
+Bounding Box of the Opportunity using either 2D or 3D
 geometries, formatted according to [RFC 7946, section
 5](https://tools.ietf.org/html/rfc7946#section-5).  The length of the array
 must be 2\*n where n is the number of dimensions.  The array contains all axes
@@ -90,8 +89,8 @@ extent specified in Longitude/Latitude or Longitude/Latitude/Elevation based on
 geometries, the elevation of the southwesterly most extent is the minimum
 depth/height in meters and the elevation of the northeasterly most extent is
 the maximum.  This field enables more naive clients to easily index and search
-geospatially.  STAC compliant APIs are required to compute intersection
-operations with the Item's geometry field, not its bbox.
+geospatially.  Implementations are required to compute intersection
+operations with the Opportunity's geometry field, not its bbox.
 
 #### Properties Object
 
@@ -119,13 +118,13 @@ Object.
 
 This Link object fully describes the necessary HTTP request to submit an Order
 for this Opportunity via
-[Create Order](https://github.com/stapi-spec/stapi-spec/tree/main/order#create-order-request).
+[Create Order](../order/README.md#create-order-request).
 
 To conform to the Create Order spec, use `"method": "POST"`.
 
 If no Body parameters apply to an Opportunity, use `"body": {}`.
 
-It is **strongly recommended** to include include a `rel=create-order` link on
+It is **strongly recommended** to include a `rel=create-order` link on
 an Opportunity to allow the user to order the Opportunity. Consider the
 inclusion of this link **required** where ordering of an individual Opportunity
 is supported by the given Product. Omission of this link is valid when
@@ -142,7 +141,7 @@ Opportunity.
 
 ## Async Opportunity Search
 
-- **Conformance URI:** `https://stapi.example.com/v0.1.0/async-opportunities`
+- **Conformance URI:** `https://stapi.example.com/v0.1.0/opportunities-async`
 
 STAPI has an optional conformance class providing support for async opportunity
 searches, to accommodate searches for products that require more time to
@@ -162,7 +161,7 @@ Returned by an async opportunity search. Can also be retrieved directly.
 | ---------- | ---- | ----------- |
 | id | string | **REQUIRED.** Opportunity search record ID. |
 | product_id | string | **REQUIRED.** Product identifier. This should be a reference to the [Product](../product/README.md#product-object) being searched. |
-| request | [Opportunity Request Object] | **REQUIRED.** The search parameters for the opportunity request. |
+| request | [Search Parameters Object](../search-parameters/README.md) | **REQUIRED.** The search parameters for the opportunity request. |
 | status | [Opportunity Search Status](#opportunity-search-status) | **REQUIRED.** The current search status. |
 | links | [[Link Object](#opportunity-search-links)] | List of link objects to resources and related URLs. |
 
@@ -187,7 +186,7 @@ search is completed. That is, it should include the equivalent of `GET
 `productId` is the product being searched and `opportunityCollectionId` is the
 ID of the opportunity collection containing the results of the search.
 
-This link is **must** be included when the search is completed.
+This link **must** be included when the search is completed.
 
 #### Async search response
 
@@ -203,8 +202,8 @@ Products **must** advertise support for sync and/or async searching via the two
 opportunity conformance classes, or lack of any opportunity search support by
 omitting both of these conformance classes. In the case where a product
 advertises support for both sync and async behavior, implementations must
-choose a default behavior to allow clients to succesfully request opportunities
-without specifiying a preference.
+choose a default behavior to allow clients to successfully request opportunities
+without specifying a preference.
 
 Clients can request sync vs async operation via the HTTP `Prefer` header.
 Possible values for the `Prefer` header are `respond-async` or `wait`, where

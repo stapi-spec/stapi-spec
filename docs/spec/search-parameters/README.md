@@ -11,9 +11,9 @@ data provider to identify what data to task/deliver to meet the user's needs.
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| datetime | string | **REQUIRED.** Time interval with a solidus (forward slash, `/`)  separator, using  [RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6) datetime, empty string, or `..` values. |
-| geometry | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) | **REQUIRED.**  Defines the full footprint that the tasked data will be within. |
-| filter | CQL2 Object | A set of additional filter terms in [CQL2 JSON](https://docs.ogc.org/DRAFTS/21-  065.html) format based on the [queryables](../product/README.md#queryables) exposed in the product. |
+| datetime | string | **REQUIRED.** Time interval with a solidus (forward slash, `/`) separator, using [RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6) datetime, empty string, or `..` values. |
+| geometry | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) | **REQUIRED.** Defines the full footprint that the tasked data will be within. |
+| filter | CQL2 Object | A set of additional filter terms in [CQL2 JSON](https://docs.ogc.org/is/21-065r2/21-065r2.html#cql2-json) format based on the [queryables](../product/README.md#queryables) exposed in the product. |
 
 ### datetime
 

@@ -20,11 +20,11 @@ following way:
 | ---- | ---- | ----------- |
 | productId | string | Product identifier. The ID should be unique and is a reference to the [queryables](../product/README.md#queryables) which can be used in the filter field. |
 
-### Body Fields
+### Order Request Object
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| search_parameters | [Search Parameter Object](../search-parameters/README.md) | **REQUIRED.** Parameters for scenes that would meet the Order's requirements |
+| search_parameters | [Search Parameters Object](../search-parameters/README.md) | **REQUIRED.** Parameters for scenes that would meet the Order's requirements |
 | order_parameters | JSON Object | **Optional**, unless a Product has a parameter marked as required. Order Parameters properties that can be used when creating an Order, reference [Order Parameters](../product/README.md#order-parameters) |
 
 #### order_parameters
@@ -41,7 +41,7 @@ indicate that only an empty object is valid.
 ### Create Order Response
 
 The response is using HTTP status code 201 and provides the location of the
-newly created order, which points to `GET /order/{orderId}`.
+newly created order, which points to `GET /orders/{orderId}`.
 
 Example:
 
@@ -65,13 +65,13 @@ where each Feature in the collection is an [Order Object](#order-object).
 | features | \[[Order Object](#order-object)\] | **REQUIRED.** A list of orders. |
 | links | \[[Link Object](https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md#link-object)\] | **REQUIRED.** Links, e.g., for pagination. |
 
-## GET /orders/\{id\}
+## GET /orders/\{orderId\}
 
 ### Path Parameters
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| id | string | Order ID to retrieve |
+| orderId | string | Order ID to retrieve |
 
 ### Get Order Response
 
@@ -100,7 +100,7 @@ a link to the endpoint using the relation type `monitor`.
 | product_id | string | **REQUIRED.** Product identifier. This should be a reference to the [Product](../product/README.md) being ordered. |
 | created | datetime | **REQUIRED.** When the order was created |
 | status | [Order Status Object](#order-status) | **REQUIRED.** Current Order Status object |
-| order_request | [Order Request Object](#body-fields) | **REQUIRED.** Object with the request search and order parameters |
+| order_request | [Order Request Object](#order-request-object) | **REQUIRED.** Object with the request search and order parameters |
 
 ## Order Status
 

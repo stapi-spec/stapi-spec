@@ -8,7 +8,8 @@ list of entities, including the following:
 - `GET /products/{productId}/opportunities/{opportunityCollectionId}`
 - `GET /orders`
 - `GET /orders/{orderId}/statuses`
-- `GET /searches/opportunities/`
+- `GET /searches/opportunities`
+- `GET /searches/opportunities/{searchRecordId}/statuses`
 
 The following relation types may be available for pagination:
 
@@ -30,7 +31,7 @@ a parameter `page` and is currently on page 2:
             "rel": "prev",
             "type": "application/json",
             "href": "https://stapi.example.com/products?page=1",
-            "title": "Next page"
+            "title": "Previous page"
         },
         {
             "rel": "next",

@@ -18,7 +18,7 @@ spec](../../../spec/pagination/README.md).
 
 Get operation only.
 
-## Order Statuses Response
+## Order Status Collection
 
 Response has two fields:
 

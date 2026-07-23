@@ -30,11 +30,11 @@ level are listed in the following table.
 | -------- | ---------------- | ------------------- | --------------- |
 | STAPI - Opportunities | [Opportunities](../spec/opportunity/README.md) | https://stapi.example.com/v0.1.0/opportunities | Enables sync request of potential tasking opportunities |
 | STAPI - Opportunities (Async) | [Opportunities](../spec/opportunity/README.md) | https://stapi.example.com/v0.1.0/opportunities-async | Enables async request of potential tasking opportunities |
-| STAPI - Core | Core | https://geojson.org/schema/Point.json | Allows submitting orders with GeoJSON points |
-| STAPI - Core | Core | https://geojson.org/schema/LineString.json | Allows submitting orders with GeoJSON linestrings |
-| STAPI - Core | Core | https://geojson.org/schema/Polygon.json | Allows submitting orders with GeoJSON polygons |
-| STAPI - Core | Core | https://geojson.org/schema/MultiPoint.json | Allows submitting orders with GeoJSON multi points |
-| STAPI - Core | Core | https://geojson.org/schema/MultiPolygon.json | Allows submitting orders with GeoJSON multi polygons |
-| STAPI - Core | Core | https://geojson.org/schema/MultiLineString.json | Allows submitting orders with GeoJSON multi linestring |
+| STAPI - Geometry - Point | Core | https://geojson.org/schema/Point.json | Allows submitting orders with GeoJSON points |
+| STAPI - Geometry - LineString | Core | https://geojson.org/schema/LineString.json | Allows submitting orders with GeoJSON linestrings |
+| STAPI - Geometry - Polygon | Core | https://geojson.org/schema/Polygon.json | Allows submitting orders with GeoJSON polygons |
+| STAPI - Geometry - MultiPoint | Core | https://geojson.org/schema/MultiPoint.json | Allows submitting orders with GeoJSON multi points |
+| STAPI - Geometry - MultiPolygon | Core | https://geojson.org/schema/MultiPolygon.json | Allows submitting orders with GeoJSON multi polygons |
+| STAPI - Geometry - MultiLineString | Core | https://geojson.org/schema/MultiLineString.json | Allows submitting orders with GeoJSON multi linestrings |
 
 Products must advertise at least one of the geometry conformance classes.
