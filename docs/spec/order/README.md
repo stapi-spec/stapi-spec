@@ -40,8 +40,10 @@ indicate that only an empty object is valid.
 
 ### Create Order Response
 
-The response is using HTTP status code 201 and provides the location of the
-newly created order, which points to `GET /orders/{orderId}`.
+The response must use HTTP status code 201. The `Location` header must
+provide the location of the newly created order, pointing to
+`GET /orders/{orderId}`, and the response body must be the newly created
+[Order Object](#order-object).
 
 Example:
 
