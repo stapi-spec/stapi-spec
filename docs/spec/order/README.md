@@ -25,7 +25,7 @@ following way:
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | search_parameters | [Search Parameters Object](../search-parameters/README.md) | **REQUIRED.** Parameters for scenes that would meet the Order's requirements |
-| order_parameters | JSON Object | **Optional**, unless a Product has a parameter marked as required. Order Parameters properties that can be used when creating an Order, reference [Order Parameters](../product/README.md#order-parameters) |
+| order_parameters | JSON Object | Order Parameters to apply when creating the Order, as defined by the Product's [Order Parameters](../product/README.md#order-parameters) schema. May be omitted; omission is equivalent to providing an empty object (`{}`). |
 
 #### order_parameters
 
@@ -35,8 +35,12 @@ constrain (filter) the desired results, but rather define general properties of
 an entire order. For example, an order parameter might define what file format
 to use for delivery or what location to deliver to.
 
-By default, the absence of any defined order parameters on a product would
-indicate that only an empty object is valid.
+The `order_parameters` value—or `{}` when the field is omitted—must validate
+against the Product's [Order Parameters](../product/README.md#order-parameters)
+schema. A Product that marks one or more order parameters as required thereby
+makes this field effectively required, as an empty object will fail
+validation. A Product defining no order parameters accepts only an omitted or
+empty `order_parameters` object.
 
 ### Create Order Response
 
