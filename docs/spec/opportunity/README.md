@@ -51,6 +51,8 @@ opportunity search. It is a GeoJSON FeatureCollection.
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
 | type | string | **REQUIRED.** Always `FeatureCollection`. |
+| stapi_type | string | **REQUIRED.** Type of the STAPI Object. **Must** be set to `OpportunityCollection`. |
+| stapi_version | string | **REQUIRED.** The STAPI version the Opportunity Collection implements. |
 | id | string | Identifier for the collection, if persisted (**required** for async search opportunity collections). |
 | features | \[Opportunity Object\] | **REQUIRED.** A list of opportunities. |
 | links | [[Link Object](#opportunity-collection-links)] | |
@@ -167,6 +169,8 @@ Returned by an async opportunity search. Can also be retrieved directly.
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
+| stapi_type | string | **REQUIRED.** Type of the STAPI Object. **Must** be set to `OpportunitySearchRecord`. |
+| stapi_version | string | **REQUIRED.** The STAPI version the Opportunity Search Record implements. |
 | id | string | **REQUIRED.** Opportunity search record ID. |
 | product_id | string | **REQUIRED.** Product identifier. This should be a reference to the [Product](../product/README.md#product-object) being searched. |
 | request | [Opportunity Request Object](#opportunity-request-object) | **REQUIRED.** The request object used to initiate the search. |

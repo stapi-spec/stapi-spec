@@ -24,5 +24,7 @@ paginated](../../../../spec/pagination/README.md).
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
+| stapi_type | string | **REQUIRED.** Type of the STAPI Object. **Must** be set to `OpportunitySearchRecordCollection`. |
+| stapi_version | string | **REQUIRED.** The STAPI version the Opportunity Search Record Collection implements. |
 | records | \[[Opportunity Search Record](../../../../spec/opportunity/README.md#opportunity-search-record)\] | **REQUIRED.** A list of Opportunity Search Records. |
 | links | \[[Link Object](https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md#link-object)\] | **REQUIRED.** Links for e.g. pagination. |

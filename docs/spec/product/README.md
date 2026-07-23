@@ -30,6 +30,8 @@ can be extended through the use of Queryables and Order Parameters.
 
 | Element | Type | Description |
 | ------- | ---- | ----------- |
+| stapi_type | string | **REQUIRED.** Type of the STAPI Object. **Must** be set to `ProductCollection`. |
+| stapi_version | string | **REQUIRED.** The STAPI version the Product Collection implements. |
 | products | [[Product Object](#product-object)] | **REQUIRED** List of `Product` offered in the application. |
 | links | [[Link Object](#link-object)] | **REQUIRED** Links for e.g. pagination. |
 

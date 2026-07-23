@@ -24,6 +24,8 @@ Response has two fields:
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
+| stapi_type | string | **REQUIRED.** Type of the STAPI Object. **Must** be set to `OrderStatusCollection`. |
+| stapi_version | string | **REQUIRED.** The STAPI version the Order Status Collection implements. |
 | statuses | \[OrderStatus\] | **REQUIRED.** History of statuses, in reverse chronological order. |
 | links | \[Link Object\] | **REQUIRED.** A list of references to other endpoints. |
 
