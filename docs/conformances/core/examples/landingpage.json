@@ -4,7 +4,7 @@
     "title": "A simple STAPI Example",
     "description": "This API demonstrated the landing page for a SpatioTemporal Asset Tasking API",
     "conformsTo" : [
-        "https://stapi.example.com/v0.1.0/core",
+        "https://stapi.example.com/v0.2.0/core",
         "https://geojson.org/schema/Point.json",
         "https://geojson.org/schema/Polygon.json"
     ],

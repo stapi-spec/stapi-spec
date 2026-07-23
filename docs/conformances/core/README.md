@@ -1,6 +1,6 @@
 # Core
 
-- **Conformance URI:** `https://stapi.example.com/v0.1.0/core`
+- **Conformance URI:** `https://stapi.example.com/v0.2.0/core`
 - [OpenAPI document](https://github.com/stapi-spec/stapi-spec/blob/main/spec/openapi.yaml)
 - [Rendered API documentation](https://stapi-spec.github.io/stapi-spec/dev/)
 

@@ -1,6 +1,6 @@
 # Opportunity Search Records
 
-- **Conformance URI:** `https://stapi.example.com/v0.1.0/searches-opportunity`
+- **Conformance URI:** `https://stapi.example.com/v0.2.0/searches-opportunity`
 
 See
 [Opportunity](../../../../spec/opportunity/README.md#opportunity-search-record)
