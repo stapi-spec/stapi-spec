@@ -2,8 +2,8 @@
 
 The Search Parameters Object contains the necessary values to determine what
 could possibly fulfill a request. For example, the Search Parameters Object is
-used as the request body for Opportunity searches, and as part of the request
-body when placing an Order. In the former case it is used to constrain the set
+used as part of the request body both for Opportunity searches and when
+placing an Order. In the former case it is used to constrain the set
 of Opportunities returned to the user. In the latter case it is used by the
 data provider to identify what data to task/deliver to meet the user's needs.
 

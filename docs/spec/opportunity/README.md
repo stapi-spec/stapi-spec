@@ -30,10 +30,18 @@ following way:
 | ---- | ---- | ----------- |
 | productId | string | **REQUIRED.** Product identifier ([see Product Object](../product/README.md#product-object)) |
 
-### Body Parameters
+### Opportunity Request Object
 
-The Opportunity Request Body must be an instance of a [Search Parameters
-Object](../search-parameters/README.md).
+The Opportunity Request Body must be an instance of an Opportunity Request
+Object. This object is intentionally structured the same as the [Order Request
+Object](../order/README.md#order-request-object), less the `order_parameters`
+field, such that an Opportunity Request can also be submitted, unmodified, as
+an Order Request (except when the Product has one or more required order
+parameters).
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| search_parameters | [Search Parameters Object](../search-parameters/README.md) | **REQUIRED.** Parameters for scenes that would meet the Opportunity search's requirements |
 
 ## Opportunity Collection
 
@@ -161,7 +169,7 @@ Returned by an async opportunity search. Can also be retrieved directly.
 | ---------- | ---- | ----------- |
 | id | string | **REQUIRED.** Opportunity search record ID. |
 | product_id | string | **REQUIRED.** Product identifier. This should be a reference to the [Product](../product/README.md#product-object) being searched. |
-| request | [Search Parameters Object](../search-parameters/README.md) | **REQUIRED.** The search parameters for the opportunity request. |
+| request | [Opportunity Request Object](#opportunity-request-object) | **REQUIRED.** The request object used to initiate the search. |
 | status | [Opportunity Search Status](#opportunity-search-status) | **REQUIRED.** The current search status. |
 | links | [[Link Object](#opportunity-search-links)] | List of link objects to resources and related URLs. |
 
