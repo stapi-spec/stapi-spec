@@ -1,0 +1,39 @@
+{
+  "stapi_type": "OpportunitySearchStatusCollection",
+  "stapi_version": "0.2.0",
+  "statuses": [
+    {
+      "timestamp": "2024-04-18T08:02:30Z",
+      "status_code": "completed",
+      "links": [
+        {
+          "rel": "opportunities",
+          "type": "application/geo+json",
+          "href": "https://api.canopy.umbra.space/stapi/products/umbra_spotlight/opportunities/6c1d4b0f-4dbb-4ac6-bbd8-0e5a2b4d1c3a"
+        }
+      ]
+    },
+    {
+      "timestamp": "2024-04-18T08:00:05Z",
+      "status_code": "in_progress",
+      "links": []
+    },
+    {
+      "timestamp": "2024-04-18T08:00:00Z",
+      "status_code": "received",
+      "links": []
+    }
+  ],
+  "links": [
+    {
+      "rel": "self",
+      "type": "application/json",
+      "href": "https://api.canopy.umbra.space/stapi/searches/opportunities/20fd0b6a-4f4d-46f7-b1bc-6b1bec7e564f/statuses"
+    },
+    {
+      "rel": "search-record",
+      "type": "application/json",
+      "href": "https://api.canopy.umbra.space/stapi/searches/opportunities/20fd0b6a-4f4d-46f7-b1bc-6b1bec7e564f"
+    }
+  ]
+}

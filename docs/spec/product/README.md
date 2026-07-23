@@ -134,7 +134,7 @@ For these queryables, strongly consider documenting the queryable in the
 `description` property of the relevant queryable or use the `"links"` attribute
 to link the user out to documentation that describes additional queryables.
 
-TODO: Example
+[Example queryables document](./examples/ProductConstraintsUmbra_umbra_spotlight.json)
 TODO: Documented link type for client libraries to be able to find and surface to users
 
 ## Order Parameters
@@ -163,5 +163,5 @@ these parameters, strongly consider documenting the constraint in the
 attribute to link the user out to documentation that describes additional
 parameters.
 
-TODO: Example
+[Example order parameters document](./examples/ProductOrderParametersUmbra_umbra_spotlight.json)
 TODO: Documented link type for client libraries to be able to find and surface to users

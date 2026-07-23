@@ -1,0 +1,85 @@
+{
+  "type": "Feature",
+  "stapi_type": "Order",
+  "stapi_version": "0.2.0",
+  "id": "5f8a9d2e-7c4b-4f3a-9a1d-2e6b8c7d4f31",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [
+      13.403258555886767,
+      52.473696635108176
+    ]
+  },
+  "bbox": [
+    13.403258555886767,
+    52.473696635108176,
+    13.403258555886767,
+    52.473696635108176
+  ],
+  "properties": {
+    "product_id": "umbra_spotlight",
+    "created": "2024-04-18T14:30:00Z",
+    "status": {
+      "timestamp": "2024-04-18T15:00:00Z",
+      "status_code": "accepted",
+      "links": [
+        {
+          "rel": "invoice",
+          "type": "application/pdf",
+          "href": "https://api.canopy.umbra.space/stapi/orders/5f8a9d2e-7c4b-4f3a-9a1d-2e6b8c7d4f31/invoice"
+        }
+      ]
+    },
+    "order_request": {
+      "search_parameters": {
+        "datetime": "2024-04-19T00:00:00Z/2024-04-23T00:00:00Z",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            13.403258555886767,
+            52.473696635108176
+          ]
+        },
+        "filter": {
+          "op": "and",
+          "args": [
+            {
+              "op": ">=",
+              "args": [
+                {
+                  "property": "grazingAngleDegrees"
+                },
+                45
+              ]
+            },
+            {
+              "op": "<=",
+              "args": [
+                {
+                  "property": "grazingAngleDegrees"
+                },
+                70
+              ]
+            }
+          ]
+        }
+      },
+      "order_parameters": {
+        "deliveryFormat": "GEOTIFF",
+        "priority": "STANDARD"
+      }
+    }
+  },
+  "links": [
+    {
+      "rel": "self",
+      "type": "application/geo+json",
+      "href": "https://api.canopy.umbra.space/stapi/orders/5f8a9d2e-7c4b-4f3a-9a1d-2e6b8c7d4f31"
+    },
+    {
+      "rel": "monitor",
+      "type": "application/json",
+      "href": "https://api.canopy.umbra.space/stapi/orders/5f8a9d2e-7c4b-4f3a-9a1d-2e6b8c7d4f31/statuses"
+    }
+  ]
+}
