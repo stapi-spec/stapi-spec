@@ -1,15 +1,7 @@
 # API Pagination
 
 STAPI supports paging through hypermedia links for all endpoints returning a
-list of entities, including the following:
-
-- `GET /products`
-- `POST /products/{productId}/opportunities`
-- `GET /products/{productId}/opportunities/{opportunityCollectionId}`
-- `GET /orders`
-- `GET /orders/{orderId}/statuses`
-- `GET /searches/opportunities`
-- `GET /searches/opportunities/{searchRecordId}/statuses`
+list of entities.
 
 The following relation types may be available for pagination:
 
