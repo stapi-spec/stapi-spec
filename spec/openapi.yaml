@@ -1,5 +1,22 @@
 components:
   schemas:
+    BaseModel:
+      properties: {}
+      title: BaseModel
+      type: object
+    BaseOrderParameters:
+      additionalProperties: true
+      description: 'Minimum-expectations type for order parameters at rest.
+
+
+        Permissive (extra="allow") so stored parameters from any product
+
+        round-trip; spec-standardized common order parameters, if any are ever
+
+        defined, get typed fields here.'
+      properties: {}
+      title: BaseOrderParameters
+      type: object
     Conformance:
       properties:
         conformsTo:
@@ -7,8 +24,6 @@ components:
             type: string
           title: Conformsto
           type: array
-      required:
-      - conformsTo
       title: Conformance
       type: object
     GeometryCollection-Input:
@@ -175,59 +190,7 @@ components:
       title: LineString
       type: object
     Link:
-      properties:
-        body:
-          description: For POST requests, the resource can specify the HTTP body as
-            a JSON object.
-          title: Body
-        headers:
-          additionalProperties:
-            anyOf:
-            - type: string
-            - items:
-                type: string
-              type: array
-          description: Object key values pairs they map to headers
-          title: Headers
-          type: object
-        href:
-          description: The location of the resource
-          format: uri
-          minLength: 1
-          title: Href
-          type: string
-        merge:
-          default: false
-          description: 'This is only valid when the server is responding to POST request.
-            If merge is true, the client is expected to merge the body value into
-            the current request body before following the link. This avoids passing
-            large post bodies back and forth when following links, particularly for
-            navigating pages through the POST /search endpoint. NOTE: To support form
-            encoding it is expected that a client be able to merge in the key value
-            pairs specified as JSON {''next'': ''token''} will become &next=token.'
-          title: Merge
-          type: boolean
-        method:
-          $ref: '#/components/schemas/RequestMethod'
-          default: GET
-          description: Specifies the HTTP method that the resource expects
-          title: Method
-        rel:
-          description: Relation type of the link
-          title: Rel
-          type: string
-        title:
-          description: Title of the resource
-          title: Title
-          type: string
-        type:
-          description: The media type of the resource
-          title: Type
-          type: string
-      required:
-      - href
-      - rel
-      title: Link
+      additionalProperties: true
       type: object
     MultiLineString:
       description: MultiLineString Model
@@ -360,79 +323,69 @@ components:
       - coordinates
       title: MultiPolygon
       type: object
-    Opportunity:
+    MyOpportunityProperties:
+      additionalProperties: true
       properties:
-        bbox:
+        datetime:
+          title: Datetime
+          type: string
+        off_nadir:
+          $ref: '#/components/schemas/OffNadirRange'
+        platform:
+          const: platform_id
+          title: Platform
+          type: string
+        product_id:
+          title: Product Id
+          type: string
+        vehicle_id:
+          items:
+            enum:
+            - 1
+            - 2
+            - 5
+            - 7
+            - 8
+            type: integer
+          title: Vehicle Id
+          type: array
+      required:
+      - datetime
+      - product_id
+      - off_nadir
+      - vehicle_id
+      - platform
+      title: MyOpportunityProperties
+      type: object
+    MyOrderParameters:
+      additionalProperties: false
+      properties:
+        s3_path:
           anyOf:
-          - maxItems: 4
-            minItems: 4
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
-          - maxItems: 6
-            minItems: 6
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
-          - type: 'null'
-          title: Bbox
-        geometry:
-          anyOf:
-          - discriminator:
-              mapping:
-                GeometryCollection: '#/components/schemas/GeometryCollection-Output'
-                LineString: '#/components/schemas/LineString'
-                MultiLineString: '#/components/schemas/MultiLineString'
-                MultiPoint: '#/components/schemas/MultiPoint'
-                MultiPolygon: '#/components/schemas/MultiPolygon'
-                Point: '#/components/schemas/Point'
-                Polygon: '#/components/schemas/Polygon'
-              propertyName: type
-            oneOf:
-            - $ref: '#/components/schemas/Point'
-            - $ref: '#/components/schemas/MultiPoint'
-            - $ref: '#/components/schemas/LineString'
-            - $ref: '#/components/schemas/MultiLineString'
-            - $ref: '#/components/schemas/Polygon'
-            - $ref: '#/components/schemas/MultiPolygon'
-            - $ref: '#/components/schemas/GeometryCollection-Output'
-          - type: 'null'
-          title: Geometry
-        id:
-          anyOf:
-          - type: integer
           - type: string
           - type: 'null'
-          title: Id
-        links:
-          items:
-            $ref: '#/components/schemas/Link'
-          title: Links
-          type: array
-        properties:
-          anyOf:
-          - $ref: '#/components/schemas/OpportunityProperties'
-          - type: 'null'
-        type:
-          const: Feature
-          default: Feature
-          title: Type
-          type: string
-      required:
-      - geometry
-      - properties
-      title: Opportunity
+          title: S3 Path
+      title: MyOrderParameters
       type: object
-    OpportunityCollection:
+    OffNadirRange:
       properties:
+        maximum:
+          maximum: 45.0
+          minimum: 0.0
+          title: Maximum
+          type: integer
+        minimum:
+          maximum: 45.0
+          minimum: 0.0
+          title: Minimum
+          type: integer
+      required:
+      - minimum
+      - maximum
+      title: OffNadirRange
+      type: object
+    ? OpportunityCollection_Annotated_Union_Point__MultiPoint__LineString__MultiLineString__Polygon__MultiPolygon__GeometryCollection___FieldInfo_annotation_NoneType__required_True__discriminator__type_____MyOpportunityProperties_
+    : properties:
         bbox:
           anyOf:
           - maxItems: 4
@@ -457,7 +410,7 @@ components:
           title: Bbox
         features:
           items:
-            $ref: '#/components/schemas/Opportunity'
+            $ref: '#/components/schemas/Opportunity_Annotated_Union_Point__MultiPoint__LineString__MultiLineString__Polygon__MultiPolygon__GeometryCollection___FieldInfo_annotation_NoneType__required_True__discriminator__type_____MyOpportunityProperties_'
           title: Features
           type: array
         id:
@@ -470,6 +423,15 @@ components:
             $ref: '#/components/schemas/Link'
           title: Links
           type: array
+        stapi_type:
+          const: OpportunityCollection
+          default: OpportunityCollection
+          title: Stapi Type
+          type: string
+        stapi_version:
+          default: 0.2.0
+          title: Stapi Version
+          type: string
         type:
           const: FeatureCollection
           default: FeatureCollection
@@ -477,46 +439,20 @@ components:
           type: string
       required:
       - features
-      title: OpportunityCollection
+      title: OpportunityCollection[Annotated[Union[Point, MultiPoint, LineString,
+        MultiLineString, Polygon, MultiPolygon, GeometryCollection], FieldInfo(annotation=NoneType,
+        required=True, discriminator='type')], MyOpportunityProperties]
       type: object
-    OpportunityPayload:
+    OpportunityRequest-Input:
+      description: 'STAPI Opportunity Request Object.
+
+
+        Structured the same as the Order Request Object minus order_parameters,
+
+        so an Opportunity Request can be submitted unmodified as an Order Request.
+
+        See stapi-spec docs/spec/opportunity/README.md#opportunity-request-object.'
       properties:
-        datetime:
-          maxItems: 2
-          minItems: 2
-          prefixItems:
-          - format: date-time
-            type: string
-          - format: date-time
-            type: string
-          title: Datetime
-          type: array
-        filter:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Filter
-        geometry:
-          discriminator:
-            mapping:
-              GeometryCollection: '#/components/schemas/GeometryCollection-Input'
-              LineString: '#/components/schemas/LineString'
-              MultiLineString: '#/components/schemas/MultiLineString'
-              MultiPoint: '#/components/schemas/MultiPoint'
-              MultiPolygon: '#/components/schemas/MultiPolygon'
-              Point: '#/components/schemas/Point'
-              Polygon: '#/components/schemas/Polygon'
-            propertyName: type
-          oneOf:
-          - $ref: '#/components/schemas/Point'
-          - $ref: '#/components/schemas/MultiPoint'
-          - $ref: '#/components/schemas/LineString'
-          - $ref: '#/components/schemas/MultiLineString'
-          - $ref: '#/components/schemas/Polygon'
-          - $ref: '#/components/schemas/MultiPolygon'
-          - $ref: '#/components/schemas/GeometryCollection-Input'
-          title: Geometry
         limit:
           default: 10
           title: Limit
@@ -526,27 +462,134 @@ components:
           - type: string
           - type: 'null'
           title: Next
+        search_parameters:
+          $ref: '#/components/schemas/SearchParameters-Input'
       required:
-      - datetime
-      - geometry
-      title: OpportunityPayload
+      - search_parameters
+      title: OpportunityRequest
       type: object
-    OpportunityProperties:
-      additionalProperties: true
+    OpportunityRequest-Output:
+      description: 'STAPI Opportunity Request Object.
+
+
+        Structured the same as the Order Request Object minus order_parameters,
+
+        so an Opportunity Request can be submitted unmodified as an Order Request.
+
+        See stapi-spec docs/spec/opportunity/README.md#opportunity-request-object.'
       properties:
-        datetime:
-          title: Datetime
+        limit:
+          default: 10
+          title: Limit
+          type: integer
+        next:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next
+        search_parameters:
+          $ref: '#/components/schemas/SearchParameters-Output'
+      required:
+      - search_parameters
+      title: OpportunityRequest
+      type: object
+    OpportunitySearchRecord:
+      properties:
+        id:
+          title: Id
           type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          title: Links
+          type: array
         product_id:
           title: Product Id
           type: string
+        request:
+          $ref: '#/components/schemas/OpportunityRequest-Output'
+        stapi_type:
+          const: OpportunitySearchRecord
+          default: OpportunitySearchRecord
+          title: Stapi Type
+          type: string
+        stapi_version:
+          default: 0.2.0
+          title: Stapi Version
+          type: string
+        status:
+          $ref: '#/components/schemas/OpportunitySearchStatus'
       required:
-      - datetime
+      - id
       - product_id
-      title: OpportunityProperties
+      - request
+      - status
+      title: OpportunitySearchRecord
       type: object
-    Order:
+    OpportunitySearchRecordCollection:
       properties:
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          title: Links
+          type: array
+        records:
+          items:
+            $ref: '#/components/schemas/OpportunitySearchRecord'
+          title: Records
+          type: array
+        stapi_type:
+          const: OpportunitySearchRecordCollection
+          default: OpportunitySearchRecordCollection
+          title: Stapi Type
+          type: string
+        stapi_version:
+          default: 0.2.0
+          title: Stapi Version
+          type: string
+      required:
+      - records
+      title: OpportunitySearchRecordCollection
+      type: object
+    OpportunitySearchStatus:
+      properties:
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          title: Links
+          type: array
+        reason_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reason Code
+        reason_text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reason Text
+        status_code:
+          $ref: '#/components/schemas/OpportunitySearchStatusCode'
+        timestamp:
+          format: date-time
+          title: Timestamp
+          type: string
+      required:
+      - timestamp
+      - status_code
+      title: OpportunitySearchStatus
+      type: object
+    OpportunitySearchStatusCode:
+      enum:
+      - received
+      - in_progress
+      - failed
+      - cancelled
+      - completed
+      title: OpportunitySearchStatusCode
+      type: string
+    ? Opportunity_Annotated_Union_Point__MultiPoint__LineString__MultiLineString__Polygon__MultiPolygon__GeometryCollection___FieldInfo_annotation_NoneType__required_True__discriminator__type_____MyOpportunityProperties_
+    : properties:
         bbox:
           anyOf:
           - maxItems: 4
@@ -569,10 +612,6 @@ components:
             type: array
           - type: 'null'
           title: Bbox
-        created:
-          format: date-time
-          title: Created
-          type: string
         geometry:
           discriminator:
             mapping:
@@ -594,39 +633,38 @@ components:
           - $ref: '#/components/schemas/GeometryCollection-Output'
           title: Geometry
         id:
+          anyOf:
+          - type: integer
+          - type: string
+          - type: 'null'
           title: Id
-          type: string
         links:
           items:
             $ref: '#/components/schemas/Link'
           title: Links
           type: array
         properties:
-          $ref: '#/components/schemas/OrderProperties'
+          $ref: '#/components/schemas/MyOpportunityProperties'
         stapi_type:
-          const: Order
-          default: Order
+          const: Opportunity
+          default: Opportunity
           title: Stapi Type
           type: string
         stapi_version:
-          default: 0.1.0
+          default: 0.2.0
           title: Stapi Version
           type: string
-        status:
-          $ref: '#/components/schemas/OrderStatus'
-          title: Status
         type:
           const: Feature
           default: Feature
           title: Type
           type: string
-        user:
-          title: User
-          type: string
       required:
       - geometry
       - properties
-      title: Order
+      title: Opportunity[Annotated[Union[Point, MultiPoint, LineString, MultiLineString,
+        Polygon, MultiPolygon, GeometryCollection], FieldInfo(annotation=NoneType,
+        required=True, discriminator='type')], MyOpportunityProperties]
       type: object
     OrderCollection_OrderStatus_:
       properties:
@@ -662,6 +700,20 @@ components:
             $ref: '#/components/schemas/Link'
           title: Links
           type: array
+        numberMatched:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Numbermatched
+        stapi_type:
+          const: OrderCollection
+          default: OrderCollection
+          title: Stapi Type
+          type: string
+        stapi_version:
+          default: 0.2.0
+          title: Stapi Version
+          type: string
         type:
           const: FeatureCollection
           default: FeatureCollection
@@ -671,88 +723,6 @@ components:
       - features
       title: OrderCollection[OrderStatus]
       type: object
-    OrderParameters:
-      additionalProperties: false
-      properties: {}
-      title: OrderParameters
-      type: object
-    OrderPayload:
-      properties:
-        datetime:
-          maxItems: 2
-          minItems: 2
-          prefixItems:
-          - format: date-time
-            type: string
-          - format: date-time
-            type: string
-          title: Datetime
-          type: array
-        filter:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Filter
-        geometry:
-          discriminator:
-            mapping:
-              GeometryCollection: '#/components/schemas/GeometryCollection-Input'
-              LineString: '#/components/schemas/LineString'
-              MultiLineString: '#/components/schemas/MultiLineString'
-              MultiPoint: '#/components/schemas/MultiPoint'
-              MultiPolygon: '#/components/schemas/MultiPolygon'
-              Point: '#/components/schemas/Point'
-              Polygon: '#/components/schemas/Polygon'
-            propertyName: type
-          oneOf:
-          - $ref: '#/components/schemas/Point'
-          - $ref: '#/components/schemas/MultiPoint'
-          - $ref: '#/components/schemas/LineString'
-          - $ref: '#/components/schemas/MultiLineString'
-          - $ref: '#/components/schemas/Polygon'
-          - $ref: '#/components/schemas/MultiPolygon'
-          - $ref: '#/components/schemas/GeometryCollection-Input'
-          title: Geometry
-        order_parameters:
-          $ref: '#/components/schemas/OrderParameters'
-      required:
-      - datetime
-      - geometry
-      - order_parameters
-      title: OrderPayload
-      type: object
-    OrderProperties:
-      additionalProperties: true
-      properties:
-        created:
-          format: date-time
-          title: Created
-          type: string
-        opportunity_properties:
-          additionalProperties: true
-          title: Opportunity Properties
-          type: object
-        order_parameters:
-          additionalProperties: true
-          title: Order Parameters
-          type: object
-        product_id:
-          title: Product Id
-          type: string
-        search_parameters:
-          $ref: '#/components/schemas/OrderSearchParameters'
-        status:
-          $ref: '#/components/schemas/OrderStatus'
-      required:
-      - product_id
-      - created
-      - status
-      - search_parameters
-      - opportunity_properties
-      - order_parameters
-      title: OrderProperties
-      type: object
     OrderProperties_OrderStatus_:
       additionalProperties: true
       properties:
@@ -760,65 +730,29 @@ components:
           format: date-time
           title: Created
           type: string
-        opportunity_properties:
-          additionalProperties: true
-          title: Opportunity Properties
-          type: object
-        order_parameters:
-          additionalProperties: true
-          title: Order Parameters
-          type: object
+        order_request:
+          $ref: '#/components/schemas/StoredOrderRequest'
         product_id:
           title: Product Id
           type: string
-        search_parameters:
-          $ref: '#/components/schemas/OrderSearchParameters'
         status:
           $ref: '#/components/schemas/OrderStatus'
       required:
       - product_id
       - created
       - status
-      - search_parameters
-      - opportunity_properties
-      - order_parameters
+      - order_request
       title: OrderProperties[OrderStatus]
       type: object
-    OrderSearchParameters:
+    OrderRequest_MyOrderParameters_:
       properties:
-        datetime:
-          title: Datetime
-          type: string
-        filter:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Filter
-        geometry:
-          discriminator:
-            mapping:
-              GeometryCollection: '#/components/schemas/GeometryCollection-Output'
-              LineString: '#/components/schemas/LineString'
-              MultiLineString: '#/components/schemas/MultiLineString'
-              MultiPoint: '#/components/schemas/MultiPoint'
-              MultiPolygon: '#/components/schemas/MultiPolygon'
-              Point: '#/components/schemas/Point'
-              Polygon: '#/components/schemas/Polygon'
-            propertyName: type
-          oneOf:
-          - $ref: '#/components/schemas/Point'
-          - $ref: '#/components/schemas/MultiPoint'
-          - $ref: '#/components/schemas/LineString'
-          - $ref: '#/components/schemas/MultiLineString'
-          - $ref: '#/components/schemas/Polygon'
-          - $ref: '#/components/schemas/MultiPolygon'
-          - $ref: '#/components/schemas/GeometryCollection-Output'
-          title: Geometry
+        order_parameters:
+          $ref: '#/components/schemas/MyOrderParameters'
+        search_parameters:
+          $ref: '#/components/schemas/SearchParameters-Input'
       required:
-      - datetime
-      - geometry
-      title: OrderSearchParameters
+      - search_parameters
+      title: OrderRequest[MyOrderParameters]
       type: object
     OrderStatus:
       additionalProperties: true
@@ -866,13 +800,22 @@ components:
       - failed
       title: OrderStatusCode
       type: string
-    OrderStatuses:
+    OrderStatusCollection:
       properties:
         links:
           items:
             $ref: '#/components/schemas/Link'
           title: Links
           type: array
+        stapi_type:
+          const: OrderStatusCollection
+          default: OrderStatusCollection
+          title: Stapi Type
+          type: string
+        stapi_version:
+          default: 0.2.0
+          title: Stapi Version
+          type: string
         statuses:
           items:
             $ref: '#/components/schemas/OrderStatus'
@@ -880,7 +823,7 @@ components:
           type: array
       required:
       - statuses
-      title: OrderStatuses
+      title: OrderStatusCollection
       type: object
     Order_OrderStatus_:
       properties:
@@ -906,10 +849,6 @@ components:
             type: array
           - type: 'null'
           title: Bbox
-        created:
-          format: date-time
-          title: Created
-          type: string
         geometry:
           discriminator:
             mapping:
@@ -946,21 +885,16 @@ components:
           title: Stapi Type
           type: string
         stapi_version:
-          default: 0.1.0
+          default: 0.2.0
           title: Stapi Version
           type: string
-        status:
-          $ref: '#/components/schemas/OrderStatus'
-          title: Status
         type:
           const: Feature
           default: Feature
           title: Type
           type: string
-        user:
-          title: User
-          type: string
       required:
+      - id
       - geometry
       - properties
       title: Order[OrderStatus]
@@ -1068,12 +1002,6 @@ components:
       - title: Altitude
         type: number
       type: array
-    Prefer:
-      enum:
-      - respond-async
-      - wait
-      title: Prefer
-      type: string
     Product:
       properties:
         conformsTo:
@@ -1082,6 +1010,7 @@ components:
           title: Conformsto
           type: array
         description:
+          default: ''
           title: Description
           type: string
         id:
@@ -1111,10 +1040,11 @@ components:
           title: Stapi Type
           type: string
         stapi_version:
-          default: 0.1.0
+          default: 0.2.0
           title: Stapi Version
           type: string
         title:
+          default: ''
           title: Title
           type: string
         type:
@@ -1124,9 +1054,7 @@ components:
           type: string
       required:
       - id
-      - description
       - license
-      - links
       title: Product
       type: object
     ProductsCollection:
@@ -1137,25 +1065,30 @@ components:
           title: Links
           type: array
         products:
-          description: STAPI Product objects are represented in JSON format and are
-            very flexible. Any JSON object that contains all the required fields is
-            a valid STAPI Product. A Product object contains a minimal set of required
-            properties to be valid and can be extended through the use of queryables
-            and parameters.
           items:
             $ref: '#/components/schemas/Product'
           title: Products
           type: array
+        stapi_type:
+          const: ProductCollection
+          default: ProductCollection
+          title: Stapi Type
+          type: string
+        stapi_version:
+          default: 0.2.0
+          title: Stapi Version
+          type: string
       required:
-      - links
       - products
       title: ProductsCollection
       type: object
     Provider:
       properties:
         description:
+          anyOf:
+          - type: string
+          - type: 'null'
           title: Description
-          type: string
         name:
           title: Name
           type: string
@@ -1171,21 +1104,17 @@ components:
           type: string
       required:
       - name
+      - roles
+      - url
       title: Provider
       type: object
     ProviderRole:
       enum:
-      - producer
       - licensor
+      - producer
       - processor
       - host
       title: ProviderRole
-      type: string
-    RequestMethod:
-      enum:
-      - GET
-      - POST
-      title: RequestMethod
       type: string
     RootResponse:
       properties:
@@ -1195,6 +1124,7 @@ components:
           title: Conformsto
           type: array
         description:
+          default: ''
           title: Description
           type: string
         id:
@@ -1206,14 +1136,118 @@ components:
           title: Links
           type: array
         title:
+          default: ''
           title: Title
           type: string
       required:
-      - conformsTo
       - id
-      - description
-      - links
       title: RootResponse
+      type: object
+    SearchParameters-Input:
+      description: 'STAPI Search Parameters Object.
+
+
+        Shared request component constraining what could fulfill a request; used
+
+        by both the Opportunity Request and the Order Request.
+
+        See stapi-spec docs/spec/search-parameters/README.md.'
+      properties:
+        datetime:
+          title: Datetime
+          type: string
+        filter:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Filter
+        geometry:
+          discriminator:
+            mapping:
+              GeometryCollection: '#/components/schemas/GeometryCollection-Input'
+              LineString: '#/components/schemas/LineString'
+              MultiLineString: '#/components/schemas/MultiLineString'
+              MultiPoint: '#/components/schemas/MultiPoint'
+              MultiPolygon: '#/components/schemas/MultiPolygon'
+              Point: '#/components/schemas/Point'
+              Polygon: '#/components/schemas/Polygon'
+            propertyName: type
+          oneOf:
+          - $ref: '#/components/schemas/Point'
+          - $ref: '#/components/schemas/MultiPoint'
+          - $ref: '#/components/schemas/LineString'
+          - $ref: '#/components/schemas/MultiLineString'
+          - $ref: '#/components/schemas/Polygon'
+          - $ref: '#/components/schemas/MultiPolygon'
+          - $ref: '#/components/schemas/GeometryCollection-Input'
+          title: Geometry
+      required:
+      - datetime
+      - geometry
+      title: SearchParameters
+      type: object
+    SearchParameters-Output:
+      description: 'STAPI Search Parameters Object.
+
+
+        Shared request component constraining what could fulfill a request; used
+
+        by both the Opportunity Request and the Order Request.
+
+        See stapi-spec docs/spec/search-parameters/README.md.'
+      properties:
+        datetime:
+          title: Datetime
+          type: string
+        filter:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Filter
+        geometry:
+          discriminator:
+            mapping:
+              GeometryCollection: '#/components/schemas/GeometryCollection-Output'
+              LineString: '#/components/schemas/LineString'
+              MultiLineString: '#/components/schemas/MultiLineString'
+              MultiPoint: '#/components/schemas/MultiPoint'
+              MultiPolygon: '#/components/schemas/MultiPolygon'
+              Point: '#/components/schemas/Point'
+              Polygon: '#/components/schemas/Polygon'
+            propertyName: type
+          oneOf:
+          - $ref: '#/components/schemas/Point'
+          - $ref: '#/components/schemas/MultiPoint'
+          - $ref: '#/components/schemas/LineString'
+          - $ref: '#/components/schemas/MultiLineString'
+          - $ref: '#/components/schemas/Polygon'
+          - $ref: '#/components/schemas/MultiPolygon'
+          - $ref: '#/components/schemas/GeometryCollection-Output'
+          title: Geometry
+      required:
+      - datetime
+      - geometry
+      title: SearchParameters
+      type: object
+    StoredOrderRequest:
+      description: 'Stored form of an Order Request within Order properties.
+
+
+        order_parameters is typed as BaseOrderParameters because a persisted
+
+        order can no longer be validated against a product''s strict
+
+        OrderParameters model.'
+      properties:
+        order_parameters:
+          $ref: '#/components/schemas/BaseOrderParameters'
+        search_parameters:
+          $ref: '#/components/schemas/SearchParameters-Output'
+      required:
+      - search_parameters
+      title: StoredOrderRequest
       type: object
     ValidationError:
       properties:
@@ -1243,8 +1277,7 @@ openapi: 3.1.0
 paths:
   /:
     get:
-      description: '...'
-      operationId: get_root__get
+      operationId: root_root__get
       responses:
         '200':
           content:
@@ -1252,14 +1285,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/RootResponse'
           description: Successful Response
-      summary: landing page
+      summary: Root:Root
       tags:
-      - Core
+      - Root
   /conformance:
     get:
-      description: A list of all conformance classes specified in a standard that
-        the server conforms to.
-      operationId: get_conformance_conformance_get
+      operationId: root_conformance_conformance_get
       responses:
         '200':
           content:
@@ -1267,13 +1298,28 @@ paths:
               schema:
                 $ref: '#/components/schemas/Conformance'
           description: Successful Response
-      summary: information about specifications that this API conforms to
+      summary: Root:Conformance
       tags:
-      - Core
+      - Conformance
   /orders:
     get:
-      description: '...'
-      operationId: get_orders_orders_get
+      operationId: root_list_orders_orders_get
+      parameters:
+      - in: query
+        name: next
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next
+      - in: query
+        name: limit
+        required: false
+        schema:
+          default: 10
+          title: Limit
+          type: integer
       responses:
         '200':
           content:
@@ -1281,21 +1327,25 @@ paths:
               schema:
                 $ref: '#/components/schemas/OrderCollection_OrderStatus_'
           description: Successful Response
-      summary: a list of orders
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Root:List-Orders
       tags:
       - Orders
-  /orders/{orderId}:
+  /orders/{order_id}:
     get:
-      description: '...'
-      operationId: get_order_orders__orderId__get
+      description: Get details for order with `order_id`.
+      operationId: root_get_order_orders__order_id__get
       parameters:
-      - description: local identifier of an order
-        in: path
-        name: orderId
+      - in: path
+        name: order_id
         required: true
         schema:
-          description: local identifier of an order
-          title: Orderid
+          title: Order Id
           type: string
       responses:
         '200':
@@ -1310,15 +1360,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
-      summary: describe the order with id `orderId`
+      summary: Root:Get-Order
       tags:
       - Orders
-  /orders/{orderId}/statuses:
+  /orders/{order_id}/statuses:
     get:
-      description: '...'
-      operationId: get_order_statuses_orders__orderId__statuses_get
+      operationId: root_list_order_statuses_orders__order_id__statuses_get
       parameters:
-      - in: query
+      - in: path
         name: order_id
         required: true
         schema:
@@ -1344,7 +1393,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrderStatuses'
+                $ref: '#/components/schemas/OrderStatusCollection'
           description: Successful Response
         '422':
           content:
@@ -1352,92 +1401,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
-      summary: describe the statuses that the order with id `orderId` has had
+      summary: Root:List-Order-Statuses
       tags:
       - Orders
   /products:
     get:
-      description: '...'
-      operationId: get_products_products_get
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProductsCollection'
-          description: Successful Response
-      summary: the products in the dataset
-      tags:
-      - Products
-  /products/{productId}:
-    get:
-      description: '...'
-      operationId: get_product_products__productId__get
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Product'
-          description: Successful Response
-      summary: describe the product with id `productId`
-      tags:
-      - Products
-  /products/{productId}/opportunities:
-    post:
-      description: '...'
-      operationId: search_opportunities_products__productId__opportunities_post
-      parameters:
-      - in: query
-        name: prefer
-        required: true
-        schema:
-          anyOf:
-          - $ref: '#/components/schemas/Prefer'
-          - type: 'null'
-          title: Prefer
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/OpportunityPayload'
-        required: true
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OpportunityCollection'
-          description: Successful Response
-        '422':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-          description: Validation Error
-      summary: create a new opportunity request for product with id `productId`
-      tags:
-      - Opportunities
-  /products/{productId}/order-parameters:
-    get:
-      description: '...'
-      operationId: get_product_order_parameters_products__productId__order_parameters_get
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                title: Response Get Product Order Parameters Products  Productid  Order
-                  Parameters Get
-                type: object
-          description: Successful Response
-      summary: describe the order parameters for a product
-      tags:
-      - Products
-  /products/{productId}/orders:
-    get:
-      description: '...'
-      operationId: get_orders_products__productId__orders_get
+      operationId: root_list_products_products_get
       parameters:
       - in: query
         name: next
@@ -1457,9 +1426,9 @@ paths:
       responses:
         '200':
           content:
-            application/geo+json:
+            application/json:
               schema:
-                $ref: '#/components/schemas/OrderCollection_OrderStatus_'
+                $ref: '#/components/schemas/ProductsCollection'
           description: Successful Response
         '422':
           content:
@@ -1467,24 +1436,109 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
-      summary: get a list of orders for the specific product
+      summary: Root:List-Products
       tags:
-      - Orders
+      - Products
+  /products/test-satellite-provider:
+    get:
+      operationId: root_test_satellite_provider_get_product_products_test_satellite_provider_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: Successful Response
+      summary: Retrieve this product
+      tags:
+      - Products
+  /products/test-satellite-provider/conformance:
+    get:
+      description: Return conformance urls of a specific product
+      operationId: root_test_satellite_provider_conformance_products_test_satellite_provider_conformance_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conformance'
+          description: Successful Response
+      summary: Get conformance urls for the product
+      tags:
+      - Products
+  /products/test-satellite-provider/opportunities:
     post:
-      description: '...'
-      operationId: create_order_products__productId__orders_post
+      description: Explore the opportunities available for a particular set of queryables
+      operationId: root_test_satellite_provider_search_opportunities_products_test_satellite_provider_opportunities_post
+      parameters:
+      - in: header
+        name: prefer
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prefer
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OrderPayload'
+              $ref: '#/components/schemas/OpportunityRequest-Input'
+        required: true
+      responses:
+        '200':
+          content:
+            application/geo+json:
+              schema:
+                $ref: '#/components/schemas/OpportunityCollection_Annotated_Union_Point__MultiPoint__LineString__MultiLineString__Polygon__MultiPolygon__GeometryCollection___FieldInfo_annotation_NoneType__required_True__discriminator__type_____MyOpportunityProperties_'
+          description: Successful Response
+        '201':
+          content:
+            application/geo+json:
+              schema:
+                $ref: '#/components/schemas/OpportunitySearchRecord'
+            application/json: {}
+          description: Created
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Search Opportunities for the product
+      tags:
+      - Products
+  /products/test-satellite-provider/order-parameters:
+    get:
+      description: Return supported order parameters of a specific product
+      operationId: root_test_satellite_provider_get_order_parameters_products_test_satellite_provider_order_parameters_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response Root Test Satellite Provider Get Order Parameters
+                  Products Test Satellite Provider Order Parameters Get
+                type: object
+          description: Successful Response
+      summary: Get order parameters for the product
+      tags:
+      - Products
+  /products/test-satellite-provider/orders:
+    post:
+      operationId: root_test_satellite_provider_create_order_products_test_satellite_provider_orders_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequest_MyOrderParameters_'
         required: true
       responses:
         '201':
           content:
             application/geo+json:
               schema:
-                $ref: '#/components/schemas/Order'
+                $ref: '#/components/schemas/Order_OrderStatus_'
           description: Successful Response
         '422':
           content:
@@ -1492,31 +1546,210 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
-      summary: create a new order for product with id `productId`
+      summary: Create an order for the product
       tags:
-      - Orders
-  /products/{productId}/queryables:
+      - Products
+  /products/test-satellite-provider/queryables:
     get:
-      description: '...'
-      operationId: get_product_queryables_products__productId__queryables_get
+      description: Return supported queryables of a specific product
+      operationId: root_test_satellite_provider_get_queryables_products_test_satellite_provider_queryables_get
       responses:
         '200':
           content:
             application/json:
               schema:
-                title: Response Get Product Queryables Products  Productid  Queryables
-                  Get
+                title: Response Root Test Satellite Provider Get Queryables Products
+                  Test Satellite Provider Queryables Get
                 type: object
           description: Successful Response
-      summary: describe the queryables for a product
+      summary: Get queryables for the product
       tags:
       - Products
-tags:
-- description: Core endpoints
-  name: Core
-- description: Endpoint for creating and managing orders
-  name: Orders
-- description: Endpoint for viewing and accepting opportunities
-  name: Opportunities
-- description: Products
-  name: Products
+  /products/test-spotlight:
+    get:
+      operationId: root_test_spotlight_get_product_products_test_spotlight_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: Successful Response
+      summary: Retrieve this product
+      tags:
+      - Products
+  /products/test-spotlight/conformance:
+    get:
+      description: Return conformance urls of a specific product
+      operationId: root_test_spotlight_conformance_products_test_spotlight_conformance_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conformance'
+          description: Successful Response
+      summary: Get conformance urls for the product
+      tags:
+      - Products
+  /products/test-spotlight/opportunities:
+    post:
+      description: Explore the opportunities available for a particular set of queryables
+      operationId: root_test_spotlight_search_opportunities_products_test_spotlight_opportunities_post
+      parameters:
+      - in: header
+        name: prefer
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prefer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OpportunityRequest-Input'
+        required: true
+      responses:
+        '200':
+          content:
+            application/geo+json:
+              schema:
+                $ref: '#/components/schemas/OpportunityCollection_Annotated_Union_Point__MultiPoint__LineString__MultiLineString__Polygon__MultiPolygon__GeometryCollection___FieldInfo_annotation_NoneType__required_True__discriminator__type_____MyOpportunityProperties_'
+          description: Successful Response
+        '201':
+          content:
+            application/geo+json:
+              schema:
+                $ref: '#/components/schemas/OpportunitySearchRecord'
+            application/json: {}
+          description: Created
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Search Opportunities for the product
+      tags:
+      - Products
+  /products/test-spotlight/order-parameters:
+    get:
+      description: Return supported order parameters of a specific product
+      operationId: root_test_spotlight_get_order_parameters_products_test_spotlight_order_parameters_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response Root Test Spotlight Get Order Parameters Products
+                  Test Spotlight Order Parameters Get
+                type: object
+          description: Successful Response
+      summary: Get order parameters for the product
+      tags:
+      - Products
+  /products/test-spotlight/orders:
+    post:
+      operationId: root_test_spotlight_create_order_products_test_spotlight_orders_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequest_MyOrderParameters_'
+        required: true
+      responses:
+        '201':
+          content:
+            application/geo+json:
+              schema:
+                $ref: '#/components/schemas/Order_OrderStatus_'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Create an order for the product
+      tags:
+      - Products
+  /products/test-spotlight/queryables:
+    get:
+      description: Return supported queryables of a specific product
+      operationId: root_test_spotlight_get_queryables_products_test_spotlight_queryables_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response Root Test Spotlight Get Queryables Products Test Spotlight
+                  Queryables Get
+                type: object
+          description: Successful Response
+      summary: Get queryables for the product
+      tags:
+      - Products
+  /searches/opportunities:
+    get:
+      operationId: root_list_opportunity_search_records_searches_opportunities_get
+      parameters:
+      - in: query
+        name: next
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next
+      - in: query
+        name: limit
+        required: false
+        schema:
+          default: 10
+          title: Limit
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpportunitySearchRecordCollection'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: List all Opportunity Search Records
+      tags:
+      - Opportunities
+  /searches/opportunities/{search_record_id}:
+    get:
+      description: Get the Opportunity Search Record with `search_record_id`.
+      operationId: root_get_opportunity_search_record_searches_opportunities__search_record_id__get
+      parameters:
+      - in: path
+        name: search_record_id
+        required: true
+        schema:
+          title: Search Record Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpportunitySearchRecord'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get an Opportunity Search Record by ID
+      tags:
+      - Opportunities
