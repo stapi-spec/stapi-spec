@@ -1,9 +1,5 @@
 components:
   schemas:
-    BaseModel:
-      properties: {}
-      title: BaseModel
-      type: object
     BaseOrderParameters:
       additionalProperties: true
       description: 'Minimum-expectations type for order parameters at rest.
@@ -24,6 +20,8 @@ components:
             type: string
           title: Conformsto
           type: array
+      required:
+      - conformsTo
       title: Conformance
       type: object
     GeometryCollection-Input:
@@ -80,7 +78,7 @@ components:
       required:
       - type
       - geometries
-      title: GeometryCollection
+      title: GeometryCollection-Input
       type: object
     GeometryCollection-Output:
       description: GeometryCollection Model
@@ -136,7 +134,7 @@ components:
       required:
       - type
       - geometries
-      title: GeometryCollection
+      title: GeometryCollection-Output
       type: object
     HTTPValidationError:
       properties:
@@ -191,6 +189,47 @@ components:
       type: object
     Link:
       additionalProperties: true
+      properties:
+        body:
+          title: Body
+        headers:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: string
+              - items:
+                  type: string
+                type: array
+            type: object
+          - type: 'null'
+          title: Headers
+        href:
+          format: uri
+          minLength: 1
+          title: Href
+          type: string
+        method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Method
+        rel:
+          title: Rel
+          type: string
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Type
+      required:
+      - href
+      - rel
+      title: Link
       type: object
     MultiLineString:
       description: MultiLineString Model
@@ -345,7 +384,6 @@ components:
             - type: number
             - type: number
             type: array
-          - type: 'null'
           title: Bbox
         geometry:
           discriminator:
@@ -369,7 +407,6 @@ components:
           title: Geometry
         id:
           anyOf:
-          - type: integer
           - type: string
           - type: 'null'
           title: Id
@@ -395,8 +432,13 @@ components:
           title: Type
           type: string
       required:
+      - bbox
+      - type
       - geometry
       - properties
+      - stapi_type
+      - stapi_version
+      - links
       title: Opportunity
       type: object
     OpportunityCollection:
@@ -438,6 +480,11 @@ components:
             $ref: '#/components/schemas/Link'
           title: Links
           type: array
+        numberMatched:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Numbermatched
         stapi_type:
           const: OpportunityCollection
           default: OpportunityCollection
@@ -453,67 +500,12 @@ components:
           title: Type
           type: string
       required:
+      - type
       - features
+      - stapi_type
+      - stapi_version
+      - links
       title: OpportunityCollection
-      type: object
-    ? OpportunityCollection_Annotated_Union_Point__MultiPoint__LineString__MultiLineString__Polygon__MultiPolygon__GeometryCollection___FieldInfo_annotation_NoneType__required_True__discriminator__type_____OpportunityProperties_
-    : properties:
-        bbox:
-          anyOf:
-          - maxItems: 4
-            minItems: 4
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
-          - maxItems: 6
-            minItems: 6
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
-          - type: 'null'
-          title: Bbox
-        features:
-          items:
-            $ref: '#/components/schemas/Opportunity_Annotated_Union_Point__MultiPoint__LineString__MultiLineString__Polygon__MultiPolygon__GeometryCollection___FieldInfo_annotation_NoneType__required_True__discriminator__type_____OpportunityProperties_'
-          title: Features
-          type: array
-        id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Id
-        links:
-          items:
-            $ref: '#/components/schemas/Link'
-          title: Links
-          type: array
-        stapi_type:
-          const: OpportunityCollection
-          default: OpportunityCollection
-          title: Stapi Type
-          type: string
-        stapi_version:
-          default: 0.2.0
-          title: Stapi Version
-          type: string
-        type:
-          const: FeatureCollection
-          default: FeatureCollection
-          title: Type
-          type: string
-      required:
-      - features
-      title: OpportunityCollection[Annotated[Union[Point, MultiPoint, LineString,
-        MultiLineString, Polygon, MultiPolygon, GeometryCollection], FieldInfo(annotation=NoneType,
-        required=True, discriminator='type')], OpportunityProperties]
       type: object
     OpportunityProperties:
       additionalProperties: true
@@ -552,7 +544,7 @@ components:
           $ref: '#/components/schemas/SearchParameters-Input'
       required:
       - search_parameters
-      title: OpportunityRequest
+      title: OpportunityRequest-Input
       type: object
     OpportunityRequest-Output:
       description: 'STAPI Opportunity Request Object.
@@ -577,7 +569,7 @@ components:
           $ref: '#/components/schemas/SearchParameters-Output'
       required:
       - search_parameters
-      title: OpportunityRequest
+      title: OpportunityRequest-Output
       type: object
     OpportunitySearchRecord:
       properties:
@@ -610,6 +602,9 @@ components:
       - product_id
       - request
       - status
+      - stapi_type
+      - stapi_version
+      - links
       title: OpportunitySearchRecord
       type: object
     OpportunitySearchRecordCollection:
@@ -619,6 +614,11 @@ components:
             $ref: '#/components/schemas/Link'
           title: Links
           type: array
+        numberMatched:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Numbermatched
         records:
           items:
             $ref: '#/components/schemas/OpportunitySearchRecord'
@@ -634,10 +634,18 @@ components:
           title: Stapi Version
           type: string
       required:
+      - stapi_type
+      - stapi_version
       - records
+      - links
       title: OpportunitySearchRecordCollection
       type: object
     OpportunitySearchStatus:
+      description: 'A search record status; parameterize with a StrEnum
+
+        (``OpportunitySearchStatus[MyCodes]``) to constrain status_code to an
+
+        implementation-defined set.'
       properties:
         links:
           items:
@@ -655,7 +663,10 @@ components:
           - type: 'null'
           title: Reason Text
         status_code:
-          $ref: '#/components/schemas/OpportunitySearchStatusCode'
+          anyOf:
+          - $ref: '#/components/schemas/OpportunitySearchStatusCode'
+          - type: string
+          title: Status Code
         timestamp:
           format: date-time
           title: Timestamp
@@ -663,6 +674,9 @@ components:
       required:
       - timestamp
       - status_code
+      - reason_code
+      - reason_text
+      - links
       title: OpportunitySearchStatus
       type: object
     OpportunitySearchStatusCode:
@@ -681,6 +695,11 @@ components:
             $ref: '#/components/schemas/Link'
           title: Links
           type: array
+        numberMatched:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Numbermatched
         stapi_type:
           const: OpportunitySearchStatusCollection
           default: OpportunitySearchStatusCollection
@@ -696,11 +715,14 @@ components:
           title: Statuses
           type: array
       required:
+      - stapi_type
+      - stapi_version
       - statuses
+      - links
       title: OpportunitySearchStatusCollection
       type: object
-    ? Opportunity_Annotated_Union_Point__MultiPoint__LineString__MultiLineString__Polygon__MultiPolygon__GeometryCollection___FieldInfo_annotation_NoneType__required_True__discriminator__type_____OpportunityProperties_
-    : properties:
+    Order:
+      properties:
         bbox:
           anyOf:
           - maxItems: 4
@@ -721,7 +743,6 @@ components:
             - type: number
             - type: number
             type: array
-          - type: 'null'
           title: Bbox
         geometry:
           discriminator:
@@ -744,21 +765,18 @@ components:
           - $ref: '#/components/schemas/GeometryCollection-Output'
           title: Geometry
         id:
-          anyOf:
-          - type: integer
-          - type: string
-          - type: 'null'
           title: Id
+          type: string
         links:
           items:
             $ref: '#/components/schemas/Link'
           title: Links
           type: array
         properties:
-          $ref: '#/components/schemas/OpportunityProperties'
+          $ref: '#/components/schemas/OrderProperties'
         stapi_type:
-          const: Opportunity
-          default: Opportunity
+          const: Order
+          default: Order
           title: Stapi Type
           type: string
         stapi_version:
@@ -771,13 +789,17 @@ components:
           title: Type
           type: string
       required:
+      - bbox
+      - id
+      - type
+      - stapi_type
+      - stapi_version
       - geometry
       - properties
-      title: Opportunity[Annotated[Union[Point, MultiPoint, LineString, MultiLineString,
-        Polygon, MultiPolygon, GeometryCollection], FieldInfo(annotation=NoneType,
-        required=True, discriminator='type')], OpportunityProperties]
+      - links
+      title: Order
       type: object
-    OrderCollection_OrderStatus_:
+    OrderCollection:
       properties:
         bbox:
           anyOf:
@@ -803,7 +825,7 @@ components:
           title: Bbox
         features:
           items:
-            $ref: '#/components/schemas/Order_OrderStatus_'
+            $ref: '#/components/schemas/Order'
           title: Features
           type: array
         links:
@@ -831,8 +853,12 @@ components:
           title: Type
           type: string
       required:
+      - type
+      - stapi_type
+      - stapi_version
       - features
-      title: OrderCollection[OrderStatus]
+      - links
+      title: OrderCollection
       type: object
     OrderParameters:
       additionalProperties: false
@@ -840,7 +866,7 @@ components:
       properties: {}
       title: OrderParameters
       type: object
-    OrderProperties_OrderStatus_:
+    OrderProperties:
       additionalProperties: true
       properties:
         created:
@@ -859,9 +885,9 @@ components:
       - created
       - status
       - order_request
-      title: OrderProperties[OrderStatus]
+      title: OrderProperties
       type: object
-    OrderRequest_OrderParameters_:
+    OrderRequest:
       properties:
         order_parameters:
           $ref: '#/components/schemas/OrderParameters'
@@ -869,9 +895,44 @@ components:
           $ref: '#/components/schemas/SearchParameters-Input'
       required:
       - search_parameters
-      title: OrderRequest[OrderParameters]
+      title: OrderRequest
       type: object
     OrderStatus:
+      additionalProperties: true
+      description: 'An order status; parameterize with a StrEnum (``OrderStatus[MyCodes]``)
+
+        to constrain status_code to an implementation-defined set.'
+      properties:
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          title: Links
+          type: array
+        reason_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reason Code
+        reason_text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reason Text
+        status_code:
+          anyOf:
+          - $ref: '#/components/schemas/OrderStatusCode'
+          - type: string
+          title: Status Code
+        timestamp:
+          format: date-time
+          title: Timestamp
+          type: string
+      required:
+      - timestamp
+      - status_code
+      title: OrderStatus
+      type: object
+    OrderStatus-2:
       additionalProperties: true
       properties:
         links:
@@ -890,7 +951,7 @@ components:
           - type: 'null'
           title: Reason Text
         status_code:
-          $ref: '#/components/schemas/OrderStatusCode'
+          title: Status Code
         timestamp:
           format: date-time
           title: Timestamp
@@ -898,7 +959,7 @@ components:
       required:
       - timestamp
       - status_code
-      title: OrderStatus
+      title: OrderStatus-2
       type: object
     OrderStatusCode:
       enum:
@@ -924,6 +985,11 @@ components:
             $ref: '#/components/schemas/Link'
           title: Links
           type: array
+        numberMatched:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Numbermatched
         stapi_type:
           const: OrderStatusCollection
           default: OrderStatusCollection
@@ -935,86 +1001,15 @@ components:
           type: string
         statuses:
           items:
-            $ref: '#/components/schemas/OrderStatus'
+            $ref: '#/components/schemas/OrderStatus-2'
           title: Statuses
           type: array
       required:
+      - stapi_type
+      - stapi_version
       - statuses
+      - links
       title: OrderStatusCollection
-      type: object
-    Order_OrderStatus_:
-      properties:
-        bbox:
-          anyOf:
-          - maxItems: 4
-            minItems: 4
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
-          - maxItems: 6
-            minItems: 6
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
-          - type: 'null'
-          title: Bbox
-        geometry:
-          discriminator:
-            mapping:
-              GeometryCollection: '#/components/schemas/GeometryCollection-Output'
-              LineString: '#/components/schemas/LineString'
-              MultiLineString: '#/components/schemas/MultiLineString'
-              MultiPoint: '#/components/schemas/MultiPoint'
-              MultiPolygon: '#/components/schemas/MultiPolygon'
-              Point: '#/components/schemas/Point'
-              Polygon: '#/components/schemas/Polygon'
-            propertyName: type
-          oneOf:
-          - $ref: '#/components/schemas/Point'
-          - $ref: '#/components/schemas/MultiPoint'
-          - $ref: '#/components/schemas/LineString'
-          - $ref: '#/components/schemas/MultiLineString'
-          - $ref: '#/components/schemas/Polygon'
-          - $ref: '#/components/schemas/MultiPolygon'
-          - $ref: '#/components/schemas/GeometryCollection-Output'
-          title: Geometry
-        id:
-          title: Id
-          type: string
-        links:
-          items:
-            $ref: '#/components/schemas/Link'
-          title: Links
-          type: array
-        properties:
-          $ref: '#/components/schemas/OrderProperties_OrderStatus_'
-        stapi_type:
-          const: Order
-          default: Order
-          title: Stapi Type
-          type: string
-        stapi_version:
-          default: 0.2.0
-          title: Stapi Version
-          type: string
-        type:
-          const: Feature
-          default: Feature
-          title: Type
-          type: string
-      required:
-      - id
-      - geometry
-      - properties
-      title: Order[OrderStatus]
       type: object
     Point:
       description: Point Model
@@ -1107,6 +1102,7 @@ components:
         type: number
       - title: Latitude
         type: number
+      title: Position2D
       type: array
     Position3D:
       maxItems: 3
@@ -1118,6 +1114,7 @@ components:
         type: number
       - title: Altitude
         type: number
+      title: Position3D
       type: array
     Product:
       properties:
@@ -1127,7 +1124,6 @@ components:
           title: Conformsto
           type: array
         description:
-          default: ''
           title: Description
           type: string
         id:
@@ -1170,8 +1166,17 @@ components:
           title: Type
           type: string
       required:
+      - type
+      - stapi_type
+      - stapi_version
+      - conformsTo
       - id
+      - title
+      - description
+      - keywords
       - license
+      - providers
+      - links
       title: Product
       type: object
     ProductsCollection:
@@ -1181,6 +1186,11 @@ components:
             $ref: '#/components/schemas/Link'
           title: Links
           type: array
+        numberMatched:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Numbermatched
         products:
           items:
             $ref: '#/components/schemas/Product'
@@ -1196,6 +1206,9 @@ components:
           title: Stapi Version
           type: string
       required:
+      - stapi_type
+      - stapi_version
+      - links
       - products
       title: ProductsCollection
       type: object
@@ -1236,6 +1249,11 @@ components:
     RootResponse:
       properties:
         conformsTo:
+          example: &id001
+          - https://stapi.example.com/v0.2.0/core
+          - https://stapi.example.com/v0.2.0/order-statuses
+          - https://stapi.example.com/v0.2.0/searches-opportunity
+          - https://stapi.example.com/v0.2.0/searches-opportunity-statuses
           items:
             type: string
           title: Conformsto
@@ -1258,9 +1276,14 @@ components:
           type: string
       required:
       - id
+      - conformsTo
+      - title
+      - description
+      - links
       title: RootResponse
       type: object
     SearchParameters-Input:
+      additionalProperties: true
       description: 'STAPI Search Parameters Object.
 
 
@@ -1302,9 +1325,10 @@ components:
       required:
       - datetime
       - geometry
-      title: SearchParameters
+      title: SearchParameters-Input
       type: object
     SearchParameters-Output:
+      additionalProperties: true
       description: 'STAPI Search Parameters Object.
 
 
@@ -1346,9 +1370,10 @@ components:
       required:
       - datetime
       - geometry
-      title: SearchParameters
+      title: SearchParameters-Output
       type: object
     StoredOrderRequest:
+      additionalProperties: true
       description: 'Stored form of an Order Request within Order properties.
 
 
@@ -1364,6 +1389,7 @@ components:
           $ref: '#/components/schemas/SearchParameters-Output'
       required:
       - search_parameters
+      - order_parameters
       title: StoredOrderRequest
       type: object
     ValidationError:
@@ -1404,7 +1430,7 @@ openapi: 3.1.0
 paths:
   /:
     get:
-      operationId: root_root__get
+      operationId: root
       responses:
         '200':
           content:
@@ -1417,11 +1443,13 @@ paths:
       - Root
   /conformance:
     get:
-      operationId: root_conformance_conformance_get
+      operationId: conformance
       responses:
         '200':
           content:
             application/json:
+              example:
+                conformsTo: *id001
               schema:
                 $ref: '#/components/schemas/Conformance'
           description: Successful Response
@@ -1430,7 +1458,7 @@ paths:
       - Conformance
   /orders:
     get:
-      operationId: root_list_orders_orders_get
+      operationId: list_orders
       parameters:
       - in: query
         name: next
@@ -1452,7 +1480,7 @@ paths:
           content:
             application/geo+json:
               schema:
-                $ref: '#/components/schemas/OrderCollection_OrderStatus_'
+                $ref: '#/components/schemas/OrderCollection'
           description: Successful Response
         '422':
           content:
@@ -1466,7 +1494,7 @@ paths:
   /orders/{order_id}:
     get:
       description: Get details for order with `order_id`.
-      operationId: root_get_order_orders__order_id__get
+      operationId: get_order
       parameters:
       - in: path
         name: order_id
@@ -1479,7 +1507,7 @@ paths:
           content:
             application/geo+json:
               schema:
-                $ref: '#/components/schemas/Order_OrderStatus_'
+                $ref: '#/components/schemas/Order'
           description: Successful Response
         '422':
           content:
@@ -1492,7 +1520,7 @@ paths:
       - Orders
   /orders/{order_id}/statuses:
     get:
-      operationId: root_list_order_statuses_orders__order_id__statuses_get
+      operationId: list_order_statuses
       parameters:
       - in: path
         name: order_id
@@ -1533,7 +1561,7 @@ paths:
       - Orders
   /products:
     get:
-      operationId: root_list_products_products_get
+      operationId: list_products
       parameters:
       - in: query
         name: next
@@ -1568,7 +1596,7 @@ paths:
       - Products
   /products/{productId}:
     get:
-      operationId: root_example_get_product_products_example_get
+      operationId: get_product
       parameters:
       - in: path
         name: productId
@@ -1589,7 +1617,7 @@ paths:
   /products/{productId}/conformance:
     get:
       description: Return conformance urls of a specific product
-      operationId: root_example_conformance_products_example_conformance_get
+      operationId: product_conformance
       parameters:
       - in: path
         name: productId
@@ -1610,7 +1638,7 @@ paths:
   /products/{productId}/opportunities:
     post:
       description: Explore the opportunities available for a particular set of queryables
-      operationId: root_example_search_opportunities_products_example_opportunities_post
+      operationId: search_opportunities
       parameters:
       - in: path
         name: productId
@@ -1637,15 +1665,20 @@ paths:
           content:
             application/geo+json:
               schema:
-                $ref: '#/components/schemas/OpportunityCollection_Annotated_Union_Point__MultiPoint__LineString__MultiLineString__Polygon__MultiPolygon__GeometryCollection___FieldInfo_annotation_NoneType__required_True__discriminator__type_____OpportunityProperties_'
+                $ref: '#/components/schemas/OpportunityCollection'
           description: Successful Response
         '201':
           content:
-            application/geo+json:
+            application/json:
               schema:
                 $ref: '#/components/schemas/OpportunitySearchRecord'
-            application/json: {}
-          description: Created
+          description: Created (async opportunity search record)
+          headers:
+            Location:
+              description: URL of the created Opportunity Search Record.
+              schema:
+                format: uri
+                type: string
         '422':
           content:
             application/json:
@@ -1659,7 +1692,7 @@ paths:
     get:
       description: Fetch an opportunity collection generated by an asynchronous opportunity
         search.
-      operationId: root_example_get_opportunity_collection_products_example_opportunities__opportunity_collection_id__get
+      operationId: get_opportunity_collection
       parameters:
       - in: path
         name: productId
@@ -1692,7 +1725,7 @@ paths:
   /products/{productId}/order-parameters:
     get:
       description: Return supported order parameters of a specific product
-      operationId: root_example_get_order_parameters_products_example_order_parameters_get
+      operationId: get_order_parameters
       parameters:
       - in: path
         name: productId
@@ -1705,8 +1738,6 @@ paths:
           content:
             application/json:
               schema:
-                title: Response Root Example Get Order Parameters Products Example
-                  Order Parameters Get
                 type: object
           description: Successful Response
       summary: Get order parameters for the product
@@ -1714,7 +1745,7 @@ paths:
       - Products
   /products/{productId}/orders:
     post:
-      operationId: root_example_create_order_products_example_orders_post
+      operationId: create_order
       parameters:
       - in: path
         name: productId
@@ -1726,15 +1757,21 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OrderRequest_OrderParameters_'
+              $ref: '#/components/schemas/OrderRequest'
         required: true
       responses:
         '201':
           content:
             application/geo+json:
               schema:
-                $ref: '#/components/schemas/Order_OrderStatus_'
+                $ref: '#/components/schemas/Order'
           description: Successful Response
+          headers:
+            Location:
+              description: URL of the created Order.
+              schema:
+                format: uri
+                type: string
         '422':
           content:
             application/json:
@@ -1747,7 +1784,7 @@ paths:
   /products/{productId}/queryables:
     get:
       description: Return supported queryables of a specific product
-      operationId: root_example_get_queryables_products_example_queryables_get
+      operationId: get_queryables
       parameters:
       - in: path
         name: productId
@@ -1760,8 +1797,6 @@ paths:
           content:
             application/json:
               schema:
-                title: Response Root Example Get Queryables Products Example Queryables
-                  Get
                 type: object
           description: Successful Response
       summary: Get queryables for the product
@@ -1769,7 +1804,7 @@ paths:
       - Products
   /searches/opportunities:
     get:
-      operationId: root_list_opportunity_search_records_searches_opportunities_get
+      operationId: list_opportunity_search_records
       parameters:
       - in: query
         name: next
@@ -1805,7 +1840,7 @@ paths:
   /searches/opportunities/{search_record_id}:
     get:
       description: Get the Opportunity Search Record with `search_record_id`.
-      operationId: root_get_opportunity_search_record_searches_opportunities__search_record_id__get
+      operationId: get_opportunity_search_record
       parameters:
       - in: path
         name: search_record_id
@@ -1832,7 +1867,7 @@ paths:
   /searches/opportunities/{search_record_id}/statuses:
     get:
       description: Get the Opportunity Search Record statuses with `search_record_id`.
-      operationId: root_get_opportunity_search_record_statuses_searches_opportunities__search_record_id__statuses_get
+      operationId: get_opportunity_search_record_statuses
       parameters:
       - in: path
         name: search_record_id
