@@ -588,6 +588,31 @@ components:
       - completed
       title: OpportunitySearchStatusCode
       type: string
+    OpportunitySearchStatusCollection:
+      properties:
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          title: Links
+          type: array
+        stapi_type:
+          const: OpportunitySearchStatusCollection
+          default: OpportunitySearchStatusCollection
+          title: Stapi Type
+          type: string
+        stapi_version:
+          default: 0.2.0
+          title: Stapi Version
+          type: string
+        statuses:
+          items:
+            $ref: '#/components/schemas/OpportunitySearchStatus'
+          title: Statuses
+          type: array
+      required:
+      - statuses
+      title: OpportunitySearchStatusCollection
+      type: object
     ? Opportunity_Annotated_Union_Point__MultiPoint__LineString__MultiLineString__Polygon__MultiPolygon__GeometryCollection___FieldInfo_annotation_NoneType__required_True__discriminator__type_____MyOpportunityProperties_
     : properties:
         bbox:
@@ -1751,5 +1776,32 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Get an Opportunity Search Record by ID
+      tags:
+      - Opportunities
+  /searches/opportunities/{search_record_id}/statuses:
+    get:
+      description: Get the Opportunity Search Record statuses with `search_record_id`.
+      operationId: root_get_opportunity_search_record_statuses_searches_opportunities__search_record_id__statuses_get
+      parameters:
+      - in: path
+        name: search_record_id
+        required: true
+        schema:
+          title: Search Record Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpportunitySearchStatusCollection'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get an Opportunity Search Record statuses by ID
       tags:
       - Opportunities
