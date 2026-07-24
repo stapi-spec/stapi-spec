@@ -1387,7 +1387,17 @@ components:
       - type
       title: ValidationError
       type: object
+externalDocs:
+  description: STAPI Specification Documentation
+  url: https://stapi-spec.github.io/stapi-spec/
 info:
+  contact:
+    name: STAPI Specification Organization
+    url: https://github.com/stapi-spec
+  description: The Sensor Tasking API (STAPI) defines a JSON-based web API to query
+    for spatio-temporal analytic and data products derived from remote sensing (satellite
+    or airborne) providers. The specification supports both products derived from
+    new tasking and products from provider archives.
   title: STAPI
   version: 0.2.0
 openapi: 3.1.0
@@ -1846,3 +1856,29 @@ paths:
       summary: Get an Opportunity Search Record statuses by ID
       tags:
       - Opportunities
+tags:
+- description: The landing page, communicating API metadata, conformance, and links.
+  externalDocs:
+    description: STAPI Core Specification
+    url: https://github.com/stapi-spec/stapi-spec/blob/main/docs/conformances/core/README.md
+  name: Root
+- description: Conformance classes implemented by this API.
+  externalDocs:
+    description: STAPI Conformance Classes
+    url: https://github.com/stapi-spec/stapi-spec/blob/main/docs/conformances/README.md
+  name: Conformance
+- description: Endpoints for discovering and describing remote sensing data products.
+  externalDocs:
+    description: STAPI Product Specification
+    url: https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/product/README.md
+  name: Products
+- description: Endpoints for creating and monitoring remote sensing data orders.
+  externalDocs:
+    description: STAPI Order Specification
+    url: https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/order/README.md
+  name: Orders
+- description: Endpoints for searching remote sensing acquisition opportunities.
+  externalDocs:
+    description: STAPI Opportunity Specification
+    url: https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/opportunity/README.md
+  name: Opportunities
