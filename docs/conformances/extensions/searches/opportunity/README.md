@@ -28,3 +28,4 @@ paginated](../../../../spec/pagination/README.md).
 | stapi_version | string | **REQUIRED.** The STAPI version the Opportunity Search Record Collection implements. |
 | records | \[[Opportunity Search Record](../../../../spec/opportunity/README.md#opportunity-search-record)\] | **REQUIRED.** A list of Opportunity Search Records. |
 | links | \[[Link Object](https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md#link-object)\] | **REQUIRED.** Links for e.g. pagination. |
+| numberMatched | integer | **OPTIONAL.** The number of Opportunity Search Records matched by the request, across all pages, if known and the implementation chooses to include it. |

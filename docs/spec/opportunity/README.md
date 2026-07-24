@@ -56,6 +56,7 @@ opportunity search. It is a GeoJSON FeatureCollection.
 | id | string | Identifier for the collection, if persisted (**required** for async search opportunity collections). |
 | features | \[[Opportunity Object](#opportunity-object)\] | **REQUIRED.** A list of opportunities. |
 | links | [[Link Object](#opportunity-collection-links)] | List of link objects to resources and related URLs. |
+| numberMatched | integer | **OPTIONAL.** The number of opportunities matched by the request, across all pages, if known and the implementation chooses to include it. |
 
 ### Opportunity Collection Links
 

@@ -75,6 +75,7 @@ FeatureCollection where each Feature is an [Order Object](#order-object).
 | stapi_version | string | **REQUIRED.** The STAPI version the Order Collection implements. |
 | features | \[[Order Object](#order-object)\] | **REQUIRED.** A list of orders. |
 | links | \[[Link Object](https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md#link-object)\] | **REQUIRED.** Links, e.g., for pagination. |
+| numberMatched | integer | **OPTIONAL.** The number of orders matched by the request, across all pages, if known and the implementation chooses to include it. |
 
 ## GET /orders/\{orderId\}
 

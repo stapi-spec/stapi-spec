@@ -34,6 +34,7 @@ can be extended through the use of Queryables and Order Parameters.
 | stapi_version | string | **REQUIRED.** The STAPI version the Product Collection implements. |
 | products | [[Product Object](#product-object)] | **REQUIRED** List of `Product` offered in the application. |
 | links | [[Link Object](#link-object)] | **REQUIRED** Links for e.g. pagination. |
+| numberMatched | integer | **OPTIONAL.** The number of products matched by the request, across all pages, if known and the implementation chooses to include it. |
 
 ## Product Object
 

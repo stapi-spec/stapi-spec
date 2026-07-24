@@ -55,4 +55,8 @@ the Link object can contain additional fields to support more complex HTTP reque
 - `headers` to add HTTP headers in the request,
 - `body` with the entire body for the request.
 
+Paginated collection responses may also include a `numberMatched` field: an
+integer giving the total number of items matched by the request across all
+pages, when this total is known and the implementation chooses to include it.
+
 The specification is compatible to pagination mechanisms defined in STAC API.
