@@ -7,6 +7,8 @@
       "stapi_type": "Product",
       "stapi_version": "0.2.0",
       "conformsTo": [
+        "https://stapi.example.com/v0.2.0/opportunities",
+        "https://stapi.example.com/v0.2.0/opportunities-async",
         "https://geojson.org/schema/Point.json"
       ],
       "id": "umbra_spotlight",
@@ -51,6 +53,7 @@
       "stapi_type": "Product",
       "stapi_version": "0.2.0",
       "conformsTo": [
+        "https://stapi.example.com/v0.2.0/opportunities",
         "https://geojson.org/schema/Polygon.json",
         "https://geojson.org/schema/MultiPolygon.json"
       ],

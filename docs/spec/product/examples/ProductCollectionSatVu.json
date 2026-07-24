@@ -7,6 +7,7 @@
             "stapi_type": "Product",
             "stapi_version": "0.2.0",
             "conformsTo": [
+                "https://stapi.example.com/v0.2.0/opportunities",
                 "https://geojson.org/schema/Point.json"
             ],
             "id": "satvu:assured_priority_tasking",
@@ -41,6 +42,7 @@
             "stapi_type": "Product",
             "stapi_version": "0.2.0",
             "conformsTo": [
+                "https://stapi.example.com/v0.2.0/opportunities",
                 "https://geojson.org/schema/Point.json"
             ],
             "id": "satvu:standard_priority_tasking",

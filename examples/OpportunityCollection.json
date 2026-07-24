@@ -22,13 +22,13 @@
             ],
             "properties": {
                 "datetime": "2023-03-01T13:00:00Z/2023-03-02T15:30:00Z",
-                "product_id": "EO"
+                "product_id": "multispectral"
             },
             "links": [
                 {
                     "rel": "create-order",
                     "method": "POST",
-                    "href": "https://stapi.example.com/products/EO/orders",
+                    "href": "https://stapi.example.com/products/multispectral/orders",
                     "body": {
                         "search_parameters": {
                             "datetime": "2023-03-01T13:00:00Z/2023-03-02T15:30:00Z",
@@ -63,13 +63,13 @@
             ],
             "properties": {
                 "datetime": "2023-03-02T13:00:00Z/2023-03-03T15:30:00Z",
-                "product_id": "EO"
+                "product_id": "multispectral"
             },
             "links": [
                 {
                     "rel": "create-order",
                     "method": "POST",
-                    "href": "https://stapi.example.com/products/EO/orders",
+                    "href": "https://stapi.example.com/products/multispectral/orders",
                     "body": {
                         "search_parameters": {
                             "datetime": "2023-03-02T13:00:00Z/2023-03-03T15:30:00Z",

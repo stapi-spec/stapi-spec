@@ -91,7 +91,7 @@
         52.557479
       ],
       "properties": {
-        "product_id": "PL-123546:FlexibleTasking",
+        "product_id": "PL-123456:FlexibleTasking",
         "datetime": "2024-04-19T00:00:00Z/2024-04-23T00:00:00Z",
         "satelliteTypes": [
           "SKYSAT"
@@ -103,7 +103,7 @@
         {
           "rel": "create-order",
           "method": "POST",
-          "href": "https://example.com/products/PL-123546:FlexibleTasking/orders",
+          "href": "https://example.com/products/PL-123456:FlexibleTasking/orders",
           "body": {
             "search_parameters": {
               "datetime": "2024-04-19T00:00:00Z/2024-04-23T00:00:00Z",

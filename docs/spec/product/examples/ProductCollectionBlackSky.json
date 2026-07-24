@@ -25,6 +25,7 @@
                 }
             ],
             "conformsTo": [
+                "https://stapi.example.com/v0.2.0/opportunities",
                 "https://geojson.org/schema/Point.json"
             ],
             "links": [
@@ -66,6 +67,7 @@
                 }
             ],
             "conformsTo": [
+                "https://stapi.example.com/v0.2.0/opportunities",
                 "https://geojson.org/schema/Point.json"
             ],
             "links": [

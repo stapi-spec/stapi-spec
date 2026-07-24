@@ -8,6 +8,7 @@
             "stapi_version": "0.2.0",
             "id": "maxar_opt",
             "conformsTo": [
+                "https://stapi.example.com/v0.2.0/opportunities",
                 "https://geojson.org/schema/Polygon.json"
             ],
             "title": "Maxar tasking",
