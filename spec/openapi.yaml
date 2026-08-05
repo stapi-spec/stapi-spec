@@ -48,7 +48,7 @@ components:
       properties:
         conformsTo:
           description: |-
-            **REQUIRED.** The conformance class URIs that apply. See [Conformance
+            The conformance class URIs that apply. See [Conformance
             Classes](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/conformances/README.md).
           examples:
           - - https://stapi.example.com/v0.2.0/core
@@ -91,7 +91,7 @@ components:
       properties:
         conformsTo:
           description: |-
-            **REQUIRED.** Conformance classes that apply to the API globally. The same
+            Conformance classes that apply to the API globally. The same
             list is served by `GET /conformance`. See [Conformance
             Classes](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/conformances/README.md).
           examples:
@@ -105,16 +105,16 @@ components:
         description:
           default: ''
           description: |-
-            **REQUIRED.** Detailed multi-line description to fully explain the API.
+            Detailed multi-line description to fully explain the API.
             [CommonMark 0.29](http://commonmark.org/) syntax MAY be used for rich text
             representation.
           type: string
         id:
-          description: '**REQUIRED.** Identifier for the API.'
+          description: 'Identifier for the API.'
           type: string
         links:
           description: |-
-            **REQUIRED.** A list of references to other documents and endpoints. A
+            A list of references to other documents and endpoints. A
             `create-order` link is **required** if and only if a user can go directly
             from the products to the order endpoint without going through the `POST
             /products/{productId}/opportunities` endpoint.
@@ -141,7 +141,7 @@ components:
         bbox:
           $ref: '#/components/schemas/Bbox'
         coordinates:
-          description: '**REQUIRED.** An array of two or more positions.'
+          description: 'An array of two or more positions.'
           items:
             anyOf:
             - $ref: '#/components/schemas/Position2D'
@@ -150,7 +150,7 @@ components:
           type: array
         type:
           const: LineString
-          description: '**REQUIRED.** GeoJSON geometry type. Must be `LineString`.'
+          description: 'GeoJSON geometry type. Must be `LineString`.'
           type: string
       required:
       - type
@@ -183,7 +183,7 @@ components:
           type: object
         href:
           description: |-
-            **REQUIRED.** The actual link, in the format of a URL. Relative and absolute
+            The actual link, in the format of a URL. Relative and absolute
             links are both allowed.
           format: uri
           minLength: 1
@@ -195,7 +195,7 @@ components:
           type: string
         rel:
           description: |-
-            **REQUIRED.** Relationship between the entity carrying the link and the
+            Relationship between the entity carrying the link and the
             linked resource. The relation types an entity may or must use are defined by
             the specification of that entity.
           type: string
@@ -219,7 +219,7 @@ components:
         bbox:
           $ref: '#/components/schemas/Bbox'
         coordinates:
-          description: '**REQUIRED.** An array of LineString coordinate arrays.'
+          description: 'An array of LineString coordinate arrays.'
           items:
             items:
               anyOf:
@@ -230,7 +230,7 @@ components:
           type: array
         type:
           const: MultiLineString
-          description: '**REQUIRED.** GeoJSON geometry type. Must be `MultiLineString`.'
+          description: 'GeoJSON geometry type. Must be `MultiLineString`.'
           type: string
       required:
       - type
@@ -246,7 +246,7 @@ components:
         bbox:
           $ref: '#/components/schemas/Bbox'
         coordinates:
-          description: '**REQUIRED.** An array of positions.'
+          description: 'An array of positions.'
           items:
             anyOf:
             - $ref: '#/components/schemas/Position2D'
@@ -254,7 +254,7 @@ components:
           type: array
         type:
           const: MultiPoint
-          description: '**REQUIRED.** GeoJSON geometry type. Must be `MultiPoint`.'
+          description: 'GeoJSON geometry type. Must be `MultiPoint`.'
           type: string
       required:
       - type
@@ -270,7 +270,7 @@ components:
         bbox:
           $ref: '#/components/schemas/Bbox'
         coordinates:
-          description: '**REQUIRED.** An array of Polygon coordinate arrays.'
+          description: 'An array of Polygon coordinate arrays.'
           items:
             items:
               items:
@@ -283,7 +283,7 @@ components:
           type: array
         type:
           const: MultiPolygon
-          description: '**REQUIRED.** GeoJSON geometry type. Must be `MultiPolygon`.'
+          description: 'GeoJSON geometry type. Must be `MultiPolygon`.'
           type: string
       required:
       - type
@@ -301,7 +301,7 @@ components:
         bbox:
           $ref: '#/components/schemas/Bbox'
           description: |-
-            **REQUIRED.** Bounding Box of the estimated extent of this Opportunity,
+            Bounding Box of the estimated extent of this Opportunity,
             using either 2D or 3D geometries and formatted according to [RFC 7946,
             section 5](https://tools.ietf.org/html/rfc7946#section-5). The length of the
             array must be 2*n where n is the number of dimensions. The array contains
@@ -317,7 +317,7 @@ components:
         geometry:
           $ref: '#/components/schemas/Geometry'
           description: |-
-            **REQUIRED.** Defines the estimated footprint or centroid of the
+            Defines the estimated footprint or centroid of the
             Opportunity, formatted according to [RFC 7946, section
             3.1](https://tools.ietf.org/html/rfc7946#section-3.1). The footprint should
             be the default GeoJSON geometry, though additional geometries can be
@@ -331,7 +331,7 @@ components:
           type: string
         links:
           description: |-
-            **REQUIRED.** List of [Link
+            List of [Link
             Objects](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/link/README.md)
             to resources and related URLs. A `rel=create-order` link, allowing the user
             to submit an Order specifically for this Opportunity, is **strongly
@@ -342,20 +342,20 @@ components:
           type: array
         properties:
           $ref: '#/components/schemas/OpportunityProperties'
-          description: '**REQUIRED.** A dictionary of additional metadata for the Opportunity.'
+          description: 'A dictionary of additional metadata for the Opportunity.'
         stapi_type:
           const: Opportunity
           default: Opportunity
-          description: '**REQUIRED.** Type of the STAPI Object. Must be set to `Opportunity`.'
+          description: 'Type of the STAPI Object. Must be set to `Opportunity`.'
           type: string
         stapi_version:
           default: 0.2.0
-          description: '**REQUIRED.** The STAPI version the Opportunity implements.'
+          description: 'The STAPI version the Opportunity implements.'
           type: string
         type:
           const: Feature
           default: Feature
-          description: '**REQUIRED.** Type of the GeoJSON Object. Must be `Feature`.'
+          description: 'Type of the GeoJSON Object. Must be `Feature`.'
           type: string
       required:
       - bbox
@@ -377,7 +377,7 @@ components:
             Bounding Box of the Opportunities in this collection, formatted according to
             [RFC 7946, section 5](https://tools.ietf.org/html/rfc7946#section-5).
         features:
-          description: '**REQUIRED.** A list of Opportunities.'
+          description: 'A list of Opportunities.'
           items:
             $ref: '#/components/schemas/Opportunity'
           type: array
@@ -388,7 +388,7 @@ components:
           type: string
         links:
           description: |-
-            **REQUIRED.** List of [Link
+            List of [Link
             Objects](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/link/README.md)
             to resources and related URLs. Collections carry the links needed to page
             through the full result set; see [API
@@ -410,18 +410,18 @@ components:
           const: OpportunityCollection
           default: OpportunityCollection
           description: |-
-            **REQUIRED.** Type of the STAPI Object. Must be set to
+            Type of the STAPI Object. Must be set to
             `OpportunityCollection`.
           type: string
         stapi_version:
           default: 0.2.0
-          description: '**REQUIRED.** The STAPI version the collection implements.'
+          description: 'The STAPI version the collection implements.'
           type: string
         type:
           const: FeatureCollection
           default: FeatureCollection
           description: |-
-            **REQUIRED.** Type of the GeoJSON Object. Must be set to
+            Type of the GeoJSON Object. Must be set to
             `FeatureCollection`.
           type: string
       required:
@@ -439,7 +439,7 @@ components:
       properties:
         datetime:
           description: |-
-            **REQUIRED.** The datetime of the Opportunity, as an [ISO 8601 Time
+            The datetime of the Opportunity, as an [ISO 8601 Time
             Interval](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals): two ends
             separated by a solidus (forward slash, `/`).
           examples:
@@ -447,7 +447,7 @@ components:
           type: string
         product_id:
           description: |-
-            **REQUIRED.** Product identifier. This should be a reference to the
+            Product identifier. This should be a reference to the
             [Product](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/product/README.md#product-object)
             the Opportunity is for.
           type: string
@@ -477,7 +477,7 @@ components:
         search_parameters:
           $ref: '#/components/schemas/SearchParameters'
           description: |-
-            **REQUIRED.** Parameters for scenes that would meet the Opportunity search's
+            Parameters for scenes that would meet the Opportunity search's
             requirements.
       required:
       - search_parameters
@@ -489,11 +489,11 @@ components:
         /searches/opportunities/{searchRecordId}`.
       properties:
         id:
-          description: '**REQUIRED.** Opportunity search record ID.'
+          description: 'Opportunity search record ID.'
           type: string
         links:
           description: |-
-            **REQUIRED.** List of [Link
+            List of [Link
             Objects](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/link/README.md)
             to resources and related URLs. A `rel=self` link with the href to retrieve
             this record directly **must** be included. If the `GET
@@ -507,27 +507,27 @@ components:
           type: array
         product_id:
           description: |-
-            **REQUIRED.** Product identifier. This should be a reference to the
+            Product identifier. This should be a reference to the
             [Product](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/product/README.md#product-object)
             being searched.
           type: string
         request:
           $ref: '#/components/schemas/OpportunityRequest'
-          description: '**REQUIRED.** The request object used to initiate the search.'
+          description: 'The request object used to initiate the search.'
         stapi_type:
           const: OpportunitySearchRecord
           default: OpportunitySearchRecord
           description: |-
-            **REQUIRED.** Type of the STAPI Object. Must be set to
+            Type of the STAPI Object. Must be set to
             `OpportunitySearchRecord`.
           type: string
         stapi_version:
           default: 0.2.0
-          description: '**REQUIRED.** The STAPI version the Opportunity Search Record implements.'
+          description: 'The STAPI version the Opportunity Search Record implements.'
           type: string
         status:
           $ref: '#/components/schemas/OpportunitySearchStatus'
-          description: '**REQUIRED.** The current search status.'
+          description: 'The current search status.'
       required:
       - id
       - product_id
@@ -542,7 +542,7 @@ components:
       properties:
         links:
           description: |-
-            **REQUIRED.** List of [Link
+            List of [Link
             Objects](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/link/README.md)
             to resources and related URLs. Collections carry the links needed to page
             through the full result set; see [API
@@ -556,7 +556,7 @@ components:
             and the implementation chooses to include it.
           type: integer
         records:
-          description: '**REQUIRED.** A list of Opportunity Search Records.'
+          description: 'A list of Opportunity Search Records.'
           items:
             $ref: '#/components/schemas/OpportunitySearchRecord'
           type: array
@@ -564,12 +564,12 @@ components:
           const: OpportunitySearchRecordCollection
           default: OpportunitySearchRecordCollection
           description: |-
-            **REQUIRED.** Type of the STAPI Object. Must be set to
+            Type of the STAPI Object. Must be set to
             `OpportunitySearchRecordCollection`.
           type: string
         stapi_version:
           default: 0.2.0
-          description: '**REQUIRED.** The STAPI version the collection implements.'
+          description: 'The STAPI version the collection implements.'
           type: string
       required:
       - stapi_type
@@ -582,7 +582,7 @@ components:
       properties:
         links:
           description: |-
-            **REQUIRED.** List of references to any relevant documents or resources.
+            List of references to any relevant documents or resources.
             Links is intended to be the same data structure as the links collection in
             STAC. Links will be very provider specific.
           items:
@@ -599,12 +599,12 @@ components:
           - $ref: '#/components/schemas/OpportunitySearchStatusCode'
           - type: string
           description: |-
-            **REQUIRED.** Status code. Providers must support the core codes enumerated by
+            Status code. Providers must support the core codes enumerated by
             `OpportunitySearchStatusCode`, but the value is not restricted to them:
             implementations may define additional codes, so clients must be prepared for any
             string.
         timestamp:
-          description: '**REQUIRED.** ISO 8601 timestamp for the search status.'
+          description: 'ISO 8601 timestamp for the search status.'
           format: date-time
           type: string
       required:
@@ -639,7 +639,7 @@ components:
       properties:
         links:
           description: |-
-            **REQUIRED.** List of [Link
+            List of [Link
             Objects](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/link/README.md)
             to resources and related URLs. Collections carry the links needed to page
             through the full result set; see [API
@@ -656,16 +656,16 @@ components:
           const: OpportunitySearchStatusCollection
           default: OpportunitySearchStatusCollection
           description: |-
-            **REQUIRED.** Type of the STAPI Object. Must be set to
+            Type of the STAPI Object. Must be set to
             `OpportunitySearchStatusCollection`.
           type: string
         stapi_version:
           default: 0.2.0
-          description: '**REQUIRED.** The STAPI version the collection implements.'
+          description: 'The STAPI version the collection implements.'
           type: string
         statuses:
           description: |-
-            **REQUIRED.** A list of Opportunity Search Status objects in reverse
+            A list of Opportunity Search Status objects in reverse
             chronological order.
           items:
             $ref: '#/components/schemas/OpportunitySearchStatus'
@@ -684,13 +684,13 @@ components:
         bbox:
           $ref: '#/components/schemas/Bbox'
           description: |-
-            **REQUIRED.** Bounding Box of the estimated extent to be collected to
+            Bounding Box of the estimated extent to be collected to
             fulfill this Order, formatted according to [RFC 7946, section
             5](https://tools.ietf.org/html/rfc7946#section-5).
         geometry:
           $ref: '#/components/schemas/Geometry'
           description: |-
-            **REQUIRED.** Defines the estimated footprint or centroid of the area to be
+            Defines the estimated footprint or centroid of the area to be
             collected to fulfill this Order, formatted according to [RFC 7946, section
             3.1](https://tools.ietf.org/html/rfc7946#section-3.1). The footprint should
             be the default GeoJSON geometry, though additional geometries can be
@@ -698,11 +698,11 @@ components:
             Longitude/Latitude/Elevation based on [WGS
             84](http://www.opengis.net/def/crs/OGC/1.3/CRS84).
         id:
-          description: '**REQUIRED.** Unique provider generated order ID.'
+          description: 'Unique provider generated order ID.'
           type: string
         links:
           description: |-
-            **REQUIRED.** List of [Link
+            List of [Link
             Objects](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/link/README.md)
             to resources and related URLs. If the `GET /orders/{orderId}/statuses`
             endpoint is implemented, there must be a link to it using the relation type
@@ -712,20 +712,20 @@ components:
           type: array
         properties:
           $ref: '#/components/schemas/OrderProperties'
-          description: '**REQUIRED.** A dictionary of additional metadata for the Order.'
+          description: 'A dictionary of additional metadata for the Order.'
         stapi_type:
           const: Order
           default: Order
-          description: '**REQUIRED.** Type of the STAPI Object. Must be set to `Order`.'
+          description: 'Type of the STAPI Object. Must be set to `Order`.'
           type: string
         stapi_version:
           default: 0.2.0
-          description: '**REQUIRED.** The STAPI version the Order implements.'
+          description: 'The STAPI version the Order implements.'
           type: string
         type:
           const: Feature
           default: Feature
-          description: '**REQUIRED.** Type of the GeoJSON Object. Must be set to `Feature`.'
+          description: 'Type of the GeoJSON Object. Must be set to `Feature`.'
           type: string
       required:
       - bbox
@@ -748,13 +748,13 @@ components:
             Bounding Box of the Orders in this collection, formatted according to [RFC
             7946, section 5](https://tools.ietf.org/html/rfc7946#section-5).
         features:
-          description: '**REQUIRED.** A list of Orders.'
+          description: 'A list of Orders.'
           items:
             $ref: '#/components/schemas/Order'
           type: array
         links:
           description: |-
-            **REQUIRED.** List of [Link
+            List of [Link
             Objects](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/link/README.md)
             to resources and related URLs. Collections carry the links needed to page
             through the full result set; see [API
@@ -770,17 +770,17 @@ components:
         stapi_type:
           const: OrderCollection
           default: OrderCollection
-          description: '**REQUIRED.** Type of the STAPI Object. Must be set to `OrderCollection`.'
+          description: 'Type of the STAPI Object. Must be set to `OrderCollection`.'
           type: string
         stapi_version:
           default: 0.2.0
-          description: '**REQUIRED.** The STAPI version the collection implements.'
+          description: 'The STAPI version the collection implements.'
           type: string
         type:
           const: FeatureCollection
           default: FeatureCollection
           description: |-
-            **REQUIRED.** Type of the GeoJSON Object. Must be set to
+            Type of the GeoJSON Object. Must be set to
             `FeatureCollection`.
           type: string
       required:
@@ -811,21 +811,21 @@ components:
       description: Metadata describing an Order.
       properties:
         created:
-          description: '**REQUIRED.** When the Order was created.'
+          description: 'When the Order was created.'
           format: date-time
           type: string
         order_request:
           $ref: '#/components/schemas/StoredOrderRequest'
-          description: '**REQUIRED.** Object with the request search and order parameters.'
+          description: 'Object with the request search and order parameters.'
         product_id:
           description: |-
-            **REQUIRED.** Product identifier. This should be a reference to the
+            Product identifier. This should be a reference to the
             [Product](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/product/README.md#product-object)
             being ordered.
           type: string
         status:
           $ref: '#/components/schemas/OrderStatus'
-          description: '**REQUIRED.** Current Order Status object.'
+          description: 'Current Order Status object.'
       required:
       - product_id
       - created
@@ -846,7 +846,7 @@ components:
         search_parameters:
           $ref: '#/components/schemas/SearchParameters'
           description: |-
-            **REQUIRED.** Parameters for scenes that would meet the Order's
+            Parameters for scenes that would meet the Order's
             requirements.
       required:
       - search_parameters
@@ -856,7 +856,7 @@ components:
       properties:
         links:
           description: |-
-            **REQUIRED.** List of references to documents, such as delivered asset,
+            List of references to documents, such as delivered asset,
             processing log, delivery manifest, etc. Links is intended to be the same
             data structure as the links collection in STAC. Links will be very provider
             specific.
@@ -877,12 +877,12 @@ components:
           - $ref: '#/components/schemas/OrderStatusCode'
           - type: string
           description: |-
-            **REQUIRED.** Status code. Providers must support the core codes enumerated by
+            Status code. Providers must support the core codes enumerated by
             `OrderStatusCode`, but the value is not restricted to them: extensions and
             implementations may define additional codes, so clients must be prepared for
             any string.
         timestamp:
-          description: '**REQUIRED.** ISO 8601 timestamp for the order status.'
+          description: 'ISO 8601 timestamp for the order status.'
           format: date-time
           type: string
       required:
@@ -947,7 +947,7 @@ components:
       properties:
         links:
           description: |-
-            **REQUIRED.** List of [Link
+            List of [Link
             Objects](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/link/README.md)
             to resources and related URLs. Collections carry the links needed to page
             through the full result set; see [API
@@ -964,15 +964,15 @@ components:
           const: OrderStatusCollection
           default: OrderStatusCollection
           description: |-
-            **REQUIRED.** Type of the STAPI Object. Must be set to
+            Type of the STAPI Object. Must be set to
             `OrderStatusCollection`.
           type: string
         stapi_version:
           default: 0.2.0
-          description: '**REQUIRED.** The STAPI version the collection implements.'
+          description: 'The STAPI version the collection implements.'
           type: string
         statuses:
-          description: '**REQUIRED.** History of statuses, in reverse chronological order.'
+          description: 'History of statuses, in reverse chronological order.'
           items:
             $ref: '#/components/schemas/OrderStatus'
           type: array
@@ -995,10 +995,10 @@ components:
           anyOf:
           - $ref: '#/components/schemas/Position2D'
           - $ref: '#/components/schemas/Position3D'
-          description: '**REQUIRED.** A single position.'
+          description: 'A single position.'
         type:
           const: Point
-          description: '**REQUIRED.** GeoJSON geometry type. Must be `Point`.'
+          description: 'GeoJSON geometry type. Must be `Point`.'
           type: string
       required:
       - type
@@ -1015,7 +1015,7 @@ components:
           $ref: '#/components/schemas/Bbox'
         coordinates:
           description: |-
-            **REQUIRED.** An array of linear ring coordinate arrays. The first is the
+            An array of linear ring coordinate arrays. The first is the
             exterior ring; any others are interior rings.
           items:
             items:
@@ -1027,7 +1027,7 @@ components:
           type: array
         type:
           const: Polygon
-          description: '**REQUIRED.** GeoJSON geometry type. Must be `Polygon`.'
+          description: 'GeoJSON geometry type. Must be `Polygon`.'
           type: string
       required:
       - type
@@ -1073,7 +1073,7 @@ components:
       properties:
         conformsTo:
           description: |-
-            **REQUIRED.** Conformance classes that apply to this Product specifically.
+            Conformance classes that apply to this Product specifically.
             A Product must advertise at least one geometry conformance class, and must
             advertise its Opportunity search support (or lack of it) via the opportunity
             conformance classes.
@@ -1082,12 +1082,12 @@ components:
           type: array
         description:
           description: |-
-            **REQUIRED.** Detailed multi-line description to fully explain the
+            Detailed multi-line description to fully explain the
             Collection. [CommonMark 0.29](http://commonmark.org/) syntax MAY be used for
             rich text representation.
           type: string
         id:
-          description: '**REQUIRED.** Identifier for the Product that is unique across the provider.'
+          description: 'Identifier for the Product that is unique across the provider.'
           type: string
         keywords:
           description: List of keywords describing the Product.
@@ -1096,13 +1096,13 @@ components:
           type: array
         license:
           description: |-
-            **REQUIRED.** Collection's license(s), either an SPDX [License
+            Collection's license(s), either an SPDX [License
             identifier](https://spdx.org/licenses/), `various` if multiple licenses
             apply, or `proprietary` for all other cases.
           type: string
         links:
           description: |-
-            **REQUIRED.** A list of references to other documents. A `queryables` link
+            A list of references to other documents. A `queryables` link
             to `GET /products/{productId}/queryables`, an `order-parameters` link to
             `GET /products/{productId}/order-parameters`, and a `conformance` link to
             `GET /products/{productId}/conformance` are the relation types defined for a
@@ -1122,11 +1122,11 @@ components:
         stapi_type:
           const: Product
           default: Product
-          description: '**REQUIRED.** Type of the STAPI Object. Must be set to `Product`.'
+          description: 'Type of the STAPI Object. Must be set to `Product`.'
           type: string
         stapi_version:
           default: 0.2.0
-          description: '**REQUIRED.** The STAPI version the Product implements.'
+          description: 'The STAPI version the Product implements.'
           type: string
         title:
           default: ''
@@ -1135,7 +1135,7 @@ components:
         type:
           const: Collection
           default: Collection
-          description: '**REQUIRED.** Must be set to `Collection` to be a valid Product.'
+          description: 'Must be set to `Collection` to be a valid Product.'
           type: string
       required:
       - conformsTo
@@ -1152,7 +1152,7 @@ components:
       properties:
         links:
           description: |-
-            **REQUIRED.** List of [Link
+            List of [Link
             Objects](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/link/README.md)
             to resources and related URLs. Collections carry the links needed to page
             through the full result set; see [API
@@ -1166,18 +1166,18 @@ components:
             and the implementation chooses to include it.
           type: integer
         products:
-          description: '**REQUIRED.** List of Products offered in the application.'
+          description: 'List of Products offered in the application.'
           items:
             $ref: '#/components/schemas/Product'
           type: array
         stapi_type:
           const: ProductCollection
           default: ProductCollection
-          description: '**REQUIRED.** Type of the STAPI Object. Must be set to `ProductCollection`.'
+          description: 'Type of the STAPI Object. Must be set to `ProductCollection`.'
           type: string
         stapi_version:
           default: 0.2.0
-          description: '**REQUIRED.** The STAPI version the collection implements.'
+          description: 'The STAPI version the collection implements.'
           type: string
       required:
       - stapi_type
@@ -1200,7 +1200,7 @@ components:
             syntax MAY be used for rich text representation.
           type: string
         name:
-          description: '**REQUIRED.** The name of the organization or the individual.'
+          description: 'The name of the organization or the individual.'
           type: string
         roles:
           description: Roles of the provider.
@@ -1248,7 +1248,7 @@ components:
       properties:
         datetime:
           description: |-
-            **REQUIRED.** The time interval with which the temporal property of the
+            The time interval with which the temporal property of the
             results must intersect.
 
             The value is an interval with its two ends separated by a solidus (forward
@@ -1290,7 +1290,7 @@ components:
         geometry:
           $ref: '#/components/schemas/Geometry'
           description: |-
-            **REQUIRED.** Defines the full footprint that the tasked data will be
+            Defines the full footprint that the tasked data will be
             within. Must be an embedded GeoJSON object compliant to [RFC 7946, section
             3.1](https://tools.ietf.org/html/rfc7946#section-3.1). Coordinates are
             specified in Longitude/Latitude or Longitude/Latitude/Elevation based on
@@ -1311,11 +1311,11 @@ components:
         order_parameters:
           $ref: '#/components/schemas/BaseOrderParameters'
           description: |-
-            **REQUIRED.** The order parameters the Order was created with. An Order
+            The order parameters the Order was created with. An Order
             created without `order_parameters` records an empty object (`{}`).
         search_parameters:
           $ref: '#/components/schemas/SearchParameters'
-          description: '**REQUIRED.** The search parameters the Order was created with.'
+          description: 'The search parameters the Order was created with.'
       required:
       - search_parameters
       - order_parameters
