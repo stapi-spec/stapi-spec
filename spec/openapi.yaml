@@ -39,6 +39,16 @@ components:
         5](https://tools.ietf.org/html/rfc7946#section-5): four numbers for a 2D box
         (west, south, east, north) or six for 3D (west, south, min-elevation, east,
         north, max-elevation).
+    CollectionLinks:
+      description: |-
+        List of [Link
+        Objects](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/link/README.md)
+        to resources and related URLs. Collections carry the links needed to page
+        through the full result set; see [API
+        Pagination](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/pagination/README.md).
+      items:
+        $ref: '#/components/schemas/Link'
+      type: array
     Conformance:
       description: |-
         A declaration of conformance classes, using the OAFeat
@@ -289,6 +299,11 @@ components:
       - type
       - coordinates
       type: object
+    NumberMatched:
+      description: |-
+        The number of entities matched by the request, across all pages, if known
+        and the implementation chooses to include it.
+      type: integer
     Opportunity:
       description: |-
         An Opportunity is an abstract, and often terse, representation of data that
@@ -387,6 +402,7 @@ components:
             opportunity collections).
           type: string
         links:
+          $ref: '#/components/schemas/CollectionLinks'
           description: |-
             List of [Link
             Objects](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/link/README.md)
@@ -398,14 +414,8 @@ components:
             resubmit the Opportunities request as an Order. A `search-record` link
             pointing at `GET /searches/opportunities/{searchRecordId}` is **strongly
             recommended** when this collection is the result of an async search.
-          items:
-            $ref: '#/components/schemas/Link'
-          type: array
         numberMatched:
-          description: |-
-            The number of entities matched by the request, across all pages, if known
-            and the implementation chooses to include it.
-          type: integer
+          $ref: '#/components/schemas/NumberMatched'
         stapi_type:
           const: OpportunityCollection
           default: OpportunityCollection
@@ -414,9 +424,7 @@ components:
             `OpportunityCollection`.
           type: string
         stapi_version:
-          default: 0.2.0
-          description: 'The STAPI version the collection implements.'
-          type: string
+          $ref: '#/components/schemas/StapiVersion'
         type:
           const: FeatureCollection
           default: FeatureCollection
@@ -541,20 +549,9 @@ components:
       description: The response object returned when listing Opportunity Search Records.
       properties:
         links:
-          description: |-
-            List of [Link
-            Objects](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/link/README.md)
-            to resources and related URLs. Collections carry the links needed to page
-            through the full result set; see [API
-            Pagination](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/pagination/README.md).
-          items:
-            $ref: '#/components/schemas/Link'
-          type: array
+          $ref: '#/components/schemas/CollectionLinks'
         numberMatched:
-          description: |-
-            The number of entities matched by the request, across all pages, if known
-            and the implementation chooses to include it.
-          type: integer
+          $ref: '#/components/schemas/NumberMatched'
         records:
           description: 'A list of Opportunity Search Records.'
           items:
@@ -568,9 +565,7 @@ components:
             `OpportunitySearchRecordCollection`.
           type: string
         stapi_version:
-          default: 0.2.0
-          description: 'The STAPI version the collection implements.'
-          type: string
+          $ref: '#/components/schemas/StapiVersion'
       required:
       - stapi_type
       - stapi_version
@@ -638,20 +633,9 @@ components:
       description: The status history of an Opportunity Search Record.
       properties:
         links:
-          description: |-
-            List of [Link
-            Objects](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/link/README.md)
-            to resources and related URLs. Collections carry the links needed to page
-            through the full result set; see [API
-            Pagination](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/pagination/README.md).
-          items:
-            $ref: '#/components/schemas/Link'
-          type: array
+          $ref: '#/components/schemas/CollectionLinks'
         numberMatched:
-          description: |-
-            The number of entities matched by the request, across all pages, if known
-            and the implementation chooses to include it.
-          type: integer
+          $ref: '#/components/schemas/NumberMatched'
         stapi_type:
           const: OpportunitySearchStatusCollection
           default: OpportunitySearchStatusCollection
@@ -660,9 +644,7 @@ components:
             `OpportunitySearchStatusCollection`.
           type: string
         stapi_version:
-          default: 0.2.0
-          description: 'The STAPI version the collection implements.'
-          type: string
+          $ref: '#/components/schemas/StapiVersion'
         statuses:
           description: |-
             A list of Opportunity Search Status objects in reverse
@@ -753,29 +735,16 @@ components:
             $ref: '#/components/schemas/Order'
           type: array
         links:
-          description: |-
-            List of [Link
-            Objects](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/link/README.md)
-            to resources and related URLs. Collections carry the links needed to page
-            through the full result set; see [API
-            Pagination](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/pagination/README.md).
-          items:
-            $ref: '#/components/schemas/Link'
-          type: array
+          $ref: '#/components/schemas/CollectionLinks'
         numberMatched:
-          description: |-
-            The number of entities matched by the request, across all pages, if known
-            and the implementation chooses to include it.
-          type: integer
+          $ref: '#/components/schemas/NumberMatched'
         stapi_type:
           const: OrderCollection
           default: OrderCollection
           description: 'Type of the STAPI Object. Must be set to `OrderCollection`.'
           type: string
         stapi_version:
-          default: 0.2.0
-          description: 'The STAPI version the collection implements.'
-          type: string
+          $ref: '#/components/schemas/StapiVersion'
         type:
           const: FeatureCollection
           default: FeatureCollection
@@ -946,20 +915,9 @@ components:
         status of the Order.
       properties:
         links:
-          description: |-
-            List of [Link
-            Objects](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/link/README.md)
-            to resources and related URLs. Collections carry the links needed to page
-            through the full result set; see [API
-            Pagination](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/pagination/README.md).
-          items:
-            $ref: '#/components/schemas/Link'
-          type: array
+          $ref: '#/components/schemas/CollectionLinks'
         numberMatched:
-          description: |-
-            The number of entities matched by the request, across all pages, if known
-            and the implementation chooses to include it.
-          type: integer
+          $ref: '#/components/schemas/NumberMatched'
         stapi_type:
           const: OrderStatusCollection
           default: OrderStatusCollection
@@ -968,9 +926,7 @@ components:
             `OrderStatusCollection`.
           type: string
         stapi_version:
-          default: 0.2.0
-          description: 'The STAPI version the collection implements.'
-          type: string
+          $ref: '#/components/schemas/StapiVersion'
         statuses:
           description: 'History of statuses, in reverse chronological order.'
           items:
@@ -1151,20 +1107,9 @@ components:
       description: The list of Products offered by the API.
       properties:
         links:
-          description: |-
-            List of [Link
-            Objects](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/link/README.md)
-            to resources and related URLs. Collections carry the links needed to page
-            through the full result set; see [API
-            Pagination](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/pagination/README.md).
-          items:
-            $ref: '#/components/schemas/Link'
-          type: array
+          $ref: '#/components/schemas/CollectionLinks'
         numberMatched:
-          description: |-
-            The number of entities matched by the request, across all pages, if known
-            and the implementation chooses to include it.
-          type: integer
+          $ref: '#/components/schemas/NumberMatched'
         products:
           description: 'List of Products offered in the application.'
           items:
@@ -1176,9 +1121,7 @@ components:
           description: 'Type of the STAPI Object. Must be set to `ProductCollection`.'
           type: string
         stapi_version:
-          default: 0.2.0
-          description: 'The STAPI version the collection implements.'
-          type: string
+          $ref: '#/components/schemas/StapiVersion'
       required:
       - stapi_type
       - stapi_version
@@ -1299,6 +1242,10 @@ components:
       - datetime
       - geometry
       type: object
+    StapiVersion:
+      default: 0.2.0
+      description: 'The STAPI version the collection implements.'
+      type: string
     StoredOrderRequest:
       description: |-
         The Order Request as recorded on an existing Order.
