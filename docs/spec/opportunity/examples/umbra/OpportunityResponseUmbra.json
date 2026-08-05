@@ -22,7 +22,7 @@
       ],
       "properties": {
         "product_id": "umbra_spotlight",
-        "datetime": "2024-04-20T06:21:00Z/2024-04-22T06:22:21Z",
+        "datetime": "2024-04-20T06:21:00Z/2024-04-20T06:22:21Z",
         "grazingAngleDegrees": [
           58,
           63
@@ -35,15 +35,26 @@
         {
           "rel": "create-order",
           "method": "POST",
-          "href": "https://example.com/products/umbra_spotlight/orders",
+          "href": "https://api.canopy.umbra.space/stapi/products/umbra_spotlight/orders",
           "body": {
             "search_parameters": {
-              "datetime": "2024-04-20T06:21:00Z/2024-04-22T06:22:21Z",
+              "datetime": "2024-04-20T06:21:00Z/2024-04-20T06:22:21Z",
               "geometry": {
                 "type": "Point",
                 "coordinates": [
                   13.403258555886767,
                   52.473696635108176
+                ]
+              },
+              "filter": {
+                "op": "=",
+                "args": [
+                  {
+                    "property": "satelliteIds"
+                  },
+                  [
+                    "Umbra-05"
+                  ]
                 ]
               }
             }
@@ -83,7 +94,7 @@
         {
           "rel": "create-order",
           "method": "POST",
-          "href": "https://example.com/products/umbra_spotlight/orders",
+          "href": "https://api.canopy.umbra.space/stapi/products/umbra_spotlight/orders",
           "body": {
             "search_parameters": {
               "datetime": "2024-04-20T01:21:00Z/2024-04-20T01:22:21Z",
@@ -92,6 +103,17 @@
                 "coordinates": [
                   13.403258555886767,
                   52.473696635108176
+                ]
+              },
+              "filter": {
+                "op": "=",
+                "args": [
+                  {
+                    "property": "satelliteIds"
+                  },
+                  [
+                    "Umbra-07"
+                  ]
                 ]
               }
             }
@@ -104,7 +126,7 @@
     {
       "rel": "create-order",
       "method": "POST",
-      "href": "https://example.com/products/umbra_spotlight/orders",
+      "href": "https://api.canopy.umbra.space/stapi/products/umbra_spotlight/orders",
       "body": {
         "search_parameters": {
           "datetime": "2024-04-19T00:00:00Z/2024-04-23T00:00:00Z",
@@ -134,6 +156,18 @@
                     "property": "grazingAngleDegrees"
                   },
                   70
+                ]
+              },
+              {
+                "op": "=",
+                "args": [
+                  {
+                    "property": "satelliteIds"
+                  },
+                  [
+                    "Umbra-05",
+                    "Umbra-07"
+                  ]
                 ]
               }
             ]

@@ -38,7 +38,7 @@
                 {
                     "href": "https://oden.prod.planet-labs.com/",
                     "rel": "documentation",
-                    "type": "docs",
+                    "type": "text/html",
                     "title": "Planet Tasking API OpenAPI specs"
                 }
             ]
@@ -79,7 +79,7 @@
                 {
                     "href": "https://oden.prod.planet-labs.com/",
                     "rel": "documentation",
-                    "type": "docs",
+                    "type": "text/html",
                     "title": "Planet Tasking API OpenAPI specs"
                 }
             ]

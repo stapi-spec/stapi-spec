@@ -37,6 +37,18 @@
                   },
                   70
                 ]
+              },
+              {
+                "op": "=",
+                "args": [
+                  {
+                    "property": "satelliteIds"
+                  },
+                  [
+                    "Umbra-05",
+                    "Umbra-07"
+                  ]
+                ]
               }
             ]
           }
@@ -45,7 +57,13 @@
       "status": {
         "timestamp": "2024-04-18T08:02:30Z",
         "status_code": "completed",
-        "links": []
+        "links": [
+          {
+            "rel": "opportunities",
+            "type": "application/geo+json",
+            "href": "https://api.canopy.umbra.space/stapi/products/umbra_spotlight/opportunities/6c1d4b0f-4dbb-4ac6-bbd8-0e5a2b4d1c3a"
+          }
+        ]
       },
       "links": [
         {
@@ -78,6 +96,18 @@
             "coordinates": [
               13.403258555886767,
               52.473696635108176
+            ]
+          },
+          "filter": {
+            "op": "=",
+            "args": [
+              {
+                "property": "satelliteIds"
+              },
+              [
+                "Umbra-05",
+                "Umbra-07"
+              ]
             ]
           }
         }

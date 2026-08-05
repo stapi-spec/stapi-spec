@@ -46,13 +46,13 @@
         {
           "href": "https://docs.up42.com/developers/api-tasking/tasking-place-order",
           "rel": "documentation",
-          "type": "html",
+          "type": "text/html",
           "title": "Tasking orders - Step 2. Create an order"
         },
         {
           "href": "https://developer.up42.com/reference/overview#glossary",
           "rel": "documentation",
-          "type": "html",
+          "type": "text/html",
           "title": "API reference - Glossary overview"
         }
       ]
@@ -62,13 +62,13 @@
     {
       "href": "https://docs.up42.com/developers/api-tasking/tasking-place-order",
       "rel": "latest-version",
-      "type": "html",
+      "type": "text/html",
       "title": "Tasking orders - Step 2. Create an order"
     },
     {
       "href": "https://developer.up42.com/reference/overview#glossary",
       "rel": "latest-version",
-      "type": "html",
+      "type": "text/html",
       "title": "API reference - Glossary overview"
     }
   ]

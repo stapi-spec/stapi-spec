@@ -43,8 +43,8 @@
             "properties": {
                 "product_id": "PL-123456:AssuredTasking",
                 "datetime": "2024-04-19T12:00:00Z/2024-04-19T12:05:00Z",
-                "satelliteTypes": [
-                    "SKYSAT"
+                "satellite_types": [
+                    "SkySat"
                 ],
                 "exclusivity_days": 30,
                 "scheduling_type": "Assured",
@@ -55,7 +55,7 @@
                 {
                     "rel": "create-order",
                     "method": "POST",
-                    "href": "https://example.com/products/PL-123456:AssuredTasking/orders",
+                    "href": "https://stapi.example.com/products/PL-123456:AssuredTasking/orders",
                     "body": {
                         "search_parameters": {
                             "datetime": "2024-04-19T12:00:00Z/2024-04-19T12:05:00Z",
@@ -133,9 +133,9 @@
             ],
             "properties": {
                 "product_id": "PL-123456:AssuredTasking",
-                "datetime": "2024-04-19T12:14:00Z/2024-04-19T14:05:00Z",
-                "satelliteTypes": [
-                    "SKYSAT"
+                "datetime": "2024-04-19T14:00:00Z/2024-04-19T14:05:00Z",
+                "satellite_types": [
+                    "SkySat"
                 ],
                 "exclusivity_days": 30,
                 "scheduling_type": "Assured",
@@ -146,7 +146,7 @@
                 {
                     "rel": "create-order",
                     "method": "POST",
-                    "href": "https://example.com/products/PL-123456:AssuredTasking/orders",
+                    "href": "https://stapi.example.com/products/PL-123456:AssuredTasking/orders",
                     "body": {
                         "search_parameters": {
                             "datetime": "2024-04-19T14:00:00Z/2024-04-19T14:05:00Z",

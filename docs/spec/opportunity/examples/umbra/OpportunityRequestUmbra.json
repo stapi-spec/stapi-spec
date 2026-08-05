@@ -28,6 +28,18 @@
             },
             70
           ]
+        },
+        {
+          "op": "=",
+          "args": [
+            {
+              "property": "satelliteIds"
+            },
+            [
+              "Umbra-05",
+              "Umbra-07"
+            ]
+          ]
         }
       ]
     }

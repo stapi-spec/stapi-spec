@@ -77,6 +77,15 @@
           ]
         },
         {
+          "op": "<",
+          "args": [
+            {
+              "property": "maxOffNadir"
+            },
+            45.0
+          ]
+        },
+        {
           "op": "=",
           "args": [
             {

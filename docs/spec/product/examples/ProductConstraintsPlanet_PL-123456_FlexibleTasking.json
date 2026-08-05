@@ -1,4 +1,5 @@
- {
+{
+    "$schema": "https://json-schema.org/draft-07/schema",
     "$defs": {
         "scheduling_type": {
             "enum": [
@@ -35,11 +36,9 @@
             "title": "Scheduling Type"
         },
         "satellite_types": {
-            "items": [
-                {
-                    "$ref": "#/$defs/satellite_types"
-                }
-            ],
+            "items": {
+                "$ref": "#/$defs/satellite_types"
+            },
             "default": [
                 "SkySat"
             ],

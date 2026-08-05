@@ -27,7 +27,13 @@
         "status": {
           "timestamp": "2024-04-18T15:00:00Z",
           "status_code": "accepted",
-          "links": []
+          "links": [
+            {
+              "rel": "invoice",
+              "type": "application/pdf",
+              "href": "https://api.canopy.umbra.space/stapi/orders/5f8a9d2e-7c4b-4f3a-9a1d-2e6b8c7d4f31/invoice"
+            }
+          ]
         },
         "order_request": {
           "search_parameters": {
@@ -58,6 +64,18 @@
                       "property": "grazingAngleDegrees"
                     },
                     70
+                  ]
+                },
+                {
+                  "op": "=",
+                  "args": [
+                    {
+                      "property": "satelliteIds"
+                    },
+                    [
+                      "Umbra-05",
+                      "Umbra-07"
+                    ]
                   ]
                 }
               ]
@@ -108,9 +126,19 @@
           "status_code": "completed",
           "links": [
             {
+              "rel": "invoice",
+              "type": "application/pdf",
+              "href": "https://api.canopy.umbra.space/stapi/orders/c2b7e0d4-1a5f-4b8c-8d3e-9f6a0b1c2d3e/invoice"
+            },
+            {
               "rel": "stac",
               "type": "application/json",
               "href": "https://api.canopy.umbra.space/stapi/stac/search?order-id=c2b7e0d4-1a5f-4b8c-8d3e-9f6a0b1c2d3e"
+            },
+            {
+              "rel": "footprint",
+              "type": "application/json",
+              "href": "https://api.canopy.umbra.space/stapi/orders/c2b7e0d4-1a5f-4b8c-8d3e-9f6a0b1c2d3e/collected-footprint"
             }
           ]
         },
@@ -122,6 +150,18 @@
               "coordinates": [
                 13.403258555886767,
                 52.473696635108176
+              ]
+            },
+            "filter": {
+              "op": "=",
+              "args": [
+                {
+                  "property": "satelliteIds"
+                },
+                [
+                  "Umbra-05",
+                  "Umbra-07"
+                ]
               ]
             }
           },

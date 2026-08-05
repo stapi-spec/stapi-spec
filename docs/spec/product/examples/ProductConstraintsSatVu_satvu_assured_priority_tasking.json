@@ -1,22 +1,23 @@
 {
-                "type": "object",
-                "properties": {
-                    "datetime": {
-                        "description": "The closed date-time interval of the tasking order request.",
-                        "type": "string"
-                    },
-                    "product": {
-                        "description": "The data product.",
-                        "type": "string",
-                        "enum": [
-                            "standard",
-                            "assured"
-                        ],
-                        "default": "standard"
-                    }
-                },
-                "required": [
-                    "datetime",
-                    "product"
-                ]
-            }
+    "$schema": "https://json-schema.org/draft-07/schema",
+    "type": "object",
+    "properties": {
+        "datetime": {
+            "description": "The closed date-time interval of the tasking order request.",
+            "type": "string"
+        },
+        "product": {
+            "description": "The data product.",
+            "type": "string",
+            "enum": [
+                "standard",
+                "assured"
+            ],
+            "default": "standard"
+        }
+    },
+    "required": [
+        "datetime",
+        "product"
+    ]
+}
