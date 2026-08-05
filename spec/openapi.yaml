@@ -1443,6 +1443,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Product'
           description: Successful Response
+        '404':
+          description: The requested resource does not exist or is not accessible,
+            or the supplied pagination token does not identify a page.
       summary: Retrieve this product
       tags:
       - Products
@@ -1464,6 +1467,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Conformance'
           description: Successful Response
+        '404':
+          description: The requested resource does not exist or is not accessible,
+            or the supplied pagination token does not identify a page.
       summary: Get conformance urls for the product
       tags:
       - Conformance
@@ -1534,6 +1540,9 @@ paths:
           description: 'The request was rejected: e.g. it omits a predicate for a
             queryable the Product requires, or its `Prefer` header carries an unsupported
             value.'
+        '404':
+          description: The requested resource does not exist or is not accessible,
+            or the supplied pagination token does not identify a page.
         '422':
           content:
             application/json:
@@ -1627,6 +1636,9 @@ paths:
               schema:
                 type: object
           description: Successful Response
+        '404':
+          description: The requested resource does not exist or is not accessible,
+            or the supplied pagination token does not identify a page.
       summary: Get order parameters for the product
       tags:
       - Products
@@ -1663,6 +1675,9 @@ paths:
           description: 'The request was rejected: e.g. it omits a predicate for a
             queryable the Product requires, or its `Prefer` header carries an unsupported
             value.'
+        '404':
+          description: The requested resource does not exist or is not accessible,
+            or the supplied pagination token does not identify a page.
         '422':
           content:
             application/json:
@@ -1693,6 +1708,9 @@ paths:
               schema:
                 type: object
           description: Successful Response
+        '404':
+          description: The requested resource does not exist or is not accessible,
+            or the supplied pagination token does not identify a page.
       summary: Get queryables for the product
       tags:
       - Products
