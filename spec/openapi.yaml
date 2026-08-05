@@ -24,118 +24,6 @@ components:
       - conformsTo
       title: Conformance
       type: object
-    GeometryCollection-Input:
-      description: GeometryCollection Model
-      properties:
-        bbox:
-          anyOf:
-          - maxItems: 4
-            minItems: 4
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
-          - maxItems: 6
-            minItems: 6
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
-          - type: 'null'
-          title: Bbox
-        geometries:
-          items:
-            discriminator:
-              mapping:
-                GeometryCollection: '#/components/schemas/GeometryCollection-Input'
-                LineString: '#/components/schemas/LineString'
-                MultiLineString: '#/components/schemas/MultiLineString'
-                MultiPoint: '#/components/schemas/MultiPoint'
-                MultiPolygon: '#/components/schemas/MultiPolygon'
-                Point: '#/components/schemas/Point'
-                Polygon: '#/components/schemas/Polygon'
-              propertyName: type
-            oneOf:
-            - $ref: '#/components/schemas/Point'
-            - $ref: '#/components/schemas/MultiPoint'
-            - $ref: '#/components/schemas/LineString'
-            - $ref: '#/components/schemas/MultiLineString'
-            - $ref: '#/components/schemas/Polygon'
-            - $ref: '#/components/schemas/MultiPolygon'
-            - $ref: '#/components/schemas/GeometryCollection-Input'
-          title: Geometries
-          type: array
-        type:
-          const: GeometryCollection
-          title: Type
-          type: string
-      required:
-      - type
-      - geometries
-      title: GeometryCollection-Input
-      type: object
-    GeometryCollection-Output:
-      description: GeometryCollection Model
-      properties:
-        bbox:
-          anyOf:
-          - maxItems: 4
-            minItems: 4
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
-          - maxItems: 6
-            minItems: 6
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
-          - type: 'null'
-          title: Bbox
-        geometries:
-          items:
-            discriminator:
-              mapping:
-                GeometryCollection: '#/components/schemas/GeometryCollection-Output'
-                LineString: '#/components/schemas/LineString'
-                MultiLineString: '#/components/schemas/MultiLineString'
-                MultiPoint: '#/components/schemas/MultiPoint'
-                MultiPolygon: '#/components/schemas/MultiPolygon'
-                Point: '#/components/schemas/Point'
-                Polygon: '#/components/schemas/Polygon'
-              propertyName: type
-            oneOf:
-            - $ref: '#/components/schemas/Point'
-            - $ref: '#/components/schemas/MultiPoint'
-            - $ref: '#/components/schemas/LineString'
-            - $ref: '#/components/schemas/MultiLineString'
-            - $ref: '#/components/schemas/Polygon'
-            - $ref: '#/components/schemas/MultiPolygon'
-            - $ref: '#/components/schemas/GeometryCollection-Output'
-          title: Geometries
-          type: array
-        type:
-          const: GeometryCollection
-          title: Type
-          type: string
-      required:
-      - type
-      - geometries
-      title: GeometryCollection-Output
-      type: object
     HTTPValidationError:
       properties:
         detail:
@@ -388,7 +276,6 @@ components:
         geometry:
           discriminator:
             mapping:
-              GeometryCollection: '#/components/schemas/GeometryCollection-Output'
               LineString: '#/components/schemas/LineString'
               MultiLineString: '#/components/schemas/MultiLineString'
               MultiPoint: '#/components/schemas/MultiPoint'
@@ -403,7 +290,6 @@ components:
           - $ref: '#/components/schemas/MultiLineString'
           - $ref: '#/components/schemas/Polygon'
           - $ref: '#/components/schemas/MultiPolygon'
-          - $ref: '#/components/schemas/GeometryCollection-Output'
           title: Geometry
         id:
           anyOf:
@@ -520,7 +406,7 @@ components:
       - product_id
       title: OpportunityProperties
       type: object
-    OpportunityRequest-Input:
+    OpportunityRequest:
       description: 'STAPI Opportunity Request Object.
 
 
@@ -540,35 +426,10 @@ components:
           - type: 'null'
           title: Next
         search_parameters:
-          $ref: '#/components/schemas/SearchParameters-Input'
+          $ref: '#/components/schemas/SearchParameters'
       required:
       - search_parameters
-      title: OpportunityRequest-Input
-      type: object
-    OpportunityRequest-Output:
-      description: 'STAPI Opportunity Request Object.
-
-
-        Structured the same as the Order Request Object minus order_parameters,
-
-        so an Opportunity Request can be submitted unmodified as an Order Request.
-
-        See stapi-spec docs/spec/opportunity/README.md#opportunity-request-object.'
-      properties:
-        limit:
-          default: 10
-          title: Limit
-          type: integer
-        next:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next
-        search_parameters:
-          $ref: '#/components/schemas/SearchParameters-Output'
-      required:
-      - search_parameters
-      title: OpportunityRequest-Output
+      title: OpportunityRequest
       type: object
     OpportunitySearchRecord:
       properties:
@@ -584,7 +445,7 @@ components:
           title: Product Id
           type: string
         request:
-          $ref: '#/components/schemas/OpportunityRequest-Output'
+          $ref: '#/components/schemas/OpportunityRequest'
         stapi_type:
           const: OpportunitySearchRecord
           default: OpportunitySearchRecord
@@ -744,7 +605,6 @@ components:
         geometry:
           discriminator:
             mapping:
-              GeometryCollection: '#/components/schemas/GeometryCollection-Output'
               LineString: '#/components/schemas/LineString'
               MultiLineString: '#/components/schemas/MultiLineString'
               MultiPoint: '#/components/schemas/MultiPoint'
@@ -759,7 +619,6 @@ components:
           - $ref: '#/components/schemas/MultiLineString'
           - $ref: '#/components/schemas/Polygon'
           - $ref: '#/components/schemas/MultiPolygon'
-          - $ref: '#/components/schemas/GeometryCollection-Output'
           title: Geometry
         id:
           title: Id
@@ -895,7 +754,7 @@ components:
         order_parameters:
           $ref: '#/components/schemas/OrderParameters'
         search_parameters:
-          $ref: '#/components/schemas/SearchParameters-Input'
+          $ref: '#/components/schemas/SearchParameters'
       required:
       - search_parameters
       title: OrderRequest
@@ -1257,7 +1116,7 @@ components:
       - links
       title: RootResponse
       type: object
-    SearchParameters-Input:
+    SearchParameters:
       additionalProperties: true
       description: 'STAPI Search Parameters Object.
 
@@ -1280,7 +1139,6 @@ components:
         geometry:
           discriminator:
             mapping:
-              GeometryCollection: '#/components/schemas/GeometryCollection-Input'
               LineString: '#/components/schemas/LineString'
               MultiLineString: '#/components/schemas/MultiLineString'
               MultiPoint: '#/components/schemas/MultiPoint'
@@ -1295,57 +1153,11 @@ components:
           - $ref: '#/components/schemas/MultiLineString'
           - $ref: '#/components/schemas/Polygon'
           - $ref: '#/components/schemas/MultiPolygon'
-          - $ref: '#/components/schemas/GeometryCollection-Input'
           title: Geometry
       required:
       - datetime
       - geometry
-      title: SearchParameters-Input
-      type: object
-    SearchParameters-Output:
-      additionalProperties: true
-      description: 'STAPI Search Parameters Object.
-
-
-        Shared request component constraining what could fulfill a request; used
-
-        by both the Opportunity Request and the Order Request.
-
-        See stapi-spec docs/spec/search-parameters/README.md.'
-      properties:
-        datetime:
-          title: Datetime
-          type: string
-        filter:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Filter
-        geometry:
-          discriminator:
-            mapping:
-              GeometryCollection: '#/components/schemas/GeometryCollection-Output'
-              LineString: '#/components/schemas/LineString'
-              MultiLineString: '#/components/schemas/MultiLineString'
-              MultiPoint: '#/components/schemas/MultiPoint'
-              MultiPolygon: '#/components/schemas/MultiPolygon'
-              Point: '#/components/schemas/Point'
-              Polygon: '#/components/schemas/Polygon'
-            propertyName: type
-          oneOf:
-          - $ref: '#/components/schemas/Point'
-          - $ref: '#/components/schemas/MultiPoint'
-          - $ref: '#/components/schemas/LineString'
-          - $ref: '#/components/schemas/MultiLineString'
-          - $ref: '#/components/schemas/Polygon'
-          - $ref: '#/components/schemas/MultiPolygon'
-          - $ref: '#/components/schemas/GeometryCollection-Output'
-          title: Geometry
-      required:
-      - datetime
-      - geometry
-      title: SearchParameters-Output
+      title: SearchParameters
       type: object
     StoredOrderRequest:
       additionalProperties: true
@@ -1361,7 +1173,7 @@ components:
         order_parameters:
           $ref: '#/components/schemas/BaseOrderParameters'
         search_parameters:
-          $ref: '#/components/schemas/SearchParameters-Output'
+          $ref: '#/components/schemas/SearchParameters'
       required:
       - search_parameters
       - order_parameters
@@ -1413,6 +1225,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/RootResponse'
           description: Successful Response
+        '400':
+          description: 'The request was rejected: e.g. it omits a predicate for a
+            queryable the Product requires, or its `Prefer` header carries an unsupported
+            value.'
+        '404':
+          description: The requested resource does not exist or is not accessible,
+            or the supplied pagination token does not identify a page.
       summary: Get the API landing page
       tags:
       - Root
@@ -1428,6 +1247,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/Conformance'
           description: Successful Response
+        '400':
+          description: 'The request was rejected: e.g. it omits a predicate for a
+            queryable the Product requires, or its `Prefer` header carries an unsupported
+            value.'
+        '404':
+          description: The requested resource does not exist or is not accessible,
+            or the supplied pagination token does not identify a page.
       summary: Get conformance urls for the API
       tags:
       - Conformance
@@ -1465,6 +1291,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/OrderCollection'
           description: Successful Response
+        '400':
+          description: 'The request was rejected: e.g. it omits a predicate for a
+            queryable the Product requires, or its `Prefer` header carries an unsupported
+            value.'
+        '404':
+          description: The requested resource does not exist or is not accessible,
+            or the supplied pagination token does not identify a page.
         '422':
           content:
             application/json:
@@ -1492,6 +1325,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/Order'
           description: Successful Response
+        '400':
+          description: 'The request was rejected: e.g. it omits a predicate for a
+            queryable the Product requires, or its `Prefer` header carries an unsupported
+            value.'
+        '404':
+          description: The requested resource does not exist or is not accessible,
+            or the supplied pagination token does not identify a page.
         '422':
           content:
             application/json:
@@ -1541,6 +1381,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/OrderStatusCollection'
           description: Successful Response
+        '400':
+          description: 'The request was rejected: e.g. it omits a predicate for a
+            queryable the Product requires, or its `Prefer` header carries an unsupported
+            value.'
+        '404':
+          description: The requested resource does not exist or is not accessible,
+            or the supplied pagination token does not identify a page.
         '422':
           content:
             application/json:
@@ -1584,6 +1431,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProductsCollection'
           description: Successful Response
+        '400':
+          description: 'The request was rejected: e.g. it omits a predicate for a
+            queryable the Product requires, or its `Prefer` header carries an unsupported
+            value.'
+        '404':
+          description: The requested resource does not exist or is not accessible,
+            or the supplied pagination token does not identify a page.
         '422':
           content:
             application/json:
@@ -1610,6 +1464,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/Product'
           description: Successful Response
+        '400':
+          description: 'The request was rejected: e.g. it omits a predicate for a
+            queryable the Product requires, or its `Prefer` header carries an unsupported
+            value.'
+        '404':
+          description: The requested resource does not exist or is not accessible,
+            or the supplied pagination token does not identify a page.
       summary: Retrieve this product
       tags:
       - Products
@@ -1631,6 +1492,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/Conformance'
           description: Successful Response
+        '400':
+          description: 'The request was rejected: e.g. it omits a predicate for a
+            queryable the Product requires, or its `Prefer` header carries an unsupported
+            value.'
+        '404':
+          description: The requested resource does not exist or is not accessible,
+            or the supplied pagination token does not identify a page.
       summary: Get conformance urls for the product
       tags:
       - Conformance
@@ -1657,7 +1525,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OpportunityRequest-Input'
+              $ref: '#/components/schemas/OpportunityRequest'
         required: true
       responses:
         '200':
@@ -1666,6 +1534,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/OpportunityCollection'
           description: Successful Response
+          headers:
+            Preference-Applied:
+              description: Which preference the server applied, sent whenever the
+                request carried a `Prefer` header. It may differ from the requested
+                preference when the Product cannot honour it.
+              schema:
+                enum:
+                - respond-async
+                - wait
+                type: string
         '201':
           content:
             application/json:
@@ -1678,6 +1556,22 @@ paths:
               schema:
                 format: uri
                 type: string
+            Preference-Applied:
+              description: Which preference the server applied, sent whenever the
+                request carried a `Prefer` header. It may differ from the requested
+                preference when the Product cannot honour it.
+              schema:
+                enum:
+                - respond-async
+                - wait
+                type: string
+        '400':
+          description: 'The request was rejected: e.g. it omits a predicate for a
+            queryable the Product requires, or its `Prefer` header carries an unsupported
+            value.'
+        '404':
+          description: The requested resource does not exist or is not accessible,
+            or the supplied pagination token does not identify a page.
         '422':
           content:
             application/json:
@@ -1705,6 +1599,29 @@ paths:
         schema:
           title: Opportunity Collection Id
           type: string
+      - description: Pagination token, as provided by the `next` link of a previous
+          response.
+        in: query
+        name: next
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Pagination token, as provided by the `next` link of a previous
+            response.
+          title: Next
+      - description: The maximum number of items to return in a single page.
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 10
+          description: The maximum number of items to return in a single page.
+          maximum: 100
+          minimum: 1
+          title: Limit
+          type: integer
       responses:
         '200':
           content:
@@ -1712,6 +1629,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/OpportunityCollection'
           description: Successful Response
+        '400':
+          description: 'The request was rejected: e.g. it omits a predicate for a
+            queryable the Product requires, or its `Prefer` header carries an unsupported
+            value.'
+        '404':
+          description: The requested resource does not exist or is not accessible,
+            or the supplied pagination token does not identify a page.
         '422':
           content:
             application/json:
@@ -1739,6 +1663,13 @@ paths:
               schema:
                 type: object
           description: Successful Response
+        '400':
+          description: 'The request was rejected: e.g. it omits a predicate for a
+            queryable the Product requires, or its `Prefer` header carries an unsupported
+            value.'
+        '404':
+          description: The requested resource does not exist or is not accessible,
+            or the supplied pagination token does not identify a page.
       summary: Get order parameters for the product
       tags:
       - Products
@@ -1771,6 +1702,13 @@ paths:
               schema:
                 format: uri
                 type: string
+        '400':
+          description: 'The request was rejected: e.g. it omits a predicate for a
+            queryable the Product requires, or its `Prefer` header carries an unsupported
+            value.'
+        '404':
+          description: The requested resource does not exist or is not accessible,
+            or the supplied pagination token does not identify a page.
         '422':
           content:
             application/json:
@@ -1798,6 +1736,13 @@ paths:
               schema:
                 type: object
           description: Successful Response
+        '400':
+          description: 'The request was rejected: e.g. it omits a predicate for a
+            queryable the Product requires, or its `Prefer` header carries an unsupported
+            value.'
+        '404':
+          description: The requested resource does not exist or is not accessible,
+            or the supplied pagination token does not identify a page.
       summary: Get queryables for the product
       tags:
       - Products
@@ -1835,6 +1780,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/OpportunitySearchRecordCollection'
           description: Successful Response
+        '400':
+          description: 'The request was rejected: e.g. it omits a predicate for a
+            queryable the Product requires, or its `Prefer` header carries an unsupported
+            value.'
+        '404':
+          description: The requested resource does not exist or is not accessible,
+            or the supplied pagination token does not identify a page.
         '422':
           content:
             application/json:
@@ -1862,6 +1814,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/OpportunitySearchRecord'
           description: Successful Response
+        '400':
+          description: 'The request was rejected: e.g. it omits a predicate for a
+            queryable the Product requires, or its `Prefer` header carries an unsupported
+            value.'
+        '404':
+          description: The requested resource does not exist or is not accessible,
+            or the supplied pagination token does not identify a page.
         '422':
           content:
             application/json:
@@ -1882,6 +1841,29 @@ paths:
         schema:
           title: Search Record Id
           type: string
+      - description: Pagination token, as provided by the `next` link of a previous
+          response.
+        in: query
+        name: next
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Pagination token, as provided by the `next` link of a previous
+            response.
+          title: Next
+      - description: The maximum number of items to return in a single page.
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 10
+          description: The maximum number of items to return in a single page.
+          maximum: 100
+          minimum: 1
+          title: Limit
+          type: integer
       responses:
         '200':
           content:
@@ -1889,6 +1871,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/OpportunitySearchStatusCollection'
           description: Successful Response
+        '400':
+          description: 'The request was rejected: e.g. it omits a predicate for a
+            queryable the Product requires, or its `Prefer` header carries an unsupported
+            value.'
+        '404':
+          description: The requested resource does not exist or is not accessible,
+            or the supplied pagination token does not identify a page.
         '422':
           content:
             application/json:
