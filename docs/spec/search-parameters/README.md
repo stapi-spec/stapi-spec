@@ -22,11 +22,13 @@ property of the results must intersect. This parameter allows a subset of the
 allowed values for a [ISO 8601 Time
 Interval](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals) or a [OAF
 datetime](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_parameter_datetime)
-parameter.  This allows for either open or closed intervals, with end
+parameter. This allows for either open or closed intervals, with end
 definitions separated by a solidus (forward slash, `/`) separator. Closed ends
 are represented by [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339)
 datetimes. Open ends are represented by either an empty string or `..`. Only
-singly-open intervals are allowed.  Examples of valid datetime intervals
+singly-open intervals are allowed, so that STAPI datetime values remain a
+strict subset of OGC API - Features (OAF) datetime values: the OAF grammar has
+no form in which both ends are open. Examples of valid datetime intervals
 include `2024-04-18T10:56:00+01:00/2024-04-25T10:56:00+01:00`,
 `2024-04-18T10:56:00Z/..`, and `/2024-04-25T10:56:00+01:00`
 
