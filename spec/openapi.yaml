@@ -1013,7 +1013,7 @@ components:
       - links
       title: Product
       type: object
-    ProductsCollection:
+    ProductCollection:
       properties:
         links:
           items:
@@ -1044,7 +1044,7 @@ components:
       - stapi_version
       - links
       - products
-      title: ProductsCollection
+      title: ProductCollection
       type: object
     Provider:
       properties:
@@ -1429,7 +1429,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProductsCollection'
+                $ref: '#/components/schemas/ProductCollection'
           description: Successful Response
         '400':
           description: 'The request was rejected: e.g. it omits a predicate for a
