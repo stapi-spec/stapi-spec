@@ -1225,13 +1225,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/RootResponse'
           description: Successful Response
-        '400':
-          description: 'The request was rejected: e.g. it omits a predicate for a
-            queryable the Product requires, or its `Prefer` header carries an unsupported
-            value.'
-        '404':
-          description: The requested resource does not exist or is not accessible,
-            or the supplied pagination token does not identify a page.
       summary: Get the API landing page
       tags:
       - Root
@@ -1247,13 +1240,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Conformance'
           description: Successful Response
-        '400':
-          description: 'The request was rejected: e.g. it omits a predicate for a
-            queryable the Product requires, or its `Prefer` header carries an unsupported
-            value.'
-        '404':
-          description: The requested resource does not exist or is not accessible,
-            or the supplied pagination token does not identify a page.
       summary: Get conformance urls for the API
       tags:
       - Conformance
@@ -1291,10 +1277,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/OrderCollection'
           description: Successful Response
-        '400':
-          description: 'The request was rejected: e.g. it omits a predicate for a
-            queryable the Product requires, or its `Prefer` header carries an unsupported
-            value.'
         '404':
           description: The requested resource does not exist or is not accessible,
             or the supplied pagination token does not identify a page.
@@ -1304,6 +1286,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
+        '500':
+          description: The request could not be served because a backend reported
+            failure.
       summary: List all Orders
       tags:
       - Orders
@@ -1325,10 +1310,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Order'
           description: Successful Response
-        '400':
-          description: 'The request was rejected: e.g. it omits a predicate for a
-            queryable the Product requires, or its `Prefer` header carries an unsupported
-            value.'
         '404':
           description: The requested resource does not exist or is not accessible,
             or the supplied pagination token does not identify a page.
@@ -1338,6 +1319,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
+        '500':
+          description: The request could not be served because a backend reported
+            failure.
       summary: Get an Order by ID
       tags:
       - Orders
@@ -1381,10 +1365,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/OrderStatusCollection'
           description: Successful Response
-        '400':
-          description: 'The request was rejected: e.g. it omits a predicate for a
-            queryable the Product requires, or its `Prefer` header carries an unsupported
-            value.'
         '404':
           description: The requested resource does not exist or is not accessible,
             or the supplied pagination token does not identify a page.
@@ -1394,6 +1374,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
+        '500':
+          description: The request could not be served because a backend reported
+            failure.
       summary: List statuses for an Order
       tags:
       - Orders
@@ -1431,10 +1414,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProductCollection'
           description: Successful Response
-        '400':
-          description: 'The request was rejected: e.g. it omits a predicate for a
-            queryable the Product requires, or its `Prefer` header carries an unsupported
-            value.'
         '404':
           description: The requested resource does not exist or is not accessible,
             or the supplied pagination token does not identify a page.
@@ -1464,13 +1443,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Product'
           description: Successful Response
-        '400':
-          description: 'The request was rejected: e.g. it omits a predicate for a
-            queryable the Product requires, or its `Prefer` header carries an unsupported
-            value.'
-        '404':
-          description: The requested resource does not exist or is not accessible,
-            or the supplied pagination token does not identify a page.
       summary: Retrieve this product
       tags:
       - Products
@@ -1492,13 +1464,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Conformance'
           description: Successful Response
-        '400':
-          description: 'The request was rejected: e.g. it omits a predicate for a
-            queryable the Product requires, or its `Prefer` header carries an unsupported
-            value.'
-        '404':
-          description: The requested resource does not exist or is not accessible,
-            or the supplied pagination token does not identify a page.
       summary: Get conformance urls for the product
       tags:
       - Conformance
@@ -1569,15 +1534,15 @@ paths:
           description: 'The request was rejected: e.g. it omits a predicate for a
             queryable the Product requires, or its `Prefer` header carries an unsupported
             value.'
-        '404':
-          description: The requested resource does not exist or is not accessible,
-            or the supplied pagination token does not identify a page.
         '422':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
+        '500':
+          description: The request could not be served because a backend reported
+            failure.
       summary: Search Opportunities for the product
       tags:
       - Opportunities
@@ -1629,10 +1594,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/OpportunityCollection'
           description: Successful Response
-        '400':
-          description: 'The request was rejected: e.g. it omits a predicate for a
-            queryable the Product requires, or its `Prefer` header carries an unsupported
-            value.'
         '404':
           description: The requested resource does not exist or is not accessible,
             or the supplied pagination token does not identify a page.
@@ -1642,6 +1603,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
+        '500':
+          description: The request could not be served because a backend reported
+            failure.
       summary: Get an Opportunity Collection by ID
       tags:
       - Opportunities
@@ -1663,13 +1627,6 @@ paths:
               schema:
                 type: object
           description: Successful Response
-        '400':
-          description: 'The request was rejected: e.g. it omits a predicate for a
-            queryable the Product requires, or its `Prefer` header carries an unsupported
-            value.'
-        '404':
-          description: The requested resource does not exist or is not accessible,
-            or the supplied pagination token does not identify a page.
       summary: Get order parameters for the product
       tags:
       - Products
@@ -1706,15 +1663,15 @@ paths:
           description: 'The request was rejected: e.g. it omits a predicate for a
             queryable the Product requires, or its `Prefer` header carries an unsupported
             value.'
-        '404':
-          description: The requested resource does not exist or is not accessible,
-            or the supplied pagination token does not identify a page.
         '422':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
+        '500':
+          description: The request could not be served because a backend reported
+            failure.
       summary: Create an order for the product
       tags:
       - Orders
@@ -1736,13 +1693,6 @@ paths:
               schema:
                 type: object
           description: Successful Response
-        '400':
-          description: 'The request was rejected: e.g. it omits a predicate for a
-            queryable the Product requires, or its `Prefer` header carries an unsupported
-            value.'
-        '404':
-          description: The requested resource does not exist or is not accessible,
-            or the supplied pagination token does not identify a page.
       summary: Get queryables for the product
       tags:
       - Products
@@ -1780,10 +1730,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/OpportunitySearchRecordCollection'
           description: Successful Response
-        '400':
-          description: 'The request was rejected: e.g. it omits a predicate for a
-            queryable the Product requires, or its `Prefer` header carries an unsupported
-            value.'
         '404':
           description: The requested resource does not exist or is not accessible,
             or the supplied pagination token does not identify a page.
@@ -1793,6 +1739,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
+        '500':
+          description: The request could not be served because a backend reported
+            failure.
       summary: List all Opportunity Search Records
       tags:
       - Opportunities
@@ -1814,10 +1763,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/OpportunitySearchRecord'
           description: Successful Response
-        '400':
-          description: 'The request was rejected: e.g. it omits a predicate for a
-            queryable the Product requires, or its `Prefer` header carries an unsupported
-            value.'
         '404':
           description: The requested resource does not exist or is not accessible,
             or the supplied pagination token does not identify a page.
@@ -1827,6 +1772,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
+        '500':
+          description: The request could not be served because a backend reported
+            failure.
       summary: Get an Opportunity Search Record by ID
       tags:
       - Opportunities
@@ -1871,10 +1819,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/OpportunitySearchStatusCollection'
           description: Successful Response
-        '400':
-          description: 'The request was rejected: e.g. it omits a predicate for a
-            queryable the Product requires, or its `Prefer` header carries an unsupported
-            value.'
         '404':
           description: The requested resource does not exist or is not accessible,
             or the supplied pagination token does not identify a page.
@@ -1884,6 +1828,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
+        '500':
+          description: The request could not be served because a backend reported
+            failure.
       summary: List statuses for an Opportunity Search Record
       tags:
       - Opportunities
