@@ -51,11 +51,21 @@ fields.
 | keywords | \[string\] | List of keywords describing the Product. |
 | license | string | **REQUIRED.** Collection's license(s), either a SPDX [License identifier](https://spdx.org/licenses/), `various` if multiple licenses apply or `proprietary` for all other cases. |
 | providers | \[[Provider Object](#provider-object)\] | A list of providers, which may include all organizations capturing or processing the data or the hosting provider. Providers should be listed in chronological order with the most recent provider being the last element of the list. |
-| links | \[[Link Object](../link/README.md)\] | **REQUIRED.** A list of references to other documents. |
+| links | \[[Link Object](../link/README.md)\] | **REQUIRED.** A list of references to other documents. See [Product Links](#product-links). |
 
 Additional properties are allowed to be placed in the top-level object,
 comparable to how STAC Collections work.  STAC Collection fields can be reused,
 including fields defined in STAC Collection extensions.
+
+### Product Links
+
+Each link in the links array must be a [Link Object](../link/README.md).
+
+| rel type | Description |
+| ---------- | ----------- |
+| `queryables` | Links to the `GET /products/{productId}/queryables` endpoint. |
+| `order-parameters` | Links to the `GET /products/{productId}/order-parameters` endpoint. |
+| `conformance` | Links to the `GET /products/{productId}/conformance` endpoint. |
 
 ### Provider Object
 

@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft-07/schema",
-    "$defs": {
+    "definitions": {
         "ProductType": {
             "enum": [
                 "GEC",
@@ -23,7 +23,7 @@
         "sceneSize": {
             "allOf": [
                 {
-                    "$ref": "#/$defs/SceneSize"
+                    "$ref": "#/definitions/SceneSize"
                 }
             ],
             "default": "5x5_KM",
@@ -65,7 +65,7 @@
             ],
             "description": "",
             "items": {
-                "$ref": "#/$defs/ProductType"
+                "$ref": "#/definitions/ProductType"
             },
             "title": "Producttypes",
             "type": "array"

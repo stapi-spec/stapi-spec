@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft-07/schema",
-    "$defs": {
+    "definitions": {
         "scheduling_type": {
             "enum": [
                 "Flexible"
@@ -29,7 +29,7 @@
         "scheduling_type": {
             "allOf": [
                 {
-                    "$ref": "#/$defs/scheduling_type"
+                    "$ref": "#/definitions/scheduling_type"
                 }
             ],
             "default": "Flexible",
@@ -37,7 +37,7 @@
         },
         "satellite_types": {
             "items": {
-                "$ref": "#/$defs/satellite_types"
+                "$ref": "#/definitions/satellite_types"
             },
             "default": [
                 "SkySat"
@@ -48,7 +48,7 @@
         "exclusivity_days": {
             "allOf": [
                 {
-                    "$ref": "#/$defs/exclusivity_days"
+                    "$ref": "#/definitions/exclusivity_days"
                 }
             ],
             "default": 0,

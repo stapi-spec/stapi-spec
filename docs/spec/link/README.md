@@ -16,23 +16,6 @@ the Link object can contain additional fields to support more complex HTTP reque
 
 ## Relation types
 
-The relation type `queryables` is to be used to link to the `GET
-/products/{productId}/queryables` endpoint.
-
-The relation type `order-parameters` is to be used to link to the `GET
-/products/{productId}/order-parameters` endpoint.
-
-A link with relation type `conformance` is to be used to link to the `GET
-/products/{productId}/conformance` endpoint.
-
-A link with relation type `create-order` **must** be provided in the landing
-page if and only if a user can directly go from the products to the order
-endpoint without going through the `POST /products/{productId}/opportunities`
-endpoint.
-
-Relation types used for paging through a list of entities are described in
-[API Pagination](../pagination/README.md). Relation types specific to a given
-entity are described alongside that entity, for example the [Opportunity
-Collection Links](../opportunity/README.md#opportunity-collection-links), the
-[Opportunity Links](../opportunity/README.md#opportunity-links), and the
-[Opportunity Search Links](../opportunity/README.md#opportunity-search-links).
+Which links an entity must carry, and with which relation types, is part of the
+specification of that entity containing a Link, rather than of the Link Object.
+See each defined entity for the specific set of relevant relation types.

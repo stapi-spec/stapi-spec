@@ -98,7 +98,7 @@ See [Order Object](#order-object).
 | geometry | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) | **REQUIRED.** Defines the estimated footprint or centroid of the area to be collected to fulfill this order, formatted according to [RFC 7946, section 3.1](https://tools.ietf.org/html/rfc7946#section-3.1). The footprint should be the default GeoJSON geometry, though additional geometries can be included. Coordinates are specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS 84](http://www.opengis.net/def/crs/OGC/1.3/CRS84). |
 | bbox | [number] | **REQUIRED.** Bounding Box of the estimated extent to be collected to fulfill this Order, formatted according to [RFC 7946, section 5](https://tools.ietf.org/html/rfc7946#section-5). |
 | properties | [Order Properties Object](#order-properties-object) | **REQUIRED.** A dictionary of additional metadata for the Order. |
-| links | \[[Link Object](../link/README.md)\] | List of link objects to resources and related URLs. |
+| links | \[[Link Object](../link/README.md)\] | **REQUIRED.** List of link objects to resources and related URLs. |
 
 If the `GET /orders/{orderId}/statuses` endpoint is implemented, there must be
 a link to the endpoint using the relation type `monitor`.

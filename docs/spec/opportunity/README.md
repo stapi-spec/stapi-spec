@@ -58,7 +58,6 @@ fields.
 | stapi_type | string | **REQUIRED.** Type of the STAPI Object. **Must** be set to `OpportunityCollection`. |
 | id | string | Identifier for the collection, if persisted (**required** for async search opportunity collections). |
 | features | \[[Opportunity Object](#opportunity-object)\] | **REQUIRED.** A list of opportunities. |
-| links | \[[Link Object](../link/README.md)\] | List of link objects to resources and related URLs. See [Opportunity Collection Links](#opportunity-collection-links). |
 
 ### Opportunity Collection Links
 
@@ -86,7 +85,7 @@ in the `properties` of each Feature in the GeoJSON response.
 | geometry | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) | **REQUIRED.** Defines the estimated footprint or centroid of the Opportunity, formatted according to [RFC 7946, section 3.1](https://tools.ietf.org/html/rfc7946#section-3.1). The footprint should be the default GeoJSON geometry, though additional geometries can be included. Coordinates are specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS 84](http://www.opengis.net/def/crs/OGC/1.3/CRS84). |
 | bbox | [number] | **REQUIRED.** Bounding Box of the estimated extent of this Opportunity, formatted according to [RFC 7946, section 5](https://tools.ietf.org/html/rfc7946#section-5). |
 | properties | [Properties Object](#properties-object) | **REQUIRED.** A dictionary of additional metadata for the Opportunity. |
-| links | [[Link Object](../link/README.md)] | List of link objects to resources and related URLs. See [Opportunity Links](#opportunity-links). |
+| links | [[Link Object](../link/README.md)] | **REQUIRED.** List of link objects to resources and related URLs. See [Opportunity Links](#opportunity-links). |
 
 #### bbox
 
@@ -177,7 +176,7 @@ Returned by an async opportunity search. Can also be retrieved directly.
 | product_id | string | **REQUIRED.** Product identifier. This should be a reference to the [Product](../product/README.md#product-object) being searched. |
 | request | [Opportunity Request Object](#opportunity-request-object) | **REQUIRED.** The request object used to initiate the search. |
 | status | [Opportunity Search Status](#opportunity-search-status) | **REQUIRED.** The current search status. |
-| links | [[Link Object](../link/README.md)] | List of link objects to resources and related URLs. See [Opportunity Search Links](#opportunity-search-links). |
+| links | [[Link Object](../link/README.md)] | **REQUIRED.** List of link objects to resources and related URLs. See [Opportunity Search Links](#opportunity-search-links). |
 
 #### Opportunity Search Links
 

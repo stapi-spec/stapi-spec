@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft-07/schema",
-    "$defs": {
+    "definitions": {
         "scheduling_type": {
             "enum": [
                 "Assured"
@@ -33,7 +33,7 @@
         "scheduling_type": {
             "allOf": [
                 {
-                    "$ref": "#/$defs/scheduling_type"
+                    "$ref": "#/definitions/scheduling_type"
                 }
             ],
             "default": "Assured",
@@ -41,7 +41,7 @@
         },
         "satellite_types": {
             "items": {
-                "$ref": "#/$defs/satellite_types"
+                "$ref": "#/definitions/satellite_types"
             },
             "default": [
                 "SkySat"
@@ -52,7 +52,7 @@
         "exclusivity_days": {
             "allOf": [
                 {
-                    "$ref": "#/$defs/exclusivity_days"
+                    "$ref": "#/definitions/exclusivity_days"
                 }
             ],
             "default": 0,
@@ -61,7 +61,7 @@
         "imaging_window_id": {
             "allOf": [
                 {
-                    "$ref": "#/$defs/imaging_window_id"
+                    "$ref": "#/definitions/imaging_window_id"
                 }
             ],
             "title": "Imaging Window ID"
