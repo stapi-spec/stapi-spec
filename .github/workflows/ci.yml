@@ -28,8 +28,8 @@ jobs:
     - name: Install dependencies
       run: uv sync --frozen
 
-    - name: Check the OpenAPI document and the JSON examples
-      run: uv run python scripts/check_spec.py
+    - name: Validate the OpenAPI document
+      run: uv run openapi-spec-validator spec/openapi.yaml
 
     - name: Build documentation
       run: uv run mkdocs build --strict

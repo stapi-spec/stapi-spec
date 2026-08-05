@@ -49,15 +49,16 @@ repos:
         'types_or': [python, pyi]
         args: []
         require_serial: true
-      - id: check-spec
-        name: check-spec
-        entry: uv run python scripts/check_spec.py
-        language: python
+      - id: openapi-spec-validator
+        name: openapi-spec-validator
+        entry: uv run openapi-spec-validator spec/openapi.yaml
+        language: system
+        files: ^spec/openapi\.yaml$
         pass_filenames: false
         require_serial: true
       - id: docs-build
         name: docs-build
         entry: uv run mkdocs build --strict
-        language: python
+        language: system
         pass_filenames: false
         require_serial: true

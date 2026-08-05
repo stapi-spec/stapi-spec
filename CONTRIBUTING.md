@@ -62,9 +62,8 @@ All commands should be run from the root of the repository.
 - `uv run mkdocs build`: Creates a production-ready build of the entire site in
   the `site/` directory.
 - `uv run mkdocs --help`: Shows all available MkDocs commands.
-- `uv run python scripts/check_spec.py`: Validates `spec/openapi.yaml` as an
-  OpenAPI document and validates every JSON example under `/docs` against the
-  component schema it is an example of. Also run in CI and by pre-commit.
+- `uv run openapi-spec-validator spec/openapi.yaml`: Validates
+  `spec/openapi.yaml` as an OpenAPI document. Also run in CI and by pre-commit.
 
 #### Versioning with Mike
 
@@ -94,8 +93,9 @@ releases. The `dev` version is automatically updated on each merge to main.
    implementation, so it is free to say things a generator could not express,
    but it is also the specification's own responsibility to keep it in
    agreement with the Markdown under `/docs`. When the two disagree, that is a
-   bug in one of them. Run `uv run python scripts/check_spec.py` after editing
-   it.
+   bug in one of them, and nothing checks it automatically — the agreement is
+   maintained by review. Run `uv run openapi-spec-validator spec/openapi.yaml`
+   after editing it.
 1. **Theme and Configuration**: Site-wide settings, theme configuration, and
    plugins are managed in `mkdocs.yml`.
 
@@ -108,7 +108,6 @@ stapi-spec/
 │   ├── conformances/  # Conformance class definitions
 │   └── api.md         # Renders spec/openapi.yaml into the site
 ├── spec/              # OpenAPI specification
-├── scripts/           # Repository checks
 ├── hooks/             # MkDocs hooks
 ├── mkdocs.yml         # MkDocs configuration
 ├── pyproject.toml     # Python project configuration
