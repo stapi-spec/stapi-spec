@@ -107,10 +107,10 @@ a link to the endpoint using the relation type `monitor`.
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
-| product_id | string | **REQUIRED.** Product identifier. This should be a reference to the [Product](../product/README.md) being ordered. |
+| product_id | string | **REQUIRED.** Product identifier. This should be a reference to the [Product](../product/README.md#product-object) being ordered. |
 | created | datetime | **REQUIRED.** When the order was created |
 | status | [Order Status Object](#order-status) | **REQUIRED.** Current Order Status object |
-| order_request | [Order Request Object](#order-request-object) | **REQUIRED.** Object with the request search and order parameters |
+| order_request | [Order Request Object](#order-request-object) | **REQUIRED.** The request the Order was created from, as recorded by the server. It differs from the submitted Order Request Object in one respect: `order_parameters` is always present, and an Order created without them records an empty object (`{}`). |
 
 ## Order Status
 

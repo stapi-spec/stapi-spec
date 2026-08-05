@@ -20,6 +20,17 @@ To release a new version of the STAPI specification:
    - Ensure all changes for the release are merged to `main`
    - Review the changes since the last release
    - Update any version references in the documentation if needed
+   - Re-pin the cross-reference URLs in `spec/openapi.yaml` and under `docs/`
+     to the tag being released, so a released specification links to its own
+     prose rather than to whatever `main` says later:
+
+     ```bash
+     git grep -l 'blob/v[0-9]*\.[0-9]*\.[0-9]*/' -- spec docs \
+       | xargs sed -i '' 's|blob/v[0-9]*\.[0-9]*\.[0-9]*/|blob/vX.Y.Z/|g'
+     ```
+
+     These links 404 until the tag exists, which is expected between the
+     re-pin and publishing the release.
 
 1. **Create a GitHub Release**
 

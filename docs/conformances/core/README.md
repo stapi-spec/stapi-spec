@@ -1,7 +1,7 @@
 # Core
 
 - **Conformance URI:** `https://stapi.example.com/v0.2.0/core`
-- [OpenAPI document](https://github.com/stapi-spec/stapi-spec/blob/main/spec/openapi.yaml)
+- [OpenAPI document](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/spec/openapi.yaml)
 - [Rendered API documentation](https://stapi-spec.github.io/stapi-spec/dev/)
 
 The core of STAPI includes the `/products` endpoint and the `/orders` endpoint.

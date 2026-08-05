@@ -67,7 +67,7 @@ In addition to standard links, the following are applicable to Opportunity Colle
 
 | rel type | Description |
 | ---------- | ----------- |
-| `next`, `prev`, `first`, `last` | **REQUIRED** when the response is paginated |
+| `next`, `prev`, `first`, `last` | Pagination links, as described in [API Pagination](../pagination/README.md). |
 | `create-order` | **REQUIRED** if individual Opportunities do not include a `create-order` link, otherwise it is **strongly recommended**. This allows the user to resubmit the Opportunities request as an Order. |
 | `search-record` | The search used to generate the Opportunities result. **strongly recommended** to point to `GET /searches/opportunities/{searchRecordId}` when the result of an async search |
 

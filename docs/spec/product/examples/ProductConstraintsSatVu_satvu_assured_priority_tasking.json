@@ -15,9 +15,5 @@
             ],
             "default": "standard"
         }
-    },
-    "required": [
-        "datetime",
-        "product"
-    ]
+    }
 }

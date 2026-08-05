@@ -1,21 +1,44 @@
 components:
   schemas:
     BaseOrderParameters:
-      additionalProperties: true
       description: |-
         Order Parameters as recorded on an existing Order.
 
         This is the value that was supplied as `order_parameters` when the Order was
         created (or `{}`, if the field was omitted), and which validated at that
         time against the Product's [Order
-        Parameters](https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/product/README.md#order-parameters)
+        Parameters](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/product/README.md#order-parameters)
         schema. No fixed schema is given here because the applicable schema is the
         one published by the Product that the Order was placed against, and that
         schema may since have changed. Compare `OrderParameters`, the request-side
         type, which must validate against the Product's currently published schema.
       properties: {}
-      title: BaseOrderParameters
       type: object
+    Bbox:
+      anyOf:
+      - maxItems: 4
+        minItems: 4
+        prefixItems:
+        - type: number
+        - type: number
+        - type: number
+        - type: number
+        type: array
+      - maxItems: 6
+        minItems: 6
+        prefixItems:
+        - type: number
+        - type: number
+        - type: number
+        - type: number
+        - type: number
+        - type: number
+        type: array
+      description: |-
+        Bounding box, formatted according to [RFC 7946, section
+        5](https://tools.ietf.org/html/rfc7946#section-5): four numbers for a 2D box
+        (west, south, east, north) or six for 3D (west, south, min-elevation, east,
+        north, max-elevation).
     Conformance:
       description: |-
         A declaration of conformance classes, using the OAFeat
@@ -26,30 +49,87 @@ components:
         conformsTo:
           description: |-
             **REQUIRED.** The conformance class URIs that apply. See [Conformance
-            Classes](https://github.com/stapi-spec/stapi-spec/blob/main/docs/conformances/README.md).
-          example:
-          - https://stapi.example.com/v0.2.0/core
-          - https://stapi.example.com/v0.2.0/order-statuses
-          - https://stapi.example.com/v0.2.0/searches-opportunity
-          - https://stapi.example.com/v0.2.0/searches-opportunity-statuses
+            Classes](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/conformances/README.md).
+          examples:
+          - - https://stapi.example.com/v0.2.0/core
+            - https://stapi.example.com/v0.2.0/order-statuses
+            - https://stapi.example.com/v0.2.0/searches-opportunity
+            - https://stapi.example.com/v0.2.0/searches-opportunity-statuses
           items:
             type: string
           type: array
       required:
       - conformsTo
-      title: Conformance
       type: object
-    HTTPValidationError:
+    Geometry:
+      discriminator:
+        mapping:
+          LineString: '#/components/schemas/LineString'
+          MultiLineString: '#/components/schemas/MultiLineString'
+          MultiPoint: '#/components/schemas/MultiPoint'
+          MultiPolygon: '#/components/schemas/MultiPolygon'
+          Point: '#/components/schemas/Point'
+          Polygon: '#/components/schemas/Polygon'
+        propertyName: type
+      oneOf:
+      - $ref: '#/components/schemas/Point'
+      - $ref: '#/components/schemas/MultiPoint'
+      - $ref: '#/components/schemas/LineString'
+      - $ref: '#/components/schemas/MultiLineString'
+      - $ref: '#/components/schemas/Polygon'
+      - $ref: '#/components/schemas/MultiPolygon'
       description: |-
-        The body of a 422 response, reporting why the request body or its parameters
-        could not be validated.
+        A GeoJSON Geometry Object compliant to [RFC 7946, section
+        3.1](https://tools.ietf.org/html/rfc7946#section-3.1). Coordinates are specified
+        in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS
+        84](http://www.opengis.net/def/crs/OGC/1.3/CRS84).
+    LandingPage:
+      description: |-
+        The STAPI Landing Page, returned by `GET /`. It communicates API metadata,
+        the conformance classes the API implements, and links to the available
+        endpoints.
       properties:
-        detail:
-          description: The validation problems found in the request.
+        conformsTo:
+          description: |-
+            **REQUIRED.** Conformance classes that apply to the API globally. The same
+            list is served by `GET /conformance`. See [Conformance
+            Classes](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/conformances/README.md).
+          examples:
+          - - https://stapi.example.com/v0.2.0/core
+            - https://stapi.example.com/v0.2.0/order-statuses
+            - https://stapi.example.com/v0.2.0/searches-opportunity
+            - https://stapi.example.com/v0.2.0/searches-opportunity-statuses
           items:
-            $ref: '#/components/schemas/ValidationError'
+            type: string
           type: array
-      title: HTTPValidationError
+        description:
+          default: ''
+          description: |-
+            **REQUIRED.** Detailed multi-line description to fully explain the API.
+            [CommonMark 0.29](http://commonmark.org/) syntax MAY be used for rich text
+            representation.
+          type: string
+        id:
+          description: '**REQUIRED.** Identifier for the API.'
+          type: string
+        links:
+          description: |-
+            **REQUIRED.** A list of references to other documents and endpoints. A
+            `create-order` link is **required** if and only if a user can go directly
+            from the products to the order endpoint without going through the `POST
+            /products/{productId}/opportunities` endpoint.
+          items:
+            $ref: '#/components/schemas/Link'
+          type: array
+        title:
+          default: ''
+          description: A short descriptive one-line title for the API.
+          type: string
+      required:
+      - id
+      - conformsTo
+      - description
+      - links
       type: object
     LineString:
       description: |-
@@ -59,31 +139,7 @@ components:
         `https://geojson.org/schema/LineString.json` conformance class.
       properties:
         bbox:
-          anyOf:
-          - maxItems: 4
-            minItems: 4
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
-          - maxItems: 6
-            minItems: 6
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
-          - type: 'null'
-          description: |-
-            Bounding box of this geometry, formatted according to [RFC 7946, section
-            5](https://tools.ietf.org/html/rfc7946#section-5): all axes of the
-            southwesterly most extent followed by all axes of the northeasterly most
-            extent.
+          $ref: '#/components/schemas/Bbox'
         coordinates:
           description: '**REQUIRED.** An array of two or more positions.'
           items:
@@ -99,10 +155,8 @@ components:
       required:
       - type
       - coordinates
-      title: LineString
       type: object
     Link:
-      additionalProperties: true
       description: |-
         The STAPI Link Object, borrowed from STAC: it is the same as the [STAC Link
         Object](https://github.com/radiantearth/stac-spec/blob/master/commons/links.md#link-object).
@@ -110,7 +164,7 @@ components:
         advised to be liberal with links. Which links an entity must carry, and with
         which relation types, is part of the specification of that entity rather
         than of the Link Object. See [Link
-        Object](https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/link/README.md).
+        Object](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/link/README.md).
       properties:
         body:
           description: |-
@@ -154,7 +208,6 @@ components:
       required:
       - href
       - rel
-      title: Link
       type: object
     MultiLineString:
       description: |-
@@ -164,31 +217,7 @@ components:
         `https://geojson.org/schema/MultiLineString.json` conformance class.
       properties:
         bbox:
-          anyOf:
-          - maxItems: 4
-            minItems: 4
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
-          - maxItems: 6
-            minItems: 6
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
-          - type: 'null'
-          description: |-
-            Bounding box of this geometry, formatted according to [RFC 7946, section
-            5](https://tools.ietf.org/html/rfc7946#section-5): all axes of the
-            southwesterly most extent followed by all axes of the northeasterly most
-            extent.
+          $ref: '#/components/schemas/Bbox'
         coordinates:
           description: '**REQUIRED.** An array of LineString coordinate arrays.'
           items:
@@ -206,7 +235,6 @@ components:
       required:
       - type
       - coordinates
-      title: MultiLineString
       type: object
     MultiPoint:
       description: |-
@@ -216,31 +244,7 @@ components:
         `https://geojson.org/schema/MultiPoint.json` conformance class.
       properties:
         bbox:
-          anyOf:
-          - maxItems: 4
-            minItems: 4
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
-          - maxItems: 6
-            minItems: 6
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
-          - type: 'null'
-          description: |-
-            Bounding box of this geometry, formatted according to [RFC 7946, section
-            5](https://tools.ietf.org/html/rfc7946#section-5): all axes of the
-            southwesterly most extent followed by all axes of the northeasterly most
-            extent.
+          $ref: '#/components/schemas/Bbox'
         coordinates:
           description: '**REQUIRED.** An array of positions.'
           items:
@@ -255,7 +259,6 @@ components:
       required:
       - type
       - coordinates
-      title: MultiPoint
       type: object
     MultiPolygon:
       description: |-
@@ -265,31 +268,7 @@ components:
         `https://geojson.org/schema/MultiPolygon.json` conformance class.
       properties:
         bbox:
-          anyOf:
-          - maxItems: 4
-            minItems: 4
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
-          - maxItems: 6
-            minItems: 6
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
-          - type: 'null'
-          description: |-
-            Bounding box of this geometry, formatted according to [RFC 7946, section
-            5](https://tools.ietf.org/html/rfc7946#section-5): all axes of the
-            southwesterly most extent followed by all axes of the northeasterly most
-            extent.
+          $ref: '#/components/schemas/Bbox'
         coordinates:
           description: '**REQUIRED.** An array of Polygon coordinate arrays.'
           items:
@@ -309,7 +288,6 @@ components:
       required:
       - type
       - coordinates
-      title: MultiPolygon
       type: object
     Opportunity:
       description: |-
@@ -321,25 +299,7 @@ components:
         carried in `properties`.
       properties:
         bbox:
-          anyOf:
-          - maxItems: 4
-            minItems: 4
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
-          - maxItems: 6
-            minItems: 6
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
+          $ref: '#/components/schemas/Bbox'
           description: |-
             **REQUIRED.** Bounding Box of the estimated extent of this Opportunity,
             using either 2D or 3D geometries and formatted according to [RFC 7946,
@@ -355,6 +315,7 @@ components:
             geospatially. Implementations are required to compute intersection
             operations with the Opportunity's `geometry` field, not its `bbox`.
         geometry:
+          $ref: '#/components/schemas/Geometry'
           description: |-
             **REQUIRED.** Defines the estimated footprint or centroid of the
             Opportunity, formatted according to [RFC 7946, section
@@ -363,22 +324,6 @@ components:
             included. Coordinates are specified in Longitude/Latitude or
             Longitude/Latitude/Elevation based on [WGS
             84](http://www.opengis.net/def/crs/OGC/1.3/CRS84).
-          discriminator:
-            mapping:
-              LineString: '#/components/schemas/LineString'
-              MultiLineString: '#/components/schemas/MultiLineString'
-              MultiPoint: '#/components/schemas/MultiPoint'
-              MultiPolygon: '#/components/schemas/MultiPolygon'
-              Point: '#/components/schemas/Point'
-              Polygon: '#/components/schemas/Polygon'
-            propertyName: type
-          oneOf:
-          - $ref: '#/components/schemas/Point'
-          - $ref: '#/components/schemas/MultiPoint'
-          - $ref: '#/components/schemas/LineString'
-          - $ref: '#/components/schemas/MultiLineString'
-          - $ref: '#/components/schemas/Polygon'
-          - $ref: '#/components/schemas/MultiPolygon'
         id:
           description: |-
             Provider identifier. This is not required, unless the provider tracks user
@@ -387,7 +332,7 @@ components:
         links:
           description: |-
             **REQUIRED.** List of [Link
-            Objects](https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/link/README.md)
+            Objects](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/link/README.md)
             to resources and related URLs. A `rel=create-order` link, allowing the user
             to submit an Order specifically for this Opportunity, is **strongly
             recommended**, and is **required** when the Opportunity Collection carrying
@@ -420,7 +365,6 @@ components:
       - stapi_type
       - stapi_version
       - links
-      title: Opportunity
       type: object
     OpportunityCollection:
       description: |-
@@ -428,25 +372,7 @@ components:
         results of an opportunity search.
       properties:
         bbox:
-          anyOf:
-          - maxItems: 4
-            minItems: 4
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
-          - maxItems: 6
-            minItems: 6
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
+          $ref: '#/components/schemas/Bbox'
           description: |-
             Bounding Box of the Opportunities in this collection, formatted according to
             [RFC 7946, section 5](https://tools.ietf.org/html/rfc7946#section-5).
@@ -463,10 +389,10 @@ components:
         links:
           description: |-
             **REQUIRED.** List of [Link
-            Objects](https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/link/README.md)
+            Objects](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/link/README.md)
             to resources and related URLs. Collections carry the links needed to page
             through the full result set; see [API
-            Pagination](https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/pagination/README.md).
+            Pagination](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/pagination/README.md).
             A `create-order` link is **required** if the individual Opportunities do not
             include one, and otherwise **strongly recommended**; it allows the user to
             resubmit the Opportunities request as an Order. A `search-record` link
@@ -504,10 +430,8 @@ components:
       - stapi_type
       - stapi_version
       - links
-      title: OpportunityCollection
       type: object
     OpportunityProperties:
-      additionalProperties: true
       description: |-
         Metadata describing an Opportunity. The only required fields are `datetime`
         and `product_id`, but it is recommended to add more fields as required to
@@ -524,13 +448,12 @@ components:
         product_id:
           description: |-
             **REQUIRED.** Product identifier. This should be a reference to the
-            [Product](https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/product/README.md#product-object)
+            [Product](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/product/README.md#product-object)
             the Opportunity is for.
           type: string
       required:
       - datetime
       - product_id
-      title: OpportunityProperties
       type: object
     OpportunityRequest:
       description: |-
@@ -540,7 +463,7 @@ components:
         Object, less the `order_parameters` field, such that an Opportunity Request
         can also be submitted, unmodified, as an Order Request (except when the
         Product has one or more required order parameters). See [Opportunity Request
-        Object](https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/opportunity/README.md#opportunity-request-object).
+        Object](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/opportunity/README.md#opportunity-request-object).
       properties:
         limit:
           default: 10
@@ -558,7 +481,6 @@ components:
             requirements.
       required:
       - search_parameters
-      title: OpportunityRequest
       type: object
     OpportunitySearchRecord:
       description: |-
@@ -572,7 +494,7 @@ components:
         links:
           description: |-
             **REQUIRED.** List of [Link
-            Objects](https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/link/README.md)
+            Objects](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/link/README.md)
             to resources and related URLs. A `rel=self` link with the href to retrieve
             this record directly **must** be included. If the `GET
             /searches/opportunities/{searchRecordId}/statuses` endpoint is implemented,
@@ -586,7 +508,7 @@ components:
         product_id:
           description: |-
             **REQUIRED.** Product identifier. This should be a reference to the
-            [Product](https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/product/README.md#product-object)
+            [Product](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/product/README.md#product-object)
             being searched.
           type: string
         request:
@@ -614,7 +536,6 @@ components:
       - stapi_type
       - stapi_version
       - links
-      title: OpportunitySearchRecord
       type: object
     OpportunitySearchRecordCollection:
       description: The response object returned when listing Opportunity Search Records.
@@ -622,10 +543,10 @@ components:
         links:
           description: |-
             **REQUIRED.** List of [Link
-            Objects](https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/link/README.md)
+            Objects](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/link/README.md)
             to resources and related URLs. Collections carry the links needed to page
             through the full result set; see [API
-            Pagination](https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/pagination/README.md).
+            Pagination](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/pagination/README.md).
           items:
             $ref: '#/components/schemas/Link'
           type: array
@@ -655,7 +576,6 @@ components:
       - stapi_version
       - records
       - links
-      title: OpportunitySearchRecordCollection
       type: object
     OpportunitySearchStatus:
       description: The status of an Opportunity Search Record at a point in time.
@@ -679,9 +599,10 @@ components:
           - $ref: '#/components/schemas/OpportunitySearchStatusCode'
           - type: string
           description: |-
-            **REQUIRED.** Enumerated status code. Providers must support the codes
-            enumerated by `OpportunitySearchStatusCode`; the type also admits
-            implementation-defined codes.
+            **REQUIRED.** Status code. Providers must support the core codes enumerated by
+            `OpportunitySearchStatusCode`, but the value is not restricted to them:
+            implementations may define additional codes, so clients must be prepared for any
+            string.
         timestamp:
           description: '**REQUIRED.** ISO 8601 timestamp for the search status.'
           format: date-time
@@ -690,7 +611,6 @@ components:
       - timestamp
       - status_code
       - links
-      title: OpportunitySearchStatus
       type: object
     OpportunitySearchStatusCode:
       description: |-
@@ -713,7 +633,6 @@ components:
       - failed
       - cancelled
       - completed
-      title: OpportunitySearchStatusCode
       type: string
     OpportunitySearchStatusCollection:
       description: The status history of an Opportunity Search Record.
@@ -721,10 +640,10 @@ components:
         links:
           description: |-
             **REQUIRED.** List of [Link
-            Objects](https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/link/README.md)
+            Objects](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/link/README.md)
             to resources and related URLs. Collections carry the links needed to page
             through the full result set; see [API
-            Pagination](https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/pagination/README.md).
+            Pagination](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/pagination/README.md).
           items:
             $ref: '#/components/schemas/Link'
           type: array
@@ -756,7 +675,6 @@ components:
       - stapi_version
       - statuses
       - links
-      title: OpportunitySearchStatusCollection
       type: object
     Order:
       description: |-
@@ -764,30 +682,13 @@ components:
         fields are carried in `properties`.
       properties:
         bbox:
-          anyOf:
-          - maxItems: 4
-            minItems: 4
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
-          - maxItems: 6
-            minItems: 6
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
+          $ref: '#/components/schemas/Bbox'
           description: |-
             **REQUIRED.** Bounding Box of the estimated extent to be collected to
             fulfill this Order, formatted according to [RFC 7946, section
             5](https://tools.ietf.org/html/rfc7946#section-5).
         geometry:
+          $ref: '#/components/schemas/Geometry'
           description: |-
             **REQUIRED.** Defines the estimated footprint or centroid of the area to be
             collected to fulfill this Order, formatted according to [RFC 7946, section
@@ -796,29 +697,13 @@ components:
             included. Coordinates are specified in Longitude/Latitude or
             Longitude/Latitude/Elevation based on [WGS
             84](http://www.opengis.net/def/crs/OGC/1.3/CRS84).
-          discriminator:
-            mapping:
-              LineString: '#/components/schemas/LineString'
-              MultiLineString: '#/components/schemas/MultiLineString'
-              MultiPoint: '#/components/schemas/MultiPoint'
-              MultiPolygon: '#/components/schemas/MultiPolygon'
-              Point: '#/components/schemas/Point'
-              Polygon: '#/components/schemas/Polygon'
-            propertyName: type
-          oneOf:
-          - $ref: '#/components/schemas/Point'
-          - $ref: '#/components/schemas/MultiPoint'
-          - $ref: '#/components/schemas/LineString'
-          - $ref: '#/components/schemas/MultiLineString'
-          - $ref: '#/components/schemas/Polygon'
-          - $ref: '#/components/schemas/MultiPolygon'
         id:
           description: '**REQUIRED.** Unique provider generated order ID.'
           type: string
         links:
           description: |-
             **REQUIRED.** List of [Link
-            Objects](https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/link/README.md)
+            Objects](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/link/README.md)
             to resources and related URLs. If the `GET /orders/{orderId}/statuses`
             endpoint is implemented, there must be a link to it using the relation type
             `monitor`.
@@ -851,7 +736,6 @@ components:
       - geometry
       - properties
       - links
-      title: Order
       type: object
     OrderCollection:
       description: |-
@@ -859,25 +743,7 @@ components:
         Orders.
       properties:
         bbox:
-          anyOf:
-          - maxItems: 4
-            minItems: 4
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
-          - maxItems: 6
-            minItems: 6
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
+          $ref: '#/components/schemas/Bbox'
           description: |-
             Bounding Box of the Orders in this collection, formatted according to [RFC
             7946, section 5](https://tools.ietf.org/html/rfc7946#section-5).
@@ -889,10 +755,10 @@ components:
         links:
           description: |-
             **REQUIRED.** List of [Link
-            Objects](https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/link/README.md)
+            Objects](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/link/README.md)
             to resources and related URLs. Collections carry the links needed to page
             through the full result set; see [API
-            Pagination](https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/pagination/README.md).
+            Pagination](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/pagination/README.md).
           items:
             $ref: '#/components/schemas/Link'
           type: array
@@ -923,10 +789,8 @@ components:
       - stapi_version
       - features
       - links
-      title: OrderCollection
       type: object
     OrderParameters:
-      additionalProperties: true
       description: |-
         Product-specific parameters to apply when creating an Order.
 
@@ -942,10 +806,8 @@ components:
         Compare `BaseOrderParameters`, the form in which these parameters are echoed
         back on an existing Order.
       properties: {}
-      title: OrderParameters
       type: object
     OrderProperties:
-      additionalProperties: true
       description: Metadata describing an Order.
       properties:
         created:
@@ -958,7 +820,7 @@ components:
         product_id:
           description: |-
             **REQUIRED.** Product identifier. This should be a reference to the
-            [Product](https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/product/README.md#product-object)
+            [Product](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/product/README.md#product-object)
             being ordered.
           type: string
         status:
@@ -969,7 +831,6 @@ components:
       - created
       - status
       - order_request
-      title: OrderProperties
       type: object
     OrderRequest:
       description: The body of a request to create an Order for a Product.
@@ -979,7 +840,7 @@ components:
           description: |-
             Order Parameters to apply when creating the Order, as defined by the
             Product's [Order
-            Parameters](https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/product/README.md#order-parameters)
+            Parameters](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/product/README.md#order-parameters)
             schema. May be omitted; omission is equivalent to providing an empty object
             (`{}`).
         search_parameters:
@@ -989,10 +850,8 @@ components:
             requirements.
       required:
       - search_parameters
-      title: OrderRequest
       type: object
     OrderStatus:
-      additionalProperties: true
       description: The status of an Order at a point in time.
       properties:
         links:
@@ -1018,9 +877,10 @@ components:
           - $ref: '#/components/schemas/OrderStatusCode'
           - type: string
           description: |-
-            **REQUIRED.** Enumerated status code. Providers must support the core codes
-            enumerated by `OrderStatusCode`; the type also admits codes defined by
-            extensions and by the implementation.
+            **REQUIRED.** Status code. Providers must support the core codes enumerated by
+            `OrderStatusCode`, but the value is not restricted to them: extensions and
+            implementations may define additional codes, so clients must be prepared for
+            any string.
         timestamp:
           description: '**REQUIRED.** ISO 8601 timestamp for the order status.'
           format: date-time
@@ -1029,7 +889,6 @@ components:
       - timestamp
       - status_code
       - links
-      title: OrderStatus
       type: object
     OrderStatusCode:
       description: |-
@@ -1080,7 +939,6 @@ components:
       - user_cancelled
       - expired
       - failed
-      title: OrderStatusCode
       type: string
     OrderStatusCollection:
       description: |-
@@ -1090,10 +948,10 @@ components:
         links:
           description: |-
             **REQUIRED.** List of [Link
-            Objects](https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/link/README.md)
+            Objects](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/link/README.md)
             to resources and related URLs. Collections carry the links needed to page
             through the full result set; see [API
-            Pagination](https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/pagination/README.md).
+            Pagination](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/pagination/README.md).
           items:
             $ref: '#/components/schemas/Link'
           type: array
@@ -1123,7 +981,6 @@ components:
       - stapi_version
       - statuses
       - links
-      title: OrderStatusCollection
       type: object
     Point:
       description: |-
@@ -1133,31 +990,7 @@ components:
         `https://geojson.org/schema/Point.json` conformance class.
       properties:
         bbox:
-          anyOf:
-          - maxItems: 4
-            minItems: 4
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
-          - maxItems: 6
-            minItems: 6
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
-          - type: 'null'
-          description: |-
-            Bounding box of this geometry, formatted according to [RFC 7946, section
-            5](https://tools.ietf.org/html/rfc7946#section-5): all axes of the
-            southwesterly most extent followed by all axes of the northeasterly most
-            extent.
+          $ref: '#/components/schemas/Bbox'
         coordinates:
           anyOf:
           - $ref: '#/components/schemas/Position2D'
@@ -1170,7 +1003,6 @@ components:
       required:
       - type
       - coordinates
-      title: Point
       type: object
     Polygon:
       description: |-
@@ -1180,31 +1012,7 @@ components:
         `https://geojson.org/schema/Polygon.json` conformance class.
       properties:
         bbox:
-          anyOf:
-          - maxItems: 4
-            minItems: 4
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
-          - maxItems: 6
-            minItems: 6
-            prefixItems:
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            - type: number
-            type: array
-          - type: 'null'
-          description: |-
-            Bounding box of this geometry, formatted according to [RFC 7946, section
-            5](https://tools.ietf.org/html/rfc7946#section-5): all axes of the
-            southwesterly most extent followed by all axes of the northeasterly most
-            extent.
+          $ref: '#/components/schemas/Bbox'
         coordinates:
           description: |-
             **REQUIRED.** An array of linear ring coordinate arrays. The first is the
@@ -1224,7 +1032,6 @@ components:
       required:
       - type
       - coordinates
-      title: Polygon
       type: object
     Position2D:
       description: |-
@@ -1237,7 +1044,6 @@ components:
         type: number
       - title: Latitude
         type: number
-      title: Position2D
       type: array
     Position3D:
       description: |-
@@ -1253,7 +1059,6 @@ components:
         type: number
       - title: Altitude
         type: number
-      title: Position3D
       type: array
     Product:
       description: |-
@@ -1268,10 +1073,10 @@ components:
       properties:
         conformsTo:
           description: |-
-            Conformance classes that apply to the Product specifically. A Product must
-            advertise its support for sync and/or async opportunity search here, and
-            must advertise at least one geometry conformance class. See [Conformance
-            Classes](https://github.com/stapi-spec/stapi-spec/blob/main/docs/conformances/README.md#product-conformance-classes).
+            **REQUIRED.** Conformance classes that apply to this Product specifically.
+            A Product must advertise at least one geometry conformance class, and must
+            advertise its Opportunity search support (or lack of it) via the opportunity
+            conformance classes.
           items:
             type: string
           type: array
@@ -1333,14 +1138,14 @@ components:
           description: '**REQUIRED.** Must be set to `Collection` to be a valid Product.'
           type: string
       required:
-      - type
-      - stapi_type
-      - stapi_version
-      - id
+      - conformsTo
       - description
+      - id
       - license
       - links
-      title: Product
+      - stapi_type
+      - stapi_version
+      - type
       type: object
     ProductCollection:
       description: The list of Products offered by the API.
@@ -1348,10 +1153,10 @@ components:
         links:
           description: |-
             **REQUIRED.** List of [Link
-            Objects](https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/link/README.md)
+            Objects](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/link/README.md)
             to resources and related URLs. Collections carry the links needed to page
             through the full result set; see [API
-            Pagination](https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/pagination/README.md).
+            Pagination](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/pagination/README.md).
           items:
             $ref: '#/components/schemas/Link'
           type: array
@@ -1379,7 +1184,6 @@ components:
       - stapi_version
       - links
       - products
-      title: ProductCollection
       type: object
     Provider:
       description: |-
@@ -1412,7 +1216,6 @@ components:
           type: string
       required:
       - name
-      title: Provider
       type: object
     ProviderRole:
       description: |-
@@ -1430,59 +1233,8 @@ components:
       - producer
       - processor
       - host
-      title: ProviderRole
       type: string
-    RootResponse:
-      description: |-
-        The STAPI Landing Page, returned by `GET /`. It communicates API metadata,
-        the conformance classes the API implements, and links to the available
-        endpoints.
-      properties:
-        conformsTo:
-          description: |-
-            **REQUIRED.** Conformance classes that apply to the API globally. The same
-            list is served by `GET /conformance`. See [Conformance
-            Classes](https://github.com/stapi-spec/stapi-spec/blob/main/docs/conformances/README.md).
-          example:
-          - https://stapi.example.com/v0.2.0/core
-          - https://stapi.example.com/v0.2.0/order-statuses
-          - https://stapi.example.com/v0.2.0/searches-opportunity
-          - https://stapi.example.com/v0.2.0/searches-opportunity-statuses
-          items:
-            type: string
-          type: array
-        description:
-          default: ''
-          description: |-
-            **REQUIRED.** Detailed multi-line description to fully explain the API.
-            [CommonMark 0.29](http://commonmark.org/) syntax MAY be used for rich text
-            representation.
-          type: string
-        id:
-          description: '**REQUIRED.** Identifier for the API.'
-          type: string
-        links:
-          description: |-
-            **REQUIRED.** A list of references to other documents and endpoints. A
-            `create-order` link is **required** if and only if a user can go directly
-            from the products to the order endpoint without going through the `POST
-            /products/{productId}/opportunities` endpoint.
-          items:
-            $ref: '#/components/schemas/Link'
-          type: array
-        title:
-          default: ''
-          description: A short descriptive one-line title for the API.
-          type: string
-      required:
-      - id
-      - conformsTo
-      - description
-      - links
-      title: Landing Page
-      type: object
     SearchParameters:
-      additionalProperties: true
       description: |-
         The Search Parameters Object contains the necessary values to determine what
         could possibly fulfill a request.
@@ -1492,7 +1244,7 @@ components:
         Opportunities returned to the user. In the latter case it is used by the
         data provider to identify what data to task/deliver to meet the user's
         needs. See [Search Parameters
-        Object](https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/search-parameters/README.md).
+        Object](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/search-parameters/README.md).
       properties:
         datetime:
           description: |-
@@ -1525,47 +1277,29 @@ components:
           type: string
         filter:
           anyOf:
-          - additionalProperties: true
-            type: object
+          - type: object
           - type: 'null'
           description: |-
             A set of additional filter terms in [CQL2
             JSON](https://docs.ogc.org/is/21-065r2/21-065r2.html#cql2-json) format,
             based on the
-            [queryables](https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/product/README.md#queryables)
+            [queryables](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/product/README.md#queryables)
             exposed by the Product. Optional, unless the Product's queryables schema
             marks one or more queryables as required, in which case a filter including a
             predicate for each required queryable must be supplied.
         geometry:
+          $ref: '#/components/schemas/Geometry'
           description: |-
             **REQUIRED.** Defines the full footprint that the tasked data will be
             within. Must be an embedded GeoJSON object compliant to [RFC 7946, section
             3.1](https://tools.ietf.org/html/rfc7946#section-3.1). Coordinates are
             specified in Longitude/Latitude or Longitude/Latitude/Elevation based on
             [WGS 84](http://www.opengis.net/def/crs/OGC/1.3/CRS84).
-          discriminator:
-            mapping:
-              LineString: '#/components/schemas/LineString'
-              MultiLineString: '#/components/schemas/MultiLineString'
-              MultiPoint: '#/components/schemas/MultiPoint'
-              MultiPolygon: '#/components/schemas/MultiPolygon'
-              Point: '#/components/schemas/Point'
-              Polygon: '#/components/schemas/Polygon'
-            propertyName: type
-          oneOf:
-          - $ref: '#/components/schemas/Point'
-          - $ref: '#/components/schemas/MultiPoint'
-          - $ref: '#/components/schemas/LineString'
-          - $ref: '#/components/schemas/MultiLineString'
-          - $ref: '#/components/schemas/Polygon'
-          - $ref: '#/components/schemas/MultiPolygon'
       required:
       - datetime
       - geometry
-      title: SearchParameters
       type: object
     StoredOrderRequest:
-      additionalProperties: true
       description: |-
         The Order Request as recorded on an existing Order.
 
@@ -1585,32 +1319,84 @@ components:
       required:
       - search_parameters
       - order_parameters
-      title: StoredOrderRequest
       type: object
-    ValidationError:
-      description: A single problem found while validating a request.
-      properties:
-        loc:
-          description: |-
-            Path to the offending value within the request, as a sequence of object
-            member names and array indices.
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-        msg:
-          description: Human-readable description of the problem.
-          type: string
-        type:
-          description: Machine-readable identifier for the kind of problem.
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
+  parameters:
+    ProductId:
+      description: Identifier of the Product, as given by the `id` of a Product Object.
+      in: path
+      name: productId
+      required: true
+      schema:
+        type: string
+    OrderId:
+      description: Identifier of the Order to act on.
+      in: path
+      name: orderId
+      required: true
+      schema:
+        type: string
+    SearchRecordId:
+      description: Identifier of the Opportunity Search Record.
+      in: path
+      name: searchRecordId
+      required: true
+      schema:
+        type: string
+    OpportunityCollectionId:
+      description: |-
+        Identifier of the Opportunity Collection produced by an asynchronous
+        opportunity search, as given by the `rel=opportunities` link of the
+        corresponding Opportunity Search Record.
+      in: path
+      name: opportunityCollectionId
+      required: true
+      schema:
+        type: string
+    Limit:
+      description: The maximum number of items to return in a single page.
+      in: query
+      name: limit
+      required: false
+      schema:
+        default: 10
+        maximum: 100
+        minimum: 1
+        type: integer
+    Prefer:
+      description: |-
+        Requests synchronous or asynchronous operation. `wait` requests a
+        synchronous response (a 200 with an Opportunity Collection); `respond-async`
+        requests an asynchronous one (a 201 with an Opportunity Search Record).
+        Products advertise which they support via the opportunity conformance
+        classes, and a Product supporting both must choose a default so that clients
+        can omit this header. The server always reports what it did in the
+        `Preference-Applied` response header.
+      in: header
+      name: Prefer
+      required: false
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: |-
+        The request is malformed: a parameter value does not match its declared type
+        or range, or the request body could not be parsed.
+    NotFound:
+      description: The requested resource does not exist or is not accessible.
+    NotFoundOrStalePage:
+      description: |-
+        The requested resource does not exist or is not accessible, or the supplied
+        pagination token does not identify a page.
+    UnprocessableRequest:
+      description: |-
+        The request is well-formed but violates a rule of this specification or of the
+        Product's own schemas: for example it omits a filter predicate for a queryable
+        the Product marks as required, its `order_parameters` do not validate against
+        the Product's order parameters schema, or its `Prefer` header carries an
+        unsupported value. This specification does not yet define a body for error
+        responses.
+    ServerError:
+      description: The request could not be served because a backend reported failure.
 externalDocs:
   description: STAPI Specification Documentation
   url: https://stapi-spec.github.io/stapi-spec/
@@ -1660,8 +1446,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RootResponse'
+                $ref: '#/components/schemas/LandingPage'
           description: The API Landing Page.
+        '500':
+          $ref: '#/components/responses/ServerError'
       summary: Get the API landing page
       tags:
       - Root
@@ -1684,6 +1472,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Conformance'
           description: The conformance classes the API implements.
+        '500':
+          $ref: '#/components/responses/ServerError'
       summary: Get conformance urls for the API
       tags:
       - Conformance
@@ -1692,25 +1482,7 @@ paths:
       description: Return a page of the Orders visible to the requestor.
       operationId: list_orders
       parameters:
-      - description: Pagination token, as provided by the `next` link of a previous response.
-        in: query
-        name: next
-        required: false
-        schema:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Pagination token, as provided by the `next` link of a previous response.
-      - description: The maximum number of items to return in a single page.
-        in: query
-        name: limit
-        required: false
-        schema:
-          default: 10
-          description: The maximum number of items to return in a single page.
-          maximum: 100
-          minimum: 1
-          type: integer
+      - $ref: '#/components/parameters/Limit'
       responses:
         '200':
           content:
@@ -1718,20 +1490,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/OrderCollection'
           description: A page of Orders, as an Order Collection.
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '404':
-          description: |-
-            The requested resource does not exist or is not accessible, or the supplied
-            pagination token does not identify a page.
-        '422':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-          description: |-
-            The request could not be validated. The body reports which values were
-            rejected and why.
+          $ref: '#/components/responses/NotFoundOrStalePage'
         '500':
-          description: The request could not be served because a backend reported failure.
+          $ref: '#/components/responses/ServerError'
       summary: List all Orders
       tags:
       - Orders
@@ -1740,12 +1504,7 @@ paths:
       description: Get details for order with `orderId`.
       operationId: get_order
       parameters:
-      - description: Identifier of the Order to act on.
-        in: path
-        name: orderId
-        required: true
-        schema:
-          type: string
+      - $ref: '#/components/parameters/OrderId'
       responses:
         '200':
           content:
@@ -1754,17 +1513,9 @@ paths:
                 $ref: '#/components/schemas/Order'
           description: The requested Order.
         '404':
-          description: The requested resource does not exist or is not accessible.
-        '422':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-          description: |-
-            The request could not be validated. The body reports which values were
-            rejected and why.
+          $ref: '#/components/responses/NotFound'
         '500':
-          description: The request could not be served because a backend reported failure.
+          $ref: '#/components/responses/ServerError'
       summary: Get an Order by ID
       tags:
       - Orders
@@ -1775,31 +1526,8 @@ paths:
         recent status code is the current status of the Order.
       operationId: list_order_statuses
       parameters:
-      - description: Identifier of the Order to act on.
-        in: path
-        name: orderId
-        required: true
-        schema:
-          type: string
-      - description: Pagination token, as provided by the `next` link of a previous response.
-        in: query
-        name: next
-        required: false
-        schema:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Pagination token, as provided by the `next` link of a previous response.
-      - description: The maximum number of items to return in a single page.
-        in: query
-        name: limit
-        required: false
-        schema:
-          default: 10
-          description: The maximum number of items to return in a single page.
-          maximum: 100
-          minimum: 1
-          type: integer
+      - $ref: '#/components/parameters/OrderId'
+      - $ref: '#/components/parameters/Limit'
       responses:
         '200':
           content:
@@ -1809,20 +1537,12 @@ paths:
           description: |-
             A page of the Order's status history, in reverse chronological order, as an
             Order Status Collection.
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '404':
-          description: |-
-            The requested resource does not exist or is not accessible, or the supplied
-            pagination token does not identify a page.
-        '422':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-          description: |-
-            The request could not be validated. The body reports which values were
-            rejected and why.
+          $ref: '#/components/responses/NotFoundOrStalePage'
         '500':
-          description: The request could not be served because a backend reported failure.
+          $ref: '#/components/responses/ServerError'
       summary: List statuses for an Order
       tags:
       - Orders
@@ -1834,25 +1554,7 @@ paths:
         to them.
       operationId: list_products
       parameters:
-      - description: Pagination token, as provided by the `next` link of a previous response.
-        in: query
-        name: next
-        required: false
-        schema:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Pagination token, as provided by the `next` link of a previous response.
-      - description: The maximum number of items to return in a single page.
-        in: query
-        name: limit
-        required: false
-        schema:
-          default: 10
-          description: The maximum number of items to return in a single page.
-          maximum: 100
-          minimum: 1
-          type: integer
+      - $ref: '#/components/parameters/Limit'
       responses:
         '200':
           content:
@@ -1860,18 +1562,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProductCollection'
           description: A page of Products, as a Product Collection.
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '404':
-          description: |-
-            The requested resource does not exist or is not accessible, or the supplied
-            pagination token does not identify a page.
-        '422':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-          description: |-
-            The request could not be validated. The body reports which values were
-            rejected and why.
+          $ref: '#/components/responses/NotFoundOrStalePage'
+        '500':
+          $ref: '#/components/responses/ServerError'
       summary: List all Products
       tags:
       - Products
@@ -1880,12 +1576,7 @@ paths:
       description: Return the Product with `productId`.
       operationId: get_product
       parameters:
-      - description: Identifier of the Product, as given by the `id` of a Product Object.
-        in: path
-        name: productId
-        required: true
-        schema:
-          type: string
+      - $ref: '#/components/parameters/ProductId'
       responses:
         '200':
           content:
@@ -1894,7 +1585,9 @@ paths:
                 $ref: '#/components/schemas/Product'
           description: The requested Product.
         '404':
-          description: The requested resource does not exist or is not accessible.
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
       summary: Get a Product by ID
       tags:
       - Products
@@ -1906,12 +1599,7 @@ paths:
         here, and must advertise at least one geometry conformance class.
       operationId: product_conformance
       parameters:
-      - description: Identifier of the Product, as given by the `id` of a Product Object.
-        in: path
-        name: productId
-        required: true
-        schema:
-          type: string
+      - $ref: '#/components/parameters/ProductId'
       responses:
         '200':
           content:
@@ -1920,7 +1608,9 @@ paths:
                 $ref: '#/components/schemas/Conformance'
           description: The conformance classes the Product implements.
         '404':
-          description: The requested resource does not exist or is not accessible.
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
       summary: Get conformance urls for the product
       tags:
       - Conformance
@@ -1939,27 +1629,8 @@ paths:
         the `Preference-Applied` response header.
       operationId: search_opportunities
       parameters:
-      - description: Identifier of the Product, as given by the `id` of a Product Object.
-        in: path
-        name: productId
-        required: true
-        schema:
-          type: string
-      - description: |-
-          Requests synchronous or asynchronous operation. `wait` requests a
-          synchronous response (a 200 with an Opportunity Collection); `respond-async`
-          requests an asynchronous one (a 201 with an Opportunity Search Record).
-          Products advertise which they support via the opportunity conformance
-          classes, and a Product supporting both must choose a default so that clients
-          can omit this header. The server always reports what it did in the
-          `Preference-Applied` response header.
-        in: header
-        name: prefer
-        required: false
-        schema:
-          anyOf:
-          - type: string
-          - type: 'null'
+      - $ref: '#/components/parameters/ProductId'
+      - $ref: '#/components/parameters/Prefer'
       requestBody:
         content:
           application/json:
@@ -2031,23 +1702,13 @@ paths:
                 - wait
                 type: string
         '400':
-          description: |-
-            The request was rejected: e.g. it omits a predicate for a queryable the
-            Product requires, or its `Prefer` header carries an unsupported value.
+          $ref: '#/components/responses/BadRequest'
         '404':
-          description: |-
-            The requested resource does not exist or is not accessible, or the supplied
-            pagination token does not identify a page.
+          $ref: '#/components/responses/NotFound'
         '422':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-          description: |-
-            The request could not be validated. The body reports which values were
-            rejected and why.
+          $ref: '#/components/responses/UnprocessableRequest'
         '500':
-          description: The request could not be served because a backend reported failure.
+          $ref: '#/components/responses/ServerError'
       summary: Search Opportunities for the product
       tags:
       - Opportunities
@@ -2058,40 +1719,9 @@ paths:
         search.
       operationId: get_opportunity_collection
       parameters:
-      - description: Identifier of the Product, as given by the `id` of a Product Object.
-        in: path
-        name: productId
-        required: true
-        schema:
-          type: string
-      - description: |-
-          Identifier of the Opportunity Collection produced by an asynchronous
-          opportunity search, as given by the `rel=opportunities` link of the
-          corresponding Opportunity Search Record.
-        in: path
-        name: opportunityCollectionId
-        required: true
-        schema:
-          type: string
-      - description: Pagination token, as provided by the `next` link of a previous response.
-        in: query
-        name: next
-        required: false
-        schema:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Pagination token, as provided by the `next` link of a previous response.
-      - description: The maximum number of items to return in a single page.
-        in: query
-        name: limit
-        required: false
-        schema:
-          default: 10
-          description: The maximum number of items to return in a single page.
-          maximum: 100
-          minimum: 1
-          type: integer
+      - $ref: '#/components/parameters/ProductId'
+      - $ref: '#/components/parameters/OpportunityCollectionId'
+      - $ref: '#/components/parameters/Limit'
       responses:
         '200':
           content:
@@ -2101,20 +1731,12 @@ paths:
           description: |-
             A page of the Opportunity Collection produced by the asynchronous
             opportunity search.
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '404':
-          description: |-
-            The requested resource does not exist or is not accessible, or the supplied
-            pagination token does not identify a page.
-        '422':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-          description: |-
-            The request could not be validated. The body reports which values were
-            rejected and why.
+          $ref: '#/components/responses/NotFoundOrStalePage'
         '500':
-          description: The request could not be served because a backend reported failure.
+          $ref: '#/components/responses/ServerError'
       summary: Get an Opportunity Collection by ID
       tags:
       - Opportunities
@@ -2125,12 +1747,7 @@ paths:
         options that can be set when creating an Order.
       operationId: get_order_parameters
       parameters:
-      - description: Identifier of the Product, as given by the `id` of a Product Object.
-        in: path
-        name: productId
-        required: true
-        schema:
-          type: string
+      - $ref: '#/components/parameters/ProductId'
       responses:
         '200':
           content:
@@ -2152,7 +1769,9 @@ paths:
                 type: object
           description: The Product's order parameters, as a JSON Schema document.
         '404':
-          description: The requested resource does not exist or is not accessible.
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
       summary: Get order parameters for the product
       tags:
       - Products
@@ -2164,12 +1783,7 @@ paths:
         any order parameters defined by the Product.
       operationId: create_order
       parameters:
-      - description: Identifier of the Product, as given by the `id` of a Product Object.
-        in: path
-        name: productId
-        required: true
-        schema:
-          type: string
+      - $ref: '#/components/parameters/ProductId'
       requestBody:
         content:
           application/json:
@@ -2193,22 +1807,13 @@ paths:
                 format: uri
                 type: string
         '400':
-          description: |-
-            The request was rejected: e.g. it omits a predicate for a queryable the
-            Product requires, or its `order_parameters` do not validate against the
-            Product's Order Parameters schema.
+          $ref: '#/components/responses/BadRequest'
         '404':
-          description: The requested resource does not exist or is not accessible.
+          $ref: '#/components/responses/NotFound'
         '422':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-          description: |-
-            The request could not be validated. The body reports which values were
-            rejected and why.
+          $ref: '#/components/responses/UnprocessableRequest'
         '500':
-          description: The request could not be served because a backend reported failure.
+          $ref: '#/components/responses/ServerError'
       summary: Create an order for the product
       tags:
       - Orders
@@ -2220,12 +1825,7 @@ paths:
         constrain the intended search results.
       operationId: get_queryables
       parameters:
-      - description: Identifier of the Product, as given by the `id` of a Product Object.
-        in: path
-        name: productId
-        required: true
-        schema:
-          type: string
+      - $ref: '#/components/parameters/ProductId'
       responses:
         '200':
           content:
@@ -2248,7 +1848,9 @@ paths:
                 type: object
           description: The Product's queryables, as a JSON Schema document.
         '404':
-          description: The requested resource does not exist or is not accessible.
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
       summary: Get queryables for the product
       tags:
       - Products
@@ -2257,25 +1859,7 @@ paths:
       description: Return a page of the Opportunity Search Records visible to the requestor.
       operationId: list_opportunity_search_records
       parameters:
-      - description: Pagination token, as provided by the `next` link of a previous response.
-        in: query
-        name: next
-        required: false
-        schema:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Pagination token, as provided by the `next` link of a previous response.
-      - description: The maximum number of items to return in a single page.
-        in: query
-        name: limit
-        required: false
-        schema:
-          default: 10
-          description: The maximum number of items to return in a single page.
-          maximum: 100
-          minimum: 1
-          type: integer
+      - $ref: '#/components/parameters/Limit'
       responses:
         '200':
           content:
@@ -2285,20 +1869,12 @@ paths:
           description: |-
             A page of Opportunity Search Records, as an Opportunity Search Record
             Collection.
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '404':
-          description: |-
-            The requested resource does not exist or is not accessible, or the supplied
-            pagination token does not identify a page.
-        '422':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-          description: |-
-            The request could not be validated. The body reports which values were
-            rejected and why.
+          $ref: '#/components/responses/NotFoundOrStalePage'
         '500':
-          description: The request could not be served because a backend reported failure.
+          $ref: '#/components/responses/ServerError'
       summary: List all Opportunity Search Records
       tags:
       - Opportunities
@@ -2307,12 +1883,7 @@ paths:
       description: Get the Opportunity Search Record with `searchRecordId`.
       operationId: get_opportunity_search_record
       parameters:
-      - description: Identifier of the Opportunity Search Record.
-        in: path
-        name: searchRecordId
-        required: true
-        schema:
-          type: string
+      - $ref: '#/components/parameters/SearchRecordId'
       responses:
         '200':
           content:
@@ -2321,17 +1892,9 @@ paths:
                 $ref: '#/components/schemas/OpportunitySearchRecord'
           description: The requested Opportunity Search Record.
         '404':
-          description: The requested resource does not exist or is not accessible.
-        '422':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-          description: |-
-            The request could not be validated. The body reports which values were
-            rejected and why.
+          $ref: '#/components/responses/NotFound'
         '500':
-          description: The request could not be served because a backend reported failure.
+          $ref: '#/components/responses/ServerError'
       summary: Get an Opportunity Search Record by ID
       tags:
       - Opportunities
@@ -2343,31 +1906,8 @@ paths:
         search.
       operationId: list_opportunity_search_record_statuses
       parameters:
-      - description: Identifier of the Opportunity Search Record.
-        in: path
-        name: searchRecordId
-        required: true
-        schema:
-          type: string
-      - description: Pagination token, as provided by the `next` link of a previous response.
-        in: query
-        name: next
-        required: false
-        schema:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Pagination token, as provided by the `next` link of a previous response.
-      - description: The maximum number of items to return in a single page.
-        in: query
-        name: limit
-        required: false
-        schema:
-          default: 10
-          description: The maximum number of items to return in a single page.
-          maximum: 100
-          minimum: 1
-          type: integer
+      - $ref: '#/components/parameters/SearchRecordId'
+      - $ref: '#/components/parameters/Limit'
       responses:
         '200':
           content:
@@ -2377,20 +1917,12 @@ paths:
           description: |-
             A page of the search's status history, in reverse chronological order, as an
             Opportunity Search Status Collection.
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '404':
-          description: |-
-            The requested resource does not exist or is not accessible, or the supplied
-            pagination token does not identify a page.
-        '422':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-          description: |-
-            The request could not be validated. The body reports which values were
-            rejected and why.
+          $ref: '#/components/responses/NotFoundOrStalePage'
         '500':
-          description: The request could not be served because a backend reported failure.
+          $ref: '#/components/responses/ServerError'
       summary: List statuses for an Opportunity Search Record
       tags:
       - Opportunities
@@ -2411,25 +1943,25 @@ tags:
 - description: The landing page, communicating API metadata, conformance, and links.
   externalDocs:
     description: STAPI Core Specification
-    url: https://github.com/stapi-spec/stapi-spec/blob/main/docs/conformances/core/README.md
+    url: https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/conformances/core/README.md
   name: Root
 - description: Conformance classes implemented by this API.
   externalDocs:
     description: STAPI Conformance Classes
-    url: https://github.com/stapi-spec/stapi-spec/blob/main/docs/conformances/README.md
+    url: https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/conformances/README.md
   name: Conformance
 - description: Endpoints for discovering and describing remote sensing data products.
   externalDocs:
     description: STAPI Product Specification
-    url: https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/product/README.md
+    url: https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/product/README.md
   name: Products
 - description: Endpoints for creating and monitoring remote sensing data orders.
   externalDocs:
     description: STAPI Order Specification
-    url: https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/order/README.md
+    url: https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/order/README.md
   name: Orders
 - description: Endpoints for searching remote sensing acquisition opportunities.
   externalDocs:
     description: STAPI Opportunity Specification
-    url: https://github.com/stapi-spec/stapi-spec/blob/main/docs/spec/opportunity/README.md
+    url: https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/opportunity/README.md
   name: Opportunities
