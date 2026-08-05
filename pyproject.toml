@@ -14,10 +14,16 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "jsonschema>=4.25.0",
     "mypy>=1.17.0",
+    "openapi-spec-validator>=0.7.2",
     "pre-commit>=4.2.0",
     "pre-commit-hooks>=5.0.0",
+    "pyyaml>=6.0.2",
+    "referencing>=0.36.2",
     "ruff>=0.12.5",
+    "types-jsonschema>=4.25.0",
+    "types-pyyaml>=6.0.12",
 ]
 
 [tool.uv]

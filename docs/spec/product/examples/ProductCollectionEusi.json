@@ -26,7 +26,6 @@
             "providers": [
                 {
                     "name": "EUSI",
-                    "description": null,
                     "roles": [
                         "licensor",
                         "processor",
