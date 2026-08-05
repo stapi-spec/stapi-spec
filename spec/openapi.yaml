@@ -474,9 +474,9 @@ components:
         Object](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/opportunity/README.md#opportunity-request-object).
       properties:
         limit:
-          default: 10
           description: The maximum number of items to return in a single page.
           type: integer
+          minimum: 1
         next:
           anyOf:
           - type: string
@@ -1305,8 +1305,6 @@ components:
       name: limit
       required: false
       schema:
-        default: 10
-        maximum: 100
         minimum: 1
         type: integer
     Prefer:

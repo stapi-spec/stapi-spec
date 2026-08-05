@@ -58,11 +58,15 @@ return in a single page:
 
 - `https://stapi.example.com/products?limit=50`
 
-`limit` is an integer between 1 and 100 inclusive, and defaults to 10 when it
-is not supplied. It is a maximum, not an exact count: a server **may** return
-fewer entities than requested, and a page containing fewer entities than the
-limit does not by itself indicate that the last page has been reached. Only the
-absence of a `next` link does.
+`limit` is an integer no smaller than 1. It is a maximum, not an exact count: a
+server **may** return fewer entities than requested, and a page containing
+fewer entities than the limit does not by itself indicate that the last page
+has been reached. Only the absence of a `next` link does.
+
+This specification sets neither an upper bound on `limit` nor a default page
+size. A server **may** enforce its own maximum and **may** choose any default
+for requests that omit `limit`; both are implementation concerns rather than
+matters of interoperability.
 
 Paginated collection responses may also include a `numberMatched` field, as
 described in the [Collection Object](../collection/README.md).
