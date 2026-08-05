@@ -30,11 +30,9 @@ following way:
 
 #### order_parameters
 
-Order Parameters define Product options that can be used when creating an
-Order.  These are different than Product Queryables, in that they do not
-constrain (filter) the desired results, but rather define general properties of
-an entire order. For example, an order parameter might define what file format
-to use for delivery or what location to deliver to.
+Order Parameters are defined by the Product; see [Order
+Parameters](../product/README.md#order-parameters) for what they are and how a
+Product advertises them.
 
 The `order_parameters` value—or `{}` when the field is omitted—must validate
 against the Product's [Order Parameters](../product/README.md#order-parameters)
@@ -68,14 +66,14 @@ See [Order Collection](#order-collection).
 When fetching a list of Orders the response is an Order Collection, a GeoJSON
 FeatureCollection where each Feature is an [Order Object](#order-object).
 
+In addition to the fields common to every [Collection
+Object](../collection/README.md), an Order Collection has the following fields.
+
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
 | type | string | **REQUIRED.** Type of the GeoJSON Object. **Must** be set to `FeatureCollection`. |
 | stapi_type | string | **REQUIRED.** Type of the STAPI Object. **Must** be set to `OrderCollection`. |
-| stapi_version | string | **REQUIRED.** The STAPI version the Order Collection implements. |
 | features | \[[Order Object](#order-object)\] | **REQUIRED.** A list of orders. |
-| links | \[[Link Object](https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md#link-object)\] | **REQUIRED.** Links, e.g., for pagination. |
-| numberMatched | integer | **OPTIONAL.** The number of orders matched by the request, across all pages, if known and the implementation chooses to include it. |
 
 ## GET /orders/\{orderId\}
 
@@ -100,7 +98,7 @@ See [Order Object](#order-object).
 | geometry | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) | **REQUIRED.** Defines the estimated footprint or centroid of the area to be collected to fulfill this order, formatted according to [RFC 7946, section 3.1](https://tools.ietf.org/html/rfc7946#section-3.1). The footprint should be the default GeoJSON geometry, though additional geometries can be included. Coordinates are specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS 84](http://www.opengis.net/def/crs/OGC/1.3/CRS84). |
 | bbox | [number] | **REQUIRED.** Bounding Box of the estimated extent to be collected to fulfill this Order, formatted according to [RFC 7946, section 5](https://tools.ietf.org/html/rfc7946#section-5). |
 | properties | [Order Properties Object](#order-properties-object) | **REQUIRED.** A dictionary of additional metadata for the Order. |
-| links | \[[Link Object](https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md#link-object)\] | List of link objects to resources and related URLs. |
+| links | \[[Link Object](../link/README.md)\] | List of link objects to resources and related URLs. |
 
 If the `GET /orders/{orderId}/statuses` endpoint is implemented, there must be
 a link to the endpoint using the relation type `monitor`.
@@ -122,7 +120,7 @@ a link to the endpoint using the relation type `monitor`.
 | status_code | string | **REQUIRED.** Enumerated status code |
 | reason_code | string | Enumerated reason code for why the status was set |
 | reason_text | string | Textual description for why the status was set |
-| links | \[Link Object\] | **REQUIRED.** list of references to documents, such as delivered asset, processing log, delivery manifest, etc. |
+| links | \[[Link Object](../link/README.md)\] | **REQUIRED.** list of references to documents, such as delivered asset, processing log, delivery manifest, etc. |
 
 Links is intended to be the same data structure as links collection in STAC.
 Links will be very provider specific.

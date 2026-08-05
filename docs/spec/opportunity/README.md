@@ -48,21 +48,21 @@ parameters).
 An Opportunity Collection is returned when retrieving the results of an
 opportunity search. It is a GeoJSON FeatureCollection.
 
+In addition to the fields common to every [Collection
+Object](../collection/README.md), an Opportunity Collection has the following
+fields.
+
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
 | type | string | **REQUIRED.** Type of the GeoJSON Object. **Must** be set to `FeatureCollection`. |
 | stapi_type | string | **REQUIRED.** Type of the STAPI Object. **Must** be set to `OpportunityCollection`. |
-| stapi_version | string | **REQUIRED.** The STAPI version the Opportunity Collection implements. |
 | id | string | Identifier for the collection, if persisted (**required** for async search opportunity collections). |
 | features | \[[Opportunity Object](#opportunity-object)\] | **REQUIRED.** A list of opportunities. |
-| links | [[Link Object](#opportunity-collection-links)] | List of link objects to resources and related URLs. |
-| numberMatched | integer | **OPTIONAL.** The number of opportunities matched by the request, across all pages, if known and the implementation chooses to include it. |
+| links | \[[Link Object](../link/README.md)\] | List of link objects to resources and related URLs. See [Opportunity Collection Links](#opportunity-collection-links). |
 
 ### Opportunity Collection Links
 
-Each link in the links array must be a
-[Link](https://github.com/radiantearth/stac-spec/blob/master/commons/links.md#link-object)
-Object.
+Each link in the links array must be a [Link Object](../link/README.md).
 
 In addition to standard links, the following are applicable to Opportunity Collections.
 
@@ -86,7 +86,7 @@ in the `properties` of each Feature in the GeoJSON response.
 | geometry | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) | **REQUIRED.** Defines the estimated footprint or centroid of the Opportunity, formatted according to [RFC 7946, section 3.1](https://tools.ietf.org/html/rfc7946#section-3.1). The footprint should be the default GeoJSON geometry, though additional geometries can be included. Coordinates are specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS 84](http://www.opengis.net/def/crs/OGC/1.3/CRS84). |
 | bbox | [number] | **REQUIRED.** Bounding Box of the estimated extent of this Opportunity, formatted according to [RFC 7946, section 5](https://tools.ietf.org/html/rfc7946#section-5). |
 | properties | [Properties Object](#properties-object) | **REQUIRED.** A dictionary of additional metadata for the Opportunity. |
-| links | [[Link Object](#opportunity-links)] | List of link objects to resources and related URLs. |
+| links | [[Link Object](../link/README.md)] | List of link objects to resources and related URLs. See [Opportunity Links](#opportunity-links). |
 
 #### bbox
 
@@ -117,19 +117,18 @@ required to describe the opportunity in meaningful terms to the requestor.
 
 #### Opportunity Links
 
-Each link in the links array must be a
-[Link](https://github.com/radiantearth/stac-spec/blob/master/commons/links.md#link-object)
-Object.
+Each link in the links array must be a [Link Object](../link/README.md).
 
 | rel type | Description |
 | ---------- | ----------- |
-| `create-order` | **REQUIRED** if individual Opportunities do not include a `create-order` link, otherwise it is **strongly recommended**. This allows the user to resubmit the Opportunities request as an Order. |
+| `create-order` | **Strongly recommended**. Such a link allows the user to submit an Order specifically for the Opportunity. |
 
 ##### rel=create-order
 
-This Link object fully describes the necessary HTTP request to submit an Order
-for this Opportunity via
-[Create Order](../order/README.md#create-order-request).
+This [Link Object](../link/README.md) fully describes the necessary HTTP
+request to submit an Order for this Opportunity via
+[Create Order](../order/README.md#create-order-request), using the [additional
+Link fields](../link/README.md#additional-link-fields).
 
 To conform to the Create Order spec, use `"method": "POST"`.
 
@@ -178,14 +177,14 @@ Returned by an async opportunity search. Can also be retrieved directly.
 | product_id | string | **REQUIRED.** Product identifier. This should be a reference to the [Product](../product/README.md#product-object) being searched. |
 | request | [Opportunity Request Object](#opportunity-request-object) | **REQUIRED.** The request object used to initiate the search. |
 | status | [Opportunity Search Status](#opportunity-search-status) | **REQUIRED.** The current search status. |
-| links | [[Link Object](#opportunity-search-links)] | List of link objects to resources and related URLs. |
+| links | [[Link Object](../link/README.md)] | List of link objects to resources and related URLs. See [Opportunity Search Links](#opportunity-search-links). |
 
 #### Opportunity Search Links
 
 ##### rel=self
 
-The `links` **must** include a Link Object with the href to retrieve the
-Opportunity Search Record directly.
+The `links` **must** include a [Link Object](../link/README.md) with the href to
+retrieve the Opportunity Search Record directly.
 
 ##### rel=monitor
 
@@ -236,7 +235,7 @@ the product does not support it then that request cannot be honored.
 | status_code | string | **REQUIRED.** Enumerated status code |
 | reason_code | string | Enumerated reason code for why the status was set |
 | reason_text | string | Textual description for why the status was set |
-| links | [Link Object] | **REQUIRED.** list of references to any relevant documents or resources. |
+| links | [[Link Object](../link/README.md)] | **REQUIRED.** list of references to any relevant documents or resources. |
 
 Links is intended to be the same data structure as links collection in STAC.
 Links will be very provider specific.

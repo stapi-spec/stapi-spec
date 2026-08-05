@@ -14,12 +14,11 @@ Search Record status history.
 
 To support returning a collection of Opportunity Search Status objects for a
 given search, this extension defines an Opportunity Search Status Collection
-object. This object has the following structure:
+object. In addition to the fields common to every [Collection
+Object](../../../../spec/collection/README.md), this object has the following
+structure:
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
 | stapi_type | string | **REQUIRED.** Type of the STAPI Object. **Must** be set to `OpportunitySearchStatusCollection`. |
-| stapi_version | string | **REQUIRED.** The STAPI version the Opportunity Search Status Collection implements. |
 | statuses | \[[Opportunity Search Status](../../../../spec/opportunity/README.md#opportunity-search-status)\] | **REQUIRED.** A list of Opportunity Search Status objects in reverse chronological order. |
-| links | \[[Link Object](https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md#link-object)\] | **REQUIRED.** Links, e.g., for pagination. |
-| numberMatched | integer | **OPTIONAL.** The number of statuses matched by the request, across all pages, if known and the implementation chooses to include it. |

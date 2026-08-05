@@ -28,13 +28,14 @@ can be extended through the use of Queryables and Order Parameters.
 
 ## Product Collection
 
+In addition to the fields common to every [Collection
+Object](../collection/README.md), a Product Collection has the following
+fields.
+
 | Element | Type | Description |
 | ------- | ---- | ----------- |
 | stapi_type | string | **REQUIRED.** Type of the STAPI Object. **Must** be set to `ProductCollection`. |
-| stapi_version | string | **REQUIRED.** The STAPI version the Product Collection implements. |
 | products | [[Product Object](#product-object)] | **REQUIRED** List of `Product` offered in the application. |
-| links | [[Link Object](#link-object)] | **REQUIRED** Links for e.g. pagination. |
-| numberMatched | integer | **OPTIONAL.** The number of products matched by the request, across all pages, if known and the implementation chooses to include it. |
 
 ## Product Object
 
@@ -50,7 +51,7 @@ can be extended through the use of Queryables and Order Parameters.
 | keywords | \[string\] | List of keywords describing the Product. |
 | license | string | **REQUIRED.** Collection's license(s), either a SPDX [License identifier](https://spdx.org/licenses/), `various` if multiple licenses apply or `proprietary` for all other cases. |
 | providers | \[[Provider Object](#provider-object)\] | A list of providers, which may include all organizations capturing or processing the data or the hosting provider. Providers should be listed in chronological order with the most recent provider being the last element of the list. |
-| links | \[[Link Object](#link-object)\] | **REQUIRED.** A list of references to other documents. |
+| links | \[[Link Object](../link/README.md)\] | **REQUIRED.** A list of references to other documents. |
 
 Additional properties are allowed to be placed in the top-level object,
 comparable to how STAC Collections work.  STAC Collection fields can be reused,
@@ -81,27 +82,6 @@ information about the final storage provider hosting the data.
 - *host*: The host is the actual provider offering the data on their storage.
   There should be no more than one host, specified as last element of the list.
 
-### Link Object
-
-The STAPI Link Object is borrowed from STAC, and is the same as the [STAC Link
-Object](https://github.com/radiantearth/stac-spec/blob/master/commons/links.md#link-object).
-This object describes a relationship with another entity. Data providers are
-advised to be liberal with links.
-
-The relation type `queryables` is to be used to link to the `GET
-/products/{productId}/queryables` endpoint.
-
-The relation type `order-parameters` is to be used to link to the `GET
-/products/{productId}/order-parameters` endpoint.
-
-A link with relation type `conformance` is to be used to link to the `GET
-/products/{productId}/conformance` endpoint.
-
-A link with relation type `create-order` **must** be provided in the landing
-page if and only if a user can directly go from the products to the order
-endpoint without going through the `POST /products/{productId}/opportunities`
-endpoint.
-
 ## Queryables
 
 Queryables define the `Opportunity` and `Order` properties that can be used in
@@ -120,13 +100,8 @@ filter Opportunities to only results with `eo:cloud_cover` within a certain
 range.
 
 The queryables must be exposed as a separate endpoint that is provided at
-`GET /products/{productId}/queryables`.
-
-The response body for parameters is a JSON Schema definition.  Empty schemas
-are not allowed.  It is recommended to use [JSON Schema
-draft-07](https://json-schema.org/specification-links.html#draft-7).  For an
-introduction to JSON Schema, see [Learn JSON
-Schema](https://json-schema.org/learn/getting-started-step-by-step).
+`GET /products/{productId}/queryables`. The response body is a JSON Schema
+definition, as described in [Schema Documents](#schema-documents).
 
 A queryable listed in the schema's `required` array indicates that a filter
 predicate constraining that queryable must be supplied in any Opportunity or
@@ -134,41 +109,41 @@ Order request for the Product. Marking one or more queryables as required
 thereby makes the otherwise-optional `filter` field of the [Search Parameters
 Object](../search-parameters/README.md) effectively required for that Product.
 
-### Queryables Best Practices
-
-There are many Tasking queryables that cannot be represented by JSON Schema.
-For these queryables, strongly consider documenting the queryable in the
-`description` property of the relevant queryable or use the `"links"` attribute
-to link the user out to documentation that describes additional queryables.
-
 [Example queryables document](./examples/ProductConstraintsUmbra_umbra_spotlight.json)
-TODO: Documented link type for client libraries to be able to find and surface to users
 
 ## Order Parameters
 
-Order Parameters define the properties that can be used when creating an Order.
-These are different than Queryables, in that they do not constrain (filter) the
-desired results, but rather define general properties of an entire order
-
-For example, an order parameter might define what file format or what cloud
-service provider that the order will be delivered in.
+Order Parameters define Product options that can be used when creating an
+Order.  These are different than Product Queryables, in that they do not
+constrain (filter) the desired results, but rather define general properties of
+an entire order. For example, an order parameter might define what file format
+to use for delivery, what cloud service provider the order will be delivered
+in, or what location to deliver to.
 
 The parameters must be exposed as a separate endpoint that is provided at
-`GET /products/{productId}/order-parameters`.
+`GET /products/{productId}/order-parameters`. The response body is a JSON
+Schema definition, as described in [Schema Documents](#schema-documents).
 
-The response body for order parameters is a JSON Schema definition. Empty
-schemas are not allowed. It is recommended to use [JSON Schema
-draft-07](https://json-schema.org/specification-links.html#draft-7). For an
+Use of Order Parameters when placing an Order is described in the [Order
+Request Object](../order/README.md#order-request-object).
+
+[Example order parameters document](./examples/ProductOrderParametersUmbra_umbra_spotlight.json)
+
+## Schema Documents
+
+Both the queryables and the order parameters endpoints return a schema
+document, and the same rules apply to each.
+
+The response body is a JSON Schema definition.  Empty schemas are not allowed.
+It is recommended to use [JSON Schema
+draft-07](https://json-schema.org/specification-links.html#draft-7).  For an
 introduction to JSON Schema, see [Learn JSON
 Schema](https://json-schema.org/learn/getting-started-step-by-step).
 
-### Order Parameters Best Practices
+### Schema Documents Best Practices
 
-There are many order parameters that cannot be represented by JSON Schema. For
-these parameters, strongly consider documenting the constraint in the
-`"description"` property of the relevant constraint or use the `"links"`
-attribute to link the user out to documentation that describes additional
-parameters.
-
-[Example order parameters document](./examples/ProductOrderParametersUmbra_umbra_spotlight.json)
-TODO: Documented link type for client libraries to be able to find and surface to users
+There are many Tasking queryables and order parameters that cannot be
+represented by JSON Schema. For these, strongly consider documenting the
+queryable or parameter in the `"description"` property of the relevant
+queryable or parameter or use the `"links"` attribute to link the user out to
+documentation that describes additional queryables or parameters.

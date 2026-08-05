@@ -20,15 +20,14 @@ Get operation only.
 
 ## Order Status Collection
 
-The response is an Order Status Collection with the following structure:
+The response is an Order Status Collection. In addition to the fields common to
+every [Collection Object](../../../spec/collection/README.md), it has the
+following structure:
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
 | stapi_type | string | **REQUIRED.** Type of the STAPI Object. **Must** be set to `OrderStatusCollection`. |
-| stapi_version | string | **REQUIRED.** The STAPI version the Order Status Collection implements. |
 | statuses | \[OrderStatus\] | **REQUIRED.** History of statuses, in reverse chronological order. |
-| links | \[Link Object\] | **REQUIRED.** A list of references to other endpoints. |
-| numberMatched | integer | **OPTIONAL.** The number of statuses matched by the request, across all pages, if known and the implementation chooses to include it. |
 
 The [Order Status](../../../spec/order/README.md#order-status) object is
 described in the Order README.

@@ -22,10 +22,11 @@ An Opportunity Search Record Collection is the response object returned when
 listing Opportunity Search Records. The list of records returned [can be
 paginated](../../../../spec/pagination/README.md).
 
+In addition to the fields common to every [Collection
+Object](../../../../spec/collection/README.md), an Opportunity Search Record
+Collection has the following fields.
+
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
 | stapi_type | string | **REQUIRED.** Type of the STAPI Object. **Must** be set to `OpportunitySearchRecordCollection`. |
-| stapi_version | string | **REQUIRED.** The STAPI version the Opportunity Search Record Collection implements. |
 | records | \[[Opportunity Search Record](../../../../spec/opportunity/README.md#opportunity-search-record)\] | **REQUIRED.** A list of Opportunity Search Records. |
-| links | \[[Link Object](https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md#link-object)\] | **REQUIRED.** Links for e.g. pagination. |
-| numberMatched | integer | **OPTIONAL.** The number of Opportunity Search Records matched by the request, across all pages, if known and the implementation chooses to include it. |

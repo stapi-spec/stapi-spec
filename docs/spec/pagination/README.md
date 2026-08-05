@@ -40,15 +40,12 @@ The href may contain any arbitrary URL parameter, which is implementation-specif
 - `https://stapi.example.com/products?next=8a35eba9c`
 - `https://stapi.example.com/products?token=f32890a0bdb09ac3`
 
-In addition to supporting query parameters in the URL value of the `href` field,
-the Link object can contain additional fields to support more complex HTTP requests:
+A pagination link is not limited to expressing the request as URL query
+parameters: the Link Object can also carry the `method`, `headers`, and `body`
+fields described in [additional Link
+fields](../link/README.md#additional-link-fields).
 
-- `method` to specify an HTTP method in uppercase (e.g. `GET` or `POST`),
-- `headers` to add HTTP headers in the request,
-- `body` with the entire body for the request.
-
-Paginated collection responses may also include a `numberMatched` field: an
-integer giving the total number of items matched by the request across all
-pages, when this total is known and the implementation chooses to include it.
+Paginated collection responses may also include a `numberMatched` field, as
+described in the [Collection Object](../collection/README.md).
 
 The specification is compatible to pagination mechanisms defined in STAC API.
