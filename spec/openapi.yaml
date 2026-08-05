@@ -467,21 +467,26 @@ components:
       description: |-
         The body of an opportunity search request.
 
-        This object is intentionally structured the same as the Order Request
-        Object, less the `order_parameters` field, such that an Opportunity Request
-        can also be submitted, unmodified, as an Order Request (except when the
-        Product has one or more required order parameters). See [Opportunity Request
+        The `search_parameters` of an Opportunity Request is the same Search Parameters
+        Object as the `search_parameters` of an Order Request, so the parameters of a
+        search carry across to an Order unchanged; an Order additionally supplies
+        `order_parameters`. See [Opportunity Request
         Object](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/opportunity/README.md#opportunity-request-object).
       properties:
         limit:
-          description: The maximum number of items to return in a single page.
+          description: |-
+            The maximum number of Opportunities to return in a single page. See [Paginating
+            an opportunity
+            search](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/opportunity/README.md#paginating-an-opportunity-search).
           type: integer
           minimum: 1
         next:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Pagination token, as provided by the `next` link of a previous response.
+          description: |-
+            Opaque pagination token identifying the page to return, supplied by the `next`
+            link of a previous response. A client must not construct one. See [Paginating an
+            opportunity
+            search](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/opportunity/README.md#paginating-an-opportunity-search).
+          type: string
         search_parameters:
           $ref: '#/components/schemas/SearchParameters'
           description: |-
@@ -519,9 +524,13 @@ components:
             [Product](https://github.com/stapi-spec/stapi-spec/blob/v0.2.0/docs/spec/product/README.md#product-object)
             being searched.
           type: string
-        request:
-          $ref: '#/components/schemas/OpportunityRequest'
-          description: 'The request object used to initiate the search.'
+        search_parameters:
+          $ref: '#/components/schemas/SearchParameters'
+          description: |-
+            The parameters of the search this record describes. These are the same Search
+            Parameters submitted in the `search_parameters` of the Opportunity Request that
+            initiated the search; the pagination fields of that request are not part of the
+            search and are not recorded here.
         stapi_type:
           const: OpportunitySearchRecord
           default: OpportunitySearchRecord
@@ -538,12 +547,12 @@ components:
           description: 'The current search status.'
       required:
       - id
+      - links
       - product_id
-      - request
-      - status
+      - search_parameters
       - stapi_type
       - stapi_version
-      - links
+      - status
       type: object
     OpportunitySearchRecordCollection:
       description: The response object returned when listing Opportunity Search Records.

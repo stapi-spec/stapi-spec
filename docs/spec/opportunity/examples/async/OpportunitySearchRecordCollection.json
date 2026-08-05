@@ -7,51 +7,49 @@
       "stapi_version": "0.2.0",
       "id": "20fd0b6a-4f4d-46f7-b1bc-6b1bec7e564f",
       "product_id": "umbra_spotlight",
-      "request": {
-        "search_parameters": {
-          "datetime": "2024-04-19T00:00:00Z/2024-04-23T00:00:00Z",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [
-              13.403258555886767,
-              52.473696635108176
-            ]
-          },
-          "filter": {
-            "op": "and",
-            "args": [
-              {
-                "op": ">=",
-                "args": [
-                  {
-                    "property": "grazingAngleDegrees"
-                  },
-                  45
+      "search_parameters": {
+        "datetime": "2024-04-19T00:00:00Z/2024-04-23T00:00:00Z",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            13.403258555886767,
+            52.473696635108176
+          ]
+        },
+        "filter": {
+          "op": "and",
+          "args": [
+            {
+              "op": ">=",
+              "args": [
+                {
+                  "property": "grazingAngleDegrees"
+                },
+                45
+              ]
+            },
+            {
+              "op": "<=",
+              "args": [
+                {
+                  "property": "grazingAngleDegrees"
+                },
+                70
+              ]
+            },
+            {
+              "op": "=",
+              "args": [
+                {
+                  "property": "satelliteIds"
+                },
+                [
+                  "Umbra-05",
+                  "Umbra-07"
                 ]
-              },
-              {
-                "op": "<=",
-                "args": [
-                  {
-                    "property": "grazingAngleDegrees"
-                  },
-                  70
-                ]
-              },
-              {
-                "op": "=",
-                "args": [
-                  {
-                    "property": "satelliteIds"
-                  },
-                  [
-                    "Umbra-05",
-                    "Umbra-07"
-                  ]
-                ]
-              }
-            ]
-          }
+              ]
+            }
+          ]
         }
       },
       "status": {
@@ -88,28 +86,26 @@
       "stapi_version": "0.2.0",
       "id": "e5a3b1c9-8d2f-4e6a-b7c0-1d4f5a6b7c8d",
       "product_id": "umbra_spotlight",
-      "request": {
-        "search_parameters": {
-          "datetime": "2024-04-25T00:00:00Z/2024-04-30T00:00:00Z",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [
-              13.403258555886767,
-              52.473696635108176
+      "search_parameters": {
+        "datetime": "2024-04-25T00:00:00Z/2024-04-30T00:00:00Z",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            13.403258555886767,
+            52.473696635108176
+          ]
+        },
+        "filter": {
+          "op": "=",
+          "args": [
+            {
+              "property": "satelliteIds"
+            },
+            [
+              "Umbra-05",
+              "Umbra-07"
             ]
-          },
-          "filter": {
-            "op": "=",
-            "args": [
-              {
-                "property": "satelliteIds"
-              },
-              [
-                "Umbra-05",
-                "Umbra-07"
-              ]
-            ]
-          }
+          ]
         }
       },
       "status": {
