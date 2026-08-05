@@ -463,7 +463,6 @@ components:
             - type: number
             - type: number
             type: array
-          - type: 'null'
           title: Bbox
         features:
           items:
@@ -819,7 +818,6 @@ components:
             - type: number
             - type: number
             type: array
-          - type: 'null'
           title: Bbox
         features:
           items:
@@ -859,8 +857,15 @@ components:
       title: OrderCollection
       type: object
     OrderParameters:
-      additionalProperties: false
-      description: Boundary base for product-specific order parameters (strict).
+      additionalProperties: true
+      description: 'Product-specific parameters to apply when creating an Order.
+
+
+        Each Product defines its own Order Parameters JSON Schema, published at
+
+        ``GET /products/{productId}/order-parameters``; this value must validate against
+
+        that schema. Omitting it is equivalent to providing an empty object.'
       properties: {}
       title: OrderParameters
       type: object
@@ -1408,7 +1413,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/RootResponse'
           description: Successful Response
-      summary: Root:Root
+      summary: Get the API landing page
       tags:
       - Root
   /conformance:
@@ -1423,26 +1428,34 @@ paths:
               schema:
                 $ref: '#/components/schemas/Conformance'
           description: Successful Response
-      summary: Root:Conformance
+      summary: Get conformance urls for the API
       tags:
       - Conformance
   /orders:
     get:
       operationId: list_orders
       parameters:
-      - in: query
+      - description: Pagination token, as provided by the `next` link of a previous
+          response.
+        in: query
         name: next
         required: false
         schema:
           anyOf:
           - type: string
           - type: 'null'
+          description: Pagination token, as provided by the `next` link of a previous
+            response.
           title: Next
-      - in: query
+      - description: The maximum number of items to return in a single page.
+        in: query
         name: limit
         required: false
         schema:
           default: 10
+          description: The maximum number of items to return in a single page.
+          maximum: 100
+          minimum: 1
           title: Limit
           type: integer
       responses:
@@ -1458,7 +1471,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
-      summary: Root:List-Orders
+      summary: List all Orders
       tags:
       - Orders
   /orders/{orderId}:
@@ -1485,7 +1498,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
-      summary: Root:Get-Order
+      summary: Get an Order by ID
       tags:
       - Orders
   /orders/{orderId}/statuses:
@@ -1498,19 +1511,27 @@ paths:
         schema:
           title: Order Id
           type: string
-      - in: query
+      - description: Pagination token, as provided by the `next` link of a previous
+          response.
+        in: query
         name: next
         required: false
         schema:
           anyOf:
           - type: string
           - type: 'null'
+          description: Pagination token, as provided by the `next` link of a previous
+            response.
           title: Next
-      - in: query
+      - description: The maximum number of items to return in a single page.
+        in: query
         name: limit
         required: false
         schema:
           default: 10
+          description: The maximum number of items to return in a single page.
+          maximum: 100
+          minimum: 1
           title: Limit
           type: integer
       responses:
@@ -1526,26 +1547,34 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
-      summary: Root:List-Order-Statuses
+      summary: List statuses for an Order
       tags:
       - Orders
   /products:
     get:
       operationId: list_products
       parameters:
-      - in: query
+      - description: Pagination token, as provided by the `next` link of a previous
+          response.
+        in: query
         name: next
         required: false
         schema:
           anyOf:
           - type: string
           - type: 'null'
+          description: Pagination token, as provided by the `next` link of a previous
+            response.
           title: Next
-      - in: query
+      - description: The maximum number of items to return in a single page.
+        in: query
         name: limit
         required: false
         schema:
           default: 10
+          description: The maximum number of items to return in a single page.
+          maximum: 100
+          minimum: 1
           title: Limit
           type: integer
       responses:
@@ -1561,7 +1590,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
-      summary: Root:List-Products
+      summary: List all Products
       tags:
       - Products
   /products/{productId}:
@@ -1604,7 +1633,7 @@ paths:
           description: Successful Response
       summary: Get conformance urls for the product
       tags:
-      - Products
+      - Conformance
   /products/{productId}/opportunities:
     post:
       description: Explore the opportunities available for a particular set of queryables
@@ -1657,7 +1686,7 @@ paths:
           description: Validation Error
       summary: Search Opportunities for the product
       tags:
-      - Products
+      - Opportunities
   /products/{productId}/opportunities/{opportunityCollectionId}:
     get:
       description: Fetch an opportunity collection generated by an asynchronous opportunity
@@ -1691,7 +1720,7 @@ paths:
           description: Validation Error
       summary: Get an Opportunity Collection by ID
       tags:
-      - Products
+      - Opportunities
   /products/{productId}/order-parameters:
     get:
       description: Return supported order parameters of a specific product
@@ -1750,7 +1779,7 @@ paths:
           description: Validation Error
       summary: Create an order for the product
       tags:
-      - Products
+      - Orders
   /products/{productId}/queryables:
     get:
       description: Return supported queryables of a specific product
@@ -1776,19 +1805,27 @@ paths:
     get:
       operationId: list_opportunity_search_records
       parameters:
-      - in: query
+      - description: Pagination token, as provided by the `next` link of a previous
+          response.
+        in: query
         name: next
         required: false
         schema:
           anyOf:
           - type: string
           - type: 'null'
+          description: Pagination token, as provided by the `next` link of a previous
+            response.
           title: Next
-      - in: query
+      - description: The maximum number of items to return in a single page.
+        in: query
         name: limit
         required: false
         schema:
           default: 10
+          description: The maximum number of items to return in a single page.
+          maximum: 100
+          minimum: 1
           title: Limit
           type: integer
       responses:
@@ -1837,7 +1874,7 @@ paths:
   /searches/opportunities/{searchRecordId}/statuses:
     get:
       description: Get the Opportunity Search Record statuses with `searchRecordId`.
-      operationId: get_opportunity_search_record_statuses
+      operationId: list_opportunity_search_record_statuses
       parameters:
       - in: path
         name: searchRecordId
@@ -1858,7 +1895,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
-      summary: Get an Opportunity Search Record statuses by ID
+      summary: List statuses for an Opportunity Search Record
       tags:
       - Opportunities
 tags:
