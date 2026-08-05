@@ -81,39 +81,31 @@ components:
         body:
           title: Body
         headers:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - items:
-                  type: string
-                type: array
-            type: object
-          - type: 'null'
+          additionalProperties:
+            anyOf:
+            - type: string
+            - items:
+                type: string
+              type: array
           title: Headers
+          type: object
         href:
           format: uri
           minLength: 1
           title: Href
           type: string
         method:
-          anyOf:
-          - type: string
-          - type: 'null'
           title: Method
+          type: string
         rel:
           title: Rel
           type: string
         title:
-          anyOf:
-          - type: string
-          - type: 'null'
           title: Title
+          type: string
         type:
-          anyOf:
-          - type: string
-          - type: 'null'
           title: Type
+          type: string
       required:
       - href
       - rel
@@ -292,10 +284,8 @@ components:
           - $ref: '#/components/schemas/MultiPolygon'
           title: Geometry
         id:
-          anyOf:
-          - type: string
-          - type: 'null'
           title: Id
+          type: string
         links:
           items:
             $ref: '#/components/schemas/Link'
@@ -356,20 +346,16 @@ components:
           title: Features
           type: array
         id:
-          anyOf:
-          - type: string
-          - type: 'null'
           title: Id
+          type: string
         links:
           items:
             $ref: '#/components/schemas/Link'
           title: Links
           type: array
         numberMatched:
-          anyOf:
-          - type: integer
-          - type: 'null'
           title: Numbermatched
+          type: integer
         stapi_type:
           const: OpportunityCollection
           default: OpportunityCollection
@@ -475,10 +461,8 @@ components:
           title: Links
           type: array
         numberMatched:
-          anyOf:
-          - type: integer
-          - type: 'null'
           title: Numbermatched
+          type: integer
         records:
           items:
             $ref: '#/components/schemas/OpportunitySearchRecord'
@@ -513,15 +497,11 @@ components:
           title: Links
           type: array
         reason_code:
-          anyOf:
-          - type: string
-          - type: 'null'
           title: Reason Code
+          type: string
         reason_text:
-          anyOf:
-          - type: string
-          - type: 'null'
           title: Reason Text
+          type: string
         status_code:
           anyOf:
           - $ref: '#/components/schemas/OpportunitySearchStatusCode'
@@ -554,10 +534,8 @@ components:
           title: Links
           type: array
         numberMatched:
-          anyOf:
-          - type: integer
-          - type: 'null'
           title: Numbermatched
+          type: integer
         stapi_type:
           const: OpportunitySearchStatusCollection
           default: OpportunitySearchStatusCollection
@@ -689,10 +667,8 @@ components:
           title: Links
           type: array
         numberMatched:
-          anyOf:
-          - type: integer
-          - type: 'null'
           title: Numbermatched
+          type: integer
         stapi_type:
           const: OrderCollection
           default: OrderCollection
@@ -771,15 +747,11 @@ components:
           title: Links
           type: array
         reason_code:
-          anyOf:
-          - type: string
-          - type: 'null'
           title: Reason Code
+          type: string
         reason_text:
-          anyOf:
-          - type: string
-          - type: 'null'
           title: Reason Text
+          type: string
         status_code:
           anyOf:
           - $ref: '#/components/schemas/OrderStatusCode'
@@ -820,10 +792,8 @@ components:
           title: Links
           type: array
         numberMatched:
-          anyOf:
-          - type: integer
-          - type: 'null'
           title: Numbermatched
+          type: integer
         stapi_type:
           const: OrderStatusCollection
           default: OrderStatusCollection
@@ -1003,13 +973,9 @@ components:
       - type
       - stapi_type
       - stapi_version
-      - conformsTo
       - id
-      - title
       - description
-      - keywords
       - license
-      - providers
       - links
       title: Product
       type: object
@@ -1021,10 +987,8 @@ components:
           title: Links
           type: array
         numberMatched:
-          anyOf:
-          - type: integer
-          - type: 'null'
           title: Numbermatched
+          type: integer
         products:
           items:
             $ref: '#/components/schemas/Product'
@@ -1049,10 +1013,8 @@ components:
     Provider:
       properties:
         description:
-          anyOf:
-          - type: string
-          - type: 'null'
           title: Description
+          type: string
         name:
           title: Name
           type: string
@@ -1068,8 +1030,6 @@ components:
           type: string
       required:
       - name
-      - roles
-      - url
       title: Provider
       type: object
     ProviderRole:
@@ -1111,7 +1071,6 @@ components:
       required:
       - id
       - conformsTo
-      - title
       - description
       - links
       title: RootResponse
