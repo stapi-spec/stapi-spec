@@ -63,16 +63,19 @@ specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS
 
 ## Opportunity Collection
 
-for `POST /products/{productId}/opportunities`
+An Opportunity Collection is returned when retrieving the results of an
+opportunity search. It is a GeoJSON FeatureCollection.
 
-This is a GeoJSON FeatureCollection.
+In addition to the fields common to every [Collection
+Object](../collection/README.md), an Opportunity Collection has the following
+fields.
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
-| type | string | **REQUIRED.** Always `FeatureCollection`. |
+| type | string | **REQUIRED.** Type of the GeoJSON Object. **Must** be set to `FeatureCollection`. |
+| stapi_type | string | **REQUIRED.** Type of the STAPI Object. **Must** be set to `OpportunityCollection`. |
 | id | string | Identifier for the collection, if persisted (**required** for async search opportunity collections). |
-| features | \[Opportunity Object\] | **REQUIRED.** A list of opportunities. |
-| links | [[Link Object](#opportunity-collection-links)] | |
+| features | \[[Opportunity Object](#opportunity-object)\] | **REQUIRED.** A list of opportunities. |
 
 ### Opportunity Collection Links
 

@@ -79,10 +79,21 @@ Location: https://example.com/orders/123
 
 ### Get Orders Response
 
+See [Order Collection](#order-collection).
+
+## Order Collection
+
+When fetching a list of Orders the response is an Order Collection, a GeoJSON
+FeatureCollection where each Feature is an [Order Object](#order-object).
+
+In addition to the fields common to every [Collection
+Object](../collection/README.md), an Order Collection has the following fields.
+
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
-| orders | \[[Order Object](#order-object)\] | **REQUIRED.** A list of orders. |
-| links | Map\<object, Link Object> | **REQUIRED.** Links for e.g. pagination. |
+| type | string | **REQUIRED.** Type of the GeoJSON Object. **Must** be set to `FeatureCollection`. |
+| stapi_type | string | **REQUIRED.** Type of the STAPI Object. **Must** be set to `OrderCollection`. |
+| features | \[[Order Object](#order-object)\] | **REQUIRED.** A list of orders. |
 
 ## GET /orders/\{id\}
 

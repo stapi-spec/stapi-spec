@@ -18,14 +18,16 @@ spec](../../../spec/pagination/README.md).
 
 Get operation only.
 
-## Order Statuses Response
+## Order Status Collection
 
-Response has two fields:
+The response is an Order Status Collection. In addition to the fields common to
+every [Collection Object](../../../spec/collection/README.md), it has the
+following structure:
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
+| stapi_type | string | **REQUIRED.** Type of the STAPI Object. **Must** be set to `OrderStatusCollection`. |
 | statuses | \[OrderStatus\] | **REQUIRED.** History of statuses, in reverse chronological order. |
-| links | \[Link Object\] | **REQUIRED.** A list of references to other endpoints. |
 
 The [Order Status](../../../spec/order/README.md#order-status) object is
 described in the Order README.

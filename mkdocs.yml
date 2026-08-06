@@ -80,6 +80,7 @@ nav:
         - Opportunities: spec/opportunity/README.md
         - Order: spec/order/README.md
         - Link Object: spec/link/README.md
+        - Collection Object: spec/collection/README.md
       - Pagination: spec/pagination/README.md
     - Conformance Classes:
       - Overview: conformances/README.md

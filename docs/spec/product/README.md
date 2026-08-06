@@ -28,10 +28,14 @@ can be extended through the use of Queryables and Order Parameters.
 
 ## Product Collection
 
+In addition to the fields common to every [Collection
+Object](../collection/README.md), a Product Collection has the following
+fields.
+
 | Element | Type | Description |
 | ------- | ---- | ----------- |
+| stapi_type | string | **REQUIRED.** Type of the STAPI Object. **Must** be set to `ProductCollection`. |
 | products | [[Product Object](#product-object)] | **REQUIRED** List of `Product` offered in the application. |
-| links | [[Link Object](../link/README.md)] | **REQUIRED** Links for e.g. pagination. |
 
 ## Product Object
 
