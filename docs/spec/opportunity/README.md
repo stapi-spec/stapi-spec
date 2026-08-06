@@ -124,7 +124,7 @@ Each link in the links array must be a [Link Object](../link/README.md).
 
 | rel type | Description |
 | ---------- | ----------- |
-| `create-order` | **REQUIRED** if individual Opportunities do not include a `create-order` link, otherwise it is **strongly recommended**. This allows the user to resubmit the Opportunities request as an Order. |
+| `create-order` | **Strongly recommended**. Such a link allows the user to submit an Order specifically for the Opportunity. |
 
 ##### rel=create-order
 
@@ -135,7 +135,9 @@ Link fields](../link/README.md#additional-link-fields).
 
 To conform to the Create Order spec, use `"method": "POST"`.
 
-If no Body parameters apply to an Opportunity, use `"body": {}`.
+The `body` of the link must be a valid [Order Request
+Object](../order/README.md#order-request-object) for ordering this
+Opportunity.
 
 It is **strongly recommended** to include a `rel=create-order` link on
 an Opportunity to allow the user to order the Opportunity. Consider the
