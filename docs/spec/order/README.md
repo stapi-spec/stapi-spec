@@ -18,39 +18,14 @@ following way:
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| productId | string | Product identifier. The ID should be unique and is a reference to the [queryables](../product/README.md#queryables) which can be used in the filter field. |
+| productId | string | **REQUIRED.** Product identifier ([see Product Object](../product/README.md#product-object)) |
 
-### Body Fields
+### Order Request Object
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| datetime | string | **REQUIRED.** Time interval with a solidus (forward slash, `/`)  separator, using [RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6) datetime, empty string, or `..` values. |
-| geometry | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) | **REQUIRED.** Defines the full footprint that the tasked data will be within. |
-| filter | CQL2 JSON | A set of additional parameters in [CQL2 JSON](https://docs.ogc.org/DRAFTS/21-065.html) based on the [queryables](../product/README.md#queryables) exposed in the product. |
+| search_parameters | [Search Parameters Object](../search-parameters/README.md) | **REQUIRED.** Parameters for scenes that would meet the Order's requirements |
 | order_parameters | JSON Object | Order Parameters properties that can be used when creating an Order, reference [Order Parameters](../product/README.md#order-parameters) |
-
-#### datetime
-
-The datetime parameter represents a time interval with which the temporal
-property of the results must intersect. This parameter allows a subset of the
-allowed values for a [ISO 8601 Time
-Interval](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals) or a [OAF
-datetime](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_parameter_datetime)
-parameter.  This allows for either open or closed intervals, with end
-definitions separated by a solidus (forward slash, `/`) separator. Closed ends
-are represented by [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339)
-datetimes. Open ends are represented by either an empty string or `..`. Only
-singly-open intervals are allowed.  Examples of valid datetime intervals
-include `2024-04-18T10:56:00+01:00/2024-04-25T10:56:00+01:00`,
-`2024-04-18T10:56:00Z/..`, and `/2024-04-25T10:56:00+01:00`
-
-#### geometry
-
-Provides a GeoJSON Geometry Object, which **must** be an embedded GeoJSON
-object compliant to [RFC 7946, section
-3.1](https://tools.ietf.org/html/rfc7946#section-3.1). Coordinates are
-specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS
-84](http://www.opengis.net/def/crs/OGC/1.3/CRS84).
 
 #### order_parameters
 
@@ -111,7 +86,7 @@ See [Order Object](#order-object).
 | status | [Order Status Object](#order-status) | Current Order Status object |
 | links | \[[Link Object](../link/README.md)\] | **REQUIRED.** List of link objects to resources and related URLs. |
 | product_id | string | **REQUIRED.** Product identifier. This should be a reference to the [Product](../product/README.md) being ordered. |
-| request | [Opportunity Request](../opportunity/README.md#opportunity-request) | Search parameters for Order |
+| request | [Search Parameters Object](../search-parameters/README.md) | Search parameters for Order |
 | type | string | **REQUIRED.** Type of the GeoJSON Object. **Must** be set to `Feature`. |
 | stapi_type | string | **REQUIRED.** Type of the STAPI Object. **Must** be set to `Order`. |
 | stapi_version | string | **REQUIRED.** The STAPI version the Order implements. |

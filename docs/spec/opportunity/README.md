@@ -30,36 +30,22 @@ following way:
 | ---- | ---- | ----------- |
 | productId | string | **REQUIRED.** Product identifier ([see Product Object](../product/README.md#product-object)) |
 
-### Body Parameters
+### Opportunity Request Object
+
+The Opportunity Request object contains the parameters required to perform a
+search for opportunities.
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| datetime | string | **REQUIRED.** Time interval with a solidus (forward slash, `/`)  separator, using [RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6) datetime, empty string, or `..` values. |
-| geometry | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) | **REQUIRED.** Defines the full footprint that the tasked data will be within. |
-| filter | CQL2 Object | A set of additional filter terms in [CQL2 JSON](https://docs.ogc.org/DRAFTS/21-065.html) format based on the [queryables](../product/README.md#queryables) exposed in the product. |
+| search_parameters | [Search Parameters Object](../search-parameters/README.md) | **REQUIRED.** Parameters for scenes that would meet the Opportunity search's requirements |
 
-#### datetime
-
-The datetime parameter represents a time interval with which the temporal
-property of the results must intersect. This parameter allows a subset of the
-allowed values for a [ISO 8601 Time
-Interval](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals) or a [OAF
-datetime](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_parameter_datetime)
-parameter.  This allows for either open or closed intervals, with end
-definitions separated by a solidus (forward slash, `/`) separator. Closed ends
-are represented by [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339)
-datetimes. Open ends are represented by either an empty string or `..`. Only
-singly-open intervals are allowed.  Examples of valid datetime intervals
-include `2024-04-18T10:56:00+01:00/2024-04-25T10:56:00+01:00`,
-`2024-04-18T10:56:00Z/..`, and `/2024-04-25T10:56:00+01:00`
-
-#### geometry
-
-Provides a GeoJSON Geometry Object, which **must** be an embedded GeoJSON
-object compliant to [RFC 7946, section
-3.1](https://tools.ietf.org/html/rfc7946#section-3.1). Coordinates are
-specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS
-84](http://www.opengis.net/def/crs/OGC/1.3/CRS84).
+The `search_parameters` of an Opportunity Request is the same [Search
+Parameters Object](../search-parameters/README.md) as the `search_parameters`
+of an [Order Request](../order/README.md#order-request-object), so the
+parameters of a search carry across to an Order unchanged; an Order
+additionally supplies `order_parameters`. This is what a `create-order` link
+does: it carries the search parameters of the Opportunity into the Order
+request body.
 
 ## Opportunity Collection
 
@@ -188,7 +174,7 @@ Returned by an async opportunity search. Can also be retrieved directly.
 | ---------- | ---- | ----------- |
 | id | string | **REQUIRED.** Opportunity search record ID. |
 | product_id | string | **REQUIRED.** Product identifier. This should be a reference to the [Product](../product/README.md#product-object) being searched. |
-| request | [Opportunity Request Object] | **REQUIRED.** The search parameters for the opportunity request. |
+| search_parameters | [Search Parameters Object](../search-parameters/README.md) | **REQUIRED.** The parameters of the search this record describes. |
 | status | [Opportunity Search Status](#opportunity-search-status) | **REQUIRED.** The current search status. |
 | links | [[Link Object](../link/README.md)] | **REQUIRED.** List of link objects to resources and related URLs. See [Opportunity Search Links](#opportunity-search-links). |
 
