@@ -54,7 +54,7 @@
             "default": 0,
             "title": "Exclusivity Days"
         },
-        "view:sat_elevation": {
+        "satellite_elevation": {
             "type": "number",
             "min": 20,
             "max": 90
@@ -64,12 +64,12 @@
             "min": -360,
             "max": 360
         },
-        "view:sun_zenith": {
+        "sun_zenith": {
             "type": "number",
             "min": 0,
             "max": 85
         },
-        "view:sun-azimuth": {
+        "view:sun_azimuth": {
             "type": "number",
             "min": -360,
             "max": 360

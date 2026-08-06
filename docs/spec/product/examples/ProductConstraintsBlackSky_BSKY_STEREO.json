@@ -110,13 +110,13 @@
             "minimum": 0,
             "maximum": 30
         },
-        "view:satellite_elevation": {
+        "satellite_elevation": {
             "type": "integer",
             "description": "Angle between the target ground plane and satellite (degrees)",
             "minimum": 60,
             "maximum": 90
         },
-        "view:convergenceAngle": {
+        "convergence_angle": {
             "type": "integer",
             "description": "Angle between satellite-to-target vectors at each image time",
             "minimum": 10,
@@ -129,7 +129,7 @@
             "maximum": 100,
             "default": 30
         },
-        "frequency:": {
+        "frequency": {
             "oneOf": [
                 {
                     "$ref": "#/definitions/Frequency"
