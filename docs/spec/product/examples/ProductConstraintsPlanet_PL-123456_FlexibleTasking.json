@@ -1,0 +1,78 @@
+{
+    "$schema": "https://json-schema.org/draft-07/schema",
+    "definitions": {
+        "scheduling_type": {
+            "enum": [
+                "Flexible"
+            ],
+            "title": "Scheduling Type",
+            "type": "string"
+        },
+        "satellite_types": {
+            "enum": [
+                "SkySat"
+            ],
+            "title": "Satellite Types",
+            "type": "string"
+        },
+        "exclusivity_days": {
+            "enum": [
+                0,
+                30
+            ],
+            "title": "Exclusivity Days",
+            "type": "number"
+        }
+    },
+    "description": "Planet Flexible queryables docstring",
+    "properties": {
+        "scheduling_type": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/scheduling_type"
+                }
+            ],
+            "default": "Flexible",
+            "title": "Scheduling Type"
+        },
+        "satellite_types": {
+            "items": {
+                "$ref": "#/definitions/satellite_types"
+            },
+            "default": [
+                "SkySat"
+            ],
+            "type": "array",
+            "title": "Satellite Types"
+        },
+        "exclusivity_days": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/exclusivity_days"
+                }
+            ],
+            "default": 0,
+            "title": "Exclusivity Days"
+        },
+        "satellite_elevation": {
+            "type": "number",
+            "min": 20,
+            "max": 90
+        },
+        "view:azimuth": {
+            "type": "number",
+            "min": -360,
+            "max": 360
+        },
+        "sun_zenith": {
+            "type": "number",
+            "min": 0,
+            "max": 85
+        },
+        "view:sun_azimuth": {
+            "type": "number",
+            "min": -360,
+            "max": 360
+        }
+    }
+}

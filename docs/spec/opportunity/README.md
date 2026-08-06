@@ -1,6 +1,6 @@
 # STAPI Opportunity Spec
 
-- **Conformance URI:** `https://stapi.example.com/v0.1.0/opportunities`
+- **Conformance URI:** `https://stapi.example.com/v0.2.0/opportunities`
 
 An Opportunity in STAPI is an abstract, and often terse, representation
 of data that will be delivered in the future. Because of the uncertainty
@@ -21,76 +21,120 @@ for a product and could be used before a user places an order with a call to
 
 ## Opportunity Request
 
-The endpoint `POST /products/{productId}/opportunities` is parameterized in the following way:
+The endpoint `POST /products/{productId}/opportunities` is parameterized in the
+following way:
 
 ### Path Parameters
 
-| Name | Type                                                                       | Description |
-|------------| -------------------------------------------------------------------------- | ----------- |
-| productId  | string                                                                     | **REQUIRED.** Product identifier. The ID should be unique and is a reference to the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) which can be used in the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) field. |
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| productId | string | **REQUIRED.** Product identifier ([see Product Object](../product/README.md#product-object)) |
 
-### Body Parameters
+### Opportunity Request Object
 
-| Name | Type                                                                       | Description |
-|------------| -------------------------------------------------------------------------- | ----------- |
-| datetime   | string                                                                     | **REQUIRED.** Time interval with a solidus (forward slash, `/`)  separator, using [RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6) datetime, empty string, or `..` values. |
-| geometry   | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) | **REQUIRED.** Defines the full footprint that the tasked data will be within. |
-| filter     | CQL2 Object | A set of additional [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) in [CQL2 JSON](https://docs.ogc.org/DRAFTS/21-065.html) based on the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) exposed in the product. |
+The Opportunity Request object contains the parameters required to perform a
+search for opportunities.
 
-#### datetime
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| search_parameters | [Search Parameters Object](../search-parameters/README.md) | **REQUIRED.** Parameters for scenes that would meet the Opportunity search's requirements |
+| limit | integer | The maximum number of Opportunities to return in a single page. See [Paginating an opportunity search](#paginating-an-opportunity-search). |
+| next | string | Opaque pagination token identifying the page to return, supplied by the `next` link of a previous response. A client **must not** construct one. See [Paginating an opportunity search](#paginating-an-opportunity-search). |
 
-The datetime parameter represents a time interval with which the temporal
-property of the results must intersect. This parameter allows a subset of the
-allowed values for a [ISO 8601 Time
-Interval](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals) or a [OAF
-datetime](http://docs.opengeospatial.org/is/17-069r3/17-069r3.html#_parameter_datetime)
-parameter.  This allows for either open or closed intervals, with end
-definitions separated by a solidus (forward slash, `/`) separator. Closed ends
-are represented by [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339)
-datetimes. Open ends are represented by either an empty string or `..`. Only
-singly-open intervals are allowed.  Examples of valid datetime intervals
-include `2024-04-18T10:56:00+01:00/2024-04-25T10:56:00+01:00`,
-`2024-04-18T10:56:00Z/..`, and `/2024-04-25T10:56:00+01:00`
+The `search_parameters` of an Opportunity Request is the same [Search
+Parameters Object](../search-parameters/README.md) as the `search_parameters`
+of an [Order Request](../order/README.md#order-request-object), so the
+parameters of a search carry across to an Order unchanged; an Order
+additionally supplies `order_parameters`. This is what a `create-order` link
+does: it carries the search parameters of the Opportunity into the Order
+request body.
 
-#### geometry
+### Paginating an opportunity search
 
-Provides a GeoJSON Geometry Object, which **must** be an embedded GeoJSON
-object compliant to [RFC 7946, section
-3.1](https://tools.ietf.org/html/rfc7946#section-3.1). Coordinates are
-specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS
-84](http://www.opengis.net/def/crs/OGC/1.3/CRS84).
+An opportunity search is submitted with `POST`, so its pagination links cannot
+be plain URLs retrieved with `GET`: the next page must be requested with the
+same method and a body. A paginated Opportunity Collection therefore returns
+pagination links carrying the `method`, `headers`, and `body` fields described
+in [additional Link fields](../link/README.md#additional-link-fields), where
+`body` repeats the original request with a `next` token added.
+
+`limit` and `next` are the request-body equivalents of the `limit` query
+parameter and the opaque page URL described in [API
+Pagination](../pagination/README.md):
+
+- `limit` is optionally supplied by the client on the initial request. It is an
+  integer no smaller than 1, and as everywhere else in STAPI it is a maximum
+  rather than an exact count. This specification sets no upper bound and no
+  default page size; both are implementation concerns. A server repeats the
+  limit it applied in the `body` of a `next` link, so a client following links
+  does not resupply it.
+- `next` is supplied only by the server, in the `body` of a `next` link. Its
+  value is opaque, and a client **must** submit that body as given rather than
+  construct a token itself, exactly as it follows a `next` link href unmodified
+  elsewhere.
+
+A `next` link is present only when a further page exists. Its absence is the
+only indication that the last page has been reached. For example:
+
+```json
+{
+    "rel": "next",
+    "type": "application/geo+json",
+    "href": "https://stapi.example.com/products/umbra_spotlight/opportunities",
+    "method": "POST",
+    "body": {
+        "search_parameters": {
+            "datetime": "2024-04-19T00:00:00Z/2024-04-23T00:00:00Z",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [13.403258555886767, 52.473696635108176]
+            }
+        },
+        "limit": 20,
+        "next": "8a35eba9c"
+    }
+}
+```
+
+Because `limit` and `next` control pagination of the search rather than
+describe the data being requested, they are not part of the [Order Request
+Object](../order/README.md#order-request-object), and they are not recorded in
+an [Opportunity Search Record](#opportunity-search-record). A client reusing
+the search parameters of an Opportunity Request as an Order Request omits them,
+and a server that receives them on an Order request **must** ignore them.
 
 ## Opportunity Collection
 
-for `POST /products/{productId}/opportunities`
+An Opportunity Collection is returned when retrieving the results of an
+opportunity search. It is a GeoJSON FeatureCollection.
 
-This is a GeoJSON FeatureCollection.
+In addition to the fields common to every [Collection
+Object](../collection/README.md), an Opportunity Collection has the following
+fields.
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
-| type | string | **REQUIRED.** Always `FeatureCollection`. |
+| type | string | **REQUIRED.** Type of the GeoJSON Object. **Must** be set to `FeatureCollection`. |
+| stapi_type | string | **REQUIRED.** Type of the STAPI Object. **Must** be set to `OpportunityCollection`. |
 | id | string | Identifier for the collection, if persisted (**required** for async search opportunity collections). |
-| features | \[Opportunity Object\] | **REQUIRED.** A list of opportunities. |
-| links | [[Link Object](#opportunity-collection-links)] | |
+| features | \[[Opportunity Object](#opportunity-object)\] | **REQUIRED.** A list of opportunities. |
 
 ### Opportunity Collection Links
 
-Each link in the links array must be a
-[Link](https://github.com/radiantearth/stac-spec/blob/master/commons/links.md#link-object)
-Object.
+Each link in the links array must be a [Link Object](../link/README.md).
 
 In addition to standard links, the following are applicable to Opportunity Collections.
 
 | rel type | Description |
 | ---------- | ----------- |
-| `next`, `prev`, `first`, `last` |  **REQUIRED** when the response is paginated |
-| `create-order` | **REQUIRED** if individual Opportunities do not include a `create-order` link, otherwise it is **strongly recommended**. This allows the user to resubmit the Opportunities request as an Order.|
+| `next`, `prev`, `first`, `last` | Pagination links, as described in [API Pagination](../pagination/README.md). |
+| `create-order` | **REQUIRED** if individual Opportunities do not include a `create-order` link, otherwise it is **strongly recommended**. This allows the user to resubmit the Opportunities request as an Order. |
 | `search-record` | The search used to generate the Opportunities result. **strongly recommended** to point to `GET /searches/opportunities/{searchRecordId}` when the result of an async search |
 
 ### Opportunity Object
 
 This object describes a STAPI Opportunity. The input fields will be contained
-`properties` of each Feature in the GeoJSON response.
+in the `properties` of each Feature in the GeoJSON response.
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
@@ -98,14 +142,14 @@ This object describes a STAPI Opportunity. The input fields will be contained
 | stapi_type | string | **REQUIRED.** Type of the STAPI Object. **Must** be set to `Opportunity`. |
 | stapi_version | string | **REQUIRED.** The STAPI version the Opportunity implements. |
 | id | string | Provider identifier. This is not required, unless the provider tracks user requests and state for opportunities (as when supporting async searches). |
-| geometry | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) \| [null](https://tools.ietf.org/html/rfc7946#section-3.2) | **REQUIRED.** Defines the full footprint of the asset represented by this item, formatted according to [RFC 7946, section 3.1](https://tools.ietf.org/html/rfc7946#section-3.1). The footprint should be the default GeoJSON geometry, though additional geometries can be included. Coordinates are specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS 84](http://www.opengis.net/def/crs/OGC/1.3/CRS84). |
-| bbox | [number] | **REQUIRED if `geometry` is not `null`.** Bounding Box of the asset represented by this Item, formatted according to [RFC 7946, section 5](https://tools.ietf.org/html/rfc7946#section-5). |
-| properties | [Properties Object](#properties-object) | **REQUIRED.** A dictionary of additional metadata for the Item. |
-| links | [[Link Object](#opportunity-links)] | List of link objects to resources and related URLs. |
+| geometry | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) | **REQUIRED.** Defines the estimated footprint or centroid of the Opportunity, formatted according to [RFC 7946, section 3.1](https://tools.ietf.org/html/rfc7946#section-3.1). The footprint should be the default GeoJSON geometry, though additional geometries can be included. Coordinates are specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS 84](http://www.opengis.net/def/crs/OGC/1.3/CRS84). |
+| bbox | [number] | **REQUIRED.** Bounding Box of the estimated extent of this Opportunity, formatted according to [RFC 7946, section 5](https://tools.ietf.org/html/rfc7946#section-5). |
+| properties | [Properties Object](#properties-object) | **REQUIRED.** A dictionary of additional metadata for the Opportunity. |
+| links | [[Link Object](../link/README.md)] | **REQUIRED.** List of link objects to resources and related URLs. See [Opportunity Links](#opportunity-links). |
 
 #### bbox
 
-Bounding Box of the asset represented by this Item using either 2D or 3D
+Bounding Box of the Opportunity using either 2D or 3D
 geometries, formatted according to [RFC 7946, section
 5](https://tools.ietf.org/html/rfc7946#section-5).  The length of the array
 must be 2\*n where n is the number of dimensions.  The array contains all axes
@@ -115,8 +159,8 @@ extent specified in Longitude/Latitude or Longitude/Latitude/Elevation based on
 geometries, the elevation of the southwesterly most extent is the minimum
 depth/height in meters and the elevation of the northeasterly most extent is
 the maximum.  This field enables more naive clients to easily index and search
-geospatially.  STAC compliant APIs are required to compute intersection
-operations with the Item's geometry field, not its bbox.
+geospatially.  Implementations are required to compute intersection
+operations with the Opportunity's geometry field, not its bbox.
 
 #### Properties Object
 
@@ -128,29 +172,30 @@ required to describe the opportunity in meaningful terms to the requestor.
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
 | datetime       | string                                                                     | **REQUIRED.** Datetime field is a [ISO8601 Time Interval](https://en.wikipedia.org/wiki/ISO_8601#Time_intervals) |
-| product_id | string | **REQUIRED.**  Product identifier. The ID should be unique and is a reference to the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) which can be used in the [parameters](https://github.com/Element84/stapi-spec/blob/main/product/README.md#parameters) field. |
+| product_id | string | **REQUIRED.** Product identifier ([see Product Object](../product/README.md#product-object)) |
 
 #### Opportunity Links
 
-Each link in the links array must be a
-[Link](https://github.com/radiantearth/stac-spec/blob/master/commons/links.md#link-object)
-Object.
+Each link in the links array must be a [Link Object](../link/README.md).
 
 | rel type | Description |
 | ---------- | ----------- |
-| `create-order` | **REQUIRED** if individual Opportunities do not include a `create-order` link, otherwise it is **strongly recommended**. This allows the user to resubmit the Opportunities request as an Order.|
+| `create-order` | **Strongly recommended**. Such a link allows the user to submit an Order specifically for the Opportunity. |
 
 ##### rel=create-order
 
-This Link object fully describes the necessary HTTP request to submit an Order
-for this Opportunity via
-[Create Order](https://github.com/stapi-spec/stapi-spec/tree/main/order#create-order-request).
+This [Link Object](../link/README.md) fully describes the necessary HTTP
+request to submit an Order for this Opportunity via
+[Create Order](../order/README.md#create-order-request), using the [additional
+Link fields](../link/README.md#additional-link-fields).
 
 To conform to the Create Order spec, use `"method": "POST"`.
 
-If no Body parameters apply to an Opportunity, use `"body": {}`.
+The `body` of the link must be a valid [Order Request
+Object](../order/README.md#order-request-object) for ordering this
+Opportunity.
 
-It is **strongly recommended** to include include a `rel=create-order` link on
+It is **strongly recommended** to include a `rel=create-order` link on
 an Opportunity to allow the user to order the Opportunity. Consider the
 inclusion of this link **required** where ordering of an individual Opportunity
 is supported by the given Product. Omission of this link is valid when
@@ -167,7 +212,7 @@ Opportunity.
 
 ## Async Opportunity Search
 
-- **Conformance URI:** `https://stapi.example.com/v0.1.0/async-opportunities`
+- **Conformance URI:** `https://stapi.example.com/v0.2.0/opportunities-async`
 
 STAPI has an optional conformance class providing support for async opportunity
 searches, to accommodate searches for products that require more time to
@@ -185,18 +230,20 @@ Returned by an async opportunity search. Can also be retrieved directly.
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
-| id         | string | **REQUIRED.** Opportunity search record ID. |
-| product_id | string | **REQUIRED.** Product identifier. This should be a reference to the [Product](https://github.com/Element84/stapi-spec/blob/main/product/README.md) being searched. |
-| request    | [Opportunity Request Object] | **REQUIRED.** The search parameters for the opportunity request. |
-| status     | [Opportunity Search Status](#opportunity-search-status) | **REQUIRED.** The current search status. |
-| links      | [[Link Object](#opportunity-search-links)] | List of link objects to resources and related URLs. |
+| stapi_type | string | **REQUIRED.** Type of the STAPI Object. **Must** be set to `OpportunitySearchRecord`. |
+| stapi_version | string | **REQUIRED.** The STAPI version the Opportunity Search Record implements. |
+| id | string | **REQUIRED.** Opportunity search record ID. |
+| product_id | string | **REQUIRED.** Product identifier. This should be a reference to the [Product](../product/README.md#product-object) being searched. |
+| search_parameters | [Search Parameters Object](../search-parameters/README.md) | **REQUIRED.** The parameters of the search this record describes. These are the `search_parameters` of the Opportunity Request that initiated the search; the pagination fields of that request are not part of the search and are not recorded here. |
+| status | [Opportunity Search Status](#opportunity-search-status) | **REQUIRED.** The current search status. |
+| links | [[Link Object](../link/README.md)] | **REQUIRED.** List of link objects to resources and related URLs. See [Opportunity Search Links](#opportunity-search-links). |
 
 #### Opportunity Search Links
 
 ##### rel=self
 
-The `links` **must** include a Link Object with the href to retrieve the
-Opportunity Search Record directly.
+The `links` **must** include a [Link Object](../link/README.md) with the href to
+retrieve the Opportunity Search Record directly.
 
 ##### rel=monitor
 
@@ -212,7 +259,7 @@ search is completed. That is, it should include the equivalent of `GET
 `productId` is the product being searched and `opportunityCollectionId` is the
 ID of the opportunity collection containing the results of the search.
 
-This link is **must** be included when the search is completed.
+This link **must** be included when the search is completed.
 
 #### Async search response
 
@@ -228,8 +275,8 @@ Products **must** advertise support for sync and/or async searching via the two
 opportunity conformance classes, or lack of any opportunity search support by
 omitting both of these conformance classes. In the case where a product
 advertises support for both sync and async behavior, implementations must
-choose a default behavior to allow clients to succesfully request opportunities
-without specifiying a preference.
+choose a default behavior to allow clients to successfully request opportunities
+without specifying a preference.
 
 Clients can request sync vs async operation via the HTTP `Prefer` header.
 Possible values for the `Prefer` header are `respond-async` or `wait`, where
@@ -243,11 +290,11 @@ the product does not support it then that request cannot be honored.
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
-| timestamp | datetime | **REQUIRED.** ISO 8601 timestamp for the order status |
+| timestamp | datetime | **REQUIRED.** ISO 8601 timestamp for the search status |
 | status_code | string | **REQUIRED.** Enumerated status code |
 | reason_code | string | Enumerated reason code for why the status was set |
 | reason_text | string | Textual description for why the status was set |
-| links | [Link Object] | **REQUIRED.** list of references to any relevant documents or resources. |
+| links | [[Link Object](../link/README.md)] | **REQUIRED.** list of references to any relevant documents or resources. |
 
 Links is intended to be the same data structure as links collection in STAC.
 Links will be very provider specific.

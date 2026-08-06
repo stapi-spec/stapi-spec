@@ -15,6 +15,7 @@ dependencies = [
 [dependency-groups]
 dev = [
     "mypy>=1.17.0",
+    "openapi-spec-validator>=0.7.2",
     "pre-commit>=4.2.0",
     "pre-commit-hooks>=5.0.0",
     "ruff>=0.12.5",

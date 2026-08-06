@@ -1,14 +1,7 @@
 # API Pagination
 
 STAPI supports paging through hypermedia links for all endpoints returning a
-list of entities, including the following:
-
-- `GET /products`
-- `POST /products/{productId}/opportunities`
-- `GET /products/{productId}/opportunities/{opportunityCollectionId}`
-- `GET /orders`
-- `GET /orders/{orderId}/statuses`
-- `GET /searches/opportunities/`
+list of entities.
 
 The following relation types may be available for pagination:
 
@@ -30,7 +23,7 @@ a parameter `page` and is currently on page 2:
             "rel": "prev",
             "type": "application/json",
             "href": "https://stapi.example.com/products?page=1",
-            "title": "Next page"
+            "title": "Previous page"
         },
         {
             "rel": "next",
@@ -47,11 +40,36 @@ The href may contain any arbitrary URL parameter, which is implementation-specif
 - `https://stapi.example.com/products?next=8a35eba9c`
 - `https://stapi.example.com/products?token=f32890a0bdb09ac3`
 
-In addition to supporting query parameters in the URL value of the `href` field,
-the Link object can contain additional fields to support more complex HTTP requests:
+A pagination link is not limited to URL query parameters alone to express a
+page request. The Link Object can also carry the `method`, `headers`, and
+`body` fields described in [additional Link
+fields](../link/README.md#additional-link-fields).
 
-- `method` to specify an HTTP method in uppercase (e.g. `GET` or `POST`),
-- `headers` to add HTTP headers in the request,
-- `body` with the entire body for the request.
+Because the parameters carried by a pagination link are implementation-specific,
+a client **must** follow the link as given rather than construct the next
+request itself. This specification therefore does not define a query parameter
+for requesting a particular page.
+
+## Page size
+
+Endpoints returning a list of entities accept an optional `limit` query
+parameter on the initial request, giving the maximum number of entities to
+return in a single page:
+
+- `https://stapi.example.com/products?limit=50`
+
+`limit` is an integer no smaller than 1. It is a maximum, not an exact count: a
+server **may** return fewer entities than requested, and a page containing
+fewer entities than the limit does not by itself indicate that the last page
+has been reached. Only the absence of a `next` link does.
+
+This specification sets neither an upper bound on `limit` nor a default page
+size. A server **may** enforce its own maximum and **may** choose any default
+for requests that omit `limit`; both are implementation concerns rather than
+matters of interoperability.
+
+Paginated collection responses may also include `numberMatched` and
+`numberReturned` fields, as
+described in the [Collection Object](../collection/README.md).
 
 The specification is compatible to pagination mechanisms defined in STAC API.

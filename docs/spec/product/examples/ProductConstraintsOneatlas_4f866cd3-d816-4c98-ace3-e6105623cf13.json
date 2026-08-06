@@ -102,8 +102,6 @@
         }
     },
     "required": [
-        "acquisitionStart",
-        "acquisitionEnd",
         "acquisitionMode",
         "eo:cloud_cover",
         "view:incidence_angle",

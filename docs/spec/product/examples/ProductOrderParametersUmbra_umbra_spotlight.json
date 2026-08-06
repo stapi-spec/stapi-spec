@@ -1,0 +1,49 @@
+{
+    "$schema": "https://json-schema.org/draft-07/schema",
+    "title": "UmbraSpotlightOrderParameters",
+    "description": "Order parameters for the umbra_spotlight product. These do not constrain the search results; they define general properties of the entire order, such as how and where the collected data is delivered.",
+    "type": "object",
+    "properties": {
+        "deliveryFormat": {
+            "title": "Delivery Format",
+            "description": "The file format in which the collected products are delivered.",
+            "type": "string",
+            "enum": [
+                "GEOTIFF",
+                "NITF",
+                "SICD"
+            ],
+            "default": "GEOTIFF"
+        },
+        "deliveryConfigId": {
+            "title": "Delivery Config ID",
+            "description": "Identifier of a preconfigured delivery location to push products to upon collection. If null, products are only made available for download.",
+            "anyOf": [
+                {
+                    "type": "string",
+                    "format": "uuid"
+                },
+                {
+                    "type": "null"
+                }
+            ],
+            "default": null
+        },
+        "priority": {
+            "title": "Tasking Priority",
+            "description": "The priority tier used when scheduling the collect.",
+            "type": "string",
+            "enum": [
+                "STANDARD",
+                "PRIORITY"
+            ],
+            "default": "STANDARD"
+        },
+        "customerReference": {
+            "title": "Customer Reference",
+            "description": "Free-text client-side reference attached to the order and its invoice.",
+            "type": "string"
+        }
+    },
+    "additionalProperties": false
+}
