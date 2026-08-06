@@ -86,14 +86,14 @@ in the `properties` of each Feature in the GeoJSON response.
 | stapi_type | string | **REQUIRED.** Type of the STAPI Object. **Must** be set to `Opportunity`. |
 | stapi_version | string | **REQUIRED.** The STAPI version the Opportunity implements. |
 | id | string | Provider identifier. This is not required, unless the provider tracks user requests and state for opportunities (as when supporting async searches). |
-| geometry | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) \| [null](https://tools.ietf.org/html/rfc7946#section-3.2) | **REQUIRED.** Defines the full footprint of the asset represented by this item, formatted according to [RFC 7946, section 3.1](https://tools.ietf.org/html/rfc7946#section-3.1). The footprint should be the default GeoJSON geometry, though additional geometries can be included. Coordinates are specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS 84](http://www.opengis.net/def/crs/OGC/1.3/CRS84). |
-| bbox | [number] | **REQUIRED if `geometry` is not `null`.** Bounding Box of the asset represented by this Item, formatted according to [RFC 7946, section 5](https://tools.ietf.org/html/rfc7946#section-5). |
-| properties | [Properties Object](#properties-object) | **REQUIRED.** A dictionary of additional metadata for the Item. |
+| geometry | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) | **REQUIRED.** Defines the estimated footprint or centroid of the Opportunity, formatted according to [RFC 7946, section 3.1](https://tools.ietf.org/html/rfc7946#section-3.1). The footprint should be the default GeoJSON geometry, though additional geometries can be included. Coordinates are specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS 84](http://www.opengis.net/def/crs/OGC/1.3/CRS84). |
+| bbox | [number] | **REQUIRED.** Bounding Box of the estimated extent of this Opportunity, formatted according to [RFC 7946, section 5](https://tools.ietf.org/html/rfc7946#section-5). |
+| properties | [Properties Object](#properties-object) | **REQUIRED.** A dictionary of additional metadata for the Opportunity. |
 | links | [[Link Object](../link/README.md)] | **REQUIRED.** List of link objects to resources and related URLs. See [Opportunity Links](#opportunity-links). |
 
 #### bbox
 
-Bounding Box of the asset represented by this Item using either 2D or 3D
+Bounding Box of the Opportunity using either 2D or 3D
 geometries, formatted according to [RFC 7946, section
 5](https://tools.ietf.org/html/rfc7946#section-5).  The length of the array
 must be 2\*n where n is the number of dimensions.  The array contains all axes
@@ -103,8 +103,8 @@ extent specified in Longitude/Latitude or Longitude/Latitude/Elevation based on
 geometries, the elevation of the southwesterly most extent is the minimum
 depth/height in meters and the elevation of the northeasterly most extent is
 the maximum.  This field enables more naive clients to easily index and search
-geospatially.  STAC compliant APIs are required to compute intersection
-operations with the Item's geometry field, not its bbox.
+geospatially.  Implementations are required to compute intersection
+operations with the Opportunity's geometry field, not its bbox.
 
 #### Properties Object
 
