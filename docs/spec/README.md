@@ -36,7 +36,7 @@ that the 'Endpoint' column is more of an example in some cases.
 | `GET /orders` | Core | `orders` | [Order Collection](./order/README.md#order-collection) | |
 | `GET /orders/{orderId}` | Core | `order` | [Order Object](./order/README.md#order-object) | |
 | `GET /orders/{orderId}/statuses` | Order Statuses | `monitor` | [Order Status Collection](../conformances/extensions/order-statuses/README.md#order-status-collection) | |
-| `POST /products/{productId}/orders` | Core | `create-order` | - | Place an Order. Accepts an [Order Request](./order/README.md#create-order-request). |
+| `POST /products/{productId}/orders` | Core | `create-order` | [Order Object](./order/README.md#order-object) | Place an Order. Accepts an [Order Request](./order/README.md#order-request-object). |
 | `POST /products/{productId}/opportunities` | Opportunities | `opportunities` | Sync search: [Opportunity Collection](./opportunity/README.md#opportunity-collection); Async search: [Opportunity Search Record](./opportunity/README.md#opportunity-search-record) | Explore available Opportunities. Accepts an [Opportunity Request](./opportunity/README.md#opportunity-request). |
 | `GET /products/{productId}/opportunities/{opportunityCollectionId}` | Opportunities (Async) | `opportunities` | [Opportunity Collection](./opportunity/README.md#opportunity-collection) | Get the opportunity collection for an async opportunity search |
 | `GET /searches/opportunities` | Searches - Opportunity | `search-records` | [Opportunity Search Record Collection](../conformances/extensions/searches/opportunity/README.md#opportunity-search-record-collection) | List all Opportunity Search Records |

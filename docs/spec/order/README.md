@@ -1,7 +1,8 @@
 # Overview
 
-This document explains the structure of a STAPI **Order** request which is used
-for placing orders.
+This document explains the structure of the STAPI **Order** entities: the
+Order Request used for placing orders, and the Order Object and Order
+Collection returned when retrieving them.
 
 Ordering with loosely defined order values will give the provider more freedom
 to schedule. Define the values strictly to increase the chance of the preferred
@@ -40,8 +41,10 @@ indicate that only an empty object is valid.
 
 ### Create Order Response
 
-The response is using HTTP status code 201 and provides the location of the
-newly created order, which points to `GET /order/{orderId}`.
+The response must use HTTP status code 201. The `Location` header must
+provide the location of the newly created order, pointing to
+`GET /orders/{orderId}`, and the response body must be the newly created
+[Order Object](#order-object).
 
 Example:
 
@@ -70,7 +73,13 @@ Object](../collection/README.md), an Order Collection has the following fields.
 | stapi_type | string | **REQUIRED.** Type of the STAPI Object. **Must** be set to `OrderCollection`. |
 | features | \[[Order Object](#order-object)\] | **REQUIRED.** A list of orders. |
 
-## GET /orders/\{id\}
+## GET /orders/\{orderId\}
+
+### Path Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| orderId | string | Order ID to retrieve |
 
 ### Get Order Response
 
@@ -80,19 +89,26 @@ See [Order Object](#order-object).
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
-| id | string | Unique provider generated order ID |
-| user | string | User or organization ID ? |
-| created | datetime | When the order was created |
-| status | [Order Status Object](#order-status) | Current Order Status object |
-| links | \[[Link Object](../link/README.md)\] | **REQUIRED.** List of link objects to resources and related URLs. |
-| product_id | string | **REQUIRED.** Product identifier. This should be a reference to the [Product](../product/README.md) being ordered. |
-| request | [Search Parameters Object](../search-parameters/README.md) | Search parameters for Order |
 | type | string | **REQUIRED.** Type of the GeoJSON Object. **Must** be set to `Feature`. |
 | stapi_type | string | **REQUIRED.** Type of the STAPI Object. **Must** be set to `Order`. |
 | stapi_version | string | **REQUIRED.** The STAPI version the Order implements. |
+| id | string | **REQUIRED.** Unique provider generated order ID |
+| geometry | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) | **REQUIRED.** Defines the estimated footprint or centroid of the area to be collected to fulfill this order, formatted according to [RFC 7946, section 3.1](https://tools.ietf.org/html/rfc7946#section-3.1). The footprint should be the default GeoJSON geometry, though additional geometries can be included. Coordinates are specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS 84](http://www.opengis.net/def/crs/OGC/1.3/CRS84). |
+| bbox | [number] | **REQUIRED.** Bounding Box of the estimated extent to be collected to fulfill this Order, formatted according to [RFC 7946, section 5](https://tools.ietf.org/html/rfc7946#section-5). |
+| properties | [Order Properties Object](#order-properties-object) | **REQUIRED.** A dictionary of additional metadata for the Order. |
+| links | \[[Link Object](../link/README.md)\] | **REQUIRED.** List of link objects to resources and related URLs. |
 
 If the `GET /orders/{orderId}/statuses` endpoint is implemented, there must be
 a link to the endpoint using the relation type `monitor`.
+
+## Order Properties Object
+
+| Field Name | Type | Description |
+| ---------- | ---- | ----------- |
+| product_id | string | **REQUIRED.** Product identifier. This should be a reference to the [Product](../product/README.md#product-object) being ordered. |
+| created | datetime | **REQUIRED.** When the order was created |
+| status | [Order Status Object](#order-status) | **REQUIRED.** Current Order Status object |
+| order_request | [Order Request Object](#order-request-object) | **REQUIRED.** The request the Order was created from, as recorded by the server. |
 
 ## Order Status
 
