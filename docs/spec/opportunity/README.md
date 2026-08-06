@@ -172,6 +172,8 @@ Returned by an async opportunity search. Can also be retrieved directly.
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
+| stapi_type | string | **REQUIRED.** Type of the STAPI Object. **Must** be set to `OpportunitySearchRecord`. |
+| stapi_version | string | **REQUIRED.** The STAPI version the Opportunity Search Record implements. |
 | id | string | **REQUIRED.** Opportunity search record ID. |
 | product_id | string | **REQUIRED.** Product identifier. This should be a reference to the [Product](../product/README.md#product-object) being searched. |
 | search_parameters | [Search Parameters Object](../search-parameters/README.md) | **REQUIRED.** The parameters of the search this record describes. |
@@ -230,7 +232,7 @@ the product does not support it then that request cannot be honored.
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
-| timestamp | datetime | **REQUIRED.** ISO 8601 timestamp for the order status |
+| timestamp | datetime | **REQUIRED.** ISO 8601 timestamp for the search status |
 | status_code | string | **REQUIRED.** Enumerated status code |
 | reason_code | string | Enumerated reason code for why the status was set |
 | reason_text | string | Textual description for why the status was set |
