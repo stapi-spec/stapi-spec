@@ -1,7 +1,7 @@
 # Opportunity Search Records - Statuses
 
 - **Conformance URI:**
-  `https://stapi.example.com/v0.1.0/searches-opportunity-statuses`
+  `https://stapi.example.com/v0.2.0/searches-opportunity-statuses`
 
 See [Opportunity Search
 Status](../../../../spec/opportunity/README.md#opportunity-search-status) for
