@@ -28,6 +28,9 @@ jobs:
     - name: Install dependencies
       run: uv sync --frozen
 
+    - name: Validate the OpenAPI document
+      run: uv run openapi-spec-validator spec/openapi.yaml
+
     - name: Build documentation
       run: uv run mkdocs build --strict
 

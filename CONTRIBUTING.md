@@ -62,6 +62,8 @@ All commands should be run from the root of the repository.
 - `uv run mkdocs build`: Creates a production-ready build of the entire site in
   the `site/` directory.
 - `uv run mkdocs --help`: Shows all available MkDocs commands.
+- `uv run openapi-spec-validator spec/openapi.yaml`: Validates
+  `spec/openapi.yaml` as an OpenAPI document. Also run in CI and by pre-commit.
 
 #### Versioning with Mike
 
@@ -86,10 +88,14 @@ releases. The `dev` version is automatically updated on each merge to main.
 
 1. **Documentation Updates**: Edit the Markdown files in the `/docs` directory.
    The navigation structure is defined in `mkdocs.yml`.
-1. **API Specification**: The API specification at `/spec/openapi.yaml`
-   is generated via `stapi-fastapi`. Do not update this file manually; make
-   `stapi-fastapi` changes as needed for spec updates, regenerate this file,
-   and copy the new version into place.
+1. **API Specification**: The API specification at `/spec/openapi.yaml` is
+   maintained by hand. It is no longer generated from a reference
+   implementation, so it is free to say things a generator could not express,
+   but it is also the specification's own responsibility to keep it in
+   agreement with the Markdown under `/docs`. When the two disagree, that is a
+   bug in one of them, and nothing checks it automatically — the agreement is
+   maintained by review. Run `uv run openapi-spec-validator spec/openapi.yaml`
+   after editing it.
 1. **Theme and Configuration**: Site-wide settings, theme configuration, and
    plugins are managed in `mkdocs.yml`.
 
