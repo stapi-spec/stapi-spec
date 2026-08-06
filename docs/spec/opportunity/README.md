@@ -38,6 +38,8 @@ search for opportunities.
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | search_parameters | [Search Parameters Object](../search-parameters/README.md) | **REQUIRED.** Parameters for scenes that would meet the Opportunity search's requirements |
+| limit | integer | The maximum number of Opportunities to return in a single page. See [Paginating an opportunity search](#paginating-an-opportunity-search). |
+| next | string | Opaque pagination token identifying the page to return, supplied by the `next` link of a previous response. A client **must not** construct one. See [Paginating an opportunity search](#paginating-an-opportunity-search). |
 
 The `search_parameters` of an Opportunity Request is the same [Search
 Parameters Object](../search-parameters/README.md) as the `search_parameters`
@@ -46,6 +48,60 @@ parameters of a search carry across to an Order unchanged; an Order
 additionally supplies `order_parameters`. This is what a `create-order` link
 does: it carries the search parameters of the Opportunity into the Order
 request body.
+
+### Paginating an opportunity search
+
+An opportunity search is submitted with `POST`, so its pagination links cannot
+be plain URLs retrieved with `GET`: the next page must be requested with the
+same method and a body. A paginated Opportunity Collection therefore returns
+pagination links carrying the `method`, `headers`, and `body` fields described
+in [additional Link fields](../link/README.md#additional-link-fields), where
+`body` repeats the original request with a `next` token added.
+
+`limit` and `next` are the request-body equivalents of the `limit` query
+parameter and the opaque page URL described in [API
+Pagination](../pagination/README.md):
+
+- `limit` is optionally supplied by the client on the initial request. It is an
+  integer no smaller than 1, and as everywhere else in STAPI it is a maximum
+  rather than an exact count. This specification sets no upper bound and no
+  default page size; both are implementation concerns. A server repeats the
+  limit it applied in the `body` of a `next` link, so a client following links
+  does not resupply it.
+- `next` is supplied only by the server, in the `body` of a `next` link. Its
+  value is opaque, and a client **must** submit that body as given rather than
+  construct a token itself, exactly as it follows a `next` link href unmodified
+  elsewhere.
+
+A `next` link is present only when a further page exists. Its absence is the
+only indication that the last page has been reached. For example:
+
+```json
+{
+    "rel": "next",
+    "type": "application/geo+json",
+    "href": "https://stapi.example.com/products/umbra_spotlight/opportunities",
+    "method": "POST",
+    "body": {
+        "search_parameters": {
+            "datetime": "2024-04-19T00:00:00Z/2024-04-23T00:00:00Z",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [13.403258555886767, 52.473696635108176]
+            }
+        },
+        "limit": 20,
+        "next": "8a35eba9c"
+    }
+}
+```
+
+Because `limit` and `next` control pagination of the search rather than
+describe the data being requested, they are not part of the [Order Request
+Object](../order/README.md#order-request-object), and they are not recorded in
+an [Opportunity Search Record](#opportunity-search-record). A client reusing
+the search parameters of an Opportunity Request as an Order Request omits them,
+and a server that receives them on an Order request **must** ignore them.
 
 ## Opportunity Collection
 
@@ -71,7 +127,7 @@ In addition to standard links, the following are applicable to Opportunity Colle
 
 | rel type | Description |
 | ---------- | ----------- |
-| `next`, `prev`, `first`, `last` |  **REQUIRED** when the response is paginated |
+| `next`, `prev`, `first`, `last` | Pagination links, as described in [API Pagination](../pagination/README.md). |
 | `create-order` | **REQUIRED** if individual Opportunities do not include a `create-order` link, otherwise it is **strongly recommended**. This allows the user to resubmit the Opportunities request as an Order. |
 | `search-record` | The search used to generate the Opportunities result. **strongly recommended** to point to `GET /searches/opportunities/{searchRecordId}` when the result of an async search |
 
@@ -178,7 +234,7 @@ Returned by an async opportunity search. Can also be retrieved directly.
 | stapi_version | string | **REQUIRED.** The STAPI version the Opportunity Search Record implements. |
 | id | string | **REQUIRED.** Opportunity search record ID. |
 | product_id | string | **REQUIRED.** Product identifier. This should be a reference to the [Product](../product/README.md#product-object) being searched. |
-| search_parameters | [Search Parameters Object](../search-parameters/README.md) | **REQUIRED.** The parameters of the search this record describes. |
+| search_parameters | [Search Parameters Object](../search-parameters/README.md) | **REQUIRED.** The parameters of the search this record describes. These are the `search_parameters` of the Opportunity Request that initiated the search; the pagination fields of that request are not part of the search and are not recorded here. |
 | status | [Opportunity Search Status](#opportunity-search-status) | **REQUIRED.** The current search status. |
 | links | [[Link Object](../link/README.md)] | **REQUIRED.** List of link objects to resources and related URLs. See [Opportunity Search Links](#opportunity-search-links). |
 
