@@ -24,7 +24,7 @@ Response has two fields:
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
-| statuses | \[OrderStatus\] | **REQUIRED.** History of statuses |
+| statuses | \[OrderStatus\] | **REQUIRED.** History of statuses, in reverse chronological order. |
 | links | \[Link Object\] | **REQUIRED.** A list of references to other endpoints. |
 
 The [Order Status](../../../spec/order/README.md#order-status) object is
