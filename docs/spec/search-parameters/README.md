@@ -40,5 +40,7 @@ specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS
 
 ### filter
 
-The filter is optional, and constrains the results using the
-[queryables](../product/README.md#queryables) exposed in the Product.
+The filter is optional, unless the Product's
+[queryables](../product/README.md#queryables) schema marks one or more
+queryables as required, in which case a filter including a predicate for each
+required queryable must be supplied.

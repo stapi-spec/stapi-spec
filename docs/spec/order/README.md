@@ -26,18 +26,20 @@ following way:
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | search_parameters | [Search Parameters Object](../search-parameters/README.md) | **REQUIRED.** Parameters for scenes that would meet the Order's requirements |
-| order_parameters | JSON Object | Order Parameters properties that can be used when creating an Order, reference [Order Parameters](../product/README.md#order-parameters) |
+| order_parameters | JSON Object | Order Parameters to apply when creating the Order, as defined by the Product's [Order Parameters](../product/README.md#order-parameters) schema. May be omitted; omission is equivalent to providing an empty object (`{}`). |
 
 #### order_parameters
 
-Order Parameters define the properties that can be used when creating an Order.
-These are different than Queryables, in that they do not constrain (filter) the
-desired results, but rather define general properties of an entire order For
-example, an order parameter might define what file format or what cloud service
-provider that the order will be delivered in.
+Order Parameters are defined by the Product; see [Order
+Parameters](../product/README.md#order-parameters) for what they are and how a
+Product advertises them.
 
-By default, the absence of any defined order parameters on a product would
-indicate that only an empty object is valid.
+The `order_parameters` value—or `{}` when the field is omitted—must validate
+against the Product's [Order Parameters](../product/README.md#order-parameters)
+schema. A Product that marks one or more order parameters as required thereby
+makes this field effectively required, as an empty object will fail
+validation. A Product defining no order parameters accepts only an omitted or
+empty `order_parameters` object.
 
 ### Create Order Response
 
@@ -108,7 +110,7 @@ a link to the endpoint using the relation type `monitor`.
 | product_id | string | **REQUIRED.** Product identifier. This should be a reference to the [Product](../product/README.md#product-object) being ordered. |
 | created | datetime | **REQUIRED.** When the order was created |
 | status | [Order Status Object](#order-status) | **REQUIRED.** Current Order Status object |
-| order_request | [Order Request Object](#order-request-object) | **REQUIRED.** The request the Order was created from, as recorded by the server. |
+| order_request | [Order Request Object](#order-request-object) | **REQUIRED.** The request the Order was created from, as recorded by the server. It differs from the submitted Order Request Object in one respect: `order_parameters` is always present, and an Order created without them records an empty object (`{}`). |
 
 ## Order Status
 
