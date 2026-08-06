@@ -26,7 +26,7 @@ JSON object that contains all the required fields is a valid STAPI Product. A
 `Product` object contains a minimal set of required properties to be valid and
 can be extended through the use of Queryables and Order Parameters.
 
-## Product Collection Spec
+## Product Collection
 
 | Element | Type | Description |
 | ------- | ---- | ----------- |
