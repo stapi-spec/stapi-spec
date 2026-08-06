@@ -1,109 +1,113 @@
 {
-  "search_parameters": {
-    "datetime": "2024-04-19T00:00:00Z/2024-04-25T00:00:00Z",
-    "geometry": {
-      "type": "Polygon",
-      "coordinates": [
-        [
-          [
-            13.34140753116992,
-            52.5427526175211
-          ],
-          [
-            13.34140753116992,
-            52.4722618327375
-          ],
-          [
-            13.500875567587116,
-            52.4722618327375
-          ],
-          [
-            13.500875567587116,
-            52.5427526175211
-          ],
-          [
-            13.34140753116992,
-            52.5427526175211
-          ]
-        ]
-      ]
-    },
-    "filter": {
-      "op": "and",
-      "args": [
-        {
-          "op": "=",
-          "args": [
-            {
-              "property": "productLevel"
-            },
-            "OR2A"
-          ]
+    "search_parameters": {
+        "datetime": "2024-04-19T00:00:00Z/2024-04-25T00:00:00Z",
+        "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+                [
+                    [
+                        13.34140753116992,
+                        52.5427526175211
+                    ],
+                    [
+                        13.34140753116992,
+                        52.4722618327375
+                    ],
+                    [
+                        13.500875567587116,
+                        52.4722618327375
+                    ],
+                    [
+                        13.500875567587116,
+                        52.5427526175211
+                    ],
+                    [
+                        13.34140753116992,
+                        52.5427526175211
+                    ]
+                ]
+            ]
         },
-        {
-          "op": "=",
-          "args": [
-            {
-              "property": "bandCombination"
-            },
-            "4BB"
-          ]
-        },
-        {
-          "op": "<",
-          "args": [
-            {
-              "property": "resolution"
-            },
-            0.50
-          ]
-        },
-        {
-          "op": "=",
-          "args": [
-            {
-              "property": "taskingScheme"
-            },
-            "single_window"
-          ]
-        },
-        {
-          "op": "<",
-          "args": [
-            {
-              "property": "maxCloudCover"
-            },
-            100.0
-          ]
-        },
-        {
-          "op": "<",
-          "args": [
-            {
-              "property": "maxOffNadir"
-            },
-            45.0
-          ]
-        },
-        {
-          "op": "=",
-          "args": [
-            {
-              "property": "sensors"
-            },
-            ["WV02", "WV03", "GE01"]
-          ]
-        },
-        {
-          "op": "=",
-          "args": [
-            {
-              "property": "taskingPriority"
-            },
-            "Select"
-          ]
+        "filter": {
+            "op": "and",
+            "args": [
+                {
+                    "op": "=",
+                    "args": [
+                        {
+                            "property": "productLevel"
+                        },
+                        "OR2A"
+                    ]
+                },
+                {
+                    "op": "=",
+                    "args": [
+                        {
+                            "property": "bandCombination"
+                        },
+                        "4BB"
+                    ]
+                },
+                {
+                    "op": "<",
+                    "args": [
+                        {
+                            "property": "resolution"
+                        },
+                        0.5
+                    ]
+                },
+                {
+                    "op": "=",
+                    "args": [
+                        {
+                            "property": "taskingScheme"
+                        },
+                        "single_window"
+                    ]
+                },
+                {
+                    "op": "<",
+                    "args": [
+                        {
+                            "property": "maxCloudCover"
+                        },
+                        100.0
+                    ]
+                },
+                {
+                    "op": "<",
+                    "args": [
+                        {
+                            "property": "maxOffNadir"
+                        },
+                        45.0
+                    ]
+                },
+                {
+                    "op": "=",
+                    "args": [
+                        {
+                            "property": "sensors"
+                        },
+                        [
+                            "WV02",
+                            "WV03",
+                            "GE01"
+                        ]
+                    ]
+                },
+                {
+                    "op": "=",
+                    "args": [
+                        {
+                            "property": "taskingPriority"
+                        },
+                        "Select"
+                    ]
+                }
+            ]
         }
-      ]
     }
-  }
 }

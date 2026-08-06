@@ -1,124 +1,124 @@
 {
-  "type": "FeatureCollection",
-  "stapi_type": "OpportunityCollection",
-  "stapi_version": "0.2.0",
-  "features": [
-    {
-      "type": "Feature",
-      "stapi_type": "Opportunity",
-      "stapi_version": "0.2.0",
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          [
-            [
-              [
-                13.485314,
-                52.451118
-              ],
-              [
-                13.485564,
-                52.557339
-              ],
-              [
-                13.411842,
-                52.557339
-              ],
-              [
-                13.411769,
-                52.451118
-              ],
-              [
-                13.485314,
-                52.451118
-              ]
-            ]
-          ],
-          [
-            [
-              [
-                13.415006,
-                52.45293
-              ],
-              [
-                13.415086,
-                52.557431
-              ],
-              [
-                13.341363,
-                52.557431
-              ],
-              [
-                13.341458,
-                52.45293
-              ],
-              [
-                13.415006,
-                52.45293
-              ]
-            ]
-          ],
-          [
-            [
-              [
-                13.344693,
-                52.454782
-              ],
-              [
-                13.344607,
-                52.557479
-              ],
-              [
-                13.270884,
-                52.557479
-              ],
-              [
-                13.271142,
-                52.454782
-              ],
-              [
-                13.344693,
-                52.454782
-              ]
-            ]
-          ]
-        ]
-      },
-      "bbox": [
-        13.270884,
-        52.451118,
-        13.485564,
-        52.557479
-      ],
-      "properties": {
-        "product_id": "PL-123456:FlexibleTasking",
-        "datetime": "2024-04-19T00:00:00Z/2024-04-23T00:00:00Z",
-        "satellite_types": [
-          "SkySat"
-        ],
-        "exclusivity_days": 0,
-        "scheduling_type": "Flexible"
-      },
-      "links": [
+    "type": "FeatureCollection",
+    "stapi_type": "OpportunityCollection",
+    "stapi_version": "0.2.0",
+    "features": [
         {
-          "rel": "create-order",
-          "method": "POST",
-          "href": "https://stapi.example.com/products/PL-123456:FlexibleTasking/orders",
-          "body": {
-            "search_parameters": {
-              "datetime": "2024-04-19T00:00:00Z/2024-04-23T00:00:00Z",
-              "geometry": {
-                "type": "Point",
+            "type": "Feature",
+            "stapi_type": "Opportunity",
+            "stapi_version": "0.2.0",
+            "geometry": {
+                "type": "MultiPolygon",
                 "coordinates": [
-                  13.403258555886767,
-                  52.473696635108176
+                    [
+                        [
+                            [
+                                13.485314,
+                                52.451118
+                            ],
+                            [
+                                13.485564,
+                                52.557339
+                            ],
+                            [
+                                13.411842,
+                                52.557339
+                            ],
+                            [
+                                13.411769,
+                                52.451118
+                            ],
+                            [
+                                13.485314,
+                                52.451118
+                            ]
+                        ]
+                    ],
+                    [
+                        [
+                            [
+                                13.415006,
+                                52.45293
+                            ],
+                            [
+                                13.415086,
+                                52.557431
+                            ],
+                            [
+                                13.341363,
+                                52.557431
+                            ],
+                            [
+                                13.341458,
+                                52.45293
+                            ],
+                            [
+                                13.415006,
+                                52.45293
+                            ]
+                        ]
+                    ],
+                    [
+                        [
+                            [
+                                13.344693,
+                                52.454782
+                            ],
+                            [
+                                13.344607,
+                                52.557479
+                            ],
+                            [
+                                13.270884,
+                                52.557479
+                            ],
+                            [
+                                13.271142,
+                                52.454782
+                            ],
+                            [
+                                13.344693,
+                                52.454782
+                            ]
+                        ]
+                    ]
                 ]
-              }
-            }
-          }
+            },
+            "bbox": [
+                13.270884,
+                52.451118,
+                13.485564,
+                52.557479
+            ],
+            "properties": {
+                "product_id": "PL-123456:FlexibleTasking",
+                "datetime": "2024-04-19T00:00:00Z/2024-04-23T00:00:00Z",
+                "satellite_types": [
+                    "SkySat"
+                ],
+                "exclusivity_days": 0,
+                "scheduling_type": "Flexible"
+            },
+            "links": [
+                {
+                    "rel": "create-order",
+                    "method": "POST",
+                    "href": "https://stapi.example.com/products/PL-123456:FlexibleTasking/orders",
+                    "body": {
+                        "search_parameters": {
+                            "datetime": "2024-04-19T00:00:00Z/2024-04-23T00:00:00Z",
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [
+                                    13.403258555886767,
+                                    52.473696635108176
+                                ]
+                            }
+                        }
+                    }
+                }
+            ]
         }
-      ]
-    }
-  ],
-  "links": []
+    ],
+    "links": []
 }

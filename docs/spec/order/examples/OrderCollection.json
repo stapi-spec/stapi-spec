@@ -1,201 +1,201 @@
 {
-  "type": "FeatureCollection",
-  "stapi_type": "OrderCollection",
-  "stapi_version": "0.2.0",
-  "features": [
-    {
-      "type": "Feature",
-      "stapi_type": "Order",
-      "stapi_version": "0.2.0",
-      "id": "5f8a9d2e-7c4b-4f3a-9a1d-2e6b8c7d4f31",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          13.403258555886767,
-          52.473696635108176
-        ]
-      },
-      "bbox": [
-        13.403258555886767,
-        52.473696635108176,
-        13.403258555886767,
-        52.473696635108176
-      ],
-      "properties": {
-        "product_id": "umbra_spotlight",
-        "created": "2024-04-18T14:30:00Z",
-        "status": {
-          "timestamp": "2024-04-18T15:00:00Z",
-          "status_code": "accepted",
-          "links": [
-            {
-              "rel": "invoice",
-              "type": "application/pdf",
-              "href": "https://api.canopy.umbra.space/stapi/orders/5f8a9d2e-7c4b-4f3a-9a1d-2e6b8c7d4f31/invoice"
-            }
-          ]
-        },
-        "order_request": {
-          "search_parameters": {
-            "datetime": "2024-04-19T00:00:00Z/2024-04-23T00:00:00Z",
-            "geometry": {
-              "type": "Point",
-              "coordinates": [
-                13.403258555886767,
-                52.473696635108176
-              ]
-            },
-            "filter": {
-              "op": "and",
-              "args": [
-                {
-                  "op": ">=",
-                  "args": [
-                    {
-                      "property": "grazingAngleDegrees"
-                    },
-                    45
-                  ]
-                },
-                {
-                  "op": "<=",
-                  "args": [
-                    {
-                      "property": "grazingAngleDegrees"
-                    },
-                    70
-                  ]
-                },
-                {
-                  "op": "=",
-                  "args": [
-                    {
-                      "property": "satelliteIds"
-                    },
-                    [
-                      "Umbra-05",
-                      "Umbra-07"
-                    ]
-                  ]
-                }
-              ]
-            }
-          },
-          "order_parameters": {
-            "deliveryFormat": "GEOTIFF",
-            "priority": "STANDARD"
-          }
-        }
-      },
-      "links": [
+    "type": "FeatureCollection",
+    "stapi_type": "OrderCollection",
+    "stapi_version": "0.2.0",
+    "features": [
         {
-          "rel": "self",
-          "type": "application/geo+json",
-          "href": "https://api.canopy.umbra.space/stapi/orders/5f8a9d2e-7c4b-4f3a-9a1d-2e6b8c7d4f31"
-        },
-        {
-          "rel": "monitor",
-          "type": "application/json",
-          "href": "https://api.canopy.umbra.space/stapi/orders/5f8a9d2e-7c4b-4f3a-9a1d-2e6b8c7d4f31/statuses"
-        }
-      ]
-    },
-    {
-      "type": "Feature",
-      "stapi_type": "Order",
-      "stapi_version": "0.2.0",
-      "id": "c2b7e0d4-1a5f-4b8c-8d3e-9f6a0b1c2d3e",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          13.403258555886767,
-          52.473696635108176
-        ]
-      },
-      "bbox": [
-        13.403258555886767,
-        52.473696635108176,
-        13.403258555886767,
-        52.473696635108176
-      ],
-      "properties": {
-        "product_id": "umbra_spotlight",
-        "created": "2024-04-10T09:15:00Z",
-        "status": {
-          "timestamp": "2024-04-14T02:10:00Z",
-          "status_code": "completed",
-          "links": [
-            {
-              "rel": "invoice",
-              "type": "application/pdf",
-              "href": "https://api.canopy.umbra.space/stapi/orders/c2b7e0d4-1a5f-4b8c-8d3e-9f6a0b1c2d3e/invoice"
-            },
-            {
-              "rel": "stac",
-              "type": "application/json",
-              "href": "https://api.canopy.umbra.space/stapi/stac/search?order-id=c2b7e0d4-1a5f-4b8c-8d3e-9f6a0b1c2d3e"
-            },
-            {
-              "rel": "footprint",
-              "type": "application/json",
-              "href": "https://api.canopy.umbra.space/stapi/orders/c2b7e0d4-1a5f-4b8c-8d3e-9f6a0b1c2d3e/collected-footprint"
-            }
-          ]
-        },
-        "order_request": {
-          "search_parameters": {
-            "datetime": "2024-04-11T00:00:00Z/2024-04-14T00:00:00Z",
+            "type": "Feature",
+            "stapi_type": "Order",
+            "stapi_version": "0.2.0",
+            "id": "5f8a9d2e-7c4b-4f3a-9a1d-2e6b8c7d4f31",
             "geometry": {
-              "type": "Point",
-              "coordinates": [
-                13.403258555886767,
-                52.473696635108176
-              ]
-            },
-            "filter": {
-              "op": "=",
-              "args": [
-                {
-                  "property": "satelliteIds"
-                },
-                [
-                  "Umbra-05",
-                  "Umbra-07"
+                "type": "Point",
+                "coordinates": [
+                    13.403258555886767,
+                    52.473696635108176
                 ]
-              ]
-            }
-          },
-          "order_parameters": {
-            "deliveryFormat": "NITF",
-            "priority": "PRIORITY"
-          }
-        }
-      },
-      "links": [
-        {
-          "rel": "self",
-          "type": "application/geo+json",
-          "href": "https://api.canopy.umbra.space/stapi/orders/c2b7e0d4-1a5f-4b8c-8d3e-9f6a0b1c2d3e"
+            },
+            "bbox": [
+                13.403258555886767,
+                52.473696635108176,
+                13.403258555886767,
+                52.473696635108176
+            ],
+            "properties": {
+                "product_id": "umbra_spotlight",
+                "created": "2024-04-18T14:30:00Z",
+                "status": {
+                    "timestamp": "2024-04-18T15:00:00Z",
+                    "status_code": "accepted",
+                    "links": [
+                        {
+                            "rel": "invoice",
+                            "type": "application/pdf",
+                            "href": "https://api.canopy.umbra.space/stapi/orders/5f8a9d2e-7c4b-4f3a-9a1d-2e6b8c7d4f31/invoice"
+                        }
+                    ]
+                },
+                "order_request": {
+                    "search_parameters": {
+                        "datetime": "2024-04-19T00:00:00Z/2024-04-23T00:00:00Z",
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [
+                                13.403258555886767,
+                                52.473696635108176
+                            ]
+                        },
+                        "filter": {
+                            "op": "and",
+                            "args": [
+                                {
+                                    "op": ">=",
+                                    "args": [
+                                        {
+                                            "property": "grazingAngleDegrees"
+                                        },
+                                        45
+                                    ]
+                                },
+                                {
+                                    "op": "<=",
+                                    "args": [
+                                        {
+                                            "property": "grazingAngleDegrees"
+                                        },
+                                        70
+                                    ]
+                                },
+                                {
+                                    "op": "=",
+                                    "args": [
+                                        {
+                                            "property": "satelliteIds"
+                                        },
+                                        [
+                                            "Umbra-05",
+                                            "Umbra-07"
+                                        ]
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    "order_parameters": {
+                        "deliveryFormat": "GEOTIFF",
+                        "priority": "STANDARD"
+                    }
+                }
+            },
+            "links": [
+                {
+                    "rel": "self",
+                    "type": "application/geo+json",
+                    "href": "https://api.canopy.umbra.space/stapi/orders/5f8a9d2e-7c4b-4f3a-9a1d-2e6b8c7d4f31"
+                },
+                {
+                    "rel": "monitor",
+                    "type": "application/json",
+                    "href": "https://api.canopy.umbra.space/stapi/orders/5f8a9d2e-7c4b-4f3a-9a1d-2e6b8c7d4f31/statuses"
+                }
+            ]
         },
         {
-          "rel": "monitor",
-          "type": "application/json",
-          "href": "https://api.canopy.umbra.space/stapi/orders/c2b7e0d4-1a5f-4b8c-8d3e-9f6a0b1c2d3e/statuses"
+            "type": "Feature",
+            "stapi_type": "Order",
+            "stapi_version": "0.2.0",
+            "id": "c2b7e0d4-1a5f-4b8c-8d3e-9f6a0b1c2d3e",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    13.403258555886767,
+                    52.473696635108176
+                ]
+            },
+            "bbox": [
+                13.403258555886767,
+                52.473696635108176,
+                13.403258555886767,
+                52.473696635108176
+            ],
+            "properties": {
+                "product_id": "umbra_spotlight",
+                "created": "2024-04-10T09:15:00Z",
+                "status": {
+                    "timestamp": "2024-04-14T02:10:00Z",
+                    "status_code": "completed",
+                    "links": [
+                        {
+                            "rel": "invoice",
+                            "type": "application/pdf",
+                            "href": "https://api.canopy.umbra.space/stapi/orders/c2b7e0d4-1a5f-4b8c-8d3e-9f6a0b1c2d3e/invoice"
+                        },
+                        {
+                            "rel": "stac",
+                            "type": "application/json",
+                            "href": "https://api.canopy.umbra.space/stapi/stac/search?order-id=c2b7e0d4-1a5f-4b8c-8d3e-9f6a0b1c2d3e"
+                        },
+                        {
+                            "rel": "footprint",
+                            "type": "application/json",
+                            "href": "https://api.canopy.umbra.space/stapi/orders/c2b7e0d4-1a5f-4b8c-8d3e-9f6a0b1c2d3e/collected-footprint"
+                        }
+                    ]
+                },
+                "order_request": {
+                    "search_parameters": {
+                        "datetime": "2024-04-11T00:00:00Z/2024-04-14T00:00:00Z",
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [
+                                13.403258555886767,
+                                52.473696635108176
+                            ]
+                        },
+                        "filter": {
+                            "op": "=",
+                            "args": [
+                                {
+                                    "property": "satelliteIds"
+                                },
+                                [
+                                    "Umbra-05",
+                                    "Umbra-07"
+                                ]
+                            ]
+                        }
+                    },
+                    "order_parameters": {
+                        "deliveryFormat": "NITF",
+                        "priority": "PRIORITY"
+                    }
+                }
+            },
+            "links": [
+                {
+                    "rel": "self",
+                    "type": "application/geo+json",
+                    "href": "https://api.canopy.umbra.space/stapi/orders/c2b7e0d4-1a5f-4b8c-8d3e-9f6a0b1c2d3e"
+                },
+                {
+                    "rel": "monitor",
+                    "type": "application/json",
+                    "href": "https://api.canopy.umbra.space/stapi/orders/c2b7e0d4-1a5f-4b8c-8d3e-9f6a0b1c2d3e/statuses"
+                }
+            ]
         }
-      ]
-    }
-  ],
-  "links": [
-    {
-      "rel": "self",
-      "type": "application/geo+json",
-      "href": "https://api.canopy.umbra.space/stapi/orders"
-    },
-    {
-      "rel": "next",
-      "type": "application/geo+json",
-      "title": "Next page of Orders",
-      "href": "https://api.canopy.umbra.space/stapi/orders?page=2"
-    }
-  ]
+    ],
+    "links": [
+        {
+            "rel": "self",
+            "type": "application/geo+json",
+            "href": "https://api.canopy.umbra.space/stapi/orders"
+        },
+        {
+            "rel": "next",
+            "type": "application/geo+json",
+            "title": "Next page of Orders",
+            "href": "https://api.canopy.umbra.space/stapi/orders?page=2"
+        }
+    ]
 }

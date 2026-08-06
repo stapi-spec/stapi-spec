@@ -1,74 +1,74 @@
 {
-  "type": "FeatureCollection",
-  "stapi_type": "OpportunityCollection",
-  "stapi_version": "0.2.0",
-  "features": [
-    {
-      "type": "Feature",
-      "stapi_type": "Opportunity",
-      "stapi_version": "0.2.0",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              13.366485917756462,
-              52.45122429945398
-            ],
-            [
-              13.440031194017141,
-              52.45122429945398
-            ],
-            [
-              13.44006863527683,
-              52.49615747668417
-            ],
-            [
-              13.366448476496773,
-              52.49615747668417
-            ],
-            [
-              13.366485917756462,
-              52.45122429945398
-            ]
-          ]
-        ]
-      },
-      "bbox": [
-        13.366448476496773,
-        52.45122429945398,
-        13.44006863527683,
-        52.49615747668417
-      ],
-      "properties": {
-        "product_id": "PL-123456:FlexibleTasking",
-        "datetime": "2024-04-19T00:00:00Z/2024-04-23T00:00:00Z",
-        "satellite_types": [
-          "SkySat"
-        ],
-        "exclusivity_days": 0,
-        "scheduling_type": "Flexible"
-      },
-      "links": [
+    "type": "FeatureCollection",
+    "stapi_type": "OpportunityCollection",
+    "stapi_version": "0.2.0",
+    "features": [
         {
-          "rel": "create-order",
-          "method": "POST",
-          "href": "https://stapi.example.com/products/PL-123456:FlexibleTasking/orders",
-          "body": {
-            "search_parameters": {
-              "datetime": "2024-04-19T00:00:00Z/2024-04-23T00:00:00Z",
-              "geometry": {
-                "type": "Point",
+            "type": "Feature",
+            "stapi_type": "Opportunity",
+            "stapi_version": "0.2.0",
+            "geometry": {
+                "type": "Polygon",
                 "coordinates": [
-                  13.403258555886767,
-                  52.473696635108176
+                    [
+                        [
+                            13.366485917756462,
+                            52.45122429945398
+                        ],
+                        [
+                            13.440031194017141,
+                            52.45122429945398
+                        ],
+                        [
+                            13.44006863527683,
+                            52.49615747668417
+                        ],
+                        [
+                            13.366448476496773,
+                            52.49615747668417
+                        ],
+                        [
+                            13.366485917756462,
+                            52.45122429945398
+                        ]
+                    ]
                 ]
-              }
-            }
-          }
+            },
+            "bbox": [
+                13.366448476496773,
+                52.45122429945398,
+                13.44006863527683,
+                52.49615747668417
+            ],
+            "properties": {
+                "product_id": "PL-123456:FlexibleTasking",
+                "datetime": "2024-04-19T00:00:00Z/2024-04-23T00:00:00Z",
+                "satellite_types": [
+                    "SkySat"
+                ],
+                "exclusivity_days": 0,
+                "scheduling_type": "Flexible"
+            },
+            "links": [
+                {
+                    "rel": "create-order",
+                    "method": "POST",
+                    "href": "https://stapi.example.com/products/PL-123456:FlexibleTasking/orders",
+                    "body": {
+                        "search_parameters": {
+                            "datetime": "2024-04-19T00:00:00Z/2024-04-23T00:00:00Z",
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [
+                                    13.403258555886767,
+                                    52.473696635108176
+                                ]
+                            }
+                        }
+                    }
+                }
+            ]
         }
-      ]
-    }
-  ],
-  "links": []
+    ],
+    "links": []
 }
