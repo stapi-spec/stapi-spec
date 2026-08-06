@@ -13,6 +13,7 @@ All STAPI collections share the following common fields.
 | stapi_version | string | **REQUIRED.** The STAPI version the collection implements. |
 | links | \[[Link Object](../link/README.md)\] | **REQUIRED.** Links, e.g., for pagination. |
 | numberMatched | integer | **OPTIONAL.** The number of entities matched by the request, across all pages, if known and the implementation chooses to include it. |
+| numberReturned | integer | **OPTIONAL.** The number of entities in this page, if the implementation chooses to include it. |
 
 Paging through a collection is described in [API
 Pagination](../pagination/README.md).

@@ -68,7 +68,8 @@ size. A server **may** enforce its own maximum and **may** choose any default
 for requests that omit `limit`; both are implementation concerns rather than
 matters of interoperability.
 
-Paginated collection responses may also include a `numberMatched` field, as
+Paginated collection responses may also include `numberMatched` and
+`numberReturned` fields, as
 described in the [Collection Object](../collection/README.md).
 
 The specification is compatible to pagination mechanisms defined in STAC API.

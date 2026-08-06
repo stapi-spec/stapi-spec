@@ -304,6 +304,11 @@ components:
         The number of entities matched by the request, across all pages, if known
         and the implementation chooses to include it.
       type: integer
+    NumberReturned:
+      description: |-
+        The number of entities in this page, if the implementation chooses to include
+        it.
+      type: integer
     Opportunity:
       description: |-
         An Opportunity is an abstract, and often terse, representation of data that
@@ -416,6 +421,8 @@ components:
             recommended** when this collection is the result of an async search.
         numberMatched:
           $ref: '#/components/schemas/NumberMatched'
+        numberReturned:
+          $ref: '#/components/schemas/NumberReturned'
         stapi_type:
           const: OpportunityCollection
           default: OpportunityCollection
@@ -561,6 +568,8 @@ components:
           $ref: '#/components/schemas/CollectionLinks'
         numberMatched:
           $ref: '#/components/schemas/NumberMatched'
+        numberReturned:
+          $ref: '#/components/schemas/NumberReturned'
         records:
           description: 'A list of Opportunity Search Records.'
           items:
@@ -645,6 +654,8 @@ components:
           $ref: '#/components/schemas/CollectionLinks'
         numberMatched:
           $ref: '#/components/schemas/NumberMatched'
+        numberReturned:
+          $ref: '#/components/schemas/NumberReturned'
         stapi_type:
           const: OpportunitySearchStatusCollection
           default: OpportunitySearchStatusCollection
@@ -747,6 +758,8 @@ components:
           $ref: '#/components/schemas/CollectionLinks'
         numberMatched:
           $ref: '#/components/schemas/NumberMatched'
+        numberReturned:
+          $ref: '#/components/schemas/NumberReturned'
         stapi_type:
           const: OrderCollection
           default: OrderCollection
@@ -927,6 +940,8 @@ components:
           $ref: '#/components/schemas/CollectionLinks'
         numberMatched:
           $ref: '#/components/schemas/NumberMatched'
+        numberReturned:
+          $ref: '#/components/schemas/NumberReturned'
         stapi_type:
           const: OrderStatusCollection
           default: OrderStatusCollection
@@ -1119,6 +1134,8 @@ components:
           $ref: '#/components/schemas/CollectionLinks'
         numberMatched:
           $ref: '#/components/schemas/NumberMatched'
+        numberReturned:
+          $ref: '#/components/schemas/NumberReturned'
         products:
           description: 'List of Products offered in the application.'
           items:
