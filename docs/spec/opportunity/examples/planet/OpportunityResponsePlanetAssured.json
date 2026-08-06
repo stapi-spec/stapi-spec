@@ -1,8 +1,12 @@
 {
     "type": "FeatureCollection",
+    "stapi_type": "OpportunityCollection",
+    "stapi_version": "0.2.0",
     "features": [
         {
             "type": "Feature",
+            "stapi_type": "Opportunity",
+            "stapi_version": "0.2.0",
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -30,53 +34,61 @@
                     ]
                 ]
             },
+            "bbox": [
+                13.366448476496773,
+                52.45122429945398,
+                13.44006863527683,
+                52.49615747668417
+            ],
             "properties": {
-                "product_id": "PL-123546:FlexibleTasking",
+                "product_id": "PL-123456:AssuredTasking",
                 "datetime": "2024-04-19T12:00:00Z/2024-04-19T12:05:00Z",
-                "satelliteTypes": [
-                    "SKYSAT"
+                "satellite_types": [
+                    "SkySat"
                 ],
                 "exclusivity_days": 30,
                 "scheduling_type": "Assured",
                 "eo:cloud_cover": 0.1,
-                "view:off_nadir": "0.0"
+                "view:off_nadir": 0.0
             },
             "links": [
                 {
                     "rel": "create-order",
                     "method": "POST",
-                    "href": "https://example.com/products/PL-123546:AssuredTasking/order",
+                    "href": "https://stapi.example.com/products/PL-123456:AssuredTasking/orders",
                     "body": {
-                        "datetime": "2024-04-19T12:00:00Z/2024-04-19T12:05:00Z",
-                        "geometry": {
-                            "type": "Point",
-                            "coordinates": [
-                                13.403258555886767,
-                                52.473696635108176
-                            ]
-                        },
-                        "filter": {
-                            "op": "and",
-                            "args": [
-                                {
-                                    "op": "=",
-                                    "args": [
-                                        {
-                                            "property": "imaging_window_id"
-                                        },
-                                        "imaging-window-id-representing-12:00-window"
-                                    ]
-                                },
-                                {
-                                    "op": "=",
-                                    "args": [
-                                        {
-                                            "property": "exclusivity_days"
-                                        },
-                                        30
-                                    ]
-                                }
-                            ]
+                        "search_parameters": {
+                            "datetime": "2024-04-19T12:00:00Z/2024-04-19T12:05:00Z",
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [
+                                    13.403258555886767,
+                                    52.473696635108176
+                                ]
+                            },
+                            "filter": {
+                                "op": "and",
+                                "args": [
+                                    {
+                                        "op": "=",
+                                        "args": [
+                                            {
+                                                "property": "imaging_window_id"
+                                            },
+                                            "imaging-window-id-representing-12:00-window"
+                                        ]
+                                    },
+                                    {
+                                        "op": "=",
+                                        "args": [
+                                            {
+                                                "property": "exclusivity_days"
+                                            },
+                                            30
+                                        ]
+                                    }
+                                ]
+                            }
                         }
                     }
                 }
@@ -84,6 +96,8 @@
         },
         {
             "type": "Feature",
+            "stapi_type": "Opportunity",
+            "stapi_version": "0.2.0",
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
@@ -111,53 +125,61 @@
                     ]
                 ]
             },
+            "bbox": [
+                13.366448476496773,
+                52.45122429945398,
+                13.44006863527683,
+                52.49615747668417
+            ],
             "properties": {
-                "product_id": "PL-123546:FlexibleTasking",
-                "datetime": "2024-04-19T12:14:00Z/2024-04-19T14:05:00Z",
-                "satelliteTypes": [
-                    "SKYSAT"
+                "product_id": "PL-123456:AssuredTasking",
+                "datetime": "2024-04-19T14:00:00Z/2024-04-19T14:05:00Z",
+                "satellite_types": [
+                    "SkySat"
                 ],
                 "exclusivity_days": 30,
                 "scheduling_type": "Assured",
                 "eo:cloud_cover": 0.5,
-                "view:off_nadir": "10.5"
+                "view:off_nadir": 10.5
             },
             "links": [
                 {
                     "rel": "create-order",
                     "method": "POST",
-                    "href": "https://example.com/products/PL-123546:FlexibleTasking/order",
+                    "href": "https://stapi.example.com/products/PL-123456:AssuredTasking/orders",
                     "body": {
-                        "datetime": "2024-04-19T14:00:00Z/2024-04-19T14:05:00Z",
-                        "geometry": {
-                            "type": "Point",
-                            "coordinates": [
-                                13.403258555886767,
-                                52.473696635108176
-                            ]
-                        },
-                        "filter": {
-                            "op": "and",
-                            "args": [
-                                {
-                                    "op": "=",
-                                    "args": [
-                                        {
-                                            "property": "imaging_window_id"
-                                        },
-                                        "imaging-window-id-representing-14:00-window"
-                                    ]
-                                },
-                                {
-                                    "op": "=",
-                                    "args": [
-                                        {
-                                            "property": "exclusivity_days"
-                                        },
-                                        30
-                                    ]
-                                }
-                            ]
+                        "search_parameters": {
+                            "datetime": "2024-04-19T14:00:00Z/2024-04-19T14:05:00Z",
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [
+                                    13.403258555886767,
+                                    52.473696635108176
+                                ]
+                            },
+                            "filter": {
+                                "op": "and",
+                                "args": [
+                                    {
+                                        "op": "=",
+                                        "args": [
+                                            {
+                                                "property": "imaging_window_id"
+                                            },
+                                            "imaging-window-id-representing-14:00-window"
+                                        ]
+                                    },
+                                    {
+                                        "op": "=",
+                                        "args": [
+                                            {
+                                                "property": "exclusivity_days"
+                                            },
+                                            30
+                                        ]
+                                    }
+                                ]
+                            }
                         }
                     }
                 }

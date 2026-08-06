@@ -1,8 +1,13 @@
 {
+    "stapi_type": "ProductCollection",
+    "stapi_version": "0.2.0",
     "products": [
         {
-            "type": "Product",
+            "type": "Collection",
+            "stapi_type": "Product",
+            "stapi_version": "0.2.0",
             "conformsTo": [
+                "https://stapi.example.com/v0.2.0/opportunities",
                 "https://geojson.org/schema/Point.json"
             ],
             "id": "satvu:assured_priority_tasking",
@@ -27,14 +32,17 @@
                 {
                     "href": "https://example.com/",
                     "rel": "latest-version",
-                    "type": "media type",
+                    "type": "application/json",
                     "title": "title"
                 }
             ]
         },
         {
-            "type": "Product",
+            "type": "Collection",
+            "stapi_type": "Product",
+            "stapi_version": "0.2.0",
             "conformsTo": [
+                "https://stapi.example.com/v0.2.0/opportunities",
                 "https://geojson.org/schema/Point.json"
             ],
             "id": "satvu:standard_priority_tasking",
@@ -59,10 +67,17 @@
                 {
                     "href": "https://example.com/",
                     "rel": "latest-version",
-                    "type": "media type",
+                    "type": "application/json",
                     "title": "title"
                 }
             ]
+        }
+    ],
+    "links": [
+        {
+            "rel": "self",
+            "type": "application/json",
+            "href": "https://api.satellitevu.com/stapi/products"
         }
     ]
 }

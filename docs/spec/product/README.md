@@ -139,6 +139,8 @@ Schema definition, as described in [Schema Documents](#schema-documents).
 Use of Order Parameters when placing an Order is described in the [Order
 Request Object](../order/README.md#order-request-object).
 
+[Example order parameters document](./examples/ProductOrderParametersUmbra_umbra_spotlight.json)
+
 ## Schema Documents
 
 Both the queryables and the order parameters endpoints return a schema

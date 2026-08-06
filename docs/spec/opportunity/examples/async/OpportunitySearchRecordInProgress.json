@@ -1,4 +1,8 @@
 {
+    "stapi_type": "OpportunitySearchRecord",
+    "stapi_version": "0.2.0",
+    "id": "20fd0b6a-4f4d-46f7-b1bc-6b1bec7e564f",
+    "product_id": "umbra_spotlight",
     "search_parameters": {
         "datetime": "2024-04-19T00:00:00Z/2024-04-23T00:00:00Z",
         "geometry": {
@@ -43,5 +47,22 @@
                 }
             ]
         }
-    }
+    },
+    "status": {
+        "timestamp": "2024-04-18T08:00:05Z",
+        "status_code": "in_progress",
+        "links": []
+    },
+    "links": [
+        {
+            "rel": "self",
+            "type": "application/json",
+            "href": "https://api.canopy.umbra.space/stapi/searches/opportunities/20fd0b6a-4f4d-46f7-b1bc-6b1bec7e564f"
+        },
+        {
+            "rel": "monitor",
+            "type": "application/json",
+            "href": "https://api.canopy.umbra.space/stapi/searches/opportunities/20fd0b6a-4f4d-46f7-b1bc-6b1bec7e564f/statuses"
+        }
+    ]
 }

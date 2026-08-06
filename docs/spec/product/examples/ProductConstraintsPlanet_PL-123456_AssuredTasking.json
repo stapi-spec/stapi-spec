@@ -1,8 +1,9 @@
- {
-    "$defs": {
+{
+    "$schema": "https://json-schema.org/draft-07/schema",
+    "definitions": {
         "scheduling_type": {
             "enum": [
-                "Flexible"
+                "Assured"
             ],
             "title": "Scheduling Type",
             "type": "string"
@@ -21,25 +22,27 @@
             ],
             "title": "Exclusivity Days",
             "type": "number"
+        },
+        "imaging_window_id": {
+            "title": "Imaging Window ID (added to filters in the opportunities response)",
+            "type": "string"
         }
     },
-    "description": "Planet Flexible queryables docstring",
+    "description": "Planet Assured queryables docstring",
     "properties": {
         "scheduling_type": {
             "allOf": [
                 {
-                    "$ref": "#/parameters/$defs/scheduling_type"
+                    "$ref": "#/definitions/scheduling_type"
                 }
             ],
-            "default": "Flexible",
+            "default": "Assured",
             "title": "Scheduling Type"
         },
         "satellite_types": {
-            "items": [
-                {
-                    "$ref": "#/parameters/$defs/satellite_types"
-                }
-            ],
+            "items": {
+                "$ref": "#/definitions/satellite_types"
+            },
             "default": [
                 "SkySat"
             ],
@@ -49,31 +52,19 @@
         "exclusivity_days": {
             "allOf": [
                 {
-                    "$ref": "#/parameters/$defs/exclusivity_days"
+                    "$ref": "#/definitions/exclusivity_days"
                 }
             ],
             "default": 0,
             "title": "Exclusivity Days"
         },
-        "view:sat_elevation": {
-            "type": "number",
-            "min": 20,
-            "max": 90
-        },
-        "view:azimuth": {
-            "type": "number",
-            "min": -360,
-            "max": 360
-        },
-        "view:sun_zenith": {
-            "type": "number",
-            "min": 0,
-            "max": 85
-        },
-        "view:sun-azimuth": {
-            "type": "number",
-            "min": -360,
-            "max": 360
+        "imaging_window_id": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/imaging_window_id"
+                }
+            ],
+            "title": "Imaging Window ID"
         }
     }
 }
