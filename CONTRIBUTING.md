@@ -31,7 +31,8 @@ The documentation site is built with [MkDocs](https://www.mkdocs.org/) and
 [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/).
 
 - Documentation source files are in the `/docs` directory
-- The OpenAPI specification is located at `/docs/openapi/openapi.yaml`
+- The OpenAPI specification is located at `/spec/openapi.yaml`, and is rendered
+  into the site by `/docs/api.md`
 - MkDocs configuration is in `mkdocs.yml`
 
 ### Getting Started
@@ -85,7 +86,7 @@ releases. The `dev` version is automatically updated on each merge to main.
 
 1. **Documentation Updates**: Edit the Markdown files in the `/docs` directory.
    The navigation structure is defined in `mkdocs.yml`.
-1. **API Specification**: The API specification at `/docs/openapi/openapi.yaml`
+1. **API Specification**: The API specification at `/spec/openapi.yaml`
    is generated via `stapi-fastapi`. Do not update this file manually; make
    `stapi-fastapi` changes as needed for spec updates, regenerate this file,
    and copy the new version into place.
@@ -99,7 +100,8 @@ stapi-spec/
 ├── docs/              # Documentation source files
 │   ├── spec/          # STAPI specification documents
 │   ├── conformances/  # Conformance class definitions
-│   └── openapi/       # OpenAPI specification
+│   └── api.md         # Renders spec/openapi.yaml into the site
+├── spec/              # OpenAPI specification
 ├── hooks/             # MkDocs hooks
 ├── mkdocs.yml         # MkDocs configuration
 ├── pyproject.toml     # Python project configuration

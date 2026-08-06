@@ -42,6 +42,10 @@ theme:
     - content.code.copy
     - content.action.edit
 
+validation:
+  links:
+    anchors: warn
+
 plugins:
   - search
   - neoteroi.mkdocsoad:
