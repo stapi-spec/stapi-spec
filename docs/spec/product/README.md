@@ -17,7 +17,7 @@ examples includes:
 Some Providers may offer only data or analytic Products while some may offer
 both. The Product specification is flexible enough to offer queryables at the
 level of the product offering. For example, a ship (object) detection Product
-may only specify queryables like location, datetime, and miniminum ship length.
+may only specify queryables like location, datetime, and minimum ship length.
 The specific data products -- SAR, EO, or otherwise can be left as an
 implementation detail to the analytic Product Provider.
 

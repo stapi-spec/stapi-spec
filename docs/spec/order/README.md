@@ -123,7 +123,7 @@ Links will be very provider specific.
 
 ### Enumerated status codes
 
-#### Code status codes
+#### Core status codes
 
 * received (indicates order received by provider and it passed format
   validation.)
@@ -131,7 +131,7 @@ Links will be very provider specific.
 * rejected (indicates order will not be fulfilled)
 * completed (indicates provider was able to successfully collect imagery)
 * cancelled (indicates provider was unable to collect imagery)
-* failed (indicates when an order could not be completed/proccesed
+* failed (indicates when an order could not be completed/processed
   successfully)
 * expired (indicates the order request window has expired and no collection was
   made)

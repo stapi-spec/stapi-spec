@@ -30,7 +30,7 @@ a parameter `page` and is currently on page 2:
             "rel": "prev",
             "type": "application/json",
             "href": "https://stapi.example.com/products?page=1",
-            "title": "Next page"
+            "title": "Previous page"
         },
         {
             "rel": "next",

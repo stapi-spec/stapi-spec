@@ -91,7 +91,7 @@ In addition to standard links, the following are applicable to Opportunity Colle
 ### Opportunity Object
 
 This object describes a STAPI Opportunity. The input fields will be contained
-`properties` of each Feature in the GeoJSON response.
+in the `properties` of each Feature in the GeoJSON response.
 
 | Field Name | Type | Description |
 | ---------- | ---- | ----------- |
@@ -151,7 +151,7 @@ To conform to the Create Order spec, use `"method": "POST"`.
 
 If no Body parameters apply to an Opportunity, use `"body": {}`.
 
-It is **strongly recommended** to include include a `rel=create-order` link on
+It is **strongly recommended** to include a `rel=create-order` link on
 an Opportunity to allow the user to order the Opportunity. Consider the
 inclusion of this link **required** where ordering of an individual Opportunity
 is supported by the given Product. Omission of this link is valid when
@@ -213,7 +213,7 @@ search is completed. That is, it should include the equivalent of `GET
 `productId` is the product being searched and `opportunityCollectionId` is the
 ID of the opportunity collection containing the results of the search.
 
-This link is **must** be included when the search is completed.
+This link **must** be included when the search is completed.
 
 #### Async search response
 
@@ -229,8 +229,8 @@ Products **must** advertise support for sync and/or async searching via the two
 opportunity conformance classes, or lack of any opportunity search support by
 omitting both of these conformance classes. In the case where a product
 advertises support for both sync and async behavior, implementations must
-choose a default behavior to allow clients to succesfully request opportunities
-without specifiying a preference.
+choose a default behavior to allow clients to successfully request opportunities
+without specifying a preference.
 
 Clients can request sync vs async operation via the HTTP `Prefer` header.
 Possible values for the `Prefer` header are `respond-async` or `wait`, where
