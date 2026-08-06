@@ -80,7 +80,7 @@ information about the final storage provider hosting the data.
 | ---------- | ---- | ----------- |
 | name | string | **REQUIRED.** The name of the organization or the individual. |
 | description | string | Multi-line description to add further provider information such as processing details for processors and producers, hosting details for hosts or basic contact information. [CommonMark 0.29](http://commonmark.org/) syntax MAY be used for rich text representation. |
-| roles | \[string\] | Role of the provider. Set to `producer` or `reseller` |
+| roles | \[string\] | Roles of the provider. Any of `licensor`, `producer`, `processor`, or `host` |
 | url | string | Homepage on which the provider describes the dataset and publishes contact information. |
 
 **roles**: The provider's role(s) can be one or more of the following elements:
@@ -112,13 +112,8 @@ filter Opportunities to only results with `eo:cloud_cover` within a certain
 range.
 
 The queryables must be exposed as a separate endpoint that is provided at
-`GET /products/{productId}/queryables`.
-
-The response body for parameters is a JSON Schema definition.  Empty schemas
-are not allowed.  It is recommended to use [JSON Schema
-draft-07](https://json-schema.org/specification-links.html#draft-7).  For an
-introduction to JSON Schema, see [Learn JSON
-Schema](https://json-schema.org/learn/getting-started-step-by-step).
+`GET /products/{productId}/queryables`. The response body is a JSON Schema
+definition, as described in [Schema Documents](#schema-documents).
 
 A queryable listed in the schema's `required` array indicates that a filter
 predicate constraining that queryable must be supplied in any Opportunity or
@@ -126,41 +121,39 @@ Order request for the Product. Marking one or more queryables as required
 thereby makes the otherwise-optional `filter` field of the [Search Parameters
 Object](../search-parameters/README.md) effectively required for that Product.
 
-### Queryables Best Practices
-
-There are many Tasking queryables that cannot be represented by JSON Schema.
-For these queryables, strongly consider documenting the queryable in the
-`description` property of the relevant queryable or use the `"links"` attribute
-to link the user out to documentation that describes additional queryables.
-
-TODO: Example
-TODO: Documented link type for client libraries to be able to find and surface to users
+[Example queryables document](./examples/ProductConstraintsUmbra_umbra_spotlight.json)
 
 ## Order Parameters
 
-Order Parameters define the properties that can be used when creating an Order.
-These are different than Queryables, in that they do not constrain (filter) the
-desired results, but rather define general properties of an entire order
-
-For example, an order parameter might define what file format or what cloud
-service provider that the order will be delivered in.
+Order Parameters define Product options that can be used when creating an
+Order.  These are different than Product Queryables, in that they do not
+constrain (filter) the desired results, but rather define general properties of
+an entire order. For example, an order parameter might define what file format
+to use for delivery, what cloud service provider the order will be delivered
+in, or what location to deliver to.
 
 The parameters must be exposed as a separate endpoint that is provided at
-`GET /products/{productId}/order-parameters`.
+`GET /products/{productId}/order-parameters`. The response body is a JSON
+Schema definition, as described in [Schema Documents](#schema-documents).
 
-The response body for order parameters is a JSON Schema definition. Empty
-schemas are not allowed. It is recommended to use [JSON Schema
-draft-07](https://json-schema.org/specification-links.html#draft-7). For an
+Use of Order Parameters when placing an Order is described in the [Order
+Request Object](../order/README.md#order-request-object).
+
+## Schema Documents
+
+Both the queryables and the order parameters endpoints return a schema
+document, and the same rules apply to each.
+
+The response body is a JSON Schema definition.  Empty schemas are not allowed.
+It is recommended to use [JSON Schema
+draft-07](https://json-schema.org/specification-links.html#draft-7).  For an
 introduction to JSON Schema, see [Learn JSON
 Schema](https://json-schema.org/learn/getting-started-step-by-step).
 
-### Order Parameters Best Practices
+### Schema Documents Best Practices
 
-There are many order parameters that cannot be represented by JSON Schema. For
-these parameters, strongly consider documenting the constraint in the
-`"description"` property of the relevant constraint or use the `"links"`
-attribute to link the user out to documentation that describes additional
-parameters.
-
-TODO: Example
-TODO: Documented link type for client libraries to be able to find and surface to users
+There are many Tasking queryables and order parameters that cannot be
+represented by JSON Schema. For these, strongly consider documenting the
+queryable or parameter in the `"description"` property of the relevant
+queryable or parameter or use the `"links"` attribute to link the user out to
+documentation that describes additional queryables or parameters.
