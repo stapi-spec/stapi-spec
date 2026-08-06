@@ -31,7 +31,7 @@ can be extended through the use of Queryables and Order Parameters.
 | Element | Type | Description |
 | ------- | ---- | ----------- |
 | products | [[Product Object](#product-object)] | **REQUIRED** List of `Product` offered in the application. |
-| links | [[Link Object](#link-object)] | **REQUIRED** Links for e.g. pagination. |
+| links | [[Link Object](../link/README.md)] | **REQUIRED** Links for e.g. pagination. |
 
 ## Product Object
 
@@ -47,11 +47,23 @@ can be extended through the use of Queryables and Order Parameters.
 | keywords | \[string\] | List of keywords describing the Product. |
 | license | string | **REQUIRED.** Collection's license(s), either a SPDX [License identifier](https://spdx.org/licenses/), `various` if multiple licenses apply or `proprietary` for all other cases. |
 | providers | \[[Provider Object](#provider-object)\] | A list of providers, which may include all organizations capturing or processing the data or the hosting provider. Providers should be listed in chronological order with the most recent provider being the last element of the list. |
-| links | \[[Link Object](#link-object)\] | **REQUIRED.** A list of references to other documents. |
+| links | \[[Link Object](../link/README.md)\] | **REQUIRED.** A list of references to other documents. See [Product Links](#product-links). |
 
 Additional properties are allowed to be placed in the top-level object,
 comparable to how STAC Collections work.  STAC Collection fields can be reused,
 including fields defined in STAC Collection extensions.
+
+### Product Links
+
+Each link in the links array must be a [Link Object](../link/README.md).
+
+| rel type | Description |
+| ---------- | ----------- |
+| `queryables` | Links to the `GET /products/{productId}/queryables` endpoint. |
+| `order-parameters` | Links to the `GET /products/{productId}/order-parameters` endpoint. |
+| `conformance` | Links to the `GET /products/{productId}/conformance` endpoint. |
+| `opportunities` | **REQUIRED** if the Product advertises an opportunity conformance class. Links to the `POST /products/{productId}/opportunities` endpoint. |
+| `create-order` | **REQUIRED** if an Order can be placed for the Product without first requesting Opportunities. Links to the `POST /products/{productId}/orders` endpoint. |
 
 ### Provider Object
 
@@ -77,32 +89,6 @@ information about the final storage provider hosting the data.
   product.
 - *host*: The host is the actual provider offering the data on their storage.
   There should be no more than one host, specified as last element of the list.
-
-### Link Object
-
-This object describes a relationship with another entity. Data providers are
-advised to be liberal with links.
-
-| Field Name | Type | Description |
-| ---------- | ---- | ----------- |
-| href | string | **REQUIRED.** The actual link in the format of an URL. Relative and absolute links are both allowed. |
-| rel | string | **REQUIRED.** Relationship between the current document and the linked document. |
-| type | string | Media Type of the referenced entity. |
-| title | string | A human readable title to be used in rendered displays of the link. |
-
-The relation type `queryables` is to be used to link to the `GET
-/products/{productId}/queryables` endpoint.
-
-The relation type `order-parameters` is to be used to link to the `GET
-/products/{productId}/order-parameters` endpoint.
-
-A link with relation type `conformance` is to be used to link to the `GET
-/products/{productId}/conformance` endpoint.
-
-A link with relation type `create-order` **must** be provided in the landing
-page if and only if a user can directly go from the products to the order
-endpoint without going through the `POST /products/{productId}/opportunities`
-endpoint.
 
 ## Queryables
 

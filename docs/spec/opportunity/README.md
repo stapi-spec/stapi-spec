@@ -76,9 +76,7 @@ This is a GeoJSON FeatureCollection.
 
 ### Opportunity Collection Links
 
-Each link in the links array must be a
-[Link](https://github.com/radiantearth/stac-spec/blob/master/commons/links.md#link-object)
-Object.
+Each link in the links array must be a [Link Object](../link/README.md).
 
 In addition to standard links, the following are applicable to Opportunity Collections.
 
@@ -102,7 +100,7 @@ in the `properties` of each Feature in the GeoJSON response.
 | geometry | [GeoJSON Geometry Object](https://tools.ietf.org/html/rfc7946#section-3.1) \| [null](https://tools.ietf.org/html/rfc7946#section-3.2) | **REQUIRED.** Defines the full footprint of the asset represented by this item, formatted according to [RFC 7946, section 3.1](https://tools.ietf.org/html/rfc7946#section-3.1). The footprint should be the default GeoJSON geometry, though additional geometries can be included. Coordinates are specified in Longitude/Latitude or Longitude/Latitude/Elevation based on [WGS 84](http://www.opengis.net/def/crs/OGC/1.3/CRS84). |
 | bbox | [number] | **REQUIRED if `geometry` is not `null`.** Bounding Box of the asset represented by this Item, formatted according to [RFC 7946, section 5](https://tools.ietf.org/html/rfc7946#section-5). |
 | properties | [Properties Object](#properties-object) | **REQUIRED.** A dictionary of additional metadata for the Item. |
-| links | [[Link Object](#opportunity-links)] | List of link objects to resources and related URLs. |
+| links | [[Link Object](../link/README.md)] | **REQUIRED.** List of link objects to resources and related URLs. See [Opportunity Links](#opportunity-links). |
 
 #### bbox
 
@@ -133,9 +131,7 @@ required to describe the opportunity in meaningful terms to the requestor.
 
 #### Opportunity Links
 
-Each link in the links array must be a
-[Link](https://github.com/radiantearth/stac-spec/blob/master/commons/links.md#link-object)
-Object.
+Each link in the links array must be a [Link Object](../link/README.md).
 
 | rel type | Description |
 | ---------- | ----------- |
@@ -143,9 +139,10 @@ Object.
 
 ##### rel=create-order
 
-This Link object fully describes the necessary HTTP request to submit an Order
-for this Opportunity via
-[Create Order](../order/README.md#create-order-request).
+This [Link Object](../link/README.md) fully describes the necessary HTTP
+request to submit an Order for this Opportunity via
+[Create Order](../order/README.md#create-order-request), using the [additional
+Link fields](../link/README.md#additional-link-fields).
 
 To conform to the Create Order spec, use `"method": "POST"`.
 
@@ -190,14 +187,14 @@ Returned by an async opportunity search. Can also be retrieved directly.
 | product_id | string | **REQUIRED.** Product identifier. This should be a reference to the [Product](../product/README.md#product-object) being searched. |
 | request | [Opportunity Request Object] | **REQUIRED.** The search parameters for the opportunity request. |
 | status | [Opportunity Search Status](#opportunity-search-status) | **REQUIRED.** The current search status. |
-| links | [[Link Object](#opportunity-search-links)] | List of link objects to resources and related URLs. |
+| links | [[Link Object](../link/README.md)] | **REQUIRED.** List of link objects to resources and related URLs. See [Opportunity Search Links](#opportunity-search-links). |
 
 #### Opportunity Search Links
 
 ##### rel=self
 
-The `links` **must** include a Link Object with the href to retrieve the
-Opportunity Search Record directly.
+The `links` **must** include a [Link Object](../link/README.md) with the href to
+retrieve the Opportunity Search Record directly.
 
 ##### rel=monitor
 
@@ -248,7 +245,7 @@ the product does not support it then that request cannot be honored.
 | status_code | string | **REQUIRED.** Enumerated status code |
 | reason_code | string | Enumerated reason code for why the status was set |
 | reason_text | string | Textual description for why the status was set |
-| links | [Link Object] | **REQUIRED.** list of references to any relevant documents or resources. |
+| links | [[Link Object](../link/README.md)] | **REQUIRED.** list of references to any relevant documents or resources. |
 
 Links is intended to be the same data structure as links collection in STAC.
 Links will be very provider specific.

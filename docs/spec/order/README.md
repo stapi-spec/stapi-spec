@@ -98,7 +98,7 @@ See [Order Object](#order-object).
 | user | string | User or organization ID ? |
 | created | datetime | When the order was created |
 | status | [Order Status Object](#order-status) | Current Order Status object |
-| links | \[[Link Object](https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md#link-object)\] | |
+| links | \[[Link Object](../link/README.md)\] | **REQUIRED.** List of link objects to resources and related URLs. |
 | product_id | string | **REQUIRED.** Product identifier. This should be a reference to the [Product](../product/README.md) being ordered. |
 | request | [Opportunity Request](../opportunity/README.md#opportunity-request) | Search parameters for Order |
 | type | string | **REQUIRED.** Type of the GeoJSON Object. **Must** be set to `Feature`. |
@@ -116,7 +116,7 @@ a link to the endpoint using the relation type `monitor`.
 | status_code | string | **REQUIRED.** Enumerated status code |
 | reason_code | string | Enumerated reason code for why the status was set |
 | reason_text | string | Textual description for why the status was set |
-| links | \[Link Object\] | **REQUIRED.** list of references to documents, such as delivered asset, processing log, delivery manifest, etc. |
+| links | \[[Link Object](../link/README.md)\] | **REQUIRED.** list of references to documents, such as delivered asset, processing log, delivery manifest, etc. |
 
 Links is intended to be the same data structure as links collection in STAC.
 Links will be very provider specific.
